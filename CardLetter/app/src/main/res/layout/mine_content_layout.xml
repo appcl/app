@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="70dp">
+    <RelativeLayout
+        android:id="@+id/collection"
+        android:layout_width="match_parent" android:gravity="center"
+        android:layout_height="match_parent" android:layout_weight="1">
+        <ImageView
+            android:id="@+id/pic_one"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_below="@+id/pic_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="12sp"
+            android:text="收藏"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/location"
+        android:layout_width="match_parent" android:gravity="center"
+        android:layout_height="match_parent" android:layout_weight="1">
+        <ImageView
+            android:id="@+id/pic_two"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_below="@+id/pic_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="12sp"
+            android:text="地理"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/discover"
+        android:layout_width="match_parent" android:gravity="center"
+        android:layout_height="match_parent" android:layout_weight="1">
+        <ImageView
+            android:id="@+id/pic_three"
+            android:layout_width="430dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_below="@+id/pic_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="12sp"
+            android:text="发现"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/subscribe"
+        android:layout_width="match_parent" android:gravity="center"
+        android:layout_height="match_parent" android:layout_weight="1">
+        <ImageView
+            android:id="@+id/pic_four"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_below="@+id/pic_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="12sp"
+            android:text="订阅"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/setting"
+        android:layout_width="match_parent" android:gravity="center"
+        android:layout_height="match_parent" android:layout_weight="1">
+        <ImageView
+            android:id="@+id/pic_set"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_below="@+id/pic_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="12sp"
+            android:text="设置"/>
+    </RelativeLayout>
+</LinearLayout>

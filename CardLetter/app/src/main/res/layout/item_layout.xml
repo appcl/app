@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:background="@drawable/pic_btn_bg"
+        android:id="@+id/item_img"
+        android:layout_width="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="40dp"
+        android:src="@drawable/default_error"
+        android:scaleType="centerCrop"
+        />
+    <TextView
+        android:layout_below="@+id/item_img"
+        android:id="@+id/item_text"
+        android:paddingTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/color_text_black_31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="汽车清洗"
+        android:textSize="12dp"
+        />
+</RelativeLayout>

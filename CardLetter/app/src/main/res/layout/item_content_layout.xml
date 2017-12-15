@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
+        <ImageView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/item_tag"
+            android:layout_width="80dp"
+            android:layout_centerVertical="true"
+            android:layout_height="match_parent"
+            android:src="@drawable/default_error"
+            android:scaleType="fitXY"/>
+        <com.mt.cardletter.view.NoScrollGridView
+            android:paddingLeft="5dp"
+            android:layout_toRightOf="@+id/item_tag"
+            android:layout_centerVertical="true"
+            android:id="@+id/item_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="5dp" />
+    </RelativeLayout>
+</LinearLayout>

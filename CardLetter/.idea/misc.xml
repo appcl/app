@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
@@ -56,4 +57,7 @@
       </state>
     </states>
   </component>
+=======
+  <component name="ProjectRootManager" version="2" assert-keyword="false" jdk-15="false" />
+>>>>>>> 20171215
 </project>

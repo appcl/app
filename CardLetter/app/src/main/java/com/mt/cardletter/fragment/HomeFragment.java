@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private LinearLayout locatio_address;
     private TextView fragment_home_top_text_address;
 
-    private RelativeLayout make_integral,search_integral,search_classfication,my_order;
+    private RelativeLayout make_integral,search_integral,search_seckill,my_order;
 
     private static final int REQUEST_CODE_PICK_CITY = 123;
 
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         make_integral = (RelativeLayout) view.findViewById(R.id.make_integral);
         search_integral = (RelativeLayout) view.findViewById(R.id.search_integral);
-        search_classfication = (RelativeLayout) view.findViewById(R.id.search_classfication);
+        search_seckill = (RelativeLayout) view.findViewById(R.id.search_seckill);
         my_order = (RelativeLayout) view.findViewById(R.id.my_order);
 
         locatio_address= (LinearLayout) view.findViewById(R.id.locatio_address);
@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         make_integral.setOnClickListener(this);
         search_integral.setOnClickListener(this);
-        search_classfication.setOnClickListener(this);
+        search_seckill.setOnClickListener(this);
         my_order.setOnClickListener(this);
 
         locatio_address.setOnClickListener(this);
@@ -133,8 +133,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             case R.id.search_integral://查积分
                 UIHelper.showSearchIntegralActivity(getContext());
                 break;
-            case R.id.search_classfication://分类搜索
-                UIHelper.showSearchClassicActivity(getContext());
+            case R.id.search_seckill://银行秒杀
+                //TODO  银行秒杀
+                UIHelper.showSeckillActivity(getContext());
                 break;
             case R.id.my_order://订单
                 break;

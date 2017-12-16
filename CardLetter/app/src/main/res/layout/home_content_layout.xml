@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:textSize="12sp"
-            android:text="赚积分"/>
+            android:text="天气"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/search_integral"
@@ -36,10 +36,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:textSize="12sp"
-            android:text="查积分"/>
+            android:text="查违章"/>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/search_classfication"
+        android:id="@+id/search_seckill"
         android:layout_width="match_parent" android:gravity="center"
         android:layout_height="match_parent" android:layout_weight="1">
         <ImageView
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:textSize="12sp"
-            android:text="分类搜索"/>
+            android:text="银行秒杀"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/my_order"

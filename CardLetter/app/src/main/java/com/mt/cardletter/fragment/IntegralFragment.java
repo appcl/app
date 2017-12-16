@@ -18,7 +18,7 @@ import java.util.List;
 
 public class IntegralFragment extends BaseFragment {
     private TextView title_name;
-    private ListView content_list;
+    //private ListView content_list;
     private List<IntegralEntity> list =new ArrayList<>();
     private List<IntegralEntity.IntegralBean> beanList = new ArrayList<>();
     private IntegralEntity.IntegralBean bean ;
@@ -36,7 +36,7 @@ public class IntegralFragment extends BaseFragment {
         title_name = findViewById(R.id.title_name);
         title_name.setText("积分商城");
 
-        content_list = findViewById(R.id.content_list);
+        //content_list = findViewById(R.id.content_list);
 
         setupRecycler();
     }
@@ -74,7 +74,7 @@ public class IntegralFragment extends BaseFragment {
 
     protected void setupRecycler(){
         adapter = new ContentAdapter(getContext(),list);
-        content_list.setAdapter(adapter);
+        //content_list.setAdapter(adapter);
     }
 
 }

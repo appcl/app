@@ -10,6 +10,7 @@ import com.mt.cardletter.activity.LoginActivity;
 import com.mt.cardletter.activity.MakeIntegralActivity;
 import com.mt.cardletter.activity.SearchClassicActivity;
 import com.mt.cardletter.activity.SearchIntegralActivity;
+import com.mt.cardletter.activity.seckill.SeckillActivity;
 
 
 /**
@@ -86,6 +87,14 @@ public class UIHelper {
      */
     public static void showSearchClassicActivity(Context context) {
         Intent intent = new Intent(context, SearchClassicActivity.class);
+        context.startActivity(intent);
+    }
+    /**
+     * 银行秒杀
+     * @param context
+     */
+    public static void showSeckillActivity(Context context) {
+        Intent intent = new Intent(context, SeckillActivity.class);
         context.startActivity(intent);
     }
 

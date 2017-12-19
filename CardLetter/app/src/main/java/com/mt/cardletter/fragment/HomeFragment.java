@@ -19,6 +19,11 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.app.AppContext;
+import com.mt.cardletter.entity.data.HeWeather;
+import com.mt.cardletter.https.HttpRequestApi;
+import com.mt.cardletter.https.HttpSubscriber;
+import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.rollviewpager.OnItemClickListener;
@@ -50,6 +55,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private RelativeLayout make_integral,search_integral,search_seckill,my_order;
 
     private static final int REQUEST_CODE_PICK_CITY = 123;
+
+
+    private HeWeather.HeWeather6Bean weather6Bean;
 
     @Nullable
     @Override
@@ -128,15 +136,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.make_integral://赚积分
-                UIHelper.showMakeIntegralActivity(getContext());
+                getDatas(AppContext.getInstance().getDistrict(),"5ee8321670ca46aab8e7555d3b3c074b");
                 break;
             case R.id.search_integral://查积分
                 UIHelper.showSearchIntegralActivity(getContext());
                 break;
             case R.id.search_seckill://银行秒杀
                 //TODO  银行秒杀
-                UIHelper.showSeckillActivity(getContext());
-                break;
+//                UIHelper.showSeckillActivity(getContext());
             case R.id.my_order://订单
                 break;
             case R.id.locatio_address://定位城市
@@ -208,4 +215,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             }
         }
     }
+
+
+    private void getDatas(String city,String key) {
+        weather6Bean=new HeWeather.HeWeather6Bean();
+        HttpRequestApi.getInstance().getWeather(city,key,new HttpSubscriber<HeWeather>(new SubscriberOnListener<HeWeather>() {
+            @Override
+            public void onSucceed(HeWeather data) {
+                String statue=data.getHeWeather6().get(0).getStatus();
+                weather6Bean= data.getHeWeather6().get(0);
+                if (statue.equals("ok")){
+                    UIHelper.showWeather(getContext(),weather6Bean);
+                }else {
+                    weather6Bean=new HeWeather.HeWeather6Bean();
+                    ToastUtils.makeShortText("小信加载数据出错啦，请稍后再试",getContext());
+                }
+            }
+
+            @Override
+            public void onError(int code, String msg) {
+            }
+        },getContext()));
+    }
+
 }

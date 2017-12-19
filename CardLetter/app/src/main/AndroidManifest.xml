@@ -65,57 +65,16 @@
         <activity android:name=".activity.WeatherActivity" android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.SearchClassicActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CityPicker.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity
-            android:name="com.mob.tools.MobUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="ea928b115602e46b08ae48d583925655" />
+            android:theme="@style/CityPicker.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
-            <!-- 调用新浪原生SDK，需要注册的回调activity -->
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-            <!-- 集成line客户端登录授权，需要添如下格式的过滤器 -->
-            <intent-filter>
-                <data android:scheme="line.1477692153" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-            <!-- ShareSDK<strong>3.1.0版本之前</strong>才需要在MobUIShell下面注册此意图，3.1.0版本之后（包含3.1.0）不需要注册此intent -->
-            <intent-filter>
-                <data android:scheme="tencent1106535859" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <!-- 微信分享回调的接口 -->
-        <activity
-            android:name=".wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!-- 填写您从Mob开发者后台中得到的Appkey和AppSecret -->
-        <meta-data android:name="Mob-AppKey" android:value="230ba2d633f9d"/>
-        <meta-data android:name="Mob-AppSecret" android:value="6611150155097717a1ca80c17e703c2b"/>
 
         <meta-data android:name="com.amap.api.v2.apikey"
             android:value="ea928b115602e46b08ae48d583925655"/>
@@ -130,16 +89,9 @@
             android:enabled="true"
             android:process=":remote" />
         <meta-data
-            android:name="Mob-AppKey"
-            android:value="230ba2d633f9d" />
-        <meta-data
-            android:name="Mob-AppSecret"
-            android:value="6611150155097717a1ca80c17e703c2b" />
-        <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="ea928b115602e46b08ae48d583925655" />
 
-        <activity android:name=".activity.seckill.SeckillActivity"></activity>
     </application>
 
 </manifest>

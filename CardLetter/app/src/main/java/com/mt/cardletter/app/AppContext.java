@@ -5,7 +5,6 @@ import android.app.Service;
 import android.os.Vibrator;
 
 import com.baidu.mapapi.SDKInitializer;
-import com.mob.MobSDK;
 import com.mt.cardletter.service.LocationService;
 
 
@@ -53,7 +52,6 @@ public class AppContext extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        MobSDK.init(this,"230ba2d633f9d","6611150155097717a1ca80c17e703c2b");
 
         registerUncaughtExceptionHandler();
 

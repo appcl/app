@@ -91,7 +91,7 @@ public class UIHelper {
         context.startActivity(intent);
     }
 
-    public static void showWeather(Activity activity, HeWeather.HeWeather6Bean weatherbean){
+    public static void showWeather(Context activity, HeWeather.HeWeather6Bean weatherbean){
         Intent intent = new Intent(activity, WeatherActivity.class);
         intent.putExtra("weatherbean",  weatherbean);
         activity.startActivity(intent);

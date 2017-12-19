@@ -6,6 +6,9 @@
     <string name="discover">发现</string>
     <string name="card_manager">卡管家</string>
     <string name="mine">我的</string>
-    
+
     <string name="my_order_text">所有参加"满5元随机立减/满6减5"优惠的品牌,每银联钱包用户单日限享1次优惠,如在其中1个品牌参加完成后,至其他品牌无法再次享优惠。</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

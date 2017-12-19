@@ -10,6 +10,8 @@ import com.mt.cardletter.activity.LoginActivity;
 import com.mt.cardletter.activity.MakeIntegralActivity;
 import com.mt.cardletter.activity.SearchClassicActivity;
 import com.mt.cardletter.activity.SearchIntegralActivity;
+import com.mt.cardletter.activity.WeatherActivity;
+import com.mt.cardletter.entity.data.HeWeather;
 
 
 /**
@@ -87,6 +89,12 @@ public class UIHelper {
     public static void showSearchClassicActivity(Context context) {
         Intent intent = new Intent(context, SearchClassicActivity.class);
         context.startActivity(intent);
+    }
+
+    public static void showWeather(Activity activity, HeWeather.HeWeather6Bean weatherbean){
+        Intent intent = new Intent(activity, WeatherActivity.class);
+        intent.putExtra("weatherbean",  weatherbean);
+        activity.startActivity(intent);
     }
 
 }

@@ -12,6 +12,13 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--地图部分权限-->
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+    <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
 
     <!-- 短信验证登陆功能需要添加次权限来自动填充验证码，用不到可以去掉 -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
@@ -46,6 +53,8 @@
         <activity android:name=".activity.SearchIntegralActivity" android:screenOrientation="portrait"/>
         <!-- 分类搜索 -->
         <activity android:name=".activity.SearchClassicActivity" android:screenOrientation="portrait"/>
+        <!-- 天气页面 -->
+        <activity android:name=".activity.WeatherActivity" android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
@@ -96,6 +105,16 @@
 
         <meta-data android:name="com.amap.api.v2.apikey"
             android:value="ea928b115602e46b08ae48d583925655"/>
+        <!-- 百度的api_key -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="bHfxwZKhS1rEDfo8Bd9mbG6WzfHR6B9p" >
+        </meta-data>
+        <!-- 百度地图定位使用 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
     </application>
 
 </manifest>

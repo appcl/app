@@ -48,5 +48,6 @@
     <color name="footer_text_color_selected">#FF601C</color>
 
     <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="greenery">#7DA743</color>
 
 </resources>

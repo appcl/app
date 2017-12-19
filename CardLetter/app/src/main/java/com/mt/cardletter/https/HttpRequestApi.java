@@ -1,6 +1,12 @@
 package com.mt.cardletter.https;
 
 
+import com.mt.cardletter.entity.data.AirDatas;
+import com.mt.cardletter.entity.data.HeWeather;
+
+import rx.Observable;
+import rx.Subscriber;
+
 /**
  * Created by HQ_Demos on 2017/4/27.
  */
@@ -35,5 +41,30 @@ public class HttpRequestApi extends BaseApi {
 //                .map(new HttpResultFunc<Login>());
 //        toSubscribe(observable, subscriber);
 //    }
+
+    /**
+     * 天气
+     * @param city
+     * @param key
+     * @param subscriber
+     */
+    public void getWeather(String city,String key,Subscriber<HeWeather> subscriber){
+        Observable observable = httpRequestService.getWeather(city,key)
+                .map(new HttpResultFunc<HeWeather>());
+        toSubscribe(observable,subscriber);
+    }
+
+
+    /**
+     * 空气质量
+     * @param city
+     * @param key
+     * @param subscriber
+     */
+    public void getAir(String city,String key,Subscriber<AirDatas> subscriber){
+        Observable observable = httpRequestService.getAir(city,key)
+                .map(new HttpResultFunc<AirDatas>());
+        toSubscribe(observable,subscriber);
+    }
 
 }

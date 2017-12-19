@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="250dp">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager_week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+      android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        />
+
+    <com.mt.cardletter.view.indicator.CirclePageIndicator
+        android:id="@+id/indicator_week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="20dp"
+        android:padding="3dp"
+        android:visibility="gone"
+        app:fillColor="#00acff"
+        app:pageColor="#32000000"
+        app:strokeWidth="0dp" />
+</FrameLayout>

@@ -28,7 +28,7 @@ public class HttpMethod {
     /**
      * 测试版地址
      */
-    public static final String BASE_URL = "http://42.159.251.106:8886";
+    public static final String BASE_URL = "https://free-api.heweather.com";
     private static Retrofit retrofit;
 
     private HttpMethod() {
@@ -77,14 +77,14 @@ public class HttpMethod {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request request = null;
-                        if (Constant.TOKEN == null || Constant.TOKEN.equals("")) {
+//                        if (Constant.TOKEN == null || Constant.TOKEN.equals("")) {
                             request = chain.request().newBuilder().build();
-                        } else {
-                            request = chain.request()
-                                    .newBuilder()
-                                    .addHeader("Authorization", Constant.TOKEN)//添加token
-                                    .build();
-                        }
+//                        } else {
+//                            request = chain.request()
+//                                    .newBuilder()
+//                                    .addHeader("Authorization", Constant.TOKEN)//添加token
+//                                    .build();
+//                        }
                         /*有没有网络的情况*/
                         if (!NetUtil.getNetworkIsConnected(AppContext.getInstance())) {
                             request = request.newBuilder()
@@ -92,7 +92,7 @@ public class HttpMethod {
                                     .build();
                         }
                         Response response = chain.proceed(request);
-                        System.out.println("响应码" + response.code());
+                        System.out.println("响应码---------" + response.code());
                         Constant.RESPONSECODE = response.code();
                         if (NetUtil.getNetworkIsConnected(AppContext.getInstance())) {
                             int maxAge = 0 * 60; // 有网络时 设置缓存超时时间0个小时

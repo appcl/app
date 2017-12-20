@@ -11,6 +11,7 @@ import com.mt.cardletter.activity.MakeIntegralActivity;
 import com.mt.cardletter.activity.SearchClassicActivity;
 import com.mt.cardletter.activity.SearchIntegralActivity;
 import com.mt.cardletter.activity.WeatherActivity;
+import com.mt.cardletter.activity.seckill.SeckillActivity;
 import com.mt.cardletter.entity.data.HeWeather;
 
 
@@ -90,6 +91,15 @@ public class UIHelper {
         Intent intent = new Intent(context, SearchClassicActivity.class);
         context.startActivity(intent);
     }
+    /**
+     * 分类搜索
+     * @param context
+     */
+    public static void showSeckillActivity(Context context) {
+        Intent intent = new Intent(context, SeckillActivity.class);
+        context.startActivity(intent);
+    }
+
 
     public static void showWeather(Context activity, HeWeather.HeWeather6Bean weatherbean){
         Intent intent = new Intent(activity, WeatherActivity.class);

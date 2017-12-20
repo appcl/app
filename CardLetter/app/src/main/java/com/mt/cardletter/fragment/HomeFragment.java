@@ -25,6 +25,7 @@ import com.mt.cardletter.https.HttpRequestApi;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.utils.ToastUtils;
+import com.mt.cardletter.utils.UIHandler;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.rollviewpager.OnItemClickListener;
 import com.mt.cardletter.view.rollviewpager.RollPagerView;
@@ -143,6 +144,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.search_seckill://银行秒杀
                 //TODO  银行秒杀
+                  UIHelper.showSeckillActivity(getContext());
 //                UIHelper.showSeckillActivity(getContext());
             case R.id.my_order://订单
                 break;

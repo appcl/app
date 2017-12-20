@@ -4,12 +4,21 @@ import android.app.Application;
 import android.app.Service;
 import android.os.Vibrator;
 
+
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 import com.baidu.mapapi.SDKInitializer;
 import com.mt.cardletter.service.LocationService;
 
 
 public class AppContext extends Application {
     private static AppContext app;
+    //友盟分享  微信，微博，QQ空间的分享配置1106542925//APP KEY57VgIL08mxb0kua8
+    {
+        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
+        PlatformConfig.setQQZone("1106542925", "57VgIL08mxb0kua8");
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
+    }
     public LocationService locationService;
     public Vibrator mVibrator;
 
@@ -52,6 +61,9 @@ public class AppContext extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //友盟分享  微信，微博，QQ空间的分享配置
+        UMShareAPI.get(this);
+        //MobSDK.init(this,"230ba2d633f9d","6611150155097717a1ca80c17e703c2b");
 
         registerUncaughtExceptionHandler();
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_seckill"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mt.cardletter.activity.seckill.SeckillActivity">
+    <FrameLayout
+        android:id="@+id/activity_seckill_layout"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>
+    <RadioGroup
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@color/colorbg"
+        android:id="@+id/activity_seckill_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/activity_seckill_1"
+            style="@style/main_footer_bar_radio"
+            android:checked="true"
+            android:drawableTop="@drawable/radio_bg_home"
+            android:text="拼手速"/>
+        <RadioButton
+            android:id="@+id/activity_seckill_2"
+            style="@style/main_footer_bar_radio"
+            android:drawableTop="@drawable/radio_bg_integral"
+            android:text="限时购"/>
+
+        <RadioButton
+            android:id="@+id/activity_seckill_3"
+            android:drawableTop="@drawable/radio_bg_discover"
+            style="@style/main_footer_bar_radio"
+            android:text="超值购"/>
+    </RadioGroup>
+</LinearLayout>

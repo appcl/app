@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorbg"
+    android:orientation="vertical">
+    <include layout="@layout/action_title"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <com.mt.cardletter.view.rollviewpager.RollPagerView
+            android:id="@+id/fragment_eckill_top_pagerview"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            app:rollviewpager_play_delay="3000" />
+    </RelativeLayout>
+    <View
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/seckill_fragment_content"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v4.view.ViewPager
+                android:id="@+id/ViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+                <android.support.v4.view.PagerTabStrip
+                    android:id="@+id/PagerTab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top">
+                </android.support.v4.view.PagerTabStrip>
+            </android.support.v4.view.ViewPager>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

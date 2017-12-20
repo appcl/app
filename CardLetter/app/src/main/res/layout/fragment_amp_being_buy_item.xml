@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:background="@color/color_bg_balck_99"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textSize="16sp"
+                android:text="19:00场"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="16sp"
+                android:text="距离开始还有25分20秒"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+            <ImageView
+
+                android:id="@+id/apm_being_img"
+                android:background="@drawable/default_error"
+                android:layout_margin="10dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
+            <TextView
+                android:id="@+id/apm_being_title"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/apm_being_img"
+                android:textColor="@color/color_text_gray_66"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="【旗舰店】 原装进口蜂蜜前两分钟付款立减 3 元"/>
+            <TextView
+                android:id="@+id/apm_being_price"
+                android:layout_marginBottom="12dp"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@id/apm_being_img"
+                android:textColor="@color/color_text_gray_66"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥36.9元"/>
+            <TextView
+                android:background="@drawable/radio_apm_being_buy"
+                android:layout_marginRight="20dp"
+               android:layout_marginBottom="10dp"
+                android:id="@+id/apm_being_begin"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/color_text_gray_66"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="即将开始"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

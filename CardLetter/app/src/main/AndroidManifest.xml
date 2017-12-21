@@ -95,9 +95,9 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="ea928b115602e46b08ae48d583925655" />
+        <!--<meta-data-->
+            <!--android:name="com.amap.api.v2.apikey"-->
+            <!--android:value="ea928b115602e46b08ae48d583925655" />-->
 
         <activity android:name=".activity.seckill.SeckillActivity" />
 

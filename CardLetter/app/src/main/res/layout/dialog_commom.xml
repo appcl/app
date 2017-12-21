@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_bg_round_white">
+
+    <ImageView
+        android:id="@+id/error_img"
+        android:layout_marginTop="65dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_marginTop="150px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="访问失败"
+        android:textColor="@color/color_text_black_31"
+        android:textSize="18dp"
+        android:layout_gravity="center_horizontal"/>
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorspaceline"/>
+        <TextView
+            android:layout_below="@+id/line"
+            android:id="@+id/i_know"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="知道了"
+            android:textColor="#7099ED"
+            android:gravity="center"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+</LinearLayout>

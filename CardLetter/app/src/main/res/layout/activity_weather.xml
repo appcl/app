@@ -223,5 +223,24 @@
                 android:layout_height="wrap_content">
                 <include layout="@layout/activity_air_layout"/>
             </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+                <GridView
+                    android:id="@+id/life_gridview"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="10dp"
+                    android:numColumns="4"
+                    android:background="@color/white"
+                    android:verticalSpacing="10dp"
+                    android:horizontalSpacing="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </FrameLayout>
         </com.mt.cardletter.view.weather.WeatherLinearLayout>
 </android.support.v4.widget.NestedScrollView>

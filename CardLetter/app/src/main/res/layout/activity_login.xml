@@ -114,6 +114,7 @@
             android:layout_marginRight="18.0dip"
             android:layout_marginTop="30.0dip"
             android:background="#D1D1D1"
+            style="?android:attr/borderlessButtonStyle"
             android:clickable="false"
             android:enabled="false"
             android:text="登录"

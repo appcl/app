@@ -25,8 +25,8 @@ import com.mt.cardletter.https.HttpRequestApi;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.utils.ToastUtils;
-import com.mt.cardletter.utils.UIHandler;
 import com.mt.cardletter.utils.UIHelper;
+import com.mt.cardletter.utils.Util;
 import com.mt.cardletter.view.rollviewpager.OnItemClickListener;
 import com.mt.cardletter.view.rollviewpager.RollPagerView;
 import com.mt.cardletter.view.rollviewpager.adapter.StaticPagerAdapter;
@@ -137,7 +137,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.make_integral://赚积分
-                getDatas(AppContext.getInstance().getDistrict(),"5ee8321670ca46aab8e7555d3b3c074b");
+                if (AppContext.getInstance().getDistrict()!=null){
+                    getDatas(AppContext.getInstance().getDistrict(),"5ee8321670ca46aab8e7555d3b3c074b");
+                }else {
+                    getDatas(AppContext.getInstance().getCity(),"5ee8321670ca46aab8e7555d3b3c074b");
+                }
+
                 break;
             case R.id.search_integral://查积分
                 UIHelper.showSearchIntegralActivity(getContext());
@@ -147,6 +152,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                   UIHelper.showSeckillActivity(getContext());
 //                UIHelper.showSeckillActivity(getContext());
             case R.id.my_order://订单
+                Util.showCommonDialog(getActivity(),R.drawable.error_500);
                 break;
             case R.id.locatio_address://定位城市
                 startActivityForResult(new Intent(getContext(), CityPickerActivity.class),

@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.adapter.LifeAdapter;
 import com.mt.cardletter.adapter.ViewPagerAdapter;
 import com.mt.cardletter.adapter.WeatherViewAdapter;
 import com.mt.cardletter.adapter.WeatherWeekViewAdapter;
@@ -79,6 +80,11 @@ public class WeatherActivity extends BaseActivity {
     private TextView tv_aqi_desc0,tv_aqi_desc1,tv_aqi_desc2,tv_aqi_desc3,tv_aqi_desc4,tv_aqi_desc5;
     private TextView tv_aqi_value0,tv_aqi_value1,tv_aqi_value2,tv_aqi_value3,tv_aqi_value4,tv_aqi_value5;
     private View view_aqi_qlty0,view_aqi_qlty1,view_aqi_qlty2,view_aqi_qlty3,view_aqi_qlty4,view_aqi_qlty5;
+
+    private GridView life_gridview;
+    private LifeAdapter lifeAdapter;
+
+    private List<HeWeather.HeWeather6Bean.LifestyleBean> life_list = new ArrayList<>();
 
     @Override
     protected int getLayoutResId() {
@@ -185,7 +191,7 @@ public class WeatherActivity extends BaseActivity {
         view_aqi_qlty4 = (View) findViewById(R.id.view_aqi_qlty4);
         view_aqi_qlty5 = (View) findViewById(R.id.view_aqi_qlty5);
 
-
+        life_gridview = (GridView) findViewById(R.id.life_gridview);
     }
 
 
@@ -308,9 +314,11 @@ public class WeatherActivity extends BaseActivity {
     }
 
     private void showNowWeather() {
-
-        tvCity.setText(AppContext.getInstance().getCity());
-
+        if (AppContext.getInstance().getCity()==null||AppContext.getInstance().getCity().equals("")){
+            tvCity.setText("南京");
+        }else {
+            tvCity.setText(AppContext.getInstance().getCity());
+        }
         layoutNow.setVisibility(View.VISIBLE);
         layoutDetails.setVisibility(View.VISIBLE);
         tvNowHum.setText(weatherbean.getNow().getHum() + "%");
@@ -330,6 +338,10 @@ public class WeatherActivity extends BaseActivity {
         tvNowTemp.setText(String.format("%s°", weatherbean.getNow().getTmp()));
         tvTodayTempMax.setText(weatherbean.getDaily_forecast().get(0).getTmp_max() + "℃");
         tvTodayTempMin.setText(weatherbean.getDaily_forecast().get(0).getTmp_min() + "℃");
+
+        life_list = weatherbean.getLifestyle();
+        lifeAdapter = new LifeAdapter(WeatherActivity.this,life_list);
+        life_gridview.setAdapter(lifeAdapter);
     }
 
 

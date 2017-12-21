@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="60dp">
 
     <RelativeLayout
         android:id="@+id/collection"
@@ -9,8 +9,8 @@
         android:layout_height="match_parent" android:layout_weight="1">
         <ImageView
             android:id="@+id/pic_one"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/select_my_collect"/>
         <TextView
@@ -29,8 +29,8 @@
         android:layout_height="match_parent" android:layout_weight="1">
         <ImageView
             android:id="@+id/pic_two"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/select_my_geography"/>
         <TextView
@@ -48,8 +48,8 @@
         android:layout_height="match_parent" android:layout_weight="1">
         <ImageView
             android:id="@+id/pic_three"
-            android:layout_width="430dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/select_my_find"/>
         <TextView
@@ -67,8 +67,8 @@
         android:layout_height="match_parent" android:layout_weight="1">
         <ImageView
             android:id="@+id/pic_four"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/select_my_subscribe"/>
         <TextView
@@ -86,8 +86,8 @@
         android:layout_height="match_parent" android:layout_weight="1">
         <ImageView
             android:id="@+id/pic_set"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/select_my_setting"/>
         <TextView

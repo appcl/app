@@ -15,6 +15,10 @@
             android:text="收藏"
             android:layout_weight="1"
             android:textColor="@color/color_text_black_31"/>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="30dp"
+            android:background="@drawable/gray_divider"/>
         <TextView
             android:id="@+id/my_card"
             android:layout_weight="1"
@@ -23,6 +27,10 @@
             android:layout_height="wrap_content"
             android:text="我的卡"
             android:textColor="@color/color_text_black_31"/>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="30dp"
+            android:background="@drawable/gray_divider"/>
         <TextView
 
             android:layout_width="wrap_content"

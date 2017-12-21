@@ -11,6 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_weight="1"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorspaceline"/>
     <RadioGroup
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
@@ -19,12 +23,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/activity_main_radiobutton_home"
             style="@style/main_footer_bar_radio"
             android:checked="true"
             android:drawableTop="@drawable/select_bottom_home"
             android:text="@string/home"/>
+
         <RadioButton
             android:id="@+id/activity_main_radiobutton_integral"
             style="@style/main_footer_bar_radio"

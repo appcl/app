@@ -1,9 +1,16 @@
 package com.mt.cardletter.utils;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.view.Display;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.gson.Gson;
+import com.mt.cardletter.R;
+import com.mt.cardletter.view.dialog.CommonDialog;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +19,32 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 public class Util {
+
+    static CommonDialog dialog;
+    public static void showCommonDialog(final Activity context ,int image_id){
+        dialog=new CommonDialog(context, image_id,R.style.Dialog,new CommonDialog.OnCloseListener(){
+            @Override
+            public void onClick(Dialog dialog, boolean confirm) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+        setDialogAttr(context,dialog);
+    }
+
+    private static void setDialogAttr(Activity context, CommonDialog dialog){
+        Window dialogWindow = dialog.getWindow();
+        WindowManager m = context.getWindowManager();
+        Display d = m.getDefaultDisplay(); // 获取屏幕宽、高度
+        WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+        p.height = (int) (d.getHeight() * 0.7); // 高度设置为屏幕的0.6，根据实际情况调整
+        p.width = (int) (d.getWidth() * 0.9); // 宽度设置为屏幕的0.65，根据实际情况调整
+        dialogWindow.setAttributes(p);
+    }
 	/** 
      * dpתpx
      * 

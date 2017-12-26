@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_screen"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mt.cardletter.activity.ScreenActivity">
+    <include android:id="@+id/screen_title" layout="@layout/action_title"/>
+    <RelativeLayout
+        android:id="@+id/screen_rl1"
+        android:layout_below="@id/screen_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginRight="14dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/shape_circle_bg"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:text="跳过"
+            android:textSize="12dp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/screen_rl2"
+        android:layout_below="@id/screen_rl1"
+        android:layout_marginTop="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:padding="2dp"
+            android:background="@drawable/shape_red_bg"
+            android:layout_centerInParent="true"
+            android:text="点亮图标关注您的银行，即刻展现精选优惠"
+            android:textSize="14dp"
+            android:textColor="@color/color_text_gray_66"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginBottom="60dp"
+        android:id="@+id/screen_recyclerview"
+        android:layout_below="@id/screen_rl2"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <RelativeLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <TextView
+            android:padding="5dp"
+            android:textSize="16dp"
+            android:background="@color/colorspaceline"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/screen_affirm"
+            android:gravity="center_horizontal"
+            android:text="确定"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="12dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/screen_affirm"
+            android:text="即将为您呈现定制特惠信息！"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

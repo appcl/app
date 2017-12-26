@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:padding="10dp"
+    android:layout_height="80dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/violate_fen"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="扣6分"
+        android:textSize="12sp"
+        android:textColor="@color/color_text_red"/>
+    <TextView
+        android:layout_below="@+id/violate_fen"
+        android:id="@+id/violate_money"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="罚款200元"
+        android:textSize="12sp"
+        android:textColor="@color/color_text_red"/>
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        >
+
+        <TextView
+        android:layout_below="@+id/violate_date"
+        android:id="@+id/violate_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="应天大街 云锦路路口"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textSize="13sp"
+        android:textColor="@color/color_text_black_31"/>
+    <TextView
+        android:layout_below="@+id/violate_area"
+        android:id="@+id/violate_act"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:scrollHorizontally="true"
+        android:text="驾驶机动车违反道路交通信号灯通行的"
+        android:textSize="13sp"
+        android:textColor="@color/color_text_black_31"/>
+
+        <TextView
+            android:id="@+id/violate_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2016-10-31 02:14:00"
+            android:textSize="12sp"
+            android:textColor="@color/color_text_blue_44"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+</RelativeLayout>

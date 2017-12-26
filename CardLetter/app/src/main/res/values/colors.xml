@@ -62,4 +62,10 @@
     <color name="umeng_socialize_shareactivitydefault">#ffffff</color>
     <color name="greenery">#7DA743</color>
     <color name="home_text_selected">#EE3333</color>
+
+    <!-- 城市选择器颜色>-->
+    <color name="color_wheel_sel">#ff5236</color>
+    <color name="color_wheel_unsel">#9aaec3</color>
+
+    <color name="gray_d1d1d1">#D1D1D1</color>
 </resources>

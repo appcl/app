@@ -145,7 +145,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
                 break;
             case R.id.search_integral://查积分
-                UIHelper.showSearchIntegralActivity(getContext());
+//                UIHelper.showSearchIntegralActivity(getContext());
+                UIHelper.showViolateActivity(getContext());
                 break;
             case R.id.search_seckill://银行秒杀
                 //TODO  银行秒杀

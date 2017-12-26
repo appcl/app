@@ -206,8 +206,10 @@
                         android:textColor="@color/white"/>
                 </LinearLayout>
             </RelativeLayout>
-                <include layout="@layout/activity_gridview_content"/>
-                <View
+
+            <include layout="@layout/activity_gridview_content"/>
+
+            <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@drawable/divider"/>
@@ -220,7 +222,7 @@
                     android:background="@drawable/divider"/>
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="180dp">
                 <include layout="@layout/activity_air_layout"/>
             </FrameLayout>
 
@@ -230,11 +232,10 @@
                 android:background="@drawable/divider"/>
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="250dp">
                 <GridView
                     android:id="@+id/life_gridview"
                     android:paddingTop="8dp"
-                    android:paddingBottom="10dp"
                     android:numColumns="4"
                     android:background="@color/white"
                     android:verticalSpacing="10dp"
@@ -242,5 +243,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
             </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="5dp" android:background="@color/white"/>
         </com.mt.cardletter.view.weather.WeatherLinearLayout>
 </android.support.v4.widget.NestedScrollView>

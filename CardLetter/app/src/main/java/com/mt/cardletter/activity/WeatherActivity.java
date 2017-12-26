@@ -6,9 +6,11 @@ import android.os.Build;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -149,7 +151,7 @@ public class WeatherActivity extends BaseActivity {
         view_pager.setAdapter(mAdapter);
         //圆点指示器
         indicator = (CirclePageIndicator) findViewById(R.id.indicator);
-        indicator.setVisibility(View.VISIBLE);
+        indicator.setVisibility(View.GONE);
         indicator.setViewPager(view_pager);
 
         //初始化weekviewPager
@@ -158,7 +160,7 @@ public class WeatherActivity extends BaseActivity {
         view_pager_week.setAdapter(mAdapter_week);
         //圆点指示器
         indicator_week = (CirclePageIndicator) findViewById(R.id.indicator_week);
-        indicator_week.setVisibility(View.VISIBLE);
+        indicator_week.setVisibility(View.GONE);
         indicator_week.setViewPager(view_pager_week);
 
         air_qlty = (Button) findViewById(R.id.air_qlty);
@@ -192,6 +194,39 @@ public class WeatherActivity extends BaseActivity {
         view_aqi_qlty5 = (View) findViewById(R.id.view_aqi_qlty5);
 
         life_gridview = (GridView) findViewById(R.id.life_gridview);
+    }
+
+    /**
+     * gridview自适应高度
+     * @param listView
+     */
+    public static void setListViewHeightBasedOnChildren(GridView listView) {
+        // 获取listview的adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        // 固定列宽，有多少列
+        int col = 4;// listView.getNumColumns();
+        int totalHeight = 0;
+        // i每次加4，相当于listAdapter.getCount()小于等于4时 循环一次，计算一次item的高度，
+        // listAdapter.getCount()小于等于8时计算两次高度相加
+        for (int i = 0; i < listAdapter.getCount(); i += col) {
+            // 获取listview的每一个item
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            // 获取item的高度和
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        // 获取listview的布局参数
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        // 设置高度
+        params.height = totalHeight;
+        // 设置margin
+        ((ViewGroup.MarginLayoutParams) params).setMargins(10, 10, 10, 10);
+        // 设置参数
+        listView.setLayoutParams(params);
     }
 
 
@@ -341,6 +376,8 @@ public class WeatherActivity extends BaseActivity {
 
         life_list = weatherbean.getLifestyle();
         lifeAdapter = new LifeAdapter(WeatherActivity.this,life_list);
+//        setListViewHeightBasedOnChildren(life_gridview);
+//        lifeAdapter.notifyDataSetChanged();
         life_gridview.setAdapter(lifeAdapter);
     }
 

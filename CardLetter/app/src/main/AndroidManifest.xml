@@ -83,6 +83,11 @@
         <activity
             android:name=".activity.WeatherActivity"
             android:screenOrientation="portrait" />
+        <!-- 违章查询 -->
+        <activity android:name=".activity.ViolateActivity" android:screenOrientation="portrait"/>
+        <!-- 违章详情 -->
+        <activity android:name=".activity.ViolateDetailActivity" android:screenOrientation="portrait"/>
+
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
             android:screenOrientation="portrait"

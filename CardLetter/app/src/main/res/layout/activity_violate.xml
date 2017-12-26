@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/action_title"/>
+
+    <LinearLayout
+        android:id="@+id/set_address_value"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/chose_city_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="选择城市："
+            android:textSize="15sp"
+            android:textColor="@color/color_text_black_31"
+             />
+        <RelativeLayout
+            android:gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/province_value"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_btn_bg"
+                android:textColor="@color/color_text_black_31"
+                android:text="北京"/>
+            <View
+                android:id="@+id/view_text"
+                android:layout_toRightOf="@+id/province_value"
+                android:layout_centerVertical="true"
+                android:layout_width="10dp"
+                android:layout_height="1dp"
+                android:background="@color/color_text_black_31"/>
+            <TextView
+                android:layout_toRightOf="@+id/view_text"
+                android:id="@+id/city_value"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_btn_bg"
+                android:textColor="@color/color_text_black_31"
+                android:text="北京"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+        <TextView
+            android:gravity="right"
+            android:id="@+id/chose_cardnumber_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车牌号："
+            android:textSize="15sp"
+            android:textColor="@color/color_text_black_31"/>
+        <TextView
+            android:gravity="left|center"
+            android:id="@+id/card_arr_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_btn_bg"
+            android:textColor="@color/color_text_black_31"
+            android:textSize="12sp"
+            android:text="京"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="请输入车牌号"
+            android:singleLine="true"
+            android:maxLength="6"
+            android:textColor="@color/color_text_black_31"
+            android:textSize="12sp"
+            android:id="@+id/card_editText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+        <TextView
+            android:gravity="right"
+            android:id="@+id/fdj_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发动机后六位："
+            android:textSize="15sp"
+            android:textColor="@color/color_text_black_31"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="请输入发动机后六位"
+            android:singleLine="true"
+            android:maxLength="6"
+            android:textColor="@color/color_text_black_31"
+            android:textSize="12sp"
+            android:id="@+id/fdj_editText" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:layout_marginLeft="18.0dip"
+        android:layout_marginRight="18.0dip"
+        android:layout_marginTop="10.0dip"
+        android:background="@color/red"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="查询"
+        android:textColor="#ffffffff"
+        android:textSize="15.0sp" />
+</LinearLayout>

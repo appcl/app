@@ -10,12 +10,18 @@ import com.mt.cardletter.activity.LoginActivity;
 import com.mt.cardletter.activity.MakeIntegralActivity;
 import com.mt.cardletter.activity.ScreenActivity;
 import com.mt.cardletter.activity.SearchClassicActivity;
+import com.mt.cardletter.activity.ViolateActivity;
+import com.mt.cardletter.activity.ViolateDetailActivity;
 import com.mt.cardletter.activity.SearchIntegralActivity;
 import com.mt.cardletter.activity.setting.SettingActivity;
 import com.mt.cardletter.activity.WeatherActivity;
 import com.mt.cardletter.activity.seckill.SeckillActivity;
 import com.mt.cardletter.activity.setting.SettingMsgActivity;
 import com.mt.cardletter.entity.data.HeWeather;
+import com.mt.cardletter.entity.data.ViolateData;
+
+import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -77,12 +83,16 @@ public class UIHelper {
         context.startActivity(intent);
     }
 
-    /**
-     * 查积分
-     * @param context
-     */
-    public static void showSearchIntegralActivity(Context context) {
-        Intent intent = new Intent(context, SearchIntegralActivity.class);
+//    /**
+//     * 查积分
+//     * @param context
+//     */
+//    public static void showSearchIntegralActivity(Context context) {
+//        Intent intent = new Intent(context, SearchIntegralActivity.class);
+//        context.startActivity(intent);
+//    }
+    public static void showViolateActivity(Context context){
+        Intent intent = new Intent(context, ViolateActivity.class);
         context.startActivity(intent);
     }
 
@@ -138,6 +148,17 @@ public class UIHelper {
      */
     public static void showScreenActivity(Context context) {
         Intent intent = new Intent(context, ScreenActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 违章详情
+     * @param context
+     * @param violate_list
+     */
+    public static void showViolateDetailActivity(Context context, List<ViolateData.ResultBean.ListsBean> violate_list){
+        Intent intent = new Intent(context, ViolateDetailActivity.class);
+        intent.putExtra("list", (Serializable) violate_list);
         context.startActivity(intent);
     }
 }

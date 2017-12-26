@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--地图部分权限-->
+    <!-- 地图部分权限 -->
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
     <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION" />
@@ -32,6 +32,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 相机权限及SD卡 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".app.AppContext"
@@ -72,32 +76,34 @@
             android:name=".activity.SearchIntegralActivity"
             android:screenOrientation="portrait" />
         <!-- 分类搜索 -->
-        <activity android:name=".activity.SearchClassicActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.SearchClassicActivity"
+            android:screenOrientation="portrait" />
         <!-- 天气页面 -->
-        <activity android:name=".activity.WeatherActivity" android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".activity.WeatherActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CityPicker.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
-
-        <meta-data android:name="com.amap.api.v2.apikey"
-            android:value="ea928b115602e46b08ae48d583925655"/>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="ea928b115602e46b08ae48d583925655" />
         <!-- 百度的api_key -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="bHfxwZKhS1rEDfo8Bd9mbG6WzfHR6B9p" >
-        </meta-data>
+            android:value="bHfxwZKhS1rEDfo8Bd9mbG6WzfHR6B9p" />
         <!-- 百度地图定位使用 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-        <!--<meta-data-->
-            <!--android:name="com.amap.api.v2.apikey"-->
-            <!--android:value="ea928b115602e46b08ae48d583925655" />-->
+        <!-- <meta-data -->
+        <!-- android:name="com.amap.api.v2.apikey" -->
+        <!-- android:value="ea928b115602e46b08ae48d583925655" /> -->
 
         <activity android:name=".activity.seckill.SeckillActivity" />
 
@@ -108,7 +114,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- <activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity" -->
         <!-- android:configChanges="keyboardHidden|orientation" -->
         <!-- android:exported="false" -->
@@ -145,9 +151,28 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5a372986b27b0a5cde0000cf"></meta-data>
+            android:value="5a372986b27b0a5cde0000cf" />
 
-        <activity android:name="test.abc.MyActivity"></activity>
+        <activity android:name="test.abc.MyActivity" />
+        <activity android:name=".activity.setting.SettingActivity" />
+        <activity android:name=".activity.setting.SettingMsgActivity" />
+        <!-- 用于相机权限的内容提供者 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.mt.cardletter"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name="test.abc.H5Activity" />
+        <activity android:name=".activity.ScreenActivity"></activity>
     </application>
 
 </manifest>

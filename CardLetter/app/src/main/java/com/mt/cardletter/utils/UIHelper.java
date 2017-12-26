@@ -8,10 +8,13 @@ import android.widget.Toast;
 import com.mt.cardletter.MainActivity;
 import com.mt.cardletter.activity.LoginActivity;
 import com.mt.cardletter.activity.MakeIntegralActivity;
+import com.mt.cardletter.activity.ScreenActivity;
 import com.mt.cardletter.activity.SearchClassicActivity;
 import com.mt.cardletter.activity.SearchIntegralActivity;
+import com.mt.cardletter.activity.setting.SettingActivity;
 import com.mt.cardletter.activity.WeatherActivity;
 import com.mt.cardletter.activity.seckill.SeckillActivity;
+import com.mt.cardletter.activity.setting.SettingMsgActivity;
 import com.mt.cardletter.entity.data.HeWeather;
 
 
@@ -100,11 +103,41 @@ public class UIHelper {
         context.startActivity(intent);
     }
 
-
+    /**
+     * 天气
+     * @param activity
+     * @param weatherbean
+     */
     public static void showWeather(Context activity, HeWeather.HeWeather6Bean weatherbean){
         Intent intent = new Intent(activity, WeatherActivity.class);
         intent.putExtra("weatherbean",  weatherbean);
         activity.startActivity(intent);
     }
 
+    /**
+     * 设置
+     * @param context
+     */
+    public static void showSetting(Context context){
+        Intent intent = new Intent(context, SettingActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 修改个人设置
+     * @param context
+     */
+    public static void showSettingMsg(Context context) {
+        Intent intent = new Intent(context, SettingMsgActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 筛选
+     * @param context
+     */
+    public static void showScreenActivity(Context context) {
+        Intent intent = new Intent(context, ScreenActivity.class);
+        context.startActivity(intent);
+    }
 }

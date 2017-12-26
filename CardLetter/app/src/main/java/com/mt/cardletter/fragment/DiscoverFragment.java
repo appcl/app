@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.utils.OnMultiClickListener;
+import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.tabstrip.PagerSlidingTabStrip;
 
 
@@ -50,6 +51,7 @@ public class DiscoverFragment extends Fragment {
         title_name = (TextView) view.findViewById(R.id.title_name);
         next = (TextView) view.findViewById(R.id.commonal_tv);
 
+
         return view;
     }
 
@@ -65,9 +67,9 @@ public class DiscoverFragment extends Fragment {
         next.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
+                UIHelper.showScreenActivity(getContext());
             }
         });
-
         TITLES = getResources().getStringArray(R.array.news_titles);
 
         FragmentPagerAdapter adapter = new NewsAdapter(getChildFragmentManager());

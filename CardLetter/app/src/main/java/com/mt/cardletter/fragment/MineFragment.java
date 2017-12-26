@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.pulltozoomview.PullToZoomScrollViewEx;
 
@@ -16,7 +17,7 @@ import com.mt.cardletter.view.pulltozoomview.PullToZoomScrollViewEx;
  * Created by demons on 2017/11/13.
  */
 
-public class MineFragment extends Fragment {
+public class MineFragment extends Fragment{
 
     private Activity context;
     private View root;
@@ -102,6 +103,7 @@ public class MineFragment extends Fragment {
         scrollView.getPullRootView().findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UIHelper.showSetting(getContext());
             }
         });
 
@@ -109,4 +111,6 @@ public class MineFragment extends Fragment {
 
     private void initData() {
     }
+
+
 }

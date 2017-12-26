@@ -50,12 +50,14 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:gravity="center">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:visibility="gone"
-                android:src="@mipmap/ic_launcher" />
+            <TextView
+                android:id="@+id/title_screen"
+                android:layout_centerHorizontal="true"
+                android:text="筛选"
+                android:textColor="@color/blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <RelativeLayout

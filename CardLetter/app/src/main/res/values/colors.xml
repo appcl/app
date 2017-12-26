@@ -14,12 +14,10 @@
     <color name="colorfafafa">#FAFAFA</color>
     <!-- 间隔线颜色 -->
     <color name="colorspaceline">#EDEDED</color>
-
     <color name="coloreeeeee">#EEEEEE</color>
     <color name="grayf8f8f8">#F8F8F8</color>
     <!-- 二级标题前面小块的颜色 -->
     <color name="color_tow_title_view">#DE5250</color>
-
     <!-- 列表栏详情字体颜色 -->
     <color name="color_text_list_info">#999999</color>
     <color name="color_text_gray_66">#666666</color>
@@ -30,7 +28,6 @@
     <color name="color_text_blue_44">#448ACA</color>
     <!--标题字体色-->
     <color name="title_text_color">#313131</color>
-
     <color name="color_bg_yellow_f9">#F9B739</color>
     <color name="color_bg_balck_99">#999999</color>
     <color name="color_btn_red_de">#DE5250</color>
@@ -39,10 +36,8 @@
     <color name="text_bg_direct">#fff9b739</color>
     <color name="text_join">#ff6269eb</color>
     <color name="text_holding">#ff9c62eb</color>
-
     <!---->
     <color name="color_text_orange_62">#EB6262</color>
-
     <!-- 底栏字体颜色 -->
     <color name="footer_text_color_normal">#343434</color>
     <color name="footer_text_color_selected">#FF601C</color>
@@ -66,6 +61,5 @@
     <color name="umeng_socialize_shareactivity">#D4E0E5</color>
     <color name="umeng_socialize_shareactivitydefault">#ffffff</color>
     <color name="greenery">#7DA743</color>
-
     <color name="home_text_selected">#EE3333</color>
 </resources>

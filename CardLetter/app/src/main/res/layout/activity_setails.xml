@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_setails"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mt.cardletter.activity.SetailsActivity">
+    <RelativeLayout
+        android:id="@+id/setails_rl"
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+        <ImageView
+            android:src="@drawable/newer02"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="#33005500"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+        <RelativeLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/grey_back"
+                android:scaleType="centerCrop"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/grey_share"
+                android:scaleType="centerCrop"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_below="@id/setails_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/setails_ll1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="优惠方式："
+                android:textSize="12sp"
+                android:textColor="@color/umeng_socialize_text_share_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="15元优惠价享皇煲/天蔬黄煲套餐一份"
+                android:textSize="14sp"
+                android:textColor="@color/umeng_socialize_text_share_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="有效期："
+                android:textSize="12sp"
+                android:textColor="@color/umeng_socialize_text_share_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="2018/9/19"
+                android:textSize="12sp"
+                android:textColor="@color/umeng_socialize_text_share_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="联系电话："
+                android:textSize="12sp"
+                android:textColor="@color/umeng_socialize_text_share_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="无"
+                android:textSize="12sp"
+                android:textColor="@color/umeng_socialize_text_share_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="详细地址："
+                android:textSize="12sp"
+                android:textColor="@color/umeng_socialize_text_share_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="江宁开发区双龙大道1539号21世纪太阳城69栋F1-17号商铺和5楼F5-23号甜品店"
+                android:textSize="12sp"
+                android:textColor="@color/umeng_socialize_text_share_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="优惠对象："
+                android:textSize="12sp"
+                android:textColor="@color/umeng_socialize_text_share_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/item_img"
+                        android:src="@drawable/newer02"
+                        android:scaleType="centerCrop"
+                        android:layout_width="80dp"
+                        android:layout_height="60dp" />
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@id/item_img"
+                        android:text="广东银行炎黄信用卡 普卡（银联）"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:textColor="@color/umeng_socialize_text_share_content"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/item_img_2"
+                        android:src="@drawable/newer02"
+                        android:scaleType="centerCrop"
+                        android:layout_width="80dp"
+                        android:layout_height="60dp" />
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_below="@id/item_img_2"
+                        android:text="广东银行炎黄信用卡 普卡（银联）"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:textColor="@color/umeng_socialize_text_share_content"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+    <RelativeLayout
+        android:background="@color/blue"
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:textSize="14sp"
+            android:text="收藏"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:text="立即购买"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

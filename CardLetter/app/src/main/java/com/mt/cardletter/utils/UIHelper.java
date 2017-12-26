@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.mt.cardletter.MainActivity;
+import com.mt.cardletter.activity.AboutActivity;
 import com.mt.cardletter.activity.LoginActivity;
 import com.mt.cardletter.activity.MakeIntegralActivity;
 import com.mt.cardletter.activity.ScreenActivity;
@@ -159,6 +160,23 @@ public class UIHelper {
     public static void showViolateDetailActivity(Context context, List<ViolateData.ResultBean.ListsBean> violate_list){
         Intent intent = new Intent(context, ViolateDetailActivity.class);
         intent.putExtra("list", (Serializable) violate_list);
+        context.startActivity(intent);
+    }
+    /**
+     * 商品详情
+     * @param context
+     * @param intent
+     */
+    public static void showDetails(Context context,Intent intent) {
+        context.startActivity(intent);
+    }
+
+    /**
+     * 关于
+     * @param context
+     */
+    public static void showAboutActivity(Context context) {
+        Intent intent = new Intent(context, AboutActivity.class);
         context.startActivity(intent);
     }
 }

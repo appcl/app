@@ -1,6 +1,7 @@
 package com.mt.cardletter.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,12 +10,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -24,14 +32,19 @@ import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.https.HttpRequestApi;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
+import com.mt.cardletter.utils.SizeUtils;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.utils.Util;
+import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 import com.mt.cardletter.view.rollviewpager.OnItemClickListener;
 import com.mt.cardletter.view.rollviewpager.RollPagerView;
 import com.mt.cardletter.view.rollviewpager.adapter.StaticPagerAdapter;
 import com.mt.cardletter.view.tabstrip.PagerSlidingTabStrip;
+import com.umeng.socialize.utils.Log;
 import com.zaaach.citypicker.CityPickerActivity;
+
+import butterknife.Bind;
 
 
 /**
@@ -49,17 +62,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
-
     private LinearLayout locatio_address;
     private TextView fragment_home_top_text_address;
 
     private RelativeLayout make_integral,search_integral,search_seckill,my_order;
-
+    private LinearLayout pathContent;
     private static final int REQUEST_CODE_PICK_CITY = 123;
-
-
+    private ScrollView parentScrollView;
+    private LinearLayout pathContent2;
     private HeWeather.HeWeather6Bean weather6Bean;
 
+    private int viewY;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,12 +80,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         pagerView = (RollPagerView) view.findViewById(R.id.fragment_home_top_pagerview);
         pager = (ViewPager) view.findViewById(R.id.pager);
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
-
         vf = (ViewFlipper) view.findViewById(R.id.marquee_view);
         vf.addView(View.inflate(getContext(), R.layout.notice_layout, null));
         vf.addView(View.inflate(getContext(), R.layout.notice_layout, null));
         vf.addView(View.inflate(getContext(), R.layout.notice_layout, null));
-
+        pathContent2 = (LinearLayout) view.findViewById(R.id.path_content2);
         make_integral = (RelativeLayout) view.findViewById(R.id.make_integral);
         search_integral = (RelativeLayout) view.findViewById(R.id.search_integral);
         search_seckill = (RelativeLayout) view.findViewById(R.id.search_seckill);
@@ -87,7 +99,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         my_order.setOnClickListener(this);
 
         locatio_address.setOnClickListener(this);
-
+        parentScrollView = (ScrollView) view.findViewById(R.id.home_scroll);
         return view;
     }
 
@@ -101,38 +113,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 ToastUtils.makeShortText("点击了---"+position,getContext());
             }
         });
-
         TITLES = getResources().getStringArray(R.array.news_titles);
-
         FragmentPagerAdapter adapter = new NewsAdapter(getChildFragmentManager());
         pager.setAdapter(adapter);
-
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
         pager.setPageMargin(pageMargin);
-
         tabs.setViewPager(pager);
+
+        //计算距离
+        WindowManager wm = (WindowManager)getActivity().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        int dx = display.getWidth();
+        int dy = display.getHeight();
+        int[] location = new int[2];
+        pathContent2.getLocationOnScreen(location);
+        int x = location[0];
+        int y = location[1];
+        viewY = dy - y- SizeUtils.dip2px(getContext(),290);
+        pathContent2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, viewY));
+
     }
-
-    //    @Override
-//    protected int setLayoutResouceId() {
-//        return R.layout.fragment_home;
-//    }
-
-//    @Override
-//    public void initData() {
-//        pagerView = findViewById(R.id.fragment_home_top_pagerview);
-//        pagerView.setAdapter(new MyPagerAdapter());
-//        pagerView.setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//
-//            }
-//        });
-//    }
-
-    private void getData() {
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -193,7 +193,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                return new ActiveFragment();
+                return new ActiveFragment(parentScrollView,viewY);
             }
             if (position == 1) {
                 return new FristTagFragment();
@@ -246,6 +246,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             public void onError(int code, String msg) {
             }
         },getContext()));
+    }
+
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        // 获取ListView对应的Adapter
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+            // listAdapter.getCount()返回数据项的数目
+            View listItem = listAdapter.getView(i, null, listView);
+            // 计算子项View 的宽高
+            listItem.measure(0, 0);
+            // 统计所有子项的总高度
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        // listView.getDividerHeight()获取子项间分隔符占用的高度
+        // params.height最后得到整个ListView完整显示需要的高度
+        listView.setLayoutParams(params);
     }
 
 }

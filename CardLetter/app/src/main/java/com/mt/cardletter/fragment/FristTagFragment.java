@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.mt.cardletter.view.CustomListView;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListFragment;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;

@@ -90,7 +90,7 @@ public class DiscoverFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                return new ActiveFragment();
+                return new FristTagFragment();
             }
             if (position == 1) {
                 return new FristTagFragment();

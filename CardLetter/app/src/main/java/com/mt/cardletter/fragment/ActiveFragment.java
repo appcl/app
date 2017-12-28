@@ -1,23 +1,35 @@
 package com.mt.cardletter.fragment;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewConfigurationCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.SetailsActivity;
+import com.mt.cardletter.utils.SizeUtils;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
+import com.mt.cardletter.view.CustomListView;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 
@@ -26,6 +38,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import test.abc.MyActivity;
 
 /**
  * Created by jk on 2017/12/11.
@@ -33,29 +46,30 @@ import butterknife.ButterKnife;
 
 public class ActiveFragment extends Fragment {
 
-    private Activity context;
     private List<String> list;
     private MyAdapter myAdapter;
-    @Bind(R.id.listView)
-    PullToRefreshListView listView;
-
-
+    private CustomListView listView;
+    private ScrollView parentScrollView;
+    private int viewY;
+    public ActiveFragment(ScrollView parentScrollView,int viewY) {
+        this.parentScrollView = parentScrollView;
+        this.viewY = viewY;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fragment_layout, container, false);
-        ButterKnife.bind(this, view);
+        listView = (CustomListView) view.findViewById(R.id.list_view);
         return view;
     }
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        context = getActivity();
+
+        touchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(getContext()));
+
         initData();
         initView();
-        //loadData();
     }
-
     private void initData() {
         list = new ArrayList<>();
         for (int i = 0 ; i <= 20 ; i ++ ){
@@ -63,7 +77,11 @@ public class ActiveFragment extends Fragment {
         }
     }
 
+    private int mLastFirstPostion;
+    private int mLastFirstTop;
+    private int touchSlop;
     private void initView() {
+        listView.setParentScrollView(parentScrollView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -72,50 +90,62 @@ public class ActiveFragment extends Fragment {
                 UIHelper.showDetails(getContext(), intent);
             }
         });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int currentTop;
+
+                View firstChildView = listView.getChildAt(0);
+                if (firstChildView != null) {
+                    currentTop = listView.getChildAt(0).getTop();
+                } else {
+                    //ListView初始化的时候会回调onScroll方法，此时getChildAt(0)仍是为空的
+                    return;
+                }
+                if (firstVisibleItem != mLastFirstPostion) {
+                    //不是同一个位置
+                    if (firstVisibleItem < mLastFirstPostion) {
+                        //TODO do down
+                        Log.i("cs", "--->up");
+                        if (firstVisibleItem == 0){
+                            Log.i("cs", "--->jk");
+//                            listView.set
+//                            parentScrollView.requestDisallowInterceptTouchEvent(false);
+                        }
+                    }
+                    mLastFirstTop = currentTop;
+                }
+                mLastFirstPostion = firstVisibleItem;
+            }
+        });
+//        listView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        Log.i("cs", "--->jk");
+//
+//                    case MotionEvent.ACTION_MOVE:
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                    case MotionEvent.ACTION_CANCEL:
+//
+//                        break;
+//                    default:
+//                        break;
+//                }
+//
+//                return false;
+//            }
+//        });
         listView.setAdapter(myAdapter = new MyAdapter());
-        listView.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
-            @Override
-            public void onLastItemVisible() {
-                ToastUtils.makeShortText("刷新",getContext());
-            }
-        });
-        /**
-         * 刷新
-         */
-        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-            @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                // Do work to refresh the list here.
-                new ActiveFragment.GetDataTask().execute();
-            }
-        });
-
     }
-    private class GetDataTask extends AsyncTask<Void, Void, List<String>> {
 
-        @Override
-        protected List<String> doInBackground(Void... params) {
-            // Simulates a background job.
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-            }
-            return list;
-        }
-
-        @Override
-        protected void onPostExecute(List<String> new_list) {
-            list.add(0,"Added after refresh...");
-            myAdapter.notifyDataSetChanged();
-
-            // Call onRefreshComplete when the list has been refreshed.
-            listView.onRefreshComplete();
-
-            super.onPostExecute(new_list);
-        }
-    }
     class MyAdapter extends BaseAdapter{
-
         @Override
         public int getCount() {
             return list.size();
@@ -133,13 +163,22 @@ public class ActiveFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = null;
-//            if (convertView == null){
-                view = View.inflate(getContext(), R.layout.item_goods, null);
-          //  }
-            TextView tv = (TextView) view.findViewById(R.id.goods_discounts);
-            tv.setText(list.get(position));
-            return view;
+            ViewHolder holder;
+            if (convertView == null) {
+                holder = new ViewHolder();
+
+                convertView = View.inflate(getContext(),R.layout.item_goods, null);
+                holder.tv = (TextView) convertView.findViewById(R.id.goods_title);
+
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+                holder.tv.setText(list.get(position));
+            return convertView;
+        }
+        class ViewHolder{
+            TextView tv;
         }
     }
 

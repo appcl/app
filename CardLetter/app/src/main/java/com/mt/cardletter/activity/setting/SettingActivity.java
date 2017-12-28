@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.AboutActivity;
 import com.mt.cardletter.activity.BaseActivity;
 import com.mt.cardletter.utils.DataCleanUtil;
 import com.mt.cardletter.utils.UIHelper;
@@ -71,7 +72,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 UIHelper.showSettingMsg(this);
                 break;
             case R.id.test :
-                startActivity(new Intent(this, H5Activity.class));
+                startActivity(new Intent(this, AboutActivity.class));
                 break;
         }
     }

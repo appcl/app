@@ -2,6 +2,8 @@ package com.mt.cardletter.activity;
 
 import android.content.res.AssetManager;
 import android.os.Message;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
@@ -11,6 +13,8 @@ import java.io.InputStream;
 
 public class AboutActivity extends BaseActivity {
     private TextView textView;
+    private FrameLayout back;
+    private TextView title_name;
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_about;
@@ -18,6 +22,10 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        title_name = (TextView) findViewById(R.id.title_name);
+        title_name.setText("关于");
+        back = (FrameLayout) findViewById(R.id.com_back_click);
+        back.setVisibility(View.VISIBLE);
         textView = (TextView) findViewById(R.id.tv_about);
         textView.setText(getIntroduce());
     }

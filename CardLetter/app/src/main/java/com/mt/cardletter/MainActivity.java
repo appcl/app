@@ -1,10 +1,15 @@
 package com.mt.cardletter;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -20,10 +25,15 @@ import com.mt.cardletter.fragment.HomeFragment;
 import com.mt.cardletter.fragment.IntegralFragment;
 import com.mt.cardletter.fragment.MineFragment;
 import com.mt.cardletter.service.LocationService;
+import com.mt.cardletter.utils.PermissionUtils;
 import com.mt.cardletter.utils.ToastUtils;
+
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener{
 
@@ -51,6 +61,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private FragmentManager fragmentManager;
     private Fragment showFragment;
 
+    /*权限数组*/
+    private String[] permissionArray = new String[]{
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+    };
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_main;
@@ -58,7 +74,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     public void initView() {
+        /**
+         * 申请软件所需权限
+         */
+        PermissionUtils.checkPermissionArray(this, permissionArray, 0x10);
         ButterKnife.bind(this);
+//        setAlias(SharedPreferences.getInstance().getString("account",""));//设置别名推送
+        setAlias("cardletter");
         bottom_radiobuttonsize();
     }
 
@@ -202,12 +224,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         //获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
         locationService.registerListener(mListener);
         //注册监听
-        int type = getIntent().getIntExtra("from", 0);
-        if (type == 0) {
+//        int type = getIntent().getIntExtra("from", 0);
+//        if (type == 0) {
             locationService.setLocationOption(locationService.getDefaultLocationClientOption());
-        } else if (type == 1) {
-            locationService.setLocationOption(locationService.getOption());
-        }
+//        } else if (type == 1) {
+//            locationService.setLocationOption(locationService.getOption());
+//        }
         locationService.start();// 定位SDK
     }
 
@@ -315,5 +337,61 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         }
 
     };
+
+
+    /**
+     * 设置别名
+     */
+    private void setAlias(String alias) {
+        //调用JPush API设置Alias
+        System.out.println("******调用JPush API设置Alias*******"+alias);
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, alias));
+    }
+    private static final int MSG_SET_ALIAS = 1111;
+
+    private final Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case MSG_SET_ALIAS:
+                    JPushInterface.setAliasAndTags(getApplicationContext(), (String) msg.obj, null, mAliasCallback);
+                    break;
+            }
+        }
+    };
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback(){
+
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs;
+            switch (code) {
+                case 0:
+                    logs = "Set tag and alias success";
+                    Log.i(TAG, logs);
+                    break;
+
+                case 6002:
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    Log.i(TAG, logs);
+                    if (isConnected(getApplicationContext())) {
+                        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+                    } else {
+                        Log.i(TAG, "No network");
+                    }
+                    break;
+
+                default:
+                    logs = "Failed with errorCode = " + code;
+                    Log.e(TAG, logs);
+            }
+        }
+    };
+
+    public static boolean isConnected(Context context) {
+        ConnectivityManager conn = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = conn.getActiveNetworkInfo();
+        return (info != null && info.isConnected());
+    }
 
 }

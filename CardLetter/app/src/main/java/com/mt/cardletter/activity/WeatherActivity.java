@@ -85,6 +85,7 @@ public class WeatherActivity extends BaseActivity {
 
     private GridView life_gridview;
     private LifeAdapter lifeAdapter;
+    private String city;
 
     private List<HeWeather.HeWeather6Bean.LifestyleBean> life_list = new ArrayList<>();
 
@@ -99,6 +100,7 @@ public class WeatherActivity extends BaseActivity {
     private void getWeatherData() {
         Intent intent = getIntent();
         weatherbean = (HeWeather.HeWeather6Bean) intent.getSerializableExtra("weatherbean");
+        city=intent.getStringExtra("city");
     }
 
     /**
@@ -349,11 +351,7 @@ public class WeatherActivity extends BaseActivity {
     }
 
     private void showNowWeather() {
-        if (AppContext.getInstance().getCity()==null||AppContext.getInstance().getCity().equals("")){
-            tvCity.setText("南京");
-        }else {
-            tvCity.setText(AppContext.getInstance().getCity());
-        }
+        tvCity.setText(city);
         layoutNow.setVisibility(View.VISIBLE);
         layoutDetails.setVisibility(View.VISIBLE);
         tvNowHum.setText(weatherbean.getNow().getHum() + "%");

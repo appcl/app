@@ -1,13 +1,9 @@
 package com.mt.cardletter.fragment.seckill;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
@@ -24,10 +20,8 @@ import com.mt.cardletter.R;
 import com.mt.cardletter.view.rollviewpager.RollPagerView;
 import com.mt.cardletter.view.rollviewpager.adapter.StaticPagerAdapter;
 
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.Bind;
 
@@ -195,7 +189,7 @@ public class APMFragment extends Fragment implements  View.OnClickListener {
      * 适配轮播图
      */
     class MyPagerAdapter extends StaticPagerAdapter {
-        private int[] image = {R.drawable.newer01, R.drawable.newer02, R.drawable.newer03, R.drawable.newer04};
+        private int[] image = {R.drawable.new01, R.drawable.new02, R.drawable.new03};
         @Override
         public View getView(ViewGroup container, int position) {
             ImageView view = new ImageView(container.getContext());

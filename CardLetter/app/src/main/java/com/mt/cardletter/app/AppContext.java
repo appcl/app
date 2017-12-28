@@ -4,11 +4,12 @@ import android.app.Application;
 import android.app.Service;
 import android.os.Vibrator;
 
-
-import com.umeng.socialize.PlatformConfig;
-import com.umeng.socialize.UMShareAPI;
 import com.baidu.mapapi.SDKInitializer;
 import com.mt.cardletter.service.LocationService;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
+
+import cn.jpush.android.api.JPushInterface;
 
 
 public class AppContext extends Application {
@@ -70,7 +71,13 @@ public class AppContext extends Application {
 
         locationService = new LocationService(getApplicationContext());
         mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
-        SDKInitializer.initialize(getApplicationContext());
+        SDKInitializer.initialize(this);
+
+        /**
+         * 激光初始化
+         */
+        JPushInterface.setDebugMode(false);    // 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);            // 初始化 JPush
     }
     // 注册App异常崩溃处理器
     private void registerUncaughtExceptionHandler() {

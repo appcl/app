@@ -13,10 +13,9 @@ import com.mt.cardletter.activity.ScreenActivity;
 import com.mt.cardletter.activity.SearchClassicActivity;
 import com.mt.cardletter.activity.ViolateActivity;
 import com.mt.cardletter.activity.ViolateDetailActivity;
-import com.mt.cardletter.activity.SearchIntegralActivity;
-import com.mt.cardletter.activity.setting.SettingActivity;
 import com.mt.cardletter.activity.WeatherActivity;
 import com.mt.cardletter.activity.seckill.SeckillActivity;
+import com.mt.cardletter.activity.setting.SettingActivity;
 import com.mt.cardletter.activity.setting.SettingMsgActivity;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.entity.data.ViolateData;
@@ -119,8 +118,9 @@ public class UIHelper {
      * @param activity
      * @param weatherbean
      */
-    public static void showWeather(Context activity, HeWeather.HeWeather6Bean weatherbean){
+    public static void showWeather(Context activity,String city, HeWeather.HeWeather6Bean weatherbean){
         Intent intent = new Intent(activity, WeatherActivity.class);
+        intent.putExtra("city",city);
         intent.putExtra("weatherbean",  weatherbean);
         activity.startActivity(intent);
     }

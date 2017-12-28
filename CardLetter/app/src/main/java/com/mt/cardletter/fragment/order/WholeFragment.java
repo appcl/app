@@ -2,10 +2,8 @@ package com.mt.cardletter.fragment.order;
 
 
 
-import com.mt.cardletter.R;
 import com.mt.cardletter.fragment.BaseFragment;
 
-import static com.baidu.location.d.g.R;
 
 /**
  * 全部

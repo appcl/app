@@ -18,6 +18,8 @@ import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.indicator.CirclePageIndicator;
 
+
+
 /**
  * Date:2017/12/13
  * Time:16:56
@@ -30,9 +32,9 @@ public class SplashActivity extends FragmentActivity {
     private ViewPager pager;
     private GalleryPagerAdapter adapter;
     private int[] images = {
-            R.drawable.newer01,
-            R.drawable.newer02,
-            R.drawable.newer03,
+            R.drawable.new01,
+            R.drawable.new02,
+            R.drawable.new03,
     };
 
     @Override

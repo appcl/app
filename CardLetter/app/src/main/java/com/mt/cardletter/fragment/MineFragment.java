@@ -7,15 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.utils.SharedPreferences;
-import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.badge.BadgeView;
 import com.mt.cardletter.view.pulltozoomview.PullToZoomScrollViewEx;
-
-import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -29,10 +27,12 @@ public class MineFragment extends Fragment{
     private View root;
     private PullToZoomScrollViewEx scrollView;
 
+    private TextView user_name;
+    private CircleImageView avatar;
+    private boolean isLogin;
+
     private BadgeView mBadge;
 
-    private CircleImageView headImg;
-    private int[] headImgID = {R.mipmap.head1,R.mipmap.head2,R.mipmap.head3,R.mipmap.head4,R.mipmap.head5,R.mipmap.head6};
 //    @Override
 //    protected int setLayoutResouceId() {
 //        return R.layout.fragment_mine;
@@ -61,16 +61,15 @@ public class MineFragment extends Fragment{
 
     private void initView(){
         scrollView = (PullToZoomScrollViewEx) root.findViewById(R.id.picscrollView);
-
         View headView = LayoutInflater.from(context).inflate(R.layout.member_head_view, null, false);
         View zoomView = LayoutInflater.from(context).inflate(R.layout.member_zoom_view, null, false);
         View contentView = LayoutInflater.from(context).inflate(R.layout.member_content_view, null, false);
-        headImg = (CircleImageView) headView.findViewById(R.id.avatar);
-        setTingHead();
         scrollView.setHeaderView(headView);
         scrollView.setZoomView(zoomView);
         scrollView.setScrollContentView(contentView);
 
+        user_name = (TextView) headView.findViewById(R.id.user_name);
+        avatar = (CircleImageView) headView.findViewById(R.id.avatar);
 //        ImageView imageView = (ImageView) headView.findViewById(R.id.message);
 //        mBadge = new BadgeView(getActivity(),imageView);
 //        System.out.println("-----data-----"+AppContext.push_data.size());
@@ -82,14 +81,22 @@ public class MineFragment extends Fragment{
         headView.findViewById(R.id.avatar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UIHelper.showLoginActivity(getActivity());
+                if (!isLogin) {
+                    UIHelper.showLoginActivity(getActivity());
+                    return;
+                }
+//                UIHelper.showLoginActivity(getActivity());
             }
         });
 
         headView.findViewById(R.id.message).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UIHelper.showLoginActivity(getActivity());
+                if (!isLogin) {
+                    UIHelper.showLoginActivity(getActivity());
+                    return;
+                }
+//                UIHelper.showLoginActivity(getActivity());
 //                UIHelper.showMessageActivity(getActivity());
             }
         });
@@ -98,7 +105,11 @@ public class MineFragment extends Fragment{
         headView.findViewById(R.id.question).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UIHelper.showLoginActivity(getActivity());
+                if (!isLogin) {
+                    UIHelper.showLoginActivity(getActivity());
+                    return;
+                }
+//                UIHelper.showLoginActivity(getActivity());
             }
         });
 
@@ -106,26 +117,46 @@ public class MineFragment extends Fragment{
         scrollView.getPullRootView().findViewById(R.id.collection).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isLogin) {
+                    UIHelper.showLoginActivity(getActivity());
+                    return;
+                }
             }
         });
         scrollView.getPullRootView().findViewById(R.id.location).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isLogin) {
+                    UIHelper.showLoginActivity(getActivity());
+                    return;
+                }
             }
         });
         scrollView.getPullRootView().findViewById(R.id.discover).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isLogin) {
+                    UIHelper.showLoginActivity(getActivity());
+                    return;
+                }
             }
         });
         scrollView.getPullRootView().findViewById(R.id.subscribe).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isLogin) {
+                    UIHelper.showLoginActivity(getActivity());
+                    return;
+                }
             }
         });
         scrollView.getPullRootView().findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isLogin) {
+                    UIHelper.showLoginActivity(getActivity());
+                    return;
+                }
                 UIHelper.showSetting(getContext());
             }
         });
@@ -135,18 +166,24 @@ public class MineFragment extends Fragment{
     private void initData() {
     }
 
-    /**
-     * 设置随机设置头像
-     */
-    private void setTingHead(){
-        Random rand = new Random();
-        SharedPreferences sp = SharedPreferences.getInstance();
-        int defImgIndex = sp.getInt("headImgIndex", -1);
-        if (defImgIndex == -1){
-            sp.putInt("headImgIndex",rand.nextInt(6)+1);
-            defImgIndex = sp.getInt("headImgIndex", -1);
-        }
-        headImg.setImageResource(headImgID[defImgIndex]);
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        resetInfo();
     }
 
+    public void resetInfo() {
+        isLogin = SharedPreferences.getInstance().getBoolean("isLogin", false);
+        if (isLogin) {
+            String name = SharedPreferences.getInstance().getString("nick_name","");
+//            Glide.with(context).load().diskCacheStrategy(DiskCacheStrategy.ALL).into(avatar);
+            if (null!=name){
+                user_name.setText(name);
+            }
+        }else {
+            avatar.setImageResource(R.mipmap.icon_default);
+            user_name.setText("未登录");
+        }
+    }
 }

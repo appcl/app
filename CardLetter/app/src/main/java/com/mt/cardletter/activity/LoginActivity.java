@@ -12,11 +12,8 @@ import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
-import com.mt.cardletter.utils.OnMultiClickListener;
+import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Date:2017/12/13
@@ -24,18 +21,15 @@ import butterknife.ButterKnife;
  * author:demons
  */
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
-    @Bind({R.id.phone})
-    EditText phone;
-    @Bind({R.id.code})
-    EditText code;
-    @Bind({R.id.btnSure})
-    Button btnSure;
-    @Bind({R.id.btnClose})
-    Button btnClose;
+    private EditText phone;
+    private EditText code;
+    private Button btnSure;
+    private Button btnClose;
 
-    private String name,password;
+    private String name;
+    private String password;
 
 
     @Override
@@ -45,35 +39,18 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        ButterKnife.bind(this);
+        phone= (EditText) findViewById(R.id.phone);
+        code = (EditText) findViewById(R.id.code);
+        btnSure = (Button) findViewById(R.id.btnSure);
+        btnClose = (Button) findViewById(R.id.btnClose);
 
-//        findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (checkInput())
-//            }
-//        });
-        name = phone.getText().toString();
-        password = code.getText().toString();
+        btnSure.setOnClickListener(this);
+        btnClose.setOnClickListener(this);
+
     }
 
     @Override
     public void initListener() {
-        btnSure.setOnClickListener(new OnMultiClickListener() {
-            @Override
-            public void onMultiClick(View v) {
-                if (checkInput(name,password)){
-                    toLogin(Constant.Access_Token,name,password);
-                }
-            }
-        });
-
-        btnClose.setOnClickListener(new OnMultiClickListener() {
-            @Override
-            public void onMultiClick(View v) {
-                finish();
-            }
-        });
     }
 
     @Override
@@ -86,33 +63,68 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    private void toLogin(String ak,String username,String password){
+    private void toLogin(String ak, final String username, final String password){
         CardLetterRequestApi.getInstance().getUserInfo(ak,username,password,new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
             @Override
             public void onSucceed(LoginEntity data) {
-
+                if (data.getCode() == 0){
+                    String nick_name = data.getData().getNickname();
+                    String user_token = data.getData().getUser_token();
+                    SharedPreferences.getInstance().putString("account",username);
+                    SharedPreferences.getInstance().putString("password",password);
+                    SharedPreferences.getInstance().putString("nick_name",nick_name);
+                    SharedPreferences.getInstance().putString("user_token",user_token);
+                    SharedPreferences.getInstance().putBoolean("isLogin",true);
+                    finish();
+                }else {
+                    ToastUtils.makeShortText(data.getMsg(),LoginActivity.this);
+                }
             }
 
             @Override
             public void onError(int code, String msg) {
-
+                ToastUtils.makeShortText("网络故障",LoginActivity.this);
             }
         },LoginActivity.this));
-        finish();
     }
 
     /**
      * 检查注册输入的内容
      */
-    public boolean checkInput(String username,String password) {
-        if (TextUtils.isEmpty(username)) {
-            ToastUtils.showShort(this, "请输入账号");
+    public boolean checkInput(String phone, String password) {
+        if (TextUtils.isEmpty(phone)) {
+            ToastUtils.showShort(this, "请填写账号");
         }
+      /*  else if (!RegexUtils.checkMobile(phone)) {
+            ToastUtils.showShort(this, R.string.tip_phone_regex_not_right);
+
+        } */
         else if (TextUtils.isEmpty(password)) {
             ToastUtils.showShort(this, "请输入密码");
         } else {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        name = phone.getText().toString();
+        password = code.getText().toString();
+        switch (v.getId()){
+            case R.id.btnSure:
+                if (checkInput(name,password)){
+                    toLogin(Constant.Access_Token,name,password);
+                }
+                break;
+            case R.id.btnClose:
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

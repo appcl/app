@@ -47,9 +47,7 @@ public class ActiveFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         touchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(getContext()));
-
         initData();
         initView();
     }
@@ -76,6 +74,7 @@ public class ActiveFragment extends Fragment {
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
+
             }
 
             @Override
@@ -105,26 +104,7 @@ public class ActiveFragment extends Fragment {
                 mLastFirstPostion = firstVisibleItem;
             }
         });
-//        listView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        Log.i("cs", "--->jk");
-//
-//                    case MotionEvent.ACTION_MOVE:
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                    case MotionEvent.ACTION_CANCEL:
-//
-//                        break;
-//                    default:
-//                        break;
-//                }
-//
-//                return false;
-//            }
-//        });
+
         listView.setAdapter(myAdapter = new MyAdapter());
     }
 

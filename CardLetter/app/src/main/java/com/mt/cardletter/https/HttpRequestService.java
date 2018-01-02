@@ -2,11 +2,15 @@ package com.mt.cardletter.https;
 
 
 import com.mt.cardletter.entity.data.AirDatas;
+import com.mt.cardletter.entity.data.CategoryList;
+import com.mt.cardletter.entity.data.GoodsBean;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.entity.data.ViolateCity;
 import com.mt.cardletter.entity.data.ViolateData;
 import com.mt.cardletter.entity.user.LoginEntity;
 
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -76,4 +80,23 @@ public interface HttpRequestService {
     Observable<LoginEntity> getUserInfo(@Query("access_token") String access_token,
                                         @Query("username") String username,
                                         @Query("password") String password);
+
+    /**
+     * 优惠 test
+     * @param page_index
+     * @param page_size
+     * @return
+     */
+    @GET("/")
+    Observable<GoodsBean> getGoods(@Query("page_index") int page_index,
+                                   @Query("page_size") int page_size);
+
+    /**
+     * 获取活动分类，test
+     * @param access_token
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/newfind/index_ask")
+    Observable<CategoryList> getCategoryList(@Field("access_token") String access_token);
 }

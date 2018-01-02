@@ -32,12 +32,12 @@ public class CustomListView extends ListView {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                setParentScrollAble(isScroll,false);
+                setParentScrollAble(false);
             case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                setParentScrollAble(isScroll,true);
+                setParentScrollAble(true);
                 break;
             default:
                 break;
@@ -51,27 +51,12 @@ public class CustomListView extends ListView {
      *
      * @param
      */
-    public void setParentScrollAble(boolean isAble,boolean flag) {
-        if(isAble) {
-            parentScrollView.requestDisallowInterceptTouchEvent(!flag);
-        } else {
-            parentScrollView.requestDisallowInterceptTouchEvent(!flag);
-        }
+    public void setParentScrollAble(boolean flag) {
+        parentScrollView.requestDisallowInterceptTouchEvent(!flag);
     }
     public static void setScrollAble(boolean isScroll) {
         CustomListView.isScroll = isScroll;
     }
 
-//    public void  setOnScrollListener (){
-//        this.setOnScrollListener(new OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//
-//            }
-//            @Override
-//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//
-//            }
-//        });
-//    }
+
 }

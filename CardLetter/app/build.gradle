@@ -12,7 +12,10 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
+    aaptOptions {
+        cruncherEnabled = false
+        useNewCruncher = false
+    }
 //    signingConfigs {
 //        release{
 //            storeFile file['mt_keytools.jks']

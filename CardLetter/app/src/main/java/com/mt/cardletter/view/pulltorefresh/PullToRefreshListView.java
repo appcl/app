@@ -40,6 +40,7 @@ import java.util.List;
 public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView> {
 
     private LoadingLayout mHeaderLoadingView;
+
     private LoadingLayout mFooterLoadingView;
 
     private FrameLayout mLvFooterLoadingFrame;

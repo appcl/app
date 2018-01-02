@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private LinearLayout pathContent2;
     private HeWeather.HeWeather6Bean weather6Bean;
 
+
     private int viewY;
     @Nullable
     @Override
@@ -196,7 +197,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             if (position == 2) {
                 return new FristTagFragment();
             }
-            return FristTagFragment.newInstance(URLS[position % URLS.length]);
+            return new ActiveFragment(parentScrollView,viewY);
         }
 
         @Override

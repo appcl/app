@@ -1,8 +1,10 @@
 package com.mt.cardletter.receiver;
 
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,8 +24,9 @@ import cn.jpush.android.api.JPushInterface;
  * 2) 接收不到自定义消息
  */
 public class MyReceiver extends BroadcastReceiver {
-	private static final String TAG = "JIGUANG-CardLetter";
+	private static final String TAG = "JIGUANG-Example";
 
+	@TargetApi(Build.VERSION_CODES.N)
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		try {
@@ -37,52 +40,47 @@ public class MyReceiver extends BroadcastReceiver {
 
 			} else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
 				Log.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
+				String message=bundle.getString(JPushInterface.EXTRA_MESSAGE);
+				System.out.println("收到了自定义消息。消息内容是：" + message);
+				String extra=bundle.getString(JPushInterface.EXTRA_EXTRA);
+				System.out.println("收到了自定义消息。extra是：" + extra);
+				//**************解析推送过来的json数据并存放到集合中 begin******************
+//				Map<String, Object> map = new HashMap<String, Object>();
+//				JSONObject jsonObject;
+//				try {
+//					jsonObject = new JSONObject(extra);
+//					String type = jsonObject.getString("key");
+//					map.put("key", type);
+//				} catch (JSONException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				map.put("content", message);
+//				//获取接收到推送时的系统时间
+//				Calendar rightNow = Calendar.getInstance();
+//				SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+//				String date = fmt.format(rightNow.getTime());
+//				map.put("date", date);
+//				AppContext.push_data.add(map);
+				//**************解析推送过来的json数据并存放到集合中 end******************
+
 //				processCustomMessage(context, bundle);
 
 			} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-				Log.d(TAG, "[MyReceiver] 接收到推送下来的通知"+bundle.getString(JPushInterface.EXTRA_EXTRA));
+				Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
 				int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
 				Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
 
 			} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
 				Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
-//				String data = bundle.getString(JPushInterface.EXTRA_EXTRA);
-				//**************解析推送过来的json数据并存放到集合中******************
-//				Map<String, Object> map= new Hashtable<>();
-//				JSONObject jsonObject;
-//				try {
-//					jsonObject = new JSONObject(data);
-//					String open = jsonObject.getString("open");
-//					String module = jsonObject.getString("module");
-//					System.out.println("----------"+open+"\n"+module);
-//					map.put("open", open);
-//					map.put("module",module);
-//				} catch (JSONException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				if (map==null){
-//					map=new Hashtable<>();
-//				}else {
-//					if (map.get("open").equals("true")){
-//						if (map.get("module").equals("Finance")){
-//							Intent i = new Intent(context, ServiceManagementActivity.class);
-//							i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
-//							context.startActivity(i);
-//						}else if (map.get("module").equals("ServiceOrder")){
-//							Intent i = new Intent(context, ServiceFormActivity.class);
-//							i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
-//							context.startActivity(i);
-//						}else if (map.get("module").equals("PurchaseOrder")){
-//							Constant.CANCLE_ORDER = 4;
-//							Intent i = new Intent(context, com.sinoauto_multiple_shop.MainActivity.class);
-//							i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
-//							context.startActivity(i);
-//						}
-//					}else {
-//
-//					}
-//				}
+
+				//打开自定义的Activity
+//				Intent i = new Intent(context, TestActivity.class);
+//				i.putExtras(bundle);
+//				//i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
+//				context.startActivity(i);
+
 			} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
 				Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
 				//在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
@@ -118,10 +116,9 @@ public class MyReceiver extends BroadcastReceiver {
 					Iterator<String> it =  json.keys();
 
 					while (it.hasNext()) {
-						String myKey = it.next().toString();
+						String myKey = it.next();
 						sb.append("\nkey:" + key + ", value: [" +
 								myKey + " - " +json.optString(myKey) + "]");
-
 					}
 				} catch (JSONException e) {
 					Log.e(TAG, "Get message extra JSON error!");
@@ -134,7 +131,7 @@ public class MyReceiver extends BroadcastReceiver {
 		return sb.toString();
 	}
 	
-//	//send msg to MainActivity
+	//send msg to MainActivity
 //	private void processCustomMessage(Context context, Bundle bundle) {
 //		if (MainActivity.isForeground) {
 //			String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);

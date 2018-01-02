@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
+import com.mt.cardletter.view.badge.BadgeView;
 import com.mt.cardletter.view.pulltozoomview.PullToZoomScrollViewEx;
 
 /**
@@ -22,6 +22,9 @@ public class MineFragment extends Fragment{
     private Activity context;
     private View root;
     private PullToZoomScrollViewEx scrollView;
+
+    private BadgeView mBadge;
+
 //    @Override
 //    protected int setLayoutResouceId() {
 //        return R.layout.fragment_mine;
@@ -57,6 +60,14 @@ public class MineFragment extends Fragment{
         scrollView.setZoomView(zoomView);
         scrollView.setScrollContentView(contentView);
 
+//        ImageView imageView = (ImageView) headView.findViewById(R.id.message);
+//        mBadge = new BadgeView(getActivity(),imageView);
+//        System.out.println("-----data-----"+AppContext.push_data.size());
+//        if (AppContext.push_data.size()>0){
+//            mBadge.setText(String.valueOf(AppContext.push_data.size()));
+//            mBadge.show();
+//        }
+
         headView.findViewById(R.id.avatar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +79,7 @@ public class MineFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 UIHelper.showLoginActivity(getActivity());
+//                UIHelper.showMessageActivity(getActivity());
             }
         });
 

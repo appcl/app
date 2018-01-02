@@ -52,4 +52,6 @@ public class Constant {
         HOUR,
         DAY
     }
+
+    public static final String Access_Token = "bc1b680ef46d3c923db8089b00f9c0e3";//测试ak
 }

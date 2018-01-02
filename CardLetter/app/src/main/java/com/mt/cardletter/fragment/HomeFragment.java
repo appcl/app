@@ -14,9 +14,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -36,15 +34,11 @@ import com.mt.cardletter.utils.SizeUtils;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.utils.Util;
-import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 import com.mt.cardletter.view.rollviewpager.OnItemClickListener;
 import com.mt.cardletter.view.rollviewpager.RollPagerView;
 import com.mt.cardletter.view.rollviewpager.adapter.StaticPagerAdapter;
 import com.mt.cardletter.view.tabstrip.PagerSlidingTabStrip;
-import com.umeng.socialize.utils.Log;
 import com.zaaach.citypicker.CityPickerActivity;
-
-import butterknife.Bind;
 
 
 /**
@@ -154,6 +148,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                   UIHelper.showSeckillActivity(getContext());
 //                UIHelper.showSeckillActivity(getContext());
             case R.id.my_order://订单
+//                toLogin(Constant.Access_Token,"test","123123");
                 Util.showCommonDialog(getActivity(),R.drawable.error_500);
                 break;
             case R.id.locatio_address://定位城市
@@ -271,5 +266,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         // params.height最后得到整个ListView完整显示需要的高度
         listView.setLayoutParams(params);
     }
+
+//    private void toLogin(String ak,String username,String password){
+//        CardLetterRequestApi.getInstance().getUserInfo(ak,username,password,new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
+//            @Override
+//            public void onSucceed(LoginEntity data) {
+//                System.out.println(data.getMsg()+"\n"+data.getData().getNickname());
+//            }
+//
+//            @Override
+//            public void onError(int code, String msg) {
+//
+//            }
+//        },getContext()));
+//    }
 
 }

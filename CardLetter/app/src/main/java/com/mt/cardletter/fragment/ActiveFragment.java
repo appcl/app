@@ -1,44 +1,27 @@
 package com.mt.cardletter.fragment;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewConfigurationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.SetailsActivity;
-import com.mt.cardletter.utils.SizeUtils;
-import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.CustomListView;
-import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
-import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import test.abc.MyActivity;
 
 /**
  * Created by jk on 2017/12/11.

@@ -394,4 +394,15 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         return (info != null && info.isConnected());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
+    }
 }

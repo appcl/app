@@ -5,8 +5,10 @@ import com.mt.cardletter.entity.data.AirDatas;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.entity.data.ViolateCity;
 import com.mt.cardletter.entity.data.ViolateData;
+import com.mt.cardletter.entity.user.LoginEntity;
 
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -62,4 +64,16 @@ public interface HttpRequestService {
                                         @Query("engineno") String engineno,
                                         @Query("classno") String classno,
                                         @Query("key") String key);
+
+    /**
+     * 登录注册接口
+     * @param access_token
+     * @param username
+     * @param password
+     * @return
+     */
+    @POST("/api.php/common/login")
+    Observable<LoginEntity> getUserInfo(@Query("access_token") String access_token,
+                                        @Query("username") String username,
+                                        @Query("password") String password);
 }

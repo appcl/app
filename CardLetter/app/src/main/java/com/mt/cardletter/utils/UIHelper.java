@@ -9,6 +9,7 @@ import com.mt.cardletter.MainActivity;
 import com.mt.cardletter.activity.AboutActivity;
 import com.mt.cardletter.activity.LoginActivity;
 import com.mt.cardletter.activity.MakeIntegralActivity;
+import com.mt.cardletter.activity.MessageActivity;
 import com.mt.cardletter.activity.ScreenActivity;
 import com.mt.cardletter.activity.SearchClassicActivity;
 import com.mt.cardletter.activity.ViolateActivity;
@@ -177,6 +178,15 @@ public class UIHelper {
      */
     public static void showAboutActivity(Context context) {
         Intent intent = new Intent(context, AboutActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 消息
+     * @param context
+     */
+    public static void showMessageActivity(Context context) {
+        Intent intent = new Intent(context, MessageActivity.class);
         context.startActivity(intent);
     }
 }

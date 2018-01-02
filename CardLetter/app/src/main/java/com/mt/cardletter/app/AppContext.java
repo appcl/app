@@ -9,6 +9,10 @@ import com.mt.cardletter.service.LocationService;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import cn.jpush.android.api.JPushInterface;
 
 
@@ -23,6 +27,8 @@ public class AppContext extends Application {
     }
     public LocationService locationService;
     public Vibrator mVibrator;
+
+    public static List<Map<String, Object>> push_data=new ArrayList<Map<String, Object>>();
 
 
 

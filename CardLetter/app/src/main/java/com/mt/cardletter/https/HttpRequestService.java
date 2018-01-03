@@ -1,12 +1,15 @@
 package com.mt.cardletter.https;
 
 
+import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.data.AirDatas;
 import com.mt.cardletter.entity.data.CategoryList;
 import com.mt.cardletter.entity.data.GoodsBean;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.entity.data.ViolateCity;
 import com.mt.cardletter.entity.data.ViolateData;
+import com.mt.cardletter.entity.express.ExpressCom;
+import com.mt.cardletter.entity.express.Express_Content;
 import com.mt.cardletter.entity.user.LoginEntity;
 
 import retrofit2.http.Field;
@@ -99,4 +102,33 @@ public interface HttpRequestService {
     @FormUrlEncoded
     @POST("/newfind/index_ask")
     Observable<CategoryList> getCategoryList(@Field("access_token") String access_token);
+
+    /**
+     * 头条
+     * @param access_token
+     * @return
+     */
+    @POST("/api.php/article/articlelist")
+    Observable<ArticleBean>getArticle(@Query("access_token") String access_token);
+
+    /**
+     * 获取快递名称
+     * @param key
+     * @return
+     */
+    @GET("/exp/com")
+    Observable<ExpressCom> getExpressCom(@Query("key") String key);
+
+
+    /**
+     * 获取快递状态
+     * @param key
+     * @param com
+     * @param no
+     * @return
+     */
+    @POST("/exp/index")
+    Observable<Express_Content> getExpressContent(@Query("key") String key,
+                                                  @Query("com") String com,
+                                                  @Query("no") String no);
 }

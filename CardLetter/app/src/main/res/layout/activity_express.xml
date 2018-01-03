@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/action_title"/>
+
+    <RelativeLayout
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:layout_height="200dp">
+        <TextView
+            android:id="@+id/express_com"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_text_black_31"
+            android:textSize="12dp"
+            android:gravity="center"
+            android:background="@drawable/text_btn_bg"
+            android:hint="请选择"/>
+        <EditText
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/express_order"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@+id/express_com"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入订单号"
+            android:textSize="12dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="@color/color_text_black_31"
+            android:background="@drawable/text_btn_bg"/>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_express_search"
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:layout_marginLeft="18.0dip"
+        android:layout_marginRight="18.0dip"
+        android:layout_marginTop="50.0dip"
+        android:background="@color/red"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="查询"
+        android:textColor="#ffffffff"
+        android:textSize="15.0sp" />
+</LinearLayout>

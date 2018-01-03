@@ -51,7 +51,7 @@
     <application
         android:name=".app.AppContext"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -100,6 +100,18 @@
         <activity android:name=".activity.ViolateDetailActivity" android:screenOrientation="portrait"/>
         <!-- 消息 -->
         <activity android:name=".activity.MessageActivity" android:screenOrientation="portrait"/>
+
+        <!--热门-->
+        <activity android:name=".activity.ArticleActivity"
+            android:screenOrientation="portrait"/>
+        <!--订单-->
+        <activity android:name=".activity.ExpressActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ExpressDetailActivity"
+            android:screenOrientation="portrait"/>
+        <!--地理位置-->
+        <activity android:name=".activity.LoactionActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
@@ -192,7 +204,6 @@
         <activity android:name=".activity.ScreenActivity" />
         <activity android:name=".activity.SetailsActivity" />
         <activity android:name=".activity.AboutActivity"></activity>
-
 
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"

@@ -53,5 +53,11 @@ public class Constant {
         DAY
     }
 
-    public static final String Access_Token = "bc1b680ef46d3c923db8089b00f9c0e3";//测试ak
+    public static final String Access_Token = "45a0bd0b5d1faf99ca6d4840c23abe6e";//测试ak
+
+    public static final String JH_KEY = "e46870fe3129e14dfe9818b31609bc1a";//聚合的Key
+
+    public static final String JH_CAR = "8e54776ff5c43672a1e8380c988af6bc";//聚合违章查询Key
+//    public static final String JH_KEY = "9a66765e53c4bf57f1e614d3fefe02d1";//聚合快递查询Key
+
 }

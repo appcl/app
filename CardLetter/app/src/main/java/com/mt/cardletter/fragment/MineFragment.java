@@ -130,6 +130,7 @@ public class MineFragment extends Fragment{
                     UIHelper.showLoginActivity(getActivity());
                     return;
                 }
+                UIHelper.showLocationActivity(getActivity());
             }
         });
         scrollView.getPullRootView().findViewById(R.id.discover).setOnClickListener(new View.OnClickListener() {

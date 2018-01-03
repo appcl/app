@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@color/white">
+    <include layout="@layout/action_title" />
+    <TextView
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:id="@+id/ex_status"
+        android:text="物流状态：派送中"
+        android:textSize="12dp"
+        android:textColor="@color/color_text_black_31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:id="@+id/ex_company"
+        android:text="物流公司：EMS"
+        android:textSize="12dp"
+        android:textColor="@color/color_text_black_31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:id="@+id/ex_order"
+        android:text="运单编号：9264564648561654"
+        android:textSize="12dp"
+        android:textColor="@color/color_text_black_31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:padding="10dp"
+        android:id="@+id/ex_recyler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

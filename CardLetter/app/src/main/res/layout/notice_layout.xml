@@ -8,6 +8,7 @@
         android:padding="5dp"
         android:src="@drawable/red_table" />
     <TextView
+        android:id="@+id/head_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"

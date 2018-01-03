@@ -16,29 +16,26 @@ android {
         cruncherEnabled = false
         useNewCruncher = false
     }
-//    signingConfigs {
-//        release{
-//            storeFile file['mt_keytools.jks']
-//            keyAlias props['mt_keytools']
-//            storePassword props['mt123456']
-//            keyPassword props['mt123456']
-//        }
+    signingConfigs {
+        release {
+            storeFile file("mt_keytools.jks")
+            storePassword "mt123456"
+            keyAlias "mt_keytools"
+            keyPassword "mt123456"
+        }
 //        debug {
 //            storeFile file('debug.keystore')
 //            storePassword "android"
 //            keyAlias "androiddebugkey"
 //            keyPassword "android"
 //        }
-//    }
+    }
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
         debug {
-            signingConfig signingConfigs.debug
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+            signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
         }
     }
 
@@ -89,4 +86,5 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile files('libs/jcore-android-1.1.8.jar')
     compile files('libs/jpush-android-3.1.0.jar')
+    compile 'com.weigan:loopView:0.1.2'
 }

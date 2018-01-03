@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:background="@color/white"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <TextView
+        android:text="请选择"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.weigan.loopview.LoopView
+        android:id="@+id/loopView"
+        app:awv_centerTextColor = "@color/text_direct"
+        app:awv_outerTextColor = "@color/color_bg_balck_99"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:awv_textsize="20" />
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_cancle"
+            android:text="取消"
+            android:textSize="13sp"
+            android:background="#00000000"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:layout_height="40dp" />
+        <Button
+            android:id="@+id/btn_ok"
+            android:text="确定"
+            android:textSize="13sp"
+            android:layout_marginLeft="20dp"
+            android:background="#00000000"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+</LinearLayout>

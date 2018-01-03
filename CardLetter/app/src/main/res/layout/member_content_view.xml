@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
+        android:visibility="gone"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/collection_tag"
@@ -64,10 +65,12 @@
     <include layout="@layout/mine_content_layout"/>
 
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="@color/colorspaceline"/>
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <TextView
@@ -80,10 +83,12 @@
             android:text="我的订单"/>
     </RelativeLayout>
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorspaceline"/>
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
@@ -99,6 +104,7 @@
             android:text="@string/my_order_text"/>
     </RelativeLayout>
     <View
+        android:visibility="gone"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"

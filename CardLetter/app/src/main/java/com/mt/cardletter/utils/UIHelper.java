@@ -7,6 +7,10 @@ import android.widget.Toast;
 
 import com.mt.cardletter.MainActivity;
 import com.mt.cardletter.activity.AboutActivity;
+import com.mt.cardletter.activity.ArticleActivity;
+import com.mt.cardletter.activity.ExpressActivity;
+import com.mt.cardletter.activity.ExpressDetailActivity;
+import com.mt.cardletter.activity.LoactionActivity;
 import com.mt.cardletter.activity.LoginActivity;
 import com.mt.cardletter.activity.MakeIntegralActivity;
 import com.mt.cardletter.activity.MessageActivity;
@@ -18,8 +22,10 @@ import com.mt.cardletter.activity.WeatherActivity;
 import com.mt.cardletter.activity.seckill.SeckillActivity;
 import com.mt.cardletter.activity.setting.SettingActivity;
 import com.mt.cardletter.activity.setting.SettingMsgActivity;
+import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.entity.data.ViolateData;
+import com.mt.cardletter.entity.express.Express_Content;
 
 import java.io.Serializable;
 import java.util.List;
@@ -187,6 +193,40 @@ public class UIHelper {
      */
     public static void showMessageActivity(Context context) {
         Intent intent = new Intent(context, MessageActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 头条
+     * @param context
+     * @param bean
+     */
+    public static void showArticleActivity(Context context, ArticleBean.DataBeanX.DataBean bean){
+        Intent intent = new Intent(context, ArticleActivity.class);
+        intent.putExtra("bean", (Serializable) bean);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 订单
+     * @param context
+     */
+    public static void showExpressActivity(Context context){
+        Intent intent = new Intent(context, ExpressActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void showExpressDetailActivity(Activity context, Express_Content.ResultBean resultBean){
+        Intent intent = new Intent(context, ExpressDetailActivity.class);
+        intent.putExtra("resultBean", (Serializable) resultBean);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 地理位置
+     */
+    public static void showLocationActivity(Context context){
+        Intent intent = new Intent(context, LoactionActivity.class);
         context.startActivity(intent);
     }
 }

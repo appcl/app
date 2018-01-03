@@ -1,6 +1,7 @@
 package com.mt.cardletter.https.base_net;
 
 
+import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.BaseApi;
 import com.mt.cardletter.https.HttpRequestService;
@@ -40,6 +41,17 @@ public class CardLetterRequestApi extends BaseApi {
     public void getUserInfo(String ak, String username, String password, Subscriber<LoginEntity> subscriber){
         Observable observable = httpRequestService.getUserInfo(ak,username,password)
                 .map(new HttpResultFunc<LoginEntity>());
+        toSubscribe(observable,subscriber);
+    }
+
+    /**
+     * 获取头条信息
+     * @param ak
+     * @param subscriber
+     */
+    public void getArticle(String ak, Subscriber<ArticleBean> subscriber){
+        Observable observable = httpRequestService.getArticle(ak)
+                .map(new HttpResultFunc<ArticleBean>());
         toSubscribe(observable,subscriber);
     }
 }

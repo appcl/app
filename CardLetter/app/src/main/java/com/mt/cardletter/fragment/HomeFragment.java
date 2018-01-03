@@ -26,19 +26,27 @@ import android.widget.ViewFlipper;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.app.AppContext;
+import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.https.HttpRequestApi;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
+import com.mt.cardletter.https.base_net.CardLetterRequestApi;
+import com.mt.cardletter.utils.Constant;
+import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.SizeUtils;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
-import com.mt.cardletter.utils.Util;
 import com.mt.cardletter.view.rollviewpager.OnItemClickListener;
 import com.mt.cardletter.view.rollviewpager.RollPagerView;
 import com.mt.cardletter.view.rollviewpager.adapter.StaticPagerAdapter;
 import com.mt.cardletter.view.tabstrip.PagerSlidingTabStrip;
 import com.zaaach.citypicker.CityPickerActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -67,18 +75,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private HeWeather.HeWeather6Bean weather6Bean;
 
 
+    private int mCurrPos;
+    private Timer timer;
+    private TimerTask task;
+    List<String> testList = new ArrayList<>();
+    private int count;
+
+
     private int viewY;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
+        getDatas(view);
         pagerView = (RollPagerView) view.findViewById(R.id.fragment_home_top_pagerview);
         pager = (ViewPager) view.findViewById(R.id.pager);
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
-        vf = (ViewFlipper) view.findViewById(R.id.marquee_view);
-        vf.addView(View.inflate(getContext(), R.layout.notice_layout, null));
-        vf.addView(View.inflate(getContext(), R.layout.notice_layout, null));
-        vf.addView(View.inflate(getContext(), R.layout.notice_layout, null));
+//        vf.addView(View.inflate(getContext(), R.layout.notice_layout, null));
+//        vf.addView(View.inflate(getContext(), R.layout.notice_layout, null));
+//        vf.addView(View.inflate(getContext(), R.layout.notice_layout, null));
         pathContent2 = (LinearLayout) view.findViewById(R.id.path_content2);
         make_integral = (RelativeLayout) view.findViewById(R.id.make_integral);
         search_integral = (RelativeLayout) view.findViewById(R.id.search_integral);
@@ -150,7 +165,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 //                UIHelper.showSeckillActivity(getContext());
             case R.id.my_order://订单
 //                toLogin(Constant.Access_Token,"test","123123");
-                Util.showCommonDialog(getActivity(),R.drawable.error_500);
+//                Util.showCommonDialog(getActivity(),R.drawable.error_500);
+                UIHelper.showExpressActivity(getContext());
                 break;
             case R.id.locatio_address://定位城市
                 startActivityForResult(new Intent(getContext(), CityPickerActivity.class),
@@ -268,18 +284,36 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         listView.setLayoutParams(params);
     }
 
-//    private void toLogin(String ak,String username,String password){
-//        CardLetterRequestApi.getInstance().getUserInfo(ak,username,password,new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
-//            @Override
-//            public void onSucceed(LoginEntity data) {
-//                System.out.println(data.getMsg()+"\n"+data.getData().getNickname());
-//            }
-//
-//            @Override
-//            public void onError(int code, String msg) {
-//
-//            }
-//        },getContext()));
-//    }
+    private List<ArticleBean.DataBeanX.DataBean> list = new ArrayList<>();
+    private void getDatas(final View view){
+        CardLetterRequestApi.getInstance().getArticle(Constant.Access_Token,new HttpSubscriber<ArticleBean>(new SubscriberOnListener<ArticleBean>() {
+            @Override
+            public void onSucceed(ArticleBean data) {
+                if (data.getCode()==0){
+                    list=data.getData().getData();
+                    vf = (ViewFlipper) view.findViewById(R.id.marquee_view);
+                    for (int i = 0; i < list.size(); i++) {
+                        final ArticleBean.DataBeanX.DataBean bean =list.get(i);
+                        final View ll_content = View.inflate(getContext(),R.layout.notice_layout,null);
+                        TextView text = (TextView) ll_content.findViewById(R.id.head_text);
+                        text.setText(bean.getName().toString());
+                        text.setOnClickListener(new OnMultiClickListener() {
+                            @Override
+                            public void onMultiClick(View v) {
+                                UIHelper.showArticleActivity(getContext(),bean);
+                            }
+                        });
+                        vf.addView(ll_content);
+                    }
+                }else {
+                    ToastUtils.makeShortText(data.getMsg(),getContext());
+                }
+            }
 
+            @Override
+            public void onError(int code, String msg) {
+
+            }
+        },getContext()));
+    }
 }

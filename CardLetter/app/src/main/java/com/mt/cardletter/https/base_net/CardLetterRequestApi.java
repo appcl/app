@@ -1,6 +1,7 @@
 package com.mt.cardletter.https.base_net;
 
 
+import com.mt.cardletter.entity.data.FindCategoryList;
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.BaseApi;
@@ -45,6 +46,32 @@ public class CardLetterRequestApi extends BaseApi {
     }
 
     /**
+     * 获取活动的分类列表
+     * @param access_token
+     * @param subscriber
+     */
+    public void getCategoryList(String access_token, Subscriber<FindCategoryList> subscriber){
+        Observable observable = httpRequestService.getCategoryList(access_token)
+                .map(new HttpResultFunc<FindCategoryList>());
+        toSubscribe(observable,subscriber);
+    }
+
+    /**
+     * 修改密码
+     * @param ak
+     * @param username
+     * @param old_password
+     * @param new_password
+     * @param subscriber
+     */
+    public void updataPassword(String ak, String username, String old_password,String new_password, Subscriber<LoginEntity> subscriber){
+        Observable observable = httpRequestService.updataPassword(ak,username,old_password,new_password)
+                .map(new HttpResultFunc<LoginEntity>());
+        toSubscribe(observable,subscriber);
+    }
+
+
+    /**
      * 获取头条信息
      * @param ak
      * @param subscriber
@@ -52,6 +79,17 @@ public class CardLetterRequestApi extends BaseApi {
     public void getArticle(String ak, Subscriber<ArticleBean> subscriber){
         Observable observable = httpRequestService.getArticle(ak)
                 .map(new HttpResultFunc<ArticleBean>());
+        toSubscribe(observable,subscriber);
+    }
+
+    /**
+     * 获取卡发现分类列表
+     * @param ak
+     * @param subscriber
+     */
+    public void getFindCategroyList(String ak, Subscriber<FindCategoryList> subscriber){
+        Observable observable = httpRequestService.getFindCategoryList(ak)
+                .map(new HttpResultFunc<FindCategoryList>());
         toSubscribe(observable,subscriber);
     }
 }

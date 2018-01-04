@@ -9,7 +9,7 @@ import java.util.List;
  * 活动分类列表
  */
 
-public class CategoryList {
+public class FindCategoryList {
     /**
      * code : 0
      * msg : 操作成功

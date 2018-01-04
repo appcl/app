@@ -1,13 +1,10 @@
 package com.mt.cardletter.https.test;
 
 
-import com.mt.cardletter.entity.data.CategoryList;
+import com.mt.cardletter.entity.data.FindCategoryList;
 import com.mt.cardletter.entity.data.GoodsBean;
-import com.mt.cardletter.entity.data.ViolateCity;
-import com.mt.cardletter.entity.data.ViolateData;
 import com.mt.cardletter.https.BaseApi;
 import com.mt.cardletter.https.HttpRequestService;
-import com.mt.cardletter.https.violate_net.ViolateMethod;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -42,8 +39,8 @@ public class TestRequestApi extends BaseApi {
     }
 
     public void getCategoryList(String access_token,
-                         Subscriber<CategoryList> subscriber){
-        Observable observable = httpRequestService.getCategoryList(access_token).map(new HttpResultFunc<CategoryList>());
+                         Subscriber<FindCategoryList> subscriber){
+        Observable observable = httpRequestService.getCategoryList(access_token).map(new HttpResultFunc<FindCategoryList>());
         toSubscribe(observable,subscriber);
     }
 

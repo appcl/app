@@ -37,22 +37,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_centerVertical="true"
             android:id="@+id/msg_user_name"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="30dp"
             android:textSize="14sp"
             android:textColor="@color/color_text_black_31"
-            android:text="用户名"
+            android:text="编辑昵称"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
             android:padding="10dp"
             android:background="@null"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:layout_toRightOf="@id/msg_user_name"
+            android:hint="输入新昵称"
             android:textSize="14sp"
-            android:hint="请输入新密码"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"/>
@@ -65,62 +65,16 @@
             android:layout_width="20dp"
             android:layout_height="20dp" />
     </RelativeLayout>
-
-    <View
-        android:background="@drawable/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
-
-    <View
-        android:background="@drawable/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
-
-    <RelativeLayout
-        android:id="@+id/msg_updata_pw"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_marginLeft="20dp"
-            android:textSize="14sp"
-            android:textColor="@color/color_text_black_31"
-            android:text="修改密码"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/msg_updata_pw_img"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/next"
-            android:layout_width="15dp"
-            android:layout_height="15dp" />
-    </RelativeLayout>
-
     <View
         android:background="@drawable/divider"
         android:layout_width="match_parent"
         android:layout_height="4dp" />
     <LinearLayout
         android:id="@+id/updata_password"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:textColor="@color/color_text_gray_99"
-            android:paddingLeft="30dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="20dp"
-            android:text="设置卡信密码后可以通过手机号/邮箱 + 卡信密码进行登录"
-            android:textSize="12sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <View
-            android:background="@drawable/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
         <LinearLayout
             android:layout_marginLeft="30dp"
             android:orientation="horizontal"
@@ -134,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"/>
             <EditText
+                android:id="@+id/old_pw"
                 android:padding="8dp"
                 android:background="@null"
                 android:textSize="14sp"
@@ -159,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"/>
             <EditText
+                android:id="@+id/new_pw"
                 android:padding="8dp"
                 android:background="@null"
                 android:textSize="14sp"
@@ -184,6 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"/>
             <EditText
+                android:id="@+id/new_pw_re"
                 android:padding="8dp"
                 android:background="@null"
                 android:textSize="14sp"
@@ -197,16 +154,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp" />
         <TextView
-            android:textColor="@color/color_text_gray_99"
-            android:paddingLeft="30dp"
-            android:paddingTop="10dp"
-
-            android:paddingRight="20dp"
-            android:text="密码必须至少8个字符，而且包含字母和数字"
-            android:textSize="12sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
             android:textColor="@color/blue"
             android:paddingLeft="30dp"
             android:paddingTop="5dp"
@@ -214,7 +161,7 @@
             android:paddingRight="20dp"
             android:text="忘记旧密码？"
             android:textSize="12sp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <View
             android:background="@drawable/divider"
@@ -224,6 +171,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/updata"
                 android:gravity="center"
                 android:text="确认修改"
                 android:textColor="@color/black"
@@ -237,21 +185,20 @@
         android:background="@drawable/divider"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:layout_marginBottom="8dp"
-            android:id="@+id/msg_commit"
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
+        <Button
+            android:layout_marginBottom="20dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
-            android:textStyle ="bold"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:textSize="16dp"
-            android:textColor="@color/black"
-            android:text="提交"
+            android:id="@+id/btnExit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="40.0dip"
+            android:layout_below="@+id/rl_1"
+            android:layout_marginLeft="18.0dip"
+            android:layout_marginRight="18.0dip"
+            android:layout_marginTop="30.0dip"
+            android:background="@color/button_bg"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="退出登录"
+            android:textColor="#ffffffff"
+            android:textSize="15.0sp" />
     </RelativeLayout>
 </LinearLayout>

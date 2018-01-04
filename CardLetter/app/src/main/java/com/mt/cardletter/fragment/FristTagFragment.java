@@ -13,16 +13,9 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.activity.ScreenActivity;
 import com.mt.cardletter.activity.SetailsActivity;
-import com.mt.cardletter.entity.data.CategoryList;
-import com.mt.cardletter.entity.data.GoodsBean;
-import com.mt.cardletter.https.HttpSubscriber;
-import com.mt.cardletter.https.SubscriberOnListener;
-import com.mt.cardletter.https.test.TestRequestApi;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;

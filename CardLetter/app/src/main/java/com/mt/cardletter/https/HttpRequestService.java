@@ -3,7 +3,7 @@ package com.mt.cardletter.https;
 
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.data.AirDatas;
-import com.mt.cardletter.entity.data.CategoryList;
+import com.mt.cardletter.entity.data.FindCategoryList;
 import com.mt.cardletter.entity.data.GoodsBean;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.entity.data.ViolateCity;
@@ -100,8 +100,23 @@ public interface HttpRequestService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/newfind/index_ask")
-    Observable<CategoryList> getCategoryList(@Field("access_token") String access_token);
+    @POST("/api.php/article/categorylist")
+    Observable<FindCategoryList> getCategoryList(@Field("access_token") String access_token);
+
+
+    /**
+     * 修改密码
+     * @param access_token
+     * @param user_token
+     * @param old_password
+     * @param new_password
+     * @return
+     */
+    @POST("/api.php/common/changepassword")
+    Observable<LoginEntity> updataPassword(@Query("access_token") String access_token,
+                                            @Query("user_token") String user_token,
+                                            @Query("old_password") String old_password,
+                                            @Query("new_password") String new_password);
 
     /**
      * 头条
@@ -131,4 +146,27 @@ public interface HttpRequestService {
     Observable<Express_Content> getExpressContent(@Query("key") String key,
                                                   @Query("com") String com,
                                                   @Query("no") String no);
+
+    /**
+     * 获取卡发现 分类列表
+     * @param access_token
+     * @return
+     */
+    @POST("/api.php/cardfind/categorylist")
+    Observable<FindCategoryList> getFindCategoryList(@Query("access_token") String access_token);
+
+    /**
+     * 获取卡发现 商家列表
+     * @param access_token
+     * @param list_rows     每页显示条目数
+     * @param page          页数
+     *
+     * @param category_id   分类ID
+     * @return
+     */
+    @POST("/api.php/cardfind/cardfindlist")
+    Observable<FindCategoryList> getFindmerchant (@Query("access_token") String access_token,
+                                                  @Query("list_rows") String list_rows,
+                                                  @Query("page") String page,
+                                                  @Query("category_id") String category_id);
 }

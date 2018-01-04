@@ -12,6 +12,7 @@
     <color name="redbg">#DE5250</color>
     <color name="graybg">#EDEDED</color>
     <color name="colorfafafa">#FAFAFA</color>
+    <color name="button_bg">#D1D1D1</color>
     <!-- 间隔线颜色 -->
     <color name="colorspaceline">#EDEDED</color>
     <color name="coloreeeeee">#EEEEEE</color>

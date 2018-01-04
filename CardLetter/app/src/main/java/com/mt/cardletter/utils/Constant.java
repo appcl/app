@@ -52,8 +52,8 @@ public class Constant {
         HOUR,
         DAY
     }
-
-    public static final String Access_Token = "45a0bd0b5d1faf99ca6d4840c23abe6e";//测试ak
+    
+    public static final String Access_Token = "64d63c60f16d6e501494862fa40444c0";//测试ak
 
     public static final String JH_KEY = "e46870fe3129e14dfe9818b31609bc1a";//聚合的Key
 

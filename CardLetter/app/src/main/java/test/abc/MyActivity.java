@@ -24,18 +24,17 @@ public class MyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        System.out.println("================分享");
     }
 
 
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-
         if(requestCode == 123){
             Log.i("jingkang","成功");
             showMyShare();
         }
-
     }
 
     public void onClick(View v){

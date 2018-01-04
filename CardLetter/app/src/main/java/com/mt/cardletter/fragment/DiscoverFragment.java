@@ -15,10 +15,17 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.entity.data.FindCategoryList;
+import com.mt.cardletter.https.HttpSubscriber;
+import com.mt.cardletter.https.SubscriberOnListener;
+import com.mt.cardletter.https.base_net.CardLetterRequestApi;
+import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.tabstrip.PagerSlidingTabStrip;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -32,14 +39,11 @@ public class DiscoverFragment extends Fragment {
 
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
-
+    private List<FindCategoryList.DataBean> tabDatas;
     private FrameLayout com_back_click;
     private TextView title_name;
     private TextView next;
-
-    private void getData() {
-    }
-
+    private FragmentPagerAdapter adapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,9 +54,26 @@ public class DiscoverFragment extends Fragment {
         com_back_click = (FrameLayout) view.findViewById(R.id.com_back_click);
         title_name = (TextView) view.findViewById(R.id.title_name);
         next = (TextView) view.findViewById(R.id.commonal_tv);
-
-
         return view;
+    }
+
+    private void loadData() {
+        /*
+         * 获取分类列表
+         */
+        CardLetterRequestApi.getInstance().getFindCategroyList(Constant.Access_Token,new HttpSubscriber<FindCategoryList>(new SubscriberOnListener<FindCategoryList>() {
+            @Override
+            public void onSucceed(FindCategoryList data) {
+                System.out.println("=======asdasd请求成功");
+                tabDatas = data.getData();
+                adapter.notifyDataSetChanged();
+                tabs.notifyDataSetChanged();
+            }
+            @Override
+            public void onError(int code, String msg) {
+                System.out.println("=asassas======请求失败");
+            }
+        },getContext()));
     }
 
     @Override
@@ -72,15 +93,23 @@ public class DiscoverFragment extends Fragment {
         });
         TITLES = getResources().getStringArray(R.array.news_titles);
 
-        FragmentPagerAdapter adapter = new NewsAdapter(getChildFragmentManager());
+        tabDatas = new ArrayList<>();
+        adapter = new NewsAdapter(getChildFragmentManager());
         pager.setAdapter(adapter);
-
+        loadData();
+        /*
+         * 设置 tabs
+         */
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
         pager.setPageMargin(pageMargin);
-
         tabs.setViewPager(pager);
+
     }
 
+
+    /**
+     *  指示器 的 适配器
+     */
     class NewsAdapter extends FragmentPagerAdapter{
 
         public NewsAdapter(FragmentManager fm) {
@@ -89,26 +118,19 @@ public class DiscoverFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0) {
-                return new CompleteFragment();
-            }
-            if (position == 1) {
-                return new FristTagFragment();
-            }
-            if (position == 2) {
-                return new FristTagFragment();
-            }
+
             return new CompleteFragment();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return TITLES[position % TITLES.length];
+            String name = tabDatas.get(position).getName();
+            return name;
         }
 
         @Override
         public int getCount() {
-            return TITLES.length;
+            return tabDatas.size();
         }
     }
 
@@ -117,5 +139,7 @@ public class DiscoverFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 //        ShareSDK.stopSDK();
+
+
     }
 }

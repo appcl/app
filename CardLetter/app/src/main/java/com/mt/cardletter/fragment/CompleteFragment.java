@@ -66,22 +66,7 @@ public class CompleteFragment extends Fragment {
     }
 
     private void loadData(final int updataFlag , int page_index, int page_size) {
-        TestRequestApi.getInstance().getGoods( page_index, page_size, new HttpSubscriber<GoodsBean>(new SubscriberOnListener<GoodsBean>() {
-            @Override
-            public void onSucceed(GoodsBean data) {
-                if (updataFlag == UPDATA_UP){
-                    List<GoodsBean.ResultBean> result = data.getResult();
-                    list.addAll(result);
-                }else{
-                    list = data.getResult();
-                }
-                myAdapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onError(int code, String msg) {
-                System.out.println("----datas-----"+"Get 请求失败");
-            }
-        },getContext()));
+
     }
     private void initView() {
         /**

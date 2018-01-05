@@ -1,12 +1,20 @@
 package com.mt.cardletter.fragment;
 
 
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.adapter.CategoryAdapter;
 import com.mt.cardletter.adapter.ContentAdapter;
+import com.mt.cardletter.adapter.IntegralAdapter;
+import com.mt.cardletter.entity.integral.CategoryEntity;
 import com.mt.cardletter.entity.integral.IntegralEntity;
+import com.mt.cardletter.https.HttpSubscriber;
+import com.mt.cardletter.https.SubscriberOnListener;
+import com.mt.cardletter.https.base_net.CardLetterRequestApi;
+import com.mt.cardletter.utils.Constant;
+import com.mt.cardletter.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +26,13 @@ import java.util.List;
 
 public class IntegralFragment extends BaseFragment {
     private TextView title_name;
-    //private ListView content_list;
+    private GridView content_list;
     private List<IntegralEntity> list =new ArrayList<>();
-    private List<IntegralEntity.IntegralBean> beanList = new ArrayList<>();
-    private IntegralEntity.IntegralBean bean ;
-    private IntegralEntity entity;
     private ContentAdapter adapter;
+    private GridView gridView;
+    private IntegralAdapter iAdapter;
+    private List<CategoryEntity.DataBean> c_list=new ArrayList<>();
+    private CategoryAdapter cAdapter;
 
     @Override
     protected int setLayoutResouceId() {
@@ -31,49 +40,69 @@ public class IntegralFragment extends BaseFragment {
         return R.layout.fragment_integral;
     }
 
+
+    @Override
+    protected void initView() {
+        super.initView();
+        title_name = findViewById(R.id.title_name);
+        gridView=findViewById(R.id.grid);
+
+        content_list = findViewById(R.id.content_list);
+    }
+
     @Override
     public void initData() {
-        title_name = findViewById(R.id.title_name);
         title_name.setText("积分商城");
+        iAdapter = new IntegralAdapter(getContext(),list);
+        gridView.setAdapter(iAdapter);
 
-        //content_list = findViewById(R.id.content_list);
-
-        setupRecycler();
+//        setupRecycler();
     }
 
     private void getData() {
-        entity = new IntegralEntity();
-        bean =new IntegralEntity.IntegralBean();
-        bean.setDes_integral("5000分以下");
-        beanList.add(bean);
-
-        bean =new IntegralEntity.IntegralBean();
-        bean.setDes_integral("5000-8000分");
-        beanList.add(bean);
-
-        bean =new IntegralEntity.IntegralBean();
-        bean.setDes_integral("8000分以上");
-        beanList.add(bean);
-
-        bean =new IntegralEntity.IntegralBean();
-        bean.setDes_integral("领券中心");
-        beanList.add(bean);
-
-        bean =new IntegralEntity.IntegralBean();
-        bean.setDes_integral("爱车一族");
-        beanList.add(bean);
-
-        bean =new IntegralEntity.IntegralBean();
-        bean.setDes_integral("高端享受");
-        beanList.add(bean);
-
-        entity.setBean(beanList);
-
+        IntegralEntity entity = new IntegralEntity();
+        entity.setI_tv("3k分以内");
         list.add(entity);
+
+        IntegralEntity entity1 = new IntegralEntity();
+        entity1.setI_tv("5k分以下");
+        list.add(entity1);
+
+        IntegralEntity entity2 = new IntegralEntity();
+        entity2.setI_tv("5k-8k积分");
+        list.add(entity2);
+
+        IntegralEntity entity3 = new IntegralEntity();
+        entity3.setI_tv("8k-15k积分");
+        list.add(entity3);
+
+        IntegralEntity entity4 =new IntegralEntity();
+        entity4.setI_tv("15k积分以上");
+        list.add(entity4);
+
+        CardLetterRequestApi.getInstance().getCategory(Constant.Access_Token,
+                new HttpSubscriber<CategoryEntity>(new SubscriberOnListener<CategoryEntity>() {
+                    @Override
+                    public void onSucceed(CategoryEntity data) {
+                        if (data.getCode()==0){
+                            c_list=data.getData();
+                            System.out.println("-----c_list--------"+c_list.size());
+                            cAdapter = new CategoryAdapter(getContext(),c_list);
+                            content_list.setAdapter(cAdapter);
+                        }else {
+                            ToastUtils.makeShortText(data.getMsg(),getContext());
+                        }
+                    }
+
+                    @Override
+                    public void onError(int code, String msg) {
+
+                    }
+                },getContext()));
     }
 
     protected void setupRecycler(){
-        adapter = new ContentAdapter(getContext(),list);
+//        adapter = new ContentAdapter(getContext(),list);
         //content_list.setAdapter(adapter);
     }
 

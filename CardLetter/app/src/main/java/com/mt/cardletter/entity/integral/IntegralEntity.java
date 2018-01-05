@@ -26,6 +26,16 @@ public class IntegralEntity {
     }
 
     private String tag_url;
+
+    public String getI_tv() {
+        return i_tv;
+    }
+
+    public void setI_tv(String i_tv) {
+        this.i_tv = i_tv;
+    }
+
+    private String i_tv;
     private List<IntegralBean> bean;
 
 

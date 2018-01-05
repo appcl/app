@@ -1,8 +1,9 @@
 package com.mt.cardletter.https.base_net;
 
 
-import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.article.ArticleBean;
+import com.mt.cardletter.entity.integral.CategoryEntity;
+import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.BaseApi;
@@ -102,6 +103,17 @@ public class CardLetterRequestApi extends BaseApi {
     public void getFindMerchant(String ak,  String list_rows,  String page,  String category_id,  Subscriber<Goods> subscriber){
         Observable observable = httpRequestService.getFindMerchant(ak,  list_rows,  page,  category_id)
                 .map(new HttpResultFunc<Goods>());
+        toSubscribe(observable,subscriber);
+    }
+
+    /**
+     * 积分商城分类列表
+     * @param ak
+     * @param subscriber
+     */
+    public void getCategory(String ak, Subscriber<CategoryEntity> subscriber){
+        Observable observable = httpRequestService.getCategory(ak)
+                .map(new HttpResultFunc<CategoryEntity>());
         toSubscribe(observable,subscriber);
     }
 }

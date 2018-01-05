@@ -3,14 +3,15 @@ package com.mt.cardletter.https;
 
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.data.AirDatas;
-import com.mt.cardletter.entity.merchant.FindCategoryList;
-import com.mt.cardletter.entity.merchant.Goods;
-import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.entity.data.ViolateCity;
 import com.mt.cardletter.entity.data.ViolateData;
 import com.mt.cardletter.entity.express.ExpressCom;
 import com.mt.cardletter.entity.express.Express_Content;
+import com.mt.cardletter.entity.integral.CategoryEntity;
+import com.mt.cardletter.entity.merchant.FindCategoryList;
+import com.mt.cardletter.entity.merchant.Goods;
+import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.entity.user.LoginEntity;
 
 import retrofit2.http.Field;
@@ -166,8 +167,30 @@ public interface HttpRequestService {
      * @return
      */
     @POST("/api.php/cardfind/cardfindlist")
+    Observable<FindCategoryList> getFindmerchant (@Query("access_token") String access_token,
+                                                  @Query("list_rows") String list_rows,
+                                                  @Query("page") String page,
+                                                  @Query("category_id") String category_id);
+    /**
+     * 获取卡发现 商家列表
+     * @param access_token
+     * @param list_rows     每页显示条目数
+     * @param page          页数
+     *
+     * @param category_id   分类ID
+     * @return
+     */
+    @POST("/api.php/cardfind/cardfindlist")
     Observable<Goods> getFindMerchant (@Query("access_token") String access_token,
                                        @Query("list_rows") String list_rows,
                                        @Query("page") String page,
                                        @Query("category_id") String category_id);
+
+    /**
+     * 积分商城分类列表
+     * @param access_token
+     * @return
+     */
+    @POST("/api.php/seller/categorylist")
+    Observable<CategoryEntity> getCategory(@Query("access_token") String access_token);
 }

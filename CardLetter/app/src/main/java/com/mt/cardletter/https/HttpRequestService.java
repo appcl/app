@@ -3,8 +3,9 @@ package com.mt.cardletter.https;
 
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.data.AirDatas;
-import com.mt.cardletter.entity.data.FindCategoryList;
-import com.mt.cardletter.entity.data.GoodsBean;
+import com.mt.cardletter.entity.merchant.FindCategoryList;
+import com.mt.cardletter.entity.merchant.Goods;
+import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.entity.data.ViolateCity;
 import com.mt.cardletter.entity.data.ViolateData;
@@ -165,8 +166,8 @@ public interface HttpRequestService {
      * @return
      */
     @POST("/api.php/cardfind/cardfindlist")
-    Observable<FindCategoryList> getFindmerchant (@Query("access_token") String access_token,
-                                                  @Query("list_rows") String list_rows,
-                                                  @Query("page") String page,
-                                                  @Query("category_id") String category_id);
+    Observable<Goods> getFindMerchant (@Query("access_token") String access_token,
+                                       @Query("list_rows") String list_rows,
+                                       @Query("page") String page,
+                                       @Query("category_id") String category_id);
 }

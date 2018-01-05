@@ -1,4 +1,4 @@
-package com.mt.cardletter.entity.data;
+package com.mt.cardletter.entity.merchant;
 
 /**
  * Created by jk on 2017/12/29.

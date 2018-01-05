@@ -1,8 +1,8 @@
 package com.mt.cardletter.https.test;
 
 
-import com.mt.cardletter.entity.data.FindCategoryList;
-import com.mt.cardletter.entity.data.GoodsBean;
+import com.mt.cardletter.entity.merchant.FindCategoryList;
+import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.https.BaseApi;
 import com.mt.cardletter.https.HttpRequestService;
 

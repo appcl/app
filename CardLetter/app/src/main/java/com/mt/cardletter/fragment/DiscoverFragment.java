@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.entity.data.FindCategoryList;
+import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
@@ -44,13 +44,13 @@ public class DiscoverFragment extends Fragment {
     private TextView title_name;
     private TextView next;
     private FragmentPagerAdapter adapter;
+    private Fragment[] fragments;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_discover,container,false);
         pager = (ViewPager) view.findViewById(R.id.view_pager);
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.dis_tabs);
-
         com_back_click = (FrameLayout) view.findViewById(R.id.com_back_click);
         title_name = (TextView) view.findViewById(R.id.title_name);
         next = (TextView) view.findViewById(R.id.commonal_tv);
@@ -64,14 +64,15 @@ public class DiscoverFragment extends Fragment {
         CardLetterRequestApi.getInstance().getFindCategroyList(Constant.Access_Token,new HttpSubscriber<FindCategoryList>(new SubscriberOnListener<FindCategoryList>() {
             @Override
             public void onSucceed(FindCategoryList data) {
-                System.out.println("=======asdasd请求成功");
+                System.out.println("分类列表请求成功");
                 tabDatas = data.getData();
                 adapter.notifyDataSetChanged();
                 tabs.notifyDataSetChanged();
+                fragments = new Fragment[tabDatas.size()];
             }
             @Override
             public void onError(int code, String msg) {
-                System.out.println("=asassas======请求失败");
+                System.out.println("分类列表网络异常");
             }
         },getContext()));
     }
@@ -106,7 +107,6 @@ public class DiscoverFragment extends Fragment {
 
     }
 
-
     /**
      *  指示器 的 适配器
      */
@@ -118,10 +118,14 @@ public class DiscoverFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-
-            return new CompleteFragment();
+            if (fragments[position] == null){
+                fragments[position] = new CompleteFragment();
+                Bundle bundle=new Bundle();
+                bundle.putInt("id",tabDatas.get(position).getId());
+                fragments[position].setArguments(bundle);
+            }
+            return fragments[position];
         }
-
         @Override
         public CharSequence getPageTitle(int position) {
             String name = tabDatas.get(position).getName();
@@ -139,7 +143,7 @@ public class DiscoverFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 //        ShareSDK.stopSDK();
-
-
     }
+
+
 }

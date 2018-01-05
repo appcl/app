@@ -49,12 +49,11 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
     private MyLocationData locData;
     private MyLocationConfiguration.LocationMode mCurrentMode;
     private Double lastX = 0.0;
-    private int mCurrentDirection = 0;
+    private float mCurrentDirection = 0;
     private double mCurrentLat = 0.0;
     private double mCurrentLon = 0.0;
     private float mCurrentAccracy;
     private SensorManager mSensorManager;
-
     /**
      * MapView 是地图主控件
      */
@@ -65,7 +64,6 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
     private Marker mMarkerC;
     private Marker mMarkerD;
     private InfoWindow mInfoWindow;
-
     // 初始化全局 bitmap 信息，不用时及时 recycle
     BitmapDescriptor bdA = BitmapDescriptorFactory
             .fromResource(R.drawable.icon_marka);
@@ -105,12 +103,13 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
         mLocClient = new LocationClient(this);
         mLocClient.registerLocationListener(myListener);
         LocationClientOption option = new LocationClientOption();
-        option.setOpenGps(true); // 打开gps
+        option.setOpenGps(true);      // 打开gps
         option.setCoorType("bd09ll"); // 设置坐标类型
-        option.setScanSpan(1000);
+        option.setScanSpan(1000);     //间隔定位的时间
+        //option.setNeedDeviceDirect(true); //返回的定位结果包含手机机头方向
         mLocClient.setLocOption(option);
         mLocClient.start();
-//
+
 //        MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(14.0f);
 //        mBaiduMap.setMapStatus(msu);
 //        initOverlay();
@@ -132,6 +131,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
         MarkerOptions ooC = new MarkerOptions().position(llC).icon(bdC)
                 .perspective(false).anchor(0.5f, 0.5f).rotate(30).zIndex(7);
         mMarkerC = (Marker) (mBaiduMap.addOverlay(ooC));
+
         ArrayList<BitmapDescriptor> giflist = new ArrayList<BitmapDescriptor>();
         giflist.add(bdA);
         giflist.add(bdB);
@@ -240,11 +240,15 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
             mCurrentLat = location.getLatitude();
             mCurrentLon = location.getLongitude();
             mCurrentAccracy = location.getRadius();
+//            mCurrentDirection = location.getDirection();
+//            System.out.println("mCurrentDirection:"+mCurrentDirection);
             locData = new MyLocationData.Builder()
                     .accuracy(location.getRadius())
                     // 此处设置开发者获取到的方向信息，顺时针0-360
-                    .direction(mCurrentDirection).latitude(location.getLatitude())
-                    .longitude(location.getLongitude()).build();
+                    .direction(mCurrentDirection)
+                    .latitude(location.getLatitude())
+                    .longitude(location.getLongitude())
+                    .build();
             mBaiduMap.setMyLocationData(locData);
             if (isFirstLoc) {
                 isFirstLoc = false;

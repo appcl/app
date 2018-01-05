@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,22 +12,22 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.activity.ScreenActivity;
 import com.mt.cardletter.activity.SetailsActivity;
-import com.mt.cardletter.entity.data.GoodsBean;
+import com.mt.cardletter.entity.merchant.FindCategoryList;
+import com.mt.cardletter.entity.merchant.Goods;
+import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
-import com.mt.cardletter.https.test.TestMethod;
-import com.mt.cardletter.https.test.TestRequestApi;
+import com.mt.cardletter.https.base_net.CardLetterRequestApi;
+import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
+import com.mt.cardletter.view.pulltorefresh.ILoadingLayout;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,34 +39,67 @@ import butterknife.ButterKnife;
  */
 
 public class CompleteFragment extends Fragment {
-    private static final int UPDATA_UP = 0X01;
-    private static final int UPDATA_DOWN = 0X02;
+    private static final int UPDATA_UP = 0X01; // 上拉加载
+    private static final int UPDATA_DOWN = 0X02; //下拉刷新
+    private static final int UPDATA_DEF = 0X03; //默认加载
     private Activity context;
     private  List<GoodsBean.ResultBean> list = new ArrayList();
+    private  List<Goods.DataBeanX.DataBean>  myList;
     private MyAdapter myAdapter;
     private int page_index = 0;
+    private String cartgory_id = "";
+    private String page_size = "10";
     @Bind(R.id.listView)
     PullToRefreshListView listView;
-
+    private boolean isOpen = true;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_fragment_find, container, false);
-        ButterKnife.bind(this, view);
-        loadData(UPDATA_UP,page_index,10);
+        if (isOpen){
+            view = inflater.inflate(R.layout.activity_fragment_find, container, false);
+            ButterKnife.bind(this, view);
+            cartgory_id= (int) getArguments().get("id") + "";
+            loadData( UPDATA_DEF , page_size , ""+page_index , 0+"" );
+        }
         return view;
     }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        context = getActivity();
-        initView();
+        if (isOpen){
+            context = getActivity();
+            initView();
+            isOpen = false;
+        }
+
 
     }
 
-    private void loadData(final int updataFlag , int page_index, int page_size) {
+    private void loadData(int upDataFlag ,String list_rows,  String page,  String category_id) {
+        myList = new ArrayList<>();
+        /*
+         * 获取商家列表
+         */
+        CardLetterRequestApi.getInstance().getFindMerchant(Constant.Access_Token,list_rows,page,category_id,new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
+            @Override
+            public void onSucceed(Goods data) {
+                System.out.println("商家请求成功");
+                if (data.getCode()==0){
+                    List<Goods.DataBeanX.DataBean> data1 = data.getData().getData();
 
+                    myList = data1;
+                    myAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onError(int code, String msg) {
+                System.out.println("商家网络异常");
+                ToastUtils.showShort(getContext(),msg);
+            }
+        },getContext()));
     }
+
     private void initView() {
         /**
          * 点击事件
@@ -82,8 +114,11 @@ public class CompleteFragment extends Fragment {
                 UIHelper.showDetails(getContext(), intent);
             }
         });
-
+        //listView.withLoadMoreView();
         listView.setAdapter(myAdapter = new MyAdapter());
+        /**
+         * 注册下拉刷新
+         */
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -91,21 +126,34 @@ public class CompleteFragment extends Fragment {
             }
         });
         /**
-         * 下拉加载
+         * 注册下拉加载
          */
         listView.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
             @Override
             public void onLastItemVisible() {
                 page_index = page_index + 1;
+                loadData(UPDATA_UP,page_size,page_index+"",cartgory_id);
                 ToastUtils.makeShortText("page_index:"+page_index,getContext());
-                loadData(UPDATA_UP,page_index,10);
+            }
+        });
+        /**
+         * 焦点改变监听
+         */
+        listView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
             }
         });
     }
+
+    /**
+     * 上拉加载
+     */
     private class GetDataTask extends AsyncTask<Void, Void, List<GoodsBean.ResultBean>> {
         @Override
         protected List<GoodsBean.ResultBean> doInBackground(Void... params) {
-            loadData(UPDATA_DOWN,10,10);
+            loadData(UPDATA_DOWN , page_size, "1" ,cartgory_id);
             return list;
         }
         @Override
@@ -114,16 +162,17 @@ public class CompleteFragment extends Fragment {
             super.onPostExecute(result);
         }
     }
+
     class MyAdapter extends BaseAdapter{
 
         @Override
         public int getCount() {
-            return list.size();
+            return myList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return list.get(position);
+            return myList.get(position);
         }
 
         @Override
@@ -145,9 +194,12 @@ public class CompleteFragment extends Fragment {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.title.setText(list.get(position).getShopName());
-            holder.discounts.setText(list.get(position).getShopDiscounts());
-            holder.obj.setText(list.get(position).getShopCard());
+//            holder.title.setText(list.get(position).getShopName());
+//            holder.discounts.setText(list.get(position).getShopDiscounts());
+//            holder.obj.setText(list.get(position).getShopCard());
+            holder.title.setText(myList.get(position).getName());
+            holder.discounts.setText(myList.get(position).getDescribe());
+            holder.obj.setText(myList.get(position).getCreateTime());
             return convertView;
         }
         class ViewHolder{

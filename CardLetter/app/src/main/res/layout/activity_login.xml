@@ -114,7 +114,7 @@
             android:layout_marginLeft="18.0dip"
             android:layout_marginRight="18.0dip"
             android:layout_marginTop="30.0dip"
-            android:background="#D1D1D1"
+            android:background="@color/redbg"
             style="?android:attr/borderlessButtonStyle"
             android:text="登录"
             android:textColor="#ffffffff"

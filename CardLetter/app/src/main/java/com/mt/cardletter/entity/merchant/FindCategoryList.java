@@ -1,4 +1,4 @@
-package com.mt.cardletter.entity.data;
+package com.mt.cardletter.entity.merchant;
 
 import com.google.gson.annotations.SerializedName;
 

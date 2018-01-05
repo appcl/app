@@ -7,10 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.entity.data.GoodsBean;
+import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.utils.ToastUtils;
-
-import java.io.Serializable;
 
 /**
  * 商品详情

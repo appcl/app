@@ -142,6 +142,7 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+
         <!-- <meta-data -->
         <!-- android:name="com.amap.api.v2.apikey" -->
         <!-- android:value="ea928b115602e46b08ae48d583925655" /> -->
@@ -330,13 +331,15 @@
             android:name="JPUSH_APPKEY"
             android:value="85006f829aaf90152c813e41" />
 
-        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
 
         <activity android:name=".activity.MyLoginActivity"
             android:configChanges="orientation|keyboard"
             android:screenOrientation="portrait" >
-
         </activity>
 
 

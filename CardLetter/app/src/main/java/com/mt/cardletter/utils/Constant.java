@@ -53,7 +53,7 @@ public class Constant {
         DAY
     }
     
-    public static final String Access_Token = "64d63c60f16d6e501494862fa40444c0";//测试ak
+    public static final String Access_Token = "63aa53d7a943b941dbb30c0437262a88";//测试ak
 
     public static final String JH_KEY = "e46870fe3129e14dfe9818b31609bc1a";//聚合的Key
 

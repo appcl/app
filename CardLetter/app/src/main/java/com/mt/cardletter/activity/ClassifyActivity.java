@@ -1,12 +1,11 @@
 package com.mt.cardletter.activity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
-import android.text.format.DateUtils;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
@@ -17,8 +16,7 @@ import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.ToastUtils;
-import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
-import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
+import com.mt.cardletter.view.RefreshRecyclerView.PullToRefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -30,21 +28,17 @@ import java.util.List;
  * author:demons
  */
 
-public class ClassifyActivity extends BaseActivity {
+public class ClassifyActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener,PullToRefreshRecyclerView.PagingableListener{
     private TextView title_name;
     private FrameLayout back;
-    private TextView tv_empty;
-    private PullToRefreshListView mPullRefreshListView;
-
-    //普通的listview对象
-    private ListView actualListView;
 
     private String c_name;
     private int c_id;
 
+    private PullToRefreshRecyclerView recyclerView;
 
     private int page = 1; //当前页
-    private int list_rows = 5;//每页数
+    private int list_rows =5;//每页数
 
     private List<SellerEntity.DataBeanX.DataBean> sellerlist = new ArrayList<>();
     private LinkedList<SellerEntity.DataBeanX.DataBean> mListItems = new LinkedList<SellerEntity.DataBeanX.DataBean>();;
@@ -70,64 +64,16 @@ public class ClassifyActivity extends BaseActivity {
         back = (FrameLayout) findViewById(R.id.com_back_click);
         back.setVisibility(View.VISIBLE);
 
-        tv_empty = (TextView) findViewById(R.id.tv_empty);
 
-        initPTRListView();
-        initListView();
-
-        mPullRefreshListView.setRefreshing(true);//一打开改页面就自动刷新
-    }
-
-    private void initPTRListView() {
-        mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.sellerListView);
-        mPullRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-            @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                //设置下拉时显示的日期和时间
-                String label = DateUtils.formatDateTime(ClassifyActivity.this, System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-                // 更新显示的label
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-
-                new GetDataTask().execute();
-            }
-        });
-
-        mPullRefreshListView.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
-            @Override
-            public void onLastItemVisible() {
-                ToastUtils.makeShortText("已经到底了",ClassifyActivity.this);
-            }
-        });
-        //上下都可以刷新的模式。这里有两个选择：Mode.PULL_FROM_START，Mode.BOTH，PULL_FROM_END
-        mPullRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);
-
-//        mPullRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-//            @Override
-//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                System.out.println("------onPullDownToRefresh---------");
-//                //设置下拉时显示的日期和时间
-//                String label = DateUtils.formatDateTime(ClassifyActivity.this, System.currentTimeMillis(),
-//                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-//                // 更新显示的label
-//                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-//
-//                new GetDataTask().execute();
-//            }
-//
-//            @Override
-//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                System.out.println("------onPullUpToRefresh---------");
-//                new GetDataTask().execute();
-//            }
-//        });
-    }
-
-    private void initListView() {
-        //通过getRefreshableView()来得到一个listview对象
-        actualListView = mPullRefreshListView.getRefreshableView();
+        recyclerView = (PullToRefreshRecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.initRefreshView(this,new LinearLayoutManager(this));
+        recyclerView.setOnRefreshListener(this);
+        recyclerView.setPagingableListener(this);
+        adapter = new SellerAdapter(this);
+        recyclerView.setAdapter(adapter);
         getSellerDatas(page);
     }
+
 
     @Override
     public void initListener() {
@@ -150,17 +96,15 @@ public class ClassifyActivity extends BaseActivity {
                     @Override
                     public void onSucceed(SellerEntity data) {
                         if (data.getCode()==0){
-                            if (data.getData().getTotal()==0){
-                                mPullRefreshListView.setVisibility(View.GONE);
-                                tv_empty.setVisibility(View.VISIBLE);
-                            }else {
-                                mPullRefreshListView.setVisibility(View.VISIBLE);
-                                tv_empty.setVisibility(View.GONE);
-                                sellerlist = data.getData().getData();
-                                mListItems.addAll(sellerlist);
-                                adapter = new SellerAdapter(ClassifyActivity.this,mListItems);
-                                mPullRefreshListView.setAdapter(adapter);
-                            }
+                                if (data.getData().getTotal()>0) {
+                                    sellerlist = data.getData().getData();
+                                    adapter.addData(sellerlist);
+                                    recyclerView.setOnRefreshComplete();
+                                    recyclerView.onFinishLoading(true,false);
+                                }else {
+                                    recyclerView.setOnLoadMoreComplete();
+                                    ToastUtils.makeShortText("已没有更多",ClassifyActivity.this);
+                                }
                         }else {
                             ToastUtils.makeShortText(data.getMsg(),ClassifyActivity.this);
                         }
@@ -172,25 +116,16 @@ public class ClassifyActivity extends BaseActivity {
                 },this));
     }
 
-    class GetDataTask extends AsyncTask<Void, Void, List<SellerEntity.DataBeanX.DataBean>>{
-        @Override
-        protected List<SellerEntity.DataBeanX.DataBean> doInBackground(Void... params) {
-//            try {
-//                Thread.sleep(2000);
-//            }catch (Exception e){
-//                e.printStackTrace();
-//            }
-            getSellerDatas(page++);
-            return mListItems;
-        }
+    @Override
+    public void onRefresh() {
+        page=1;
+//        adapter.clearData();
+        getSellerDatas(page);
+    }
 
-        @Override
-        protected void onPostExecute(List<SellerEntity.DataBeanX.DataBean> dataBeen) {
-            mListItems.addAll(dataBeen);
-            // 通知数据改变了
-            adapter.notifyDataSetChanged();
-            // 加载完成后停止刷新
-            mPullRefreshListView.onRefreshComplete();
-        }
+    @Override
+    public void onLoadMoreItems() {
+        page++;
+        getSellerDatas(page);
     }
 }

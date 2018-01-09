@@ -69,4 +69,10 @@
     <color name="color_wheel_unsel">#9aaec3</color>
 
     <color name="gray_d1d1d1">#D1D1D1</color>
+
+    <!-- RecyclerView:下拉刷新色 -->
+    <color name="swap_holo_bule_bright">#0000FF</color>
+    <color name="swap_holo_green_bright">#00FF00</color>
+    <color name="swap_holo_red_bright">#FF0000</color>
+    <color name="swap_holo_yellow_bright">#FFFF00</color>
 </resources>

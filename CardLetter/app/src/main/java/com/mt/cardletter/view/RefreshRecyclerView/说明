@@ -1,0 +1,36 @@
+需要导入
+compile 'com.android.support:recyclerview-v7:25.2.0'
+java代码
+myRecyclerview = findViewById(myRecyclerview_1);
+下拉刷新
+myRecyclerview.setOnRefreshListener(this);
+上拉加载
+myRecyclerview.setPagingableListener(this);
+刷新完成
+myRecyclerview.setOnRefreshComplete();
+加载完成
+myRecyclerview.onFinishLoading(true, false);
+    /**
+     *
+     * 初始化刷新控件
+     */
+    private void initRefreshView(PullToRefreshRecyclerView myRecyclerview){
+        myRecyclerview.setSwipeEnable(true);//open swipe
+        com.sinoauto_multiple_shop.view.dialog.RefreshRecyclerView.DemoLoadMoreView loadMoreView = new com.sinoauto_multiple_shop.view.dialog.RefreshRecyclerView.DemoLoadMoreView(mActivity, myRecyclerview.getRecyclerView());
+        loadMoreView.setLoadmoreString(getString(R.string.loading));//正在加载中
+        loadMoreView.setLoadMorePadding(100);
+        //RecyclerView的显示方式呈Listview的方式显示
+        myRecyclerview.setLayoutManager(new LinearLayoutManager(mActivity));
+
+        //当RecyclerView的列表没有数据时，所显示的布局
+        myRecyclerview.setEmptyView(View.inflate(mActivity, R.layout.empty_view, null));
+
+        //设置加载的脚布局
+        myRecyclerview.setLoadMoreFooter(loadMoreView);
+        myRecyclerview.getLoadMoreFooter().setOnDrawListener(new com.sinoauto_multiple_shop.view.dialog.RefreshRecyclerView.BaseLoadMoreView.OnDrawListener() {
+            @Override
+            public boolean onDrawLoadMore(Canvas c, RecyclerView parent) {
+                return false;
+            }
+        });
+    }

@@ -87,4 +87,5 @@ dependencies {
     compile files('libs/jcore-android-1.1.8.jar')
     compile files('libs/jpush-android-3.1.0.jar')
     compile 'com.weigan:loopView:0.1.2'
+    compile files('libs/nineoldandroids-2.4.0.jar')
 }

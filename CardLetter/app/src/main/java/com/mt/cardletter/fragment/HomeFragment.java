@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Base64;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -24,10 +25,16 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.bumptech.glide.DrawableRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.mt.cardletter.R;
 import com.mt.cardletter.app.AppContext;
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.data.HeWeather;
+import com.mt.cardletter.entity.picture.PictureEntity;
 import com.mt.cardletter.https.HttpRequestApi;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
@@ -81,6 +88,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     List<String> testList = new ArrayList<>();
     private int count;
 
+    private List<PictureEntity.DataBeanX.DataBean> dataBeanList = new ArrayList<>();
 
     private int viewY;
     @Nullable
@@ -88,7 +96,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
         getDatas(view);
-        pagerView = (RollPagerView) view.findViewById(R.id.fragment_home_top_pagerview);
+//        pagerView = (RollPagerView) view.findViewById(R.id.fragment_home_top_pagerview);
         pager = (ViewPager) view.findViewById(R.id.pager);
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
 //        vf.addView(View.inflate(getContext(), R.layout.notice_layout, null));
@@ -116,13 +124,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        pagerView.setAdapter(new MyPagerAdapter());
-        pagerView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                ToastUtils.makeShortText("点击了---"+position,getContext());
-            }
-        });
+//        pagerView.setAdapter(new MyPagerAdapter(getContext(),dataBeanList));
+//        pagerView.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                ToastUtils.makeShortText("点击了---"+Constant.PIC_URL+dataBeanList.get(position).getThumb(),getContext());
+//            }
+//        });
         TITLES = getResources().getStringArray(R.array.news_titles);
         FragmentPagerAdapter adapter = new NewsAdapter(getChildFragmentManager());
         pager.setAdapter(adapter);
@@ -159,8 +167,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 //                UIHelper.showSearchIntegralActivity(getContext());
                 UIHelper.showViolateActivity(getContext());
                 break;
-            case R.id.search_seckill://银行秒杀
-                //TODO  银行秒杀
+            case R.id.search_seckill://TODO活动精选
                   UIHelper.showSeckillActivity(getContext());
 //                UIHelper.showSeckillActivity(getContext());
             case R.id.my_order://订单
@@ -179,11 +186,39 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
 
     class MyPagerAdapter extends StaticPagerAdapter{
-        private int[] image = {R.drawable.new01, R.drawable.new02, R.drawable.new03, R.drawable.newer04};
+        List<PictureEntity.DataBeanX.DataBean> dataBeanList  = new ArrayList<>();
+        private Context context;
+        public MyPagerAdapter(Context context,List<PictureEntity.DataBeanX.DataBean> dataBeanList) {
+            this.context = context;
+            this.dataBeanList = dataBeanList;
+            System.out.println("----pic  size-----"+this.dataBeanList.size());
+        }
+
+        //        private int[] image = {R.drawable.new01, R.drawable.new02, R.drawable.new03, R.drawable.newer04};
         @Override
         public View getView(ViewGroup container, int position) {
             ImageView view = new ImageView(container.getContext());
-            view.setImageResource(image[position]);
+//            view.setImageResource(image[position]);
+            System.out.println("---------pic--------"+Constant.PIC_URL+dataBeanList.get(position).getThumb());
+            String credentials="51kalaxin:62kaxin";
+            final String basic =
+                    "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+            //Authorization 请求头信息
+            LazyHeaders headers=  new LazyHeaders.Builder().addHeader("Authorization", basic).build();
+            //用其它图片作为缩略图
+            DrawableRequestBuilder<Integer> thumbnailRequest = Glide
+                    .with(context)
+                    .load(R.drawable.new03);
+//            Glide.with(context)
+//                    .load(Constant.PIC_URL+this.dataBeanList.get(position).getThumb())
+//                    .thumbnail(thumbnailRequest)
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    .into(view);
+            Glide.with(context)
+                    .load(new GlideUrl(Constant.PIC_URL+this.dataBeanList.get(position).getThumb(), headers))
+                    .thumbnail(thumbnailRequest)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(view);;
             view.setScaleType(ImageView.ScaleType.CENTER_CROP);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             return view;
@@ -191,7 +226,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         @Override
         public int getCount() {
-            return image.length;
+            return this.dataBeanList.size();
         }
     }
 
@@ -305,6 +340,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         });
                         vf.addView(ll_content);
                     }
+                }else {
+                    ToastUtils.makeShortText(data.getMsg(),getContext());
+                }
+            }
+
+            @Override
+            public void onError(int code, String msg) {
+
+            }
+        },getContext()));
+
+        CardLetterRequestApi.getInstance().getPics(Constant.Access_Token,"1","",new HttpSubscriber<PictureEntity>(new SubscriberOnListener<PictureEntity>() {
+            @Override
+            public void onSucceed(PictureEntity data) {
+                if (data.getCode()==0){
+                    pagerView = (RollPagerView) view.findViewById(R.id.fragment_home_top_pagerview);
+                    dataBeanList=data.getData().get(0).getData();
+                    pagerView.setAdapter(new MyPagerAdapter(getContext(),dataBeanList));
+                    pagerView.setOnItemClickListener(new OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            ToastUtils.makeShortText("点击了---"+Constant.PIC_URL+dataBeanList.get(position).getThumb(),getContext());
+                        }
+                    });
                 }else {
                     ToastUtils.makeShortText(data.getMsg(),getContext());
                 }

@@ -123,7 +123,9 @@
         <!--地理位置-->
         <activity android:name=".activity.LoactionActivity"
             android:screenOrientation="portrait"/>
-
+        <!--积分分类内容列表-->
+        <activity android:name=".activity.ClassifyActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
             android:screenOrientation="portrait"

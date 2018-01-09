@@ -1,6 +1,8 @@
 package com.mt.cardletter.fragment;
 
 
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.ToastUtils;
+import com.mt.cardletter.utils.UIHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +51,15 @@ public class IntegralFragment extends BaseFragment {
         gridView=findViewById(R.id.grid);
 
         content_list = findViewById(R.id.content_list);
+
+        content_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int c_id = c_list.get(position).getId();
+                String c_name = c_list.get(position).getName();
+                UIHelper.showClassifyActivity(getContext(),c_id,c_name);
+            }
+        });
     }
 
     @Override

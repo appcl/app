@@ -12,6 +12,8 @@ import com.mt.cardletter.entity.integral.CategoryEntity;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.merchant.GoodsBean;
+import com.mt.cardletter.entity.picture.PictureEntity;
+import com.mt.cardletter.entity.seller.SellerEntity;
 import com.mt.cardletter.entity.user.LoginEntity;
 
 import retrofit2.http.Field;
@@ -193,4 +195,30 @@ public interface HttpRequestService {
      */
     @POST("/api.php/seller/categorylist")
     Observable<CategoryEntity> getCategory(@Query("access_token") String access_token);
+
+    /**
+     * 广告接口
+     * @param access_token
+     * @param group 1）、首页广告请求  2）、板块广告请求  3）、植入广告请求
+     * @param ad_id
+     * @return
+     */
+    @POST("/api.php/ad/adlist")
+    Observable<PictureEntity> getPics(@Query("access_token") String access_token,
+                                      @Query("group") String group,
+                                      @Query("ad_id") String ad_id);
+
+    /**
+     * 积分商城内容列表信息
+     * @param access_token
+     * @param list_rows
+     * @param page
+     * @param category_id
+     * @return
+     */
+    @POST("/api.php/seller/sellerlist")
+    Observable<SellerEntity> getSellers(@Query("access_token") String access_token,
+                                        @Query("list_rows") int list_rows,
+                                        @Query("page") int page,
+                                        @Query("category_id") int category_id);
 }

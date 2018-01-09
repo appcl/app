@@ -5,6 +5,8 @@ import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.integral.CategoryEntity;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Goods;
+import com.mt.cardletter.entity.picture.PictureEntity;
+import com.mt.cardletter.entity.seller.SellerEntity;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.BaseApi;
 import com.mt.cardletter.https.HttpRequestService;
@@ -114,6 +116,33 @@ public class CardLetterRequestApi extends BaseApi {
     public void getCategory(String ak, Subscriber<CategoryEntity> subscriber){
         Observable observable = httpRequestService.getCategory(ak)
                 .map(new HttpResultFunc<CategoryEntity>());
+        toSubscribe(observable,subscriber);
+    }
+
+    /**
+     * 广告
+     * @param ak
+     * @param group
+     * @param ad_id
+     * @param subscriber
+     */
+    public void getPics(String ak , String group , String ad_id, Subscriber<PictureEntity> subscriber){
+        Observable observable = httpRequestService.getPics(ak,group,ad_id)
+                .map(new HttpResultFunc<PictureEntity>());
+        toSubscribe(observable,subscriber);
+    }
+
+    /**
+     * 积分商城内容列表
+     * @param ak
+     * @param list_rows
+     * @param page
+     * @param category_id
+     * @param subscriber
+     */
+    public void getSeller(String ak , int list_rows, int page , int category_id, Subscriber<SellerEntity> subscriber){
+        Observable observable = httpRequestService.getSellers(ak,list_rows,page,category_id)
+                .map(new HttpResultFunc<SellerEntity>());
         toSubscribe(observable,subscriber);
     }
 }

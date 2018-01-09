@@ -53,11 +53,13 @@ public class Constant {
         DAY
     }
     
-    public static final String Access_Token = "63aa53d7a943b941dbb30c0437262a88";//测试ak
+    public static final String Access_Token = "d071ee06d1f4a5f3d102c6483d248142";//测试ak
 
     public static final String JH_KEY = "e46870fe3129e14dfe9818b31609bc1a";//聚合的Key
 
     public static final String JH_CAR = "8e54776ff5c43672a1e8380c988af6bc";//聚合违章查询Key
 //    public static final String JH_KEY = "9a66765e53c4bf57f1e614d3fefe02d1";//聚合快递查询Key
+
+    public static final String PIC_URL = "http://51kalaxin.free.ngrok.cc";//图片的路径
 
 }

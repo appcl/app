@@ -3,11 +3,13 @@ package com.mt.cardletter.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import com.mt.cardletter.MainActivity;
 import com.mt.cardletter.activity.AboutActivity;
 import com.mt.cardletter.activity.ArticleActivity;
+import com.mt.cardletter.activity.ClassifyActivity;
 import com.mt.cardletter.activity.ExpressActivity;
 import com.mt.cardletter.activity.ExpressDetailActivity;
 import com.mt.cardletter.activity.LoactionActivity;
@@ -238,6 +240,18 @@ public class UIHelper {
      */
     public static void showLocationActivity(Context context){
         Intent intent = new Intent(context, LoactionActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 分类列表内容
+     */
+    public static void showClassifyActivity(Context context,int id ,String name){
+        Intent intent = new Intent(context, ClassifyActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("c_id",id);
+        bundle.putString("c_name",name);
+        intent.putExtras(bundle);
         context.startActivity(intent);
     }
 }

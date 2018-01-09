@@ -21,6 +21,7 @@ import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
+import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.tabstrip.PagerSlidingTabStrip;
 
@@ -64,7 +65,6 @@ public class DiscoverFragment extends Fragment {
         CardLetterRequestApi.getInstance().getFindCategroyList(Constant.Access_Token,new HttpSubscriber<FindCategoryList>(new SubscriberOnListener<FindCategoryList>() {
             @Override
             public void onSucceed(FindCategoryList data) {
-                System.out.println("分类列表请求成功");
                 tabDatas = data.getData();
                 adapter.notifyDataSetChanged();
                 tabs.notifyDataSetChanged();
@@ -72,7 +72,7 @@ public class DiscoverFragment extends Fragment {
             }
             @Override
             public void onError(int code, String msg) {
-                System.out.println("分类列表网络异常");
+                ToastUtils.showShort(getContext(),msg);
             }
         },getContext()));
     }

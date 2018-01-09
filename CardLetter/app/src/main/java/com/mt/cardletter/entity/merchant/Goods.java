@@ -2,13 +2,15 @@ package com.mt.cardletter.entity.merchant;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by jk on 2018/1/5.
+ * 商家优惠列表
  */
 
-public class Goods {
+public class Goods implements Serializable{
 
     /**
      * code : 0
@@ -55,7 +57,7 @@ public class Goods {
         this.exeTime = exeTime;
     }
 
-    public static class DataBeanX {
+    public static class DataBeanX implements Serializable {
         /**
          * total : 11
          * per_page : 15
@@ -111,7 +113,7 @@ public class Goods {
             this.data = data;
         }
 
-        public static class DataBean {
+        public static class DataBean implements Serializable {
             /**
              * id : 11
              * name : 测试信息123

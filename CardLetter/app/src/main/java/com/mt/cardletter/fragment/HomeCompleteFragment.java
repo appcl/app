@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.SetailsActivity;
-import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.https.HttpSubscriber;
@@ -24,7 +23,6 @@ import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
-import com.mt.cardletter.view.pulltorefresh.ILoadingLayout;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 
@@ -38,7 +36,7 @@ import butterknife.ButterKnife;
  * Created by jk on 2017/12/11.
  */
 
-public class CompleteFragment extends Fragment {
+public class HomeCompleteFragment extends Fragment {
     private static final int UPDATA_UP = 0X01; // 上拉加载
     private static final int UPDATA_DOWN = 0X02; //下拉刷新
     private static final int UPDATA_DEF = 0X03; //默认加载
@@ -68,7 +66,6 @@ public class CompleteFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (isOpen){
-
             context = getActivity();
             initView();
             isOpen = false;
@@ -133,7 +130,7 @@ public class CompleteFragment extends Fragment {
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                new CompleteFragment.GetDataTask().execute();
+                new HomeCompleteFragment.GetDataTask().execute();
             }
         });
         /**

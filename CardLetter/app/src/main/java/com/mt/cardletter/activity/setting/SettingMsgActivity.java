@@ -39,7 +39,10 @@ import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.PermissionUtils;
 import com.mt.cardletter.utils.PictureUtils;
 import com.mt.cardletter.utils.SharedPreferences;
+import com.mt.cardletter.utils.ThirdpartyLoginUtils;
 import com.mt.cardletter.utils.ToastUtils;
+import com.umeng.socialize.UMShareAPI;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
@@ -128,6 +131,7 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
             case R.id.btnExit:
                 boolean isLogin = SharedPreferences.getInstance().getBoolean("isLogin", false);
                 if (isLogin){
+                    ThirdpartyLoginUtils.unLoginForQQ();
                     btnExit.setClickable(true);
                     btnExit.setEnabled(true);
                     SharedPreferences.getInstance().putBoolean("isLogin",false);
@@ -297,33 +301,6 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
             }
         }
     }
-    private Uri uri;
-    String path;
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            //拍照
-            case REQ_GALLERY:
-                if (resultCode != Activity.RESULT_OK) return;
-                uri = Uri.parse(mPublicPhotoPath);
-                path = uri.getPath();
-                break;
-            //获取相册的图片
-            case REQUEST_CODE_PICK_IMAGE:
-                if (data == null) return;
-                uri = data.getData();
-                int sdkVersion = Integer.valueOf(Build.VERSION.SDK);
-                if (sdkVersion >= 19) {
-                    path = this.uri.getPath();
-                    path = PictureUtils.getPath_above19(this, this.uri);
-                } else {
-                    path = PictureUtils.getFilePath_below19(this, this.uri);
-                }
-                break;
-        }
-        circleImageView.setImageBitmap(PictureUtils.getSmallBitmap(path, 100, 100));
-    }
 
     /**
      * 设置随机设置头像
@@ -352,4 +329,10 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
     protected void initData() { }
     @Override
     protected void handler(Message msg) { }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
 }

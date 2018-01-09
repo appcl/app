@@ -27,7 +27,7 @@ public class AppContext extends Application {
      *      App Key：2928292335
             App Secret：8f16088f8122c87f695c2893e6595aeb
        2.腾讯
-            APP ID1106542925
+            APP ID  1106542925
             APP KEY 57VgIL08mxb0kua8
      */
     {

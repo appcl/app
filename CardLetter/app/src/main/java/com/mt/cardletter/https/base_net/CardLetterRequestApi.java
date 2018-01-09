@@ -3,8 +3,11 @@ package com.mt.cardletter.https.base_net;
 
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.integral.CategoryEntity;
+import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
+import com.mt.cardletter.entity.merchant.Good;
 import com.mt.cardletter.entity.merchant.Goods;
+import com.mt.cardletter.entity.news.NewsCategory;
 import com.mt.cardletter.entity.picture.PictureEntity;
 import com.mt.cardletter.entity.seller.SellerEntity;
 import com.mt.cardletter.entity.user.LoginEntity;
@@ -26,7 +29,7 @@ public class CardLetterRequestApi extends BaseApi {
         httpRequestService = CardLetterMethod.getInstance().createApi(HttpRequestService.class);
     }
 //    public CardLetterRequestApi(String base_url) {
-//        httpRequestService = HttpMethod.getInstance(base_url).createApi(HttpRequestService.class);
+//        httpRequestService = CardLetterMethod.getInstance(base_url).createApi(HttpRequestService.class);
 //    }
 
     public static CardLetterRequestApi getInstance() {
@@ -116,6 +119,37 @@ public class CardLetterRequestApi extends BaseApi {
     public void getCategory(String ak, Subscriber<CategoryEntity> subscriber){
         Observable observable = httpRequestService.getCategory(ak)
                 .map(new HttpResultFunc<CategoryEntity>());
+        toSubscribe(observable,subscriber);
+    }
+
+    /**
+     * 银行列表
+     * @param ak
+     * @param subscriber
+     */
+    public void getBank(String ak, Subscriber<Bank> subscriber){
+        Observable observable = httpRequestService.getBank(ak)
+                .map(new HttpResultFunc<Bank>());
+        toSubscribe(observable,subscriber);
+    }
+    /**
+     * 优惠详情
+     * @param subscriber
+     */
+    public void getGoodDetails(String ak,String cardfind_id,Subscriber<Good> subscriber){
+        Observable observable = httpRequestService.getGoodDetails(ak,cardfind_id)
+                .map(new HttpResultFunc<Good>());
+        toSubscribe(observable,subscriber);
+    }
+
+    /**
+     * 新闻列表
+     * @param ak
+     * @param subscriber
+     */
+    public void getHomeCategory(String ak, Subscriber<NewsCategory> subscriber){
+        Observable observable = httpRequestService.getHomeCategory(ak)
+                .map(new HttpResultFunc<NewsCategory>());
         toSubscribe(observable,subscriber);
     }
 

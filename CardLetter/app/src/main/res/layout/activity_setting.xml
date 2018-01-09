@@ -57,7 +57,7 @@
             android:id="@+id/cache_size"
             android:layout_marginRight="12dp"
             android:layout_toLeftOf="@id/clear_next"
-            android:text="1.60M"
+            android:text=""
             android:textColor="@color/color_text_black_31"
             android:textSize="12sp"
             android:layout_width="wrap_content"
@@ -164,21 +164,23 @@
         android:background="@drawable/divider"
         android:layout_width="match_parent"
         android:layout_height="8dp" />
-    <LinearLayout
-        android:padding="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:textStyle ="bold"
-            android:padding="2dp"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:textSize="16dp"
-            android:textColor="@color/color_text_red"
-            android:text="退出登录"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:padding="8dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<TextView-->
+            <!--android:textStyle ="bold"-->
+            <!--android:padding="2dp"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:gravity="center"-->
+            <!--android:textSize="16dp"-->
+            <!--android:textColor="@color/color_text_red"-->
+            <!--android:text="退出登录"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+    <!--</LinearLayout>-->
+
     <View
         android:background="@drawable/divider"
         android:layout_width="match_parent"

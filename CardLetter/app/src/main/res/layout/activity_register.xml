@@ -132,7 +132,7 @@
                     android:textColor="#ff111111"
                     android:textColorHint="#ffaaaaaa"
                     android:textSize="14.0sp" />
-
+                <!--获取验证-->
                 <!--<Button-->
                 <!--android:id="@+id/btnGetCode"-->
                 <!--android:layout_width="94.0dip"-->
@@ -157,7 +157,7 @@
             android:layout_marginLeft="18.0dip"
             android:layout_marginRight="18.0dip"
             android:layout_marginTop="30.0dip"
-            android:background="#D1D1D1"
+            android:background="@color/redbg"
             style="?android:attr/borderlessButtonStyle"
             android:text="注册"
             android:textColor="#ffffffff"

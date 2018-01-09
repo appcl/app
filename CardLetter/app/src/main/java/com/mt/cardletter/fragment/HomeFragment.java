@@ -34,6 +34,8 @@ import com.mt.cardletter.R;
 import com.mt.cardletter.app.AppContext;
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.data.HeWeather;
+import com.mt.cardletter.entity.merchant.FindCategoryList;
+import com.mt.cardletter.entity.news.NewsCategory;
 import com.mt.cardletter.entity.picture.PictureEntity;
 import com.mt.cardletter.https.HttpRequestApi;
 import com.mt.cardletter.https.HttpSubscriber;
@@ -69,8 +71,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private static String[] TITLES;
     private static String[] URLS = new String[]{"", "", "", ""};
 
-    private PagerSlidingTabStrip tabs;
-    private ViewPager pager;
     private LinearLayout locatio_address;
     private TextView fragment_home_top_text_address;
 
@@ -80,15 +80,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private ScrollView parentScrollView;
     private LinearLayout pathContent2;
     private HeWeather.HeWeather6Bean weather6Bean;
-
+    private Fragment[] fragments;
 
     private int mCurrPos;
     private Timer timer;
     private TimerTask task;
     List<String> testList = new ArrayList<>();
     private int count;
+    private FragmentPagerAdapter adapter;
 
     private List<PictureEntity.DataBeanX.DataBean> dataBeanList = new ArrayList<>();
+    private PagerSlidingTabStrip tabs;
+    private ViewPager pager;
+    private List<NewsCategory.DataBean> tabDatas = new ArrayList<>();
 
     private int viewY;
     @Nullable
@@ -124,6 +128,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        countSize();
+        loadData();
 //        pagerView.setAdapter(new MyPagerAdapter(getContext(),dataBeanList));
 //        pagerView.setOnItemClickListener(new OnItemClickListener() {
 //            @Override
@@ -131,24 +137,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 //                ToastUtils.makeShortText("点击了---"+Constant.PIC_URL+dataBeanList.get(position).getThumb(),getContext());
 //            }
 //        });
-        TITLES = getResources().getStringArray(R.array.news_titles);
-        FragmentPagerAdapter adapter = new NewsAdapter(getChildFragmentManager());
-        pager.setAdapter(adapter);
-        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
-        pager.setPageMargin(pageMargin);
-        tabs.setViewPager(pager);
-
-        //计算距离
-        WindowManager wm = (WindowManager)getActivity().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        int dx = display.getWidth();
-        int dy = display.getHeight();
-        int[] location = new int[2];
-        pathContent2.getLocationOnScreen(location);
-        int x = location[0];
-        int y = location[1];
-        viewY = dy - y- SizeUtils.dip2px(getContext(),290);
-        pathContent2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, viewY));
 
     }
     @Override
@@ -184,6 +172,31 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    private void loadData() {
+        /*
+         * 获取文章分类列表
+         */
+        CardLetterRequestApi.getInstance().getHomeCategory(Constant.Access_Token,new HttpSubscriber<NewsCategory>(new SubscriberOnListener<NewsCategory>() {
+            @Override
+            public void onSucceed(NewsCategory data) {
+                tabDatas = data.getData();
+                FragmentPagerAdapter adapter = new NewsAdapter(getChildFragmentManager(),tabDatas);
+                pager.setAdapter(adapter);
+                final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
+                pager.setPageMargin(pageMargin);
+                tabs.setViewPager(pager);
+                fragments = new Fragment[tabDatas.size()];
+            }
+            @Override
+            public void onError(int code, String msg) {
+
+                ToastUtils.showShort(getContext(),msg);
+            }
+        },getContext()));
+    }
+    /**
+     *  指示器 的 适配器
+     */
 
     class MyPagerAdapter extends StaticPagerAdapter{
         List<PictureEntity.DataBeanX.DataBean> dataBeanList  = new ArrayList<>();
@@ -232,33 +245,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
 
     class NewsAdapter extends FragmentPagerAdapter{
+        FragmentManager childFragmentManage;
+        List<NewsCategory.DataBean> tabDatas;
 
-        public NewsAdapter(FragmentManager fm) {
-            super(fm);
+
+        public NewsAdapter(FragmentManager childFragmentManager, List<NewsCategory.DataBean> tabDatas) {
+            super(childFragmentManager);
+            this.childFragmentManage= childFragmentManager;
+            this.tabDatas=tabDatas;
         }
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0) {
-                return new ActiveFragment(parentScrollView,viewY);
-            }
-            if (position == 1) {
-                return new FristTagFragment();
-            }
-            if (position == 2) {
-                return new FristTagFragment();
-            }
-            return new ActiveFragment(parentScrollView,viewY);
+            HomeCompleteFragment fragment =  new HomeCompleteFragment();
+            Bundle bundle=new Bundle();
+            bundle.putInt("id",tabDatas.get(position).getId());
+            fragment.setArguments(bundle);
+            return fragment;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return TITLES[position % TITLES.length];
+            return tabDatas.get(position).getName();
         }
 
         @Override
         public int getCount() {
-            return TITLES.length;
+            return tabDatas.size();
         }
     }
 
@@ -272,7 +285,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             }
         }
     }
-
+    //计算距离
+    private void countSize(){
+        WindowManager wm = (WindowManager)getActivity().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        int dy = display.getHeight();
+        int[] location = new int[2];
+        pathContent2.getLocationOnScreen(location);
+        int y = location[1];
+        viewY = dy - y- SizeUtils.dip2px(getContext(),290);
+        pathContent2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, viewY));
+    }
 
     private void getDatas(final String city, String key) {
         weather6Bean=new HeWeather.HeWeather6Bean();

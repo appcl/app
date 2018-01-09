@@ -9,9 +9,12 @@ import com.mt.cardletter.entity.data.ViolateData;
 import com.mt.cardletter.entity.express.ExpressCom;
 import com.mt.cardletter.entity.express.Express_Content;
 import com.mt.cardletter.entity.integral.CategoryEntity;
+import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
+import com.mt.cardletter.entity.merchant.Good;
 import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.merchant.GoodsBean;
+import com.mt.cardletter.entity.news.NewsCategory;
 import com.mt.cardletter.entity.picture.PictureEntity;
 import com.mt.cardletter.entity.seller.SellerEntity;
 import com.mt.cardletter.entity.user.LoginEntity;
@@ -20,6 +23,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -195,6 +199,31 @@ public interface HttpRequestService {
      */
     @POST("/api.php/seller/categorylist")
     Observable<CategoryEntity> getCategory(@Query("access_token") String access_token);
+
+    /**
+     * 银行列表
+     * @param access_token
+     * @return
+     */
+    @POST("/api.php/bankcard/bankcardlist")
+    Observable<Bank> getBank(@Query("access_token") String access_token);
+
+    /**
+     * 优惠详情
+     * @return
+     *
+     */
+    @GET("/api.php/cardfind/cardfindinfo/cardfind_id/{cardfind_id}/access_token/{access_token}")
+    Observable<Good> getGoodDetails(@Path("access_token") String access_token,
+                                    @Path("cardfind_id") String cardfind_id);
+    /**
+     * 首页列表
+     * @param access_token
+     * @return
+     */
+    @POST("/api.php/article/categorylist")
+    Observable<NewsCategory> getHomeCategory(@Query("access_token") String access_token);
+
 
     /**
      * 广告接口

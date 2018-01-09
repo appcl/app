@@ -1,8 +1,6 @@
 package com.mt.cardletter.activity;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,10 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.HttpSubscriber;
@@ -25,11 +19,11 @@ import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.SharedPreferences;
+import com.mt.cardletter.utils.ThirdpartyLoginUtils;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareConfig;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.Map;
@@ -137,7 +131,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      */
     public boolean checkInput(String phone, String password) {
         if (TextUtils.isEmpty(phone)) {
-            ToastUtils.showShort(this, "请填写账号");
+            ToastUtils.showShort(this, "请输入账号");
         }
         /*  else if (!RegexUtils.checkMobile(phone)) {
             ToastUtils.showShort(this, R.string.tip_phone_regex_not_right);
@@ -171,7 +165,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 break;
             case R.id.qq:
-                test();
+                //loginForQQ();
+                ThirdpartyLoginUtils.loginForQQ(this);
                 break;
         }
     }
@@ -189,7 +184,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
 
-    private void test() {
+    private void loginForQQ() {
         UMShareAPI mShareAPI = UMShareAPI.get(LoginActivity.this);
         UMAuthListener umAuthListener = new UMAuthListener() {
             /**
@@ -240,13 +235,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 Toast.makeText(LoginActivity.this, "取消了", Toast.LENGTH_LONG).show();
             }
         };
-//        if (isShouQuan) {
-//            mShareAPI.deleteOauth(LoginActivity.this, SHARE_MEDIA.QQ, umAuthListener);
-//        } else {
-//
-//
-//        }
-        mShareAPI.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, umAuthListener);
+        if (isShouQuan) {
+            mShareAPI.deleteOauth(LoginActivity.this, SHARE_MEDIA.QQ, umAuthListener);
+        } else {
+            mShareAPI.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, umAuthListener);
+        }
+
     }
 
 
@@ -254,6 +248,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
 
 
     @Override

@@ -1,6 +1,7 @@
 package com.mt.cardletter.https.test;
 
 
+import com.mt.cardletter.entity.creditcard.CreditCard;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.entity.news.NetNews;
@@ -61,6 +62,12 @@ public class TestRequestApi extends BaseApi {
      */
     public void getLocalityNews(String keyword,String apikey, Subscriber<NetNews> subscriber){
         Observable observable = httpRequestService.getLocalityNews(keyword,apikey).map(new HttpResultFunc<NetNews>());
+        toSubscribe(observable,subscriber);
+    }
+
+    public void getCreditCard(String email,String password,String ak,Subscriber<CreditCard> subscriber){
+        Observable observable = httpRequestService.getCreditCard(email,password,ak)
+                .map(new HttpResultFunc<CreditCard>());
         toSubscribe(observable,subscriber);
     }
 }

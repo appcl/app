@@ -1,5 +1,4 @@
-package com.mt.cardletter.https.base_net;
-
+package com.mt.cardletter.https.test;
 
 import com.mt.cardletter.app.AppContext;
 import com.mt.cardletter.https.interceptor.LoggingInterceptor;
@@ -20,31 +19,21 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by HQ_Demos on 2017/4/25.
+ * Date:2017/12/22
+ * Time:10:11
+ * author:demons
  */
 
-public class CardLetterMethod {
-//    public static final String BASE_URL = "http://42.159.202.20:8881";
-    /**
-     * 测试版地址
-     */
-    public static final String BASE_URL = "http://www.51kaxin.xyz";
+public class QQMethod {
+    public static final String BASE_URL = "https://w.mail.qq.com"; //===========================
     private static Retrofit retrofit;
 
-    private CardLetterMethod() {
+    private QQMethod() {
         retrofit = new Retrofit.Builder()
                 .client(genericClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
-                .build();
-    }
-    private CardLetterMethod(String base_url) {
-        retrofit = new Retrofit.Builder()
-                .client(genericClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(base_url)
                 .build();
     }
 
@@ -54,16 +43,14 @@ public class CardLetterMethod {
 
     //在访问HttpMethods时创建单例
     private static class SingletonHolder {
-        private static final CardLetterMethod INSTANCE = new CardLetterMethod();
+        private static final QQMethod INSTANCE = new QQMethod();
     }
 
     //获取单例
-    public static CardLetterMethod getInstance() {
+    public static QQMethod getInstance() {
         return SingletonHolder.INSTANCE;
     }
-    public static CardLetterMethod getInstance(String base_url) {
-        return new CardLetterMethod(base_url);
-    }
+
     private static OkHttpClient genericClient() {
         LoggingInterceptor logging = new LoggingInterceptor();
         // set your desired log level
@@ -72,18 +59,13 @@ public class CardLetterMethod {
         File httpCacheDirectory = new File(AppContext.getInstance().getExternalCacheDir().getAbsolutePath(), "responses");
         //设置缓存 10M
         Cache cache = new Cache(httpCacheDirectory, 50 * 1024 * 1024);
-//        String credentials="51kalaxin:62kaxin";
-//        final String basic =
-//                "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request request = null;
 //                        if (Constant.TOKEN == null || Constant.TOKEN.equals("")) {
-                            request = chain.request().newBuilder()
-//                                    .addHeader("Authorization",basic)
-                                    .build();
+                        request = chain.request().newBuilder().build();
 //                        } else {
 //                            request = chain.request()
 //                                    .newBuilder()
@@ -118,4 +100,5 @@ public class CardLetterMethod {
                 }).addInterceptor(logging).cache(cache).build();
         return httpClient;
     }
+
 }

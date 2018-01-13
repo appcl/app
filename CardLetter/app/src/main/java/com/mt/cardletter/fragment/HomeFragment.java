@@ -415,7 +415,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                     pagerView.setOnItemClickListener(new OnItemClickListener() {
                         @Override
                         public void onItemClick(int position) {
-                            ToastUtils.makeShortText("点击了---"+Constant.PIC_URL+dataBeanList.get(position).getThumb(),getContext());
+                            System.out.println("点击了---"+Constant.PIC_URL+dataBeanList.get(position).getThumb());
                         }
                     });
                 }else {

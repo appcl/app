@@ -2,8 +2,11 @@ package com.mt.cardletter.https;
 
 
 import com.mt.cardletter.entity.article.ArticleBean;
+import com.mt.cardletter.entity.creditcard.CreditCard;
+import com.mt.cardletter.entity.creditcard.CreditDatas;
 import com.mt.cardletter.entity.data.AirDatas;
 import com.mt.cardletter.entity.data.HeWeather;
+import com.mt.cardletter.entity.data.SearchDatas;
 import com.mt.cardletter.entity.data.ViolateCity;
 import com.mt.cardletter.entity.data.ViolateData;
 import com.mt.cardletter.entity.express.ExpressCom;
@@ -135,7 +138,7 @@ public interface HttpRequestService {
      * @param access_token
      * @return
      */
-    @POST("/api.php/article/articlelist")
+    @POST("/api.php/article/articlelist/category_id/12/")
     Observable<ArticleBean>getArticle(@Query("access_token") String access_token);
 
     /**
@@ -302,4 +305,86 @@ public interface HttpRequestService {
     @POST("/jisuapi/newSearch")
     Observable<NetNews> getLocalityNews(@Query("keyword") String keyword,
                                               @Query("appkey") String appkey);
+
+    /**
+     * 搜索接口
+     * @param access_token
+     * @param list_rows
+     * @param page
+     * @param category_id
+     * @param search_data
+     * @return
+     */
+    @POST("/api.php/cardfind/cardfindlist")
+    Observable<SearchDatas> getSearchData(@Query("access_token") String access_token,
+                                          @Query("list_rows") int list_rows,
+                                          @Query("page") int page,
+                                          @Query("category_id") int category_id,
+                                          @Query("search_data")String search_data);
+
+    /**
+     * 信用卡账单信息
+     * @param email
+     * @param password
+     * @param appkey
+     * @return
+     */
+    @POST("/creditsaas/get_creditcard_statements")
+    Observable<CreditCard> getCreditCard(@Query("email") String email,
+                                         @Query("password") String password,
+                                         @Query("appkey") String appkey);
+
+    /**
+     * 账单列表信息
+     * @param ef
+     * @param r
+     * @param sid
+     * @param t
+     * @param s
+     * @param cursor
+     * @param cursorutc
+     * @param cursorid
+     * @param cursorcount
+     * @param cursorsearch
+     * @param folderid
+     * @param receiver
+     * @param sender
+     * @param subject
+     * @param keyword
+     * @param combinetype
+     * @param device
+     * @param app
+     * @param ver
+     * @return
+     */
+    @GET("/cgi-bin/mail_list")
+    Observable<CreditDatas> getCreditData(@Query("ef") String ef,
+                                          @Query("r") String r,
+                                          @Query("sid") String sid,
+                                          @Query("t") String t,
+                                          @Query("s") String s,
+                                          @Query("cursor") String cursor,
+                                          @Query("cursorutc") String cursorutc,
+                                          @Query("cursorid") String cursorid,
+                                          @Query("cursorcount") String cursorcount,
+                                          @Query("cursorsearch") String cursorsearch,
+                                          @Query("folderid") String folderid,
+                                          @Query("receiver") String receiver,
+                                          @Query("sender") String sender,
+                                          @Query("subject") String subject,
+                                          @Query("keyword") String keyword,
+                                          @Query("combinetype") String combinetype,
+                                          @Query("device") String device,
+                                          @Query("app") String app,
+                                          @Query("ver") String ver);
+
+    /**
+     * 信用卡详细信息
+     * @param sid
+     * @param t
+     * @return
+     */
+    @GET("/cgi-bin/mobile")
+    Observable<String> getCreditDetailData(@Query("sid") String sid,
+                                           @Query("t") String t);
 }

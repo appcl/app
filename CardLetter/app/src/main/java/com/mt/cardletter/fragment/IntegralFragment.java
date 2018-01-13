@@ -3,7 +3,9 @@ package com.mt.cardletter.fragment;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
@@ -36,6 +38,8 @@ public class IntegralFragment extends BaseFragment {
     private IntegralAdapter iAdapter;
     private List<CategoryEntity.DataBean> c_list=new ArrayList<>();
     private CategoryAdapter cAdapter;
+    private LinearLayout searchView;
+    private EditText search_et_input;
 
     @Override
     protected int setLayoutResouceId() {
@@ -60,6 +64,22 @@ public class IntegralFragment extends BaseFragment {
                 UIHelper.showClassifyActivity(getContext(),c_id,c_name);
             }
         });
+
+        searchView = findViewById(R.id.search_layout);
+        search_et_input= findViewById(R.id.search_et_input);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIHelper.showSearchActivity(getContext());
+            }
+        });
+        search_et_input.setFocusable(false);//让EditText失去焦点，然后获取点击事件
+        search_et_input.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIHelper.showSearchActivity(getContext());
+            }
+        });
     }
 
     @Override
@@ -77,7 +97,7 @@ public class IntegralFragment extends BaseFragment {
         list.add(entity);
 
         IntegralEntity entity1 = new IntegralEntity();
-        entity1.setI_tv("5k分以下");
+        entity1.setI_tv("3K-5k积分");
         list.add(entity1);
 
         IntegralEntity entity2 = new IntegralEntity();

@@ -18,10 +18,12 @@ import com.mt.cardletter.activity.MakeIntegralActivity;
 import com.mt.cardletter.activity.MessageActivity;
 import com.mt.cardletter.activity.RegisterActivity;
 import com.mt.cardletter.activity.ScreenActivity;
+import com.mt.cardletter.activity.SearchActivity;
 import com.mt.cardletter.activity.SearchClassicActivity;
 import com.mt.cardletter.activity.ViolateActivity;
 import com.mt.cardletter.activity.ViolateDetailActivity;
 import com.mt.cardletter.activity.WeatherActivity;
+import com.mt.cardletter.activity.WebView_QQActivity;
 import com.mt.cardletter.activity.seckill.SeckillActivity;
 import com.mt.cardletter.activity.setting.SettingActivity;
 import com.mt.cardletter.activity.setting.SettingMsgActivity;
@@ -254,4 +256,19 @@ public class UIHelper {
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
+
+    /**
+     * QQ邮箱H5页面
+     * @param context
+     */
+    public static void showQQH5(Context context){
+        Intent intent = new Intent(context, WebView_QQActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void showSearchActivity(Context context){
+        Intent intent = new Intent(context, SearchActivity.class);
+        context.startActivity(intent);
+    }
+
 }

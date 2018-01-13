@@ -125,6 +125,16 @@ public class ArticleBean implements Serializable{
             private String describe;
             private String create_time;
 
+            public String getThumb() {
+                return thumb;
+            }
+
+            public void setThumb(String thumb) {
+                this.thumb = thumb;
+            }
+
+            private String thumb;
+
             public int getId() {
                 return id;
             }

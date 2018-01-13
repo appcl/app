@@ -2,6 +2,8 @@ package com.mt.cardletter.utils;
 
 import android.text.TextUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -241,4 +243,18 @@ public final class RegexUtils {
 		return false;
 	}
 
+	/**
+	 * 汉字转为UTF-8编码格式
+	 * @param str
+	 * @return
+     */
+	public static String encodeUTF8(String str){
+		String strUTF8 = null;
+		try {
+			strUTF8 = URLDecoder.decode(str, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return strUTF8;
+	}
 }

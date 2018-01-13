@@ -111,25 +111,30 @@
             android:name=".activity.MessageActivity"
             android:screenOrientation="portrait" />
 
-        <!-- 热门 -->
-        <activity
-            android:name=".activity.ArticleActivity"
-            android:screenOrientation="portrait" />
-        <!-- 订单 -->
-        <activity
-            android:name=".activity.ExpressActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.ExpressDetailActivity"
-            android:screenOrientation="portrait" />
-        <!-- 地理位置 -->
-        <activity
-            android:name=".activity.LoactionActivity"
-            android:screenOrientation="portrait" />
-        <!-- 积分分类内容列表 -->
-        <activity
-            android:name=".activity.ClassifyActivity"
-            android:screenOrientation="portrait" />
+
+        <!--热门-->
+        <activity android:name=".activity.ArticleActivity"
+            android:screenOrientation="portrait"/>
+        <!--订单-->
+        <activity android:name=".activity.ExpressActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ExpressDetailActivity"
+            android:screenOrientation="portrait"/>
+        <!--地理位置-->
+        <activity android:name=".activity.LoactionActivity"
+            android:screenOrientation="portrait"/>
+        <!--积分分类内容列表-->
+        <activity android:name=".activity.ClassifyActivity"
+            android:screenOrientation="portrait"/>
+        <!--QQ邮箱H5-->
+        <activity android:name=".activity.WebView_QQActivity"
+            android:screenOrientation="portrait"/>
+        <!--搜索页面-->
+        <activity android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan"/>
+        <!-- 信用卡分类列表信息-->
+        <activity android:name=".activity.CreditListActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
             android:screenOrientation="portrait"

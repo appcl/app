@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorbg"
     android:orientation="vertical">
-    <include layout="@layout/action_title"/>
     <LinearLayout
         android:id="@+id/search_layout"
         android:layout_width="match_parent"
@@ -13,6 +12,18 @@
         android:background="@color/coloreeeeee"
         android:orientation="horizontal">
 
+        <FrameLayout
+            android:id="@+id/back_btn"
+            android:layout_centerVertical="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="13dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/back" />
+        </FrameLayout>
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -27,9 +38,9 @@
                 android:drawableLeft="@mipmap/search_bar_icon_normal"
                 android:drawablePadding="5dp"
                 android:hint="请输入关键字"
+                android:textColor="@color/color_text_black_31"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
-                android:textColor="@color/color_text_black_31"
                 android:textSize="12sp" />
 
             <RelativeLayout
@@ -42,50 +53,23 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@mipmap/cancel" />
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@mipmap/esc" />
             </RelativeLayout>
         </FrameLayout>
+        <TextView
+            android:id="@+id/search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="10dp"
+            android:text="搜索"
+            android:textColor="@color/color_text_black_31"
+            android:textSize="14sp" />
     </LinearLayout>
-    <TextView
-        android:paddingLeft="10dp"
-        android:text="推荐"
-        android:gravity="center_vertical"
+    <com.mt.cardletter.view.RefreshRecyclerView.PullToRefreshRecyclerView
+        android:id="@+id/search_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/gray_d1d1d1"/>
-
-
-            <GridView
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:id="@+id/grid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:gravity="center"
-                android:numColumns="5"
-                >
-            </GridView>
-    <TextView
-        android:paddingLeft="10dp"
-        android:text="分类"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/gray_d1d1d1"/>
-    <GridView
-        android:id="@+id/content_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:background="@color/white"
-        android:divider="@null"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:scrollbars="none"
-        android:gravity="center"
-        android:numColumns="5"
-        />
+        android:layout_height="match_parent"/>
 </LinearLayout>

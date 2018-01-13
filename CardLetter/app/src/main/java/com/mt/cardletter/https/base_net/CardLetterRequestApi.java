@@ -2,6 +2,7 @@ package com.mt.cardletter.https.base_net;
 
 
 import com.mt.cardletter.entity.article.ArticleBean;
+import com.mt.cardletter.entity.data.SearchDatas;
 import com.mt.cardletter.entity.integral.CategoryEntity;
 import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
@@ -194,4 +195,19 @@ public class CardLetterRequestApi extends BaseApi {
         toSubscribe(observable,subscriber);
     }
 
+
+    /**
+     * 搜索接口
+     * @param ak
+     * @param list_rows
+     * @param page
+     * @param category_id
+     * @param str_search
+     * @param subscriber
+     */
+    public void getSearchData(String ak , int list_rows, int page , int category_id,String str_search,Subscriber<SearchDatas> subscriber){
+        Observable observable = httpRequestService.getSearchData(ak,list_rows,page,category_id,str_search)
+                .map(new HttpResultFunc<SearchDatas>());
+        toSubscribe(observable,subscriber);
+    }
 }

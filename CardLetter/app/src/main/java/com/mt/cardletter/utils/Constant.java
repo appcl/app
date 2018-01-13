@@ -53,15 +53,15 @@ public class Constant {
         DAY
     }
 
-    public static final String Access_Token = "8d9d5a4878691c85e43b2564780cb1a4";   //测试ak
-    public static final String BASE_URL = "http://www.51kaxin.xyz";                 //测试url
-    public static final String BASIC = "NTFrYWxheGluOjYya2F4aW4=";                  //测试basic
-    public static final String JH_KEY = "e46870fe3129e14dfe9818b31609bc1a";         //聚合的Key
+    public static final String Access_Token = "8d9d5a4878691c85e43b2564780cb1a4";//测试ak
+    public static final String BASE_URL = "http://www.51kaxin.xyz";      //测试url
+    public static final String BASIC = "NTFrYWxheGluOjYya2F4aW4=";               //测试basic
+    public static final String JH_KEY = "e46870fe3129e14dfe9818b31609bc1a";      //聚合的Key
 
     public static final String JH_CAR = "8e54776ff5c43672a1e8380c988af6bc";         //聚合违章查询Key
 //    public static final String JH_KEY = "9a66765e53c4bf57f1e614d3fefe02d1";       //聚合快递查询Key
 
-    public static final String PIC_URL = "http://51kalaxin.free.ngrok.cc";          //图片的路径
+    public static final String PIC_URL = "http://www.51kaxin.xyz";//图片的路径
 
 
     public static final String NEWS_KEY = "9a025356104a37cd0c690368a0461f41";       //网络新闻KEY
@@ -69,4 +69,6 @@ public class Constant {
 
     //Access Key:sNjAD1rszzfVcWHK
     //Secret Key:2b83fcb0144c4079aabe2de3cd9a3b6b
+    public static final String QQ_MAIN = "https://ui.ptlogin2.qq.com/cgi-bin/login?style=9&appid=522005705&daid=4&s_url=https%3A%2F%2Fw.mail.qq.com%2Fcgi-bin%2Flogin%3Fvt%3Dpassport%26vm%3Dwsk%26delegate_url%3D%26f%3Dxhtml%26target%3D&hln_css=http%3A%2F%2Fmail.qq.com%2Fzh_CN%2Fhtmledition%2Fimages%2Flogo%2Fqqmail%2Fqqmail_logo_default_200h.png&low_login=1&hln_autologin=%E8%AE%B0%E4%BD%8F%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81&pt_no_onekey=1";
+    public static final String QQ_MAIN_WEB ="https://mail.qq.com/cgi-bin/loginpage";
 }

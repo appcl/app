@@ -4,10 +4,13 @@ package com.mt.cardletter.fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.adapter.CardAdapter;
+import com.mt.cardletter.utils.OnMultiClickListener;
+import com.mt.cardletter.utils.UIHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +22,7 @@ import java.util.List;
 
 public class CardManagerFragment extends BaseFragment {
     private TextView title_name;
+    private TextView commonal_tv;
     private RecyclerView card_listview;
     private CardAdapter adapter ;
     private List<HashMap<String, String>> mList = new ArrayList<HashMap<String, String>>();
@@ -71,6 +75,8 @@ public class CardManagerFragment extends BaseFragment {
     @Override
     protected void initView() {
         title_name = findViewById(R.id.title_name);
+        commonal_tv = findViewById(R.id.commonal_tv);
+        commonal_tv.setVisibility(View.VISIBLE);
         card_listview = findViewById(R.id.card_listview);
         // 设置LinearLayoutManager
         card_listview.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -84,11 +90,18 @@ public class CardManagerFragment extends BaseFragment {
     @Override
     public void initData() {
         title_name.setText("卡管家");
-
+        commonal_tv.setText("添加");
         // 初始化自定义的适配器
         adapter = new CardAdapter(getContext(), mList);
         // 为mRecyclerView设置适配器
         card_listview.setAdapter(adapter);
+
+        commonal_tv.setOnClickListener(new OnMultiClickListener() {
+            @Override
+            public void onMultiClick(View v) {
+                UIHelper.showQQH5(getContext());
+            }
+        });
     }
 
     private void getData() {

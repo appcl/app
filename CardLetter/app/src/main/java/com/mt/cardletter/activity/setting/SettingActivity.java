@@ -12,8 +12,6 @@ import com.mt.cardletter.activity.BaseActivity;
 import com.mt.cardletter.utils.DataCleanUtil;
 import com.mt.cardletter.utils.UIHelper;
 
-import test.abc.H5Activity;
-
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener{
     private TextView cacheSize;
@@ -40,6 +38,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             e.printStackTrace();
         }
         findViewById(R.id.test).setOnClickListener(this);
+        findViewById(R.id.setting_help).setOnClickListener(this);
     }
 
     @Override
@@ -73,6 +72,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.test :
                 startActivity(new Intent(this, AboutActivity.class));
+                break;
+            case R.id.setting_help :
+                //TODO  帮助
                 break;
         }
     }

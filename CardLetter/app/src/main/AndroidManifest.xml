@@ -111,21 +111,25 @@
             android:name=".activity.MessageActivity"
             android:screenOrientation="portrait" />
 
-
-        <!--热门-->
-        <activity android:name=".activity.ArticleActivity"
-            android:screenOrientation="portrait"/>
-        <!--订单-->
-        <activity android:name=".activity.ExpressActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ExpressDetailActivity"
-            android:screenOrientation="portrait"/>
-        <!--地理位置-->
-        <activity android:name=".activity.LoactionActivity"
-            android:screenOrientation="portrait"/>
-        <!--积分分类内容列表-->
-        <activity android:name=".activity.ClassifyActivity"
-            android:screenOrientation="portrait"/>
+        <!-- 热门 -->
+        <activity
+            android:name=".activity.ArticleActivity"
+            android:screenOrientation="portrait" />
+        <!-- 订单 -->
+        <activity
+            android:name=".activity.ExpressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ExpressDetailActivity"
+            android:screenOrientation="portrait" />
+        <!-- 地理位置 -->
+        <activity
+            android:name=".activity.LoactionActivity"
+            android:screenOrientation="portrait" />
+        <!-- 积分分类内容列表 -->
+        <activity
+            android:name=".activity.ClassifyActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
             android:screenOrientation="portrait"
@@ -160,11 +164,11 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-         <!--<activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"-->
-             <!--android:configChanges="keyboardHidden|orientation"-->
-             <!--android:exported="false"-->
-             <!--android:windowSoftInputMode="adjustResize">-->
-         <!--</activity> -->
+        <!-- <activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity" -->
+        <!-- android:configChanges="keyboardHidden|orientation" -->
+        <!-- android:exported="false" -->
+        <!-- android:windowSoftInputMode="adjustResize"> -->
+        <!-- </activity> -->
         <activity
             android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
             android:launchMode="singleTask"
@@ -181,8 +185,10 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent1106542925" />
             </intent-filter>
         </activity>
@@ -195,6 +201,7 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="5a4d95b5f43e480afe0000e7" />
+
         <activity android:name="test.abc.MyActivity" />
         <activity android:name=".activity.setting.SettingActivity" />
         <activity android:name=".activity.setting.SettingMsgActivity" />
@@ -216,9 +223,7 @@
         <activity android:name="test.abc.H5Activity" />
         <activity android:name=".activity.ScreenActivity" />
         <activity android:name=".activity.SetailsActivity" />
-        <activity android:name=".activity.AboutActivity"></activity>
-
-
+        <activity android:name=".activity.AboutActivity" />
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:exported="false"
@@ -333,19 +338,17 @@
             android:name="JPUSH_APPKEY"
             android:value="85006f829aaf90152c813e41" />
 
-        <activity android:name=".activity.RegisterActivity"
+        <activity
+            android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-
-
-        <activity android:name=".activity.MyLoginActivity"
+        <activity
+            android:name=".activity.MyLoginActivity"
             android:configChanges="orientation|keyboard"
-            android:screenOrientation="portrait" >
-        </activity>
-
-
-
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.NetNewsActivity" />
+        <activity android:name=".activity.NewsListActivity"></activity>
     </application>
 
 </manifest>

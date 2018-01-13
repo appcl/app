@@ -104,7 +104,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onSucceed(LoginEntity data) {
                 if (data.getCode() == 0) {
-                    ToastUtils.makeShortText("asdasdsa:" + data.getMsg(), LoginActivity.this);
                     String nick_name = data.getData().getNickname();
                     String user_token = data.getData().getUser_token();
                     SharedPreferences.getInstance().putString("account", username);
@@ -121,7 +120,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void onError(int code, String msg) {
-                ToastUtils.makeShortText("网络故障", LoginActivity.this);
+                ToastUtils.makeShortText(msg, LoginActivity.this);
             }
         }, LoginActivity.this));
     }
@@ -183,7 +182,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         phone.setText(SharedPreferences.getInstance().getString("account", ""));
     }
 
-
     private void loginForQQ() {
         UMShareAPI mShareAPI = UMShareAPI.get(LoginActivity.this);
         UMAuthListener umAuthListener = new UMAuthListener() {
@@ -209,7 +207,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 SharedPreferences.getInstance().putString("nick_name",name);
                 SharedPreferences.getInstance().putString("url",iconurl);
                 SharedPreferences.getInstance().putBoolean("isLogin",true);
-                Toast.makeText(LoginActivity.this, "AA:" + name + "  " + iconurl, Toast.LENGTH_LONG).show();
                 finish();
             }
 
@@ -221,7 +218,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
              */
             @Override
             public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-
                 Toast.makeText(LoginActivity.this, "失败：" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
 

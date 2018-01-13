@@ -31,8 +31,10 @@ import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
+import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
+import com.mt.cardletter.utils.UIHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,14 +48,25 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
     private MyRecyclerAdapter myRecyclerAdapter;
     private List<Bank.DataBean> myList = new ArrayList<>();
     private List<Bank.DataBean> checkeddata = new ArrayList<>();// 选中的数据
+    private TextView next;
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_screen;
     }
     @Override
     public void initView() {
+
+        next = (TextView) findViewById(R.id.commonal_tv);
+        next.setVisibility(View.VISIBLE);
+        next.setText("跳过");
+        next.setTextColor(getResources().getColor(R.color.color_text_black_31));
+        next.setOnClickListener(new OnMultiClickListener() {
+            @Override
+            public void onMultiClick(View v) {
+                finish();
+            }
+        });
         findViewById(R.id.screen_affirm).setOnClickListener(this);
-        findViewById(R.id.screen_next).setOnClickListener(this);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeColors(Color.RED,Color.BLUE,Color.GREEN);
         TextView title_name = (TextView) findViewById(R.id.title_name);
@@ -191,10 +204,6 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
             LazyHeaders headers=  new LazyHeaders.Builder().addHeader("Authorization", basic).build();
             //url 要加载的图片的地址，imageView 显示图片的ImageView
             Glide.with(ScreenActivity.this).load(new GlideUrl(Constant.BASE_URL+myList.get(position).getCardIcon(), headers)).error(R.drawable.default_error).into(holder.iv);
-            //===========================
-//            LazyHeaders headers=  new LazyHeaders.Builder().addHeader("Authorization", Constant.BASIC).build();
-//            String url = Constant.BASE_URL+myList.get(position).getCardIcon();
-//            Glide.with(ScreenActivity.this).load(new GlideUrl(url, headers)).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.iv);
             System.out.println("URL:"+Constant.BASE_URL+myList.get(position).getCardIcon());
             holder.tv.setText(myList.get(position).getName());
             holder.checkBox.setTag(new Integer(position));//设置tag 否则划回来时选中消失

@@ -52,7 +52,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void verifyData(){
-        ToastUtils.showShort(getApplicationContext(),"asdasd");
         if(phone.getText().toString().isEmpty()){
             ToastUtils.makeShortText("用户名不能为空",getApplicationContext());
             return;
@@ -92,7 +91,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void onError(int code, String msg) {
-                ToastUtils.makeShortText("网络故障",RegisterActivity.this);
+                ToastUtils.makeShortText(msg,RegisterActivity.this);
             }
         },RegisterActivity.this));
     }

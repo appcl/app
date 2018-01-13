@@ -1,0 +1,129 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical" >
+
+<com.mt.cardletter.view.Scroll.TopScrollView
+    android:id="@+id/myScrollView"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <!--TOP部分-->
+        <RelativeLayout
+            android:id="@+id/rlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" >
+            <com.mt.cardletter.view.rollviewpager.RollPagerView
+                android:id="@+id/fragment_home_top_pagerview"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                app:rollviewpager_play_delay="3000" >
+                <LinearLayout
+                    android:id="@+id/locatio_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/fragment_home_top_text_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="南京"
+                        android:textSize="14sp"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/drop_down" />
+                </LinearLayout>
+
+            </com.mt.cardletter.view.rollviewpager.RollPagerView>
+            <ViewFlipper
+               android:layout_marginTop="150dp"
+                android:id="@+id/marquee_view"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:autoStart="true"
+                android:flipInterval="2500"
+                android:inAnimation="@anim/anim_marquee_in"
+                android:outAnimation="@anim/anim_marquee_out" >
+            </ViewFlipper>
+            <LinearLayout
+                android:layout_below="@id/marquee_view"
+                android:orientation="vertical"
+                android:background="@color/colorbg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <include layout="@layout/home_content_layout"/>
+            <View
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorspaceline"/>
+            </LinearLayout>
+        </RelativeLayout>
+        <!--保持部分-->
+        <LinearLayout
+            android:id="@+id/search02"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical">
+
+            <com.mt.cardletter.view.tabstrip.PagerSlidingTabStrip
+
+                android:background="@color/white"
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                app:pstsIndicatorColor="@android:color/holo_blue_light"
+                app:selectedTabTextColor="@android:color/holo_blue_light"
+                app:tabTextSize="12sp"
+                app:tabTextColor="@color/black"
+                app:pstsUnderlineHeight="0.5dp"
+                app:pstsUnderlineColor="@color/colorspaceline"
+                app:pstsTabPaddingLeftRight="12dp"
+                app:pstsIndicatorHeight="2dp"
+                app:pstsDividerColor="@android:color/transparent"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.mt.cardletter.view.Scroll.MyViewPager
+                android:id="@+id/pager"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</com.mt.cardletter.view.Scroll.TopScrollView>
+
+<LinearLayout
+    android:id="@+id/search01"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="vertical" >
+</LinearLayout>
+
+</RelativeLayout>

@@ -69,7 +69,7 @@ import java.util.TimerTask;
  * Created by demons on 2017/11/13.
  */
 
-public class HomeFragment extends Fragment implements View.OnClickListener,TopScrollView.OnScrollListener{
+public class CardHomeFragment extends Fragment implements View.OnClickListener,TopScrollView.OnScrollListener{
     private RollPagerView pagerView;//轮播图控件
 
     private ViewFlipper vf ;//为ViewFlipper添加广告条
@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.test,container,false);
+        View view = inflater.inflate(R.layout.test,container,false);
         getDatas(view);
 
         //========
@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         init();
         //========
         pathContent2 = (LinearLayout) view.findViewById(R.id.path_content2);
-        //make_integral = (RelativeLayout) view.findViewById(R.id.make_integral);
+        make_integral = (RelativeLayout) view.findViewById(R.id.make_integral);
         search_integral = (RelativeLayout) view.findViewById(R.id.search_integral);
         search_seckill = (RelativeLayout) view.findViewById(R.id.search_seckill);
         my_order = (RelativeLayout) view.findViewById(R.id.my_order);
@@ -137,7 +137,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         locatio_address= (LinearLayout) view.findViewById(R.id.locatio_address);
         fragment_home_top_text_address= (TextView) view.findViewById(R.id.fragment_home_top_text_address);
 
-        //make_integral.setOnClickListener(this);
+        make_integral.setOnClickListener(this);
         search_integral.setOnClickListener(this);
         search_seckill.setOnClickListener(this);
         my_order.setOnClickListener(this);
@@ -214,6 +214,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                 }else {
                     getDatas(AppContext.getInstance().getCity(),"5ee8321670ca46aab8e7555d3b3c074b");
                 }
+
                 break;
             case R.id.search_integral://查积分
 //                UIHelper.showSearchIntegralActivity(getContext());
@@ -244,9 +245,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
             @Override
             public void onSucceed(NetNewsCategory data) {
                 tabDatas = data.getResult().getResult();
-                tabDatas.add(1,"本地");
                 fragments = new Fragment[tabDatas.size()];
-                FragmentPagerAdapter adapter = new HomeFragment.NewsAdapter(getChildFragmentManager(),tabDatas);
+                FragmentPagerAdapter adapter = new CardHomeFragment.NewsAdapter(getChildFragmentManager(),tabDatas);
                 pager.setAdapter(adapter);
                 final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
                 pager.setPageMargin(pageMargin);

@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class TestMethod {
-    public static final String BASE_URL = "http://192.168.0.104:3000"; //===========================
+    public static final String BASE_URL = "https://way.jd.com"; //===========================
     private static Retrofit retrofit;
 
     private TestMethod() {

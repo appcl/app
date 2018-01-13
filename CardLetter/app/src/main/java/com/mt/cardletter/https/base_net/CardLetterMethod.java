@@ -30,7 +30,7 @@ public class CardLetterMethod {
     /**
      * 测试版地址
      */
-    public static final String BASE_URL = "http://51kalaxin.free.ngrok.cc";
+    public static final String BASE_URL = "http://www.51kaxin.xyz";
     private static Retrofit retrofit;
 
     private CardLetterMethod() {

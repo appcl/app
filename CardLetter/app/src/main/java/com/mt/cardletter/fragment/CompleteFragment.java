@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.SetailsActivity;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
@@ -44,7 +46,7 @@ public class CompleteFragment extends Fragment {
     private static final int UPDATA_DEF = 0X03; //默认加载
     private Activity context;
     private  List<GoodsBean.ResultBean> list = new ArrayList();
-    private  List<Goods.DataBeanX.DataBean>  myList;
+    private  List<Goods.DataBeanX.DataBean>  myList = new ArrayList<>();
     private MyAdapter myAdapter;
     private int page_index = 1;
     private String cartgory_id = "";
@@ -53,10 +55,14 @@ public class CompleteFragment extends Fragment {
     PullToRefreshListView listView;
     private boolean isOpen = true;
     private View view;
+    public View loadmoreView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (isOpen){
             view = inflater.inflate(R.layout.activity_fragment_find, container, false);
+            loadmoreView = View.inflate(getContext(),R.layout.load_more,null);//上拉加载更多布局
+            loadmoreView.setVisibility(View.VISIBLE);//设置刷新视图默认情况下是不可见的
             ButterKnife.bind(this, view);
             myList = new ArrayList<>();
             cartgory_id= (int) getArguments().get("id") + "";
@@ -64,17 +70,15 @@ public class CompleteFragment extends Fragment {
         }
         return view;
     }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (isOpen){
-
             context = getActivity();
             initView();
             isOpen = false;
         }
-
-
     }
 
     private void loadData(final int upDataFlag , String list_rows, String page, String category_id) {
@@ -98,17 +102,24 @@ public class CompleteFragment extends Fragment {
                         myList = data1;
                     }
                     myAdapter.notifyDataSetChanged();
+                    loadmoreView.setVisibility(View.GONE);
+                    listView.onRefreshComplete();
                 }
             }
             @Override
             public void onError(int code, String msg) {
-                System.out.println("商家网络异常");
-                ToastUtils.showShort(getContext(),msg);
+                ToastUtils.showShort(getContext(),"网络异常");
             }
         },getContext()));
     }
 
     private void initView() {
+        /**
+         * 设置加载更多布局
+         */
+
+        //TODO 上拉加载提示
+
         /**
          * 点击事件
          */
@@ -118,7 +129,6 @@ public class CompleteFragment extends Fragment {
                 //Intent intent = new Intent(getActivity(), SetailsActivity.class);
                 Intent intent = getActivity().getIntent();
                 intent.setClass(getActivity(),SetailsActivity.class);
-                System.out.println("position:"+position);
                 if(myList.get(position)!=null){
                     intent.putExtra("cardfind_id",myList.get(position-1).getId()+"");
                 }
@@ -127,24 +137,30 @@ public class CompleteFragment extends Fragment {
         });
         //listView.withLoadMoreView();
         listView.setAdapter(myAdapter = new MyAdapter());
+
         /**
          * 注册下拉刷新
          */
+
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                new CompleteFragment.GetDataTask().execute();
+                page_index = 1;
+                loadData(UPDATA_DOWN , page_size, page_index+"",cartgory_id);
+                //new CompleteFragment.GetDataTask().execute();
             }
         });
+
         /**
          * 注册上拉加载
          */
+
         listView.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
             @Override
             public void onLastItemVisible() {
-                page_index = page_index + 1;
-                loadData(UPDATA_UP,page_size,page_index+"",cartgory_id);
-                ToastUtils.makeShortText("page_index:"+page_index,getContext());
+            page_index = page_index + 1;
+            loadData(UPDATA_UP,page_size,page_index+"",cartgory_id);
+            loadmoreView.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -192,20 +208,26 @@ public class CompleteFragment extends Fragment {
                 holder.title = (TextView) convertView.findViewById(R.id.goods_title);
                 holder.discounts = (TextView) convertView.findViewById(R.id.goods_discounts);
                 holder.obj = (TextView) convertView.findViewById(R.id.goods_obj);
-
+                holder.img = (ImageView) convertView.findViewById(R.id.goods_img);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.title.setText(myList.get(position).getName());
-            holder.discounts.setText(myList.get(position).getDescribe());
-            holder.obj.setText(myList.get(position).getCreateTime());
+            if (myList!=null&&myList.size()!=0){
+                holder.title.setText(myList.get(position).getName());
+                holder.discounts.setText(myList.get(position).getDescribe());
+                holder.obj.setText(myList.get(position).getCreateTime());
+
+                if (myList.get(position).getThumb() != null){
+                    Glide.with(CompleteFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
+                }
+            }
             return convertView;
         }
         class ViewHolder{
             TextView title,discounts,obj;
+            ImageView img;
         }
     }
-
 
 }

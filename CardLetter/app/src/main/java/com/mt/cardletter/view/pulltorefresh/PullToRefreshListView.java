@@ -248,7 +248,6 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
             mFooterLoadingView = createLoadingLayout(getContext(), Mode.PULL_FROM_END, a);
             mFooterLoadingView.setVisibility(View.GONE);
             mLvFooterLoadingFrame.addView(mFooterLoadingView, lp);
-
             /**
              * If the value for Scrolling While Refreshing hasn't been
              * explicitly set via XML, enable Scrolling While Refreshing.

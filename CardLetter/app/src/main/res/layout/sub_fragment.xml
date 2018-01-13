@@ -6,7 +6,7 @@
     <com.mt.cardletter.view.tabstrip.PagerSlidingTabStrip
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="38dip"
+        android:layout_height="38dp"
         app:pstsIndicatorColor="@android:color/holo_blue_light"
         app:selectedTabTextColor="@android:color/holo_blue_light"
         app:tabTextSize="12sp"

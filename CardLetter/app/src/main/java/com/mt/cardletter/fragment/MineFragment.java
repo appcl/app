@@ -139,6 +139,7 @@ public class MineFragment extends Fragment{
         scrollView.getPullRootView().findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 UIHelper.showSetting(getContext());
             }
         });

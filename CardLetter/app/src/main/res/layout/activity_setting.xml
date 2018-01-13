@@ -122,6 +122,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/setting_help"
             android:layout_marginLeft="20dp"
             android:textSize="14sp"
             android:textColor="@color/color_text_black_31"

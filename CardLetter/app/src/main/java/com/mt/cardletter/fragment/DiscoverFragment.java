@@ -30,7 +30,7 @@ import java.util.List;
 
 
 /**
- * Created by demons on 2017/11/13.
+ * Created by jk on 2017/11/13.
  */
 
 public class DiscoverFragment extends Fragment {
@@ -40,7 +40,7 @@ public class DiscoverFragment extends Fragment {
 
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
-    private List<FindCategoryList.DataBean> tabDatas;
+    private List<FindCategoryList.DataBean> tabDatas = new ArrayList<>();
     private FrameLayout com_back_click;
     private TextView title_name;
     private TextView next;
@@ -65,10 +65,13 @@ public class DiscoverFragment extends Fragment {
         CardLetterRequestApi.getInstance().getFindCategroyList(Constant.Access_Token,new HttpSubscriber<FindCategoryList>(new SubscriberOnListener<FindCategoryList>() {
             @Override
             public void onSucceed(FindCategoryList data) {
+
                 tabDatas = data.getData();
-                adapter.notifyDataSetChanged();
-                tabs.notifyDataSetChanged();
-                fragments = new Fragment[tabDatas.size()];
+                if (tabDatas!=null&&tabDatas.size()!=0){
+                    adapter.notifyDataSetChanged();
+                    tabs.notifyDataSetChanged();
+                    fragments = new Fragment[tabDatas.size()];
+                }
             }
             @Override
             public void onError(int code, String msg) {
@@ -128,13 +131,22 @@ public class DiscoverFragment extends Fragment {
         }
         @Override
         public CharSequence getPageTitle(int position) {
-            String name = tabDatas.get(position).getName();
-            return name;
+            if (tabDatas!=null&&tabDatas.size()!=0){
+                String name = tabDatas.get(position).getName();
+                return name;
+            }else{
+                return "";
+            }
+
         }
 
         @Override
         public int getCount() {
-            return tabDatas.size();
+            if (tabDatas!=null&&tabDatas.size()!=0){
+                return tabDatas.size();
+            }else {
+                return 0;
+            }
         }
     }
 

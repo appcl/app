@@ -314,7 +314,7 @@ public class CardHomeFragment extends Fragment implements View.OnClickListener,T
         @Override
         public Fragment getItem(int position) {
             if (fragments[position] == null){
-                fragments[position] =  new NetNewsFragment(myScrollView,pager);
+                //fragments[position] =  new NetNewsFragment(myScrollView,pager);
                 Bundle bundle=new Bundle();
                 bundle.putString("news_category",tabDatas.get(position));
                 bundle.putInt("pager_id",position);

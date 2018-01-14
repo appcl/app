@@ -187,16 +187,28 @@ public interface HttpRequestService {
      * 获取卡发现 商家列表
      * @param access_token
      * @param list_rows     每页显示条目数
-     * @param page          页数
+       1  access_token
+       2  list_rows
+       3  page
+       4  category_id
+       5  city
+       6  bankcard
+       7  lng
+       8  lat
+    经度
      *
      * @param category_id   分类ID
      * @return
      */
-    @POST("/api.php/cardfind/cardfindlist")
+    @POST("/api.php/combcardfind/cardfind")
     Observable<Goods> getFindMerchant (@Query("access_token") String access_token,
                                        @Query("list_rows") String list_rows,
                                        @Query("page") String page,
-                                       @Query("category_id") String category_id);
+                                       @Query("category_id") String category_id,
+                                       @Query("city") String city,
+                                       @Query("bankcard") String bankcard,
+                                       @Query("lng") String lng,
+                                       @Query("lat") String lat);
 
     /**
      * 积分商城分类列表
@@ -272,7 +284,7 @@ public interface HttpRequestService {
                              @Query("category_id") int category_id);
 
     /**
-     *  网络新闻分类列表
+     *
      * https://way.jd.com/jisuapi/channel?appkey=9a025356104a37cd0c690368a0461f41
      *  9a025356104a37cd0c690368a0461f41
      * @param appkey

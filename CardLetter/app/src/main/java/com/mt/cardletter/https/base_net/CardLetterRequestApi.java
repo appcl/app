@@ -104,11 +104,20 @@ public class CardLetterRequestApi extends BaseApi {
 
     /**
      * 获取卡发现分类列表
+     1  access_token
+     2  list_rows
+     3  page
+     4  category_id
+     5  city
+     6  bankcard
+     7  lng
+     8  lat
      * @param ak
      * @param subscriber
      */
-    public void getFindMerchant(String ak,  String list_rows,  String page,  String category_id,  Subscriber<Goods> subscriber){
-        Observable observable = httpRequestService.getFindMerchant(ak,  list_rows,  page,  category_id)
+    public void getFindMerchant(
+            String ak,  String list_rows,  String page,  String category_id,String city,String  bankcard,String lng,String lat, Subscriber<Goods> subscriber){
+        Observable observable = httpRequestService.getFindMerchant(ak,  list_rows,  page,  category_id,city,bankcard,lng,lat)
                 .map(new HttpResultFunc<Goods>());
         toSubscribe(observable,subscriber);
     }

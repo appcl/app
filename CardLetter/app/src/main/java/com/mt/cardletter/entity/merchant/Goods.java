@@ -16,8 +16,8 @@ public class Goods implements Serializable{
     /**
      * code : 0
      * msg : 操作成功
-     * data : {"total":8159,"per_page":15,"current_page":1,"last_page":544,"data":[{"id":11,"name":"月福汽车装饰(北洼路店)","describe":"享受10元洗车一次","tel":"010-68464425","deadline":"2020/12/31","address":"北洼路东里5号","bankcard":"14","city":"110000","lng":39.939,"lat":116.305,"thumb":null,"thumbs":null,"category_id":"11","content":"\n持光大银行信用卡1活动期间，每周日在月福汽车装饰有限公司指定洗车行刷光大银行信用卡即可享受10元洗车一次。每人每周限参与一次。\n2.每店每个活动日10个名额，权益数额有限，额满为止。首都机场T2、T3航站楼两家月福洗车门店不参与活动。\n3.可参与活动车型：五座(含)以下小轿车；车辆规格：车长：5300毫米以内、车宽：2000毫米以内、车高：2200毫米以内、胎宽：275毫米以内。\n\n                ","create_time":"2017-12-26 12:47:42"},{"id":12,"name":"宽途汽车福翔顺发汽车服务中心","describe":"6折","tel":"400-6666-377","deadline":"2020/12/31","address":"赵登禹路114号","bankcard":"1","city":"110000","lng":39.9306,"lat":116.368,"thumb":"/upload/shop_pic/2/12/999.jpg","thumbs":"/upload/shop_pic/2/12/0.jpg,/upload/shop_pic/2/12/1.jpg,/upload/shop_pic/2/12/2.jpg","category_id":"11","content":"\n工银信用卡在我行指定的宽途门店积分兑换宽途储值洗车卡，持卡人可使用宽途洗车卡在去昂过1287家宽途洗车门店结算，并享受市场价6-7折的专业洗车服务;每600信用卡综合积分兑换1宽途积分，持卡人每次可兑换积分数为50、100、200、500的宽途洗车卡\n                ","create_time":"2017-12-26 12:47:42"},{"id":13,"name":"月福汽车装饰(百旺山店)","describe":"享受10元洗车一次","tel":"010-82404951","deadline":"2020/12/31","address":"永丰路269号百望山北侧(中海枫涟册庄南)","bankcard":"14","city":"110000","lng":40.0462,"lat":116.258,"thumb":null,"thumbs":null,"category_id":"11","content":"\n持光大银行信用卡1活动期间，每周日在月福汽车装饰有限公司指定洗车行刷光大银行信用卡即可享受10元洗车一次。每人每周限参与一次。\n2.每店每个活动日10个名额，权益数额有限，额满为止。首都机场T2、T3航站楼两家月福洗车门店不参与活动。\n3.可参与活动车型：五座(含)以下小轿车；车辆规格：车长：5300毫米以内、车宽：2000毫米以内、车高：2200毫米以内、胎宽：275毫米以内。\n\n                ","create_time":"2017-12-26 12:47:42"},{"id":14,"name":"宽途汽车鑫桥汽车美容","describe":"6折","tel":"400-6666-377","deadline":"2020/12/31","address":"朝阳区朝外大街20号中国人寿大厦地面停车场","bankcard":"1","city":"110000","lng":39.924,"lat":116.439,"thumb":null,"thumbs":null,"category_id":"11","content":"\n工银信用卡在我行指定的宽途门店积分兑换宽途储值洗车卡，持卡人可使用宽途洗车卡在去昂过1287家宽途洗车门店结算，并享受市场价6-7折的专业洗车服务;每600信用卡综合积分兑换1宽途积分，持卡人每次可兑换积分数为50、100、200、500的宽途洗车卡\n                ","create_time":"2017-12-26 12:47:42"},{"id":15,"name":"月福汽车装饰(大屯店)","describe":"享受10元洗车一次","tel":"010-84806726","deadline":"2020/12/31","address":"北苑路嘉和超市对面(六塔小区底层)","bankcard":"14","city":"110000","lng":40.0088,"lat":116.415,"thumb":null,"thumbs":null,"category_id":"11","content":"\n持光大银行信用卡1活动期间，每周日在月福汽车装饰有限公司指定洗车行刷光大银行信用卡即可享受10元洗车一次。每人每周限参与一次。\n2.每店每个活动日10个名额，权益数额有限，额满为止。首都机场T2、T3航站楼两家月福洗车门店不参与活动。\n3.可参与活动车型：五座(含)以下小轿车；车辆规格：车长：5300毫米以内、车宽：2000毫米以内、车高：2200毫米以内、胎宽：275毫米以内。\n\n                ","create_time":"2017-12-26 12:47:42"},{"id":16,"name":"宽途汽车3M陆桥汽车美容（幸福大街北）","describe":"6折","tel":"400-6666-377","deadline":"2020/12/31","address":"幸福大街34-2号","bankcard":"1","city":"110000","lng":39.8867,"lat":116.431,"thumb":null,"thumbs":null,"category_id":"11","content":"\n工银信用卡在我行指定的宽途门店积分兑换宽途储值洗车卡，持卡人可使用宽途洗车卡在去昂过1287家宽途洗车门店结算，并享受市场价6-7折的专业洗车服务;每600信用卡综合积分兑换1宽途积分，持卡人每次可兑换积分数为50、100、200、500的宽途洗车卡\n                ","create_time":"2017-12-26 12:47:42"},{"id":17,"name":"卫宇行汽车服务","describe":"8折","tel":"010-63869718","deadline":"2020/12/31","address":"万丰路288号","bankcard":"9","city":"110000","lng":39.8765,"lat":116.295,"thumb":"/upload/shop_pic/2/17/999.jpg","thumbs":"/upload/shop_pic/2/17/0.jpg,/upload/shop_pic/2/17/1.jpg","category_id":"11","content":"\n持建行卡进店保养工时费八折优惠。发动机清洗套餐最高优惠500元(不同车型优惠不同)\n                ","create_time":"2017-12-26 12:47:42"},{"id":18,"name":"月福汽车装饰(定慧寺店)","describe":"享受10元洗车一次","tel":"010-88635319","deadline":"2020/12/31","address":"西四环外定慧桥西阜石路北侧","bankcard":"14","city":"110000","lng":39.9232,"lat":116.273,"thumb":null,"thumbs":null,"category_id":"11","content":"\n持光大银行信用卡1活动期间，每周日在月福汽车装饰有限公司指定洗车行刷光大银行信用卡即可享受10元洗车一次。每人每周限参与一次。\n2.每店每个活动日10个名额，权益数额有限，额满为止。首都机场T2、T3航站楼两家月福洗车门店不参与活动。\n3.可参与活动车型：五座(含)以下小轿车；车辆规格：车长：5300毫米以内、车宽：2000毫米以内、车高：2200毫米以内、胎宽：275毫米以内。\n\n                ","create_time":"2017-12-26 12:47:42"},{"id":19,"name":"月福汽车装饰(成寿寺店)","describe":"享受10元洗车一次","tel":"010-87628729","deadline":"2020/12/31","address":"成寿寺路中街27号","bankcard":"14","city":"110000","lng":39.8505,"lat":116.445,"thumb":"/upload/shop_pic/2/19/999.jpg","thumbs":"/upload/shop_pic/2/19/0.jpg,/upload/shop_pic/2/19/1.jpg,/upload/shop_pic/2/19/2.jpg","category_id":"11","content":"\n持光大银行信用卡1活动期间，每周日在月福汽车装饰有限公司指定洗车行刷光大银行信用卡即可享受10元洗车一次。每人每周限参与一次。\n2.每店每个活动日10个名额，权益数额有限，额满为止。首都机场T2、T3航站楼两家月福洗车门店不参与活动。\n3.可参与活动车型：五座(含)以下小轿车；车辆规格：车长：5300毫米以内、车宽：2000毫米以内、车高：2200毫米以内、胎宽：275毫米以内。\n\n                ","create_time":"2017-12-26 12:47:42"},{"id":20,"name":"宽途汽车龙泉天洗汽车养护会所","describe":"6折","tel":"400-6666-377","deadline":"2020/12/31","address":"丰融园15号楼B2","bankcard":"1","city":"110000","lng":39.917,"lat":116.366,"thumb":null,"thumbs":null,"category_id":"11","content":"\n工银信用卡在我行指定的宽途门店积分兑换宽途储值洗车卡，持卡人可使用宽途洗车卡在去昂过1287家宽途洗车门店结算，并享受市场价6-7折的专业洗车服务;每600信用卡综合积分兑换1宽途积分，持卡人每次可兑换积分数为50、100、200、500的宽途洗车卡\n                ","create_time":"2017-12-26 12:47:42"},{"id":21,"name":"太平洋咖啡（华润大厦店）","describe":"咖啡6.2元","tel":"010-85192997","deadline":"2018/3/31","address":"建国门北大街8号华润大厦一层大堂","bankcard":"23","city":"110000","lng":39.913,"lat":116.434,"thumb":"/upload/shop_pic/2/21/999.jpg","thumbs":"/upload/shop_pic/2/21/0.jpg,/upload/shop_pic/2/21/1.jpg,/upload/shop_pic/2/21/2.jpg","category_id":"2","content":"\n1、每月16、26日，使用邮储银联白金信用卡（卡号以62开头）持卡人购买任意一款挂耳咖啡，可尊享6.2元专享价。2、每周二、六，使用邮储银联信用卡（卡号以62开头）及信用卡云闪付持卡人购买任意手调饮品，可尊享16元特大杯饮品。\n                ","create_time":"2017-12-26 12:47:42"},{"id":22,"name":"太平洋咖啡（万丰路店）","describe":"咖啡6.2元","tel":"无","deadline":"2018/3/31","address":"万丰路68号院和谐广场一层127号","bankcard":"23","city":"110000","lng":39.8826,"lat":116.299,"thumb":"/upload/shop_pic/2/22/999.jpg","thumbs":"/upload/shop_pic/2/22/0.jpg,/upload/shop_pic/2/22/1.jpg,/upload/shop_pic/2/22/2.jpg","category_id":"2","content":"\n1、每月16、26日，使用邮储银联白金信用卡（卡号以62开头）持卡人购买任意一款挂耳咖啡，可尊享6.2元专享价。2、每周二、六，使用邮储银联信用卡（卡号以62开头）及信用卡云闪付持卡人购买任意手调饮品，可尊享16元特大杯饮品。\n                ","create_time":"2017-12-26 12:47:42"},{"id":23,"name":"汉堡王(北京龙湖店)","describe":"15元优惠价享皇堡/天椒皇堡套餐一份","tel":"无","deadline":"2018/2/8","address":"永兴路7号院1号楼龙湖天街BJSDTJSY-2F-19","bankcard":"9","city":"110000","lng":39.6866,"lat":116.323,"thumb":null,"thumbs":null,"category_id":"2","content":"\n活动期间每周六，至汉堡王全国指定门店使用龙卡信用卡消费（含刷卡、云闪付）即可以15元优惠价享皇堡/天椒皇堡套餐一份。客户每活动日限享1次本活动优惠。每活动日优惠名额有限，先到先得。\n                ","create_time":"2017-12-26 12:47:42"},{"id":24,"name":"汉堡王(北京中海地产店)","describe":"15元优惠价享皇堡/天椒皇堡套餐一份","tel":"010-87924368","deadline":"2018/3/11","address":"西滨河路中海地产F1-01A单元","bankcard":"9","city":"110000","lng":39.8705,"lat":116.389,"thumb":"/upload/shop_pic/2/24/999.jpg","thumbs":"/upload/shop_pic/2/24/0.jpg,/upload/shop_pic/2/24/1.jpg,/upload/shop_pic/2/24/2.jpg","category_id":"2","content":"\n活动期间每周六，至汉堡王全国指定门店使用龙卡信用卡消费（含刷卡、云闪付）即可以15元优惠价享皇堡/天椒皇堡套餐一份。客户每活动日限享1次本活动优惠。每活动日优惠名额有限，先到先得。\n                ","create_time":"2017-12-26 12:47:42"},{"id":25,"name":"太平洋咖啡（五彩城1店）","describe":"咖啡6.2元","tel":"010-82815212","deadline":"2018/3/31","address":"清河中街68号五彩城购物中心4层401","bankcard":"23","city":"110000","lng":40.0306,"lat":116.334,"thumb":"/upload/shop_pic/2/25/999.jpg","thumbs":"/upload/shop_pic/2/25/0.jpg,/upload/shop_pic/2/25/1.jpg,/upload/shop_pic/2/25/2.jpg","category_id":"2","content":"\n1、每月16、26日，使用邮储银联白金信用卡（卡号以62开头）持卡人购买任意一款挂耳咖啡，可尊享6.2元专享价。2、每周二、六，使用邮储银联信用卡（卡号以62开头）及信用卡云闪付持卡人购买任意手调饮品，可尊享16元特大杯饮品。\n                ","create_time":"2017-12-26 12:47:42"}]}
-     * exe_time : 0.012556
+     * data : {"cardfind_list":{"total":12,"per_page":"10","current_page":"1","last_page":2,"data":[{"id":4179,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":4184,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/4184/999.jpg","thumbs":"/upload/shop_pic/5/4184/0.jpg,/upload/shop_pic/5/4184/1.jpg,/upload/shop_pic/5/4184/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"},{"id":9507,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":9511,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/9511/999.jpg","thumbs":"/upload/shop_pic/5/9511/0.jpg,/upload/shop_pic/5/9511/1.jpg,/upload/shop_pic/5/9511/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"},{"id":9971,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/9971/999.jpg","thumbs":"/upload/shop_pic/5/9971/0.jpg,/upload/shop_pic/5/9971/1.jpg,/upload/shop_pic/5/9971/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"},{"id":9987,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":10426,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/10426/999.jpg","thumbs":"/upload/shop_pic/5/10426/0.jpg,/upload/shop_pic/5/10426/1.jpg,/upload/shop_pic/5/10426/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"},{"id":10427,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":10861,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":10871,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/10871/999.jpg","thumbs":"/upload/shop_pic/5/10871/0.jpg,/upload/shop_pic/5/10871/1.jpg,/upload/shop_pic/5/10871/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"}]}}
+     * exe_time : 0.012960
      */
 
     @SerializedName("code")
@@ -61,239 +61,253 @@ public class Goods implements Serializable{
         this.exeTime = exeTime;
     }
 
-    public static class DataBeanX {
+    public static class DataBeanX implements Serializable {
         /**
-         * total : 8159
-         * per_page : 15
-         * current_page : 1
-         * last_page : 544
-         * data : [{"id":11,"name":"月福汽车装饰(北洼路店)","describe":"享受10元洗车一次","tel":"010-68464425","deadline":"2020/12/31","address":"北洼路东里5号","bankcard":"14","city":"110000","lng":39.939,"lat":116.305,"thumb":null,"thumbs":null,"category_id":"11","content":"\n持光大银行信用卡1活动期间，每周日在月福汽车装饰有限公司指定洗车行刷光大银行信用卡即可享受10元洗车一次。每人每周限参与一次。\n2.每店每个活动日10个名额，权益数额有限，额满为止。首都机场T2、T3航站楼两家月福洗车门店不参与活动。\n3.可参与活动车型：五座(含)以下小轿车；车辆规格：车长：5300毫米以内、车宽：2000毫米以内、车高：2200毫米以内、胎宽：275毫米以内。\n\n                ","create_time":"2017-12-26 12:47:42"},{"id":12,"name":"宽途汽车福翔顺发汽车服务中心","describe":"6折","tel":"400-6666-377","deadline":"2020/12/31","address":"赵登禹路114号","bankcard":"1","city":"110000","lng":39.9306,"lat":116.368,"thumb":"/upload/shop_pic/2/12/999.jpg","thumbs":"/upload/shop_pic/2/12/0.jpg,/upload/shop_pic/2/12/1.jpg,/upload/shop_pic/2/12/2.jpg","category_id":"11","content":"\n工银信用卡在我行指定的宽途门店积分兑换宽途储值洗车卡，持卡人可使用宽途洗车卡在去昂过1287家宽途洗车门店结算，并享受市场价6-7折的专业洗车服务;每600信用卡综合积分兑换1宽途积分，持卡人每次可兑换积分数为50、100、200、500的宽途洗车卡\n                ","create_time":"2017-12-26 12:47:42"},{"id":13,"name":"月福汽车装饰(百旺山店)","describe":"享受10元洗车一次","tel":"010-82404951","deadline":"2020/12/31","address":"永丰路269号百望山北侧(中海枫涟册庄南)","bankcard":"14","city":"110000","lng":40.0462,"lat":116.258,"thumb":null,"thumbs":null,"category_id":"11","content":"\n持光大银行信用卡1活动期间，每周日在月福汽车装饰有限公司指定洗车行刷光大银行信用卡即可享受10元洗车一次。每人每周限参与一次。\n2.每店每个活动日10个名额，权益数额有限，额满为止。首都机场T2、T3航站楼两家月福洗车门店不参与活动。\n3.可参与活动车型：五座(含)以下小轿车；车辆规格：车长：5300毫米以内、车宽：2000毫米以内、车高：2200毫米以内、胎宽：275毫米以内。\n\n                ","create_time":"2017-12-26 12:47:42"},{"id":14,"name":"宽途汽车鑫桥汽车美容","describe":"6折","tel":"400-6666-377","deadline":"2020/12/31","address":"朝阳区朝外大街20号中国人寿大厦地面停车场","bankcard":"1","city":"110000","lng":39.924,"lat":116.439,"thumb":null,"thumbs":null,"category_id":"11","content":"\n工银信用卡在我行指定的宽途门店积分兑换宽途储值洗车卡，持卡人可使用宽途洗车卡在去昂过1287家宽途洗车门店结算，并享受市场价6-7折的专业洗车服务;每600信用卡综合积分兑换1宽途积分，持卡人每次可兑换积分数为50、100、200、500的宽途洗车卡\n                ","create_time":"2017-12-26 12:47:42"},{"id":15,"name":"月福汽车装饰(大屯店)","describe":"享受10元洗车一次","tel":"010-84806726","deadline":"2020/12/31","address":"北苑路嘉和超市对面(六塔小区底层)","bankcard":"14","city":"110000","lng":40.0088,"lat":116.415,"thumb":null,"thumbs":null,"category_id":"11","content":"\n持光大银行信用卡1活动期间，每周日在月福汽车装饰有限公司指定洗车行刷光大银行信用卡即可享受10元洗车一次。每人每周限参与一次。\n2.每店每个活动日10个名额，权益数额有限，额满为止。首都机场T2、T3航站楼两家月福洗车门店不参与活动。\n3.可参与活动车型：五座(含)以下小轿车；车辆规格：车长：5300毫米以内、车宽：2000毫米以内、车高：2200毫米以内、胎宽：275毫米以内。\n\n                ","create_time":"2017-12-26 12:47:42"},{"id":16,"name":"宽途汽车3M陆桥汽车美容（幸福大街北）","describe":"6折","tel":"400-6666-377","deadline":"2020/12/31","address":"幸福大街34-2号","bankcard":"1","city":"110000","lng":39.8867,"lat":116.431,"thumb":null,"thumbs":null,"category_id":"11","content":"\n工银信用卡在我行指定的宽途门店积分兑换宽途储值洗车卡，持卡人可使用宽途洗车卡在去昂过1287家宽途洗车门店结算，并享受市场价6-7折的专业洗车服务;每600信用卡综合积分兑换1宽途积分，持卡人每次可兑换积分数为50、100、200、500的宽途洗车卡\n                ","create_time":"2017-12-26 12:47:42"},{"id":17,"name":"卫宇行汽车服务","describe":"8折","tel":"010-63869718","deadline":"2020/12/31","address":"万丰路288号","bankcard":"9","city":"110000","lng":39.8765,"lat":116.295,"thumb":"/upload/shop_pic/2/17/999.jpg","thumbs":"/upload/shop_pic/2/17/0.jpg,/upload/shop_pic/2/17/1.jpg","category_id":"11","content":"\n持建行卡进店保养工时费八折优惠。发动机清洗套餐最高优惠500元(不同车型优惠不同)\n                ","create_time":"2017-12-26 12:47:42"},{"id":18,"name":"月福汽车装饰(定慧寺店)","describe":"享受10元洗车一次","tel":"010-88635319","deadline":"2020/12/31","address":"西四环外定慧桥西阜石路北侧","bankcard":"14","city":"110000","lng":39.9232,"lat":116.273,"thumb":null,"thumbs":null,"category_id":"11","content":"\n持光大银行信用卡1活动期间，每周日在月福汽车装饰有限公司指定洗车行刷光大银行信用卡即可享受10元洗车一次。每人每周限参与一次。\n2.每店每个活动日10个名额，权益数额有限，额满为止。首都机场T2、T3航站楼两家月福洗车门店不参与活动。\n3.可参与活动车型：五座(含)以下小轿车；车辆规格：车长：5300毫米以内、车宽：2000毫米以内、车高：2200毫米以内、胎宽：275毫米以内。\n\n                ","create_time":"2017-12-26 12:47:42"},{"id":19,"name":"月福汽车装饰(成寿寺店)","describe":"享受10元洗车一次","tel":"010-87628729","deadline":"2020/12/31","address":"成寿寺路中街27号","bankcard":"14","city":"110000","lng":39.8505,"lat":116.445,"thumb":"/upload/shop_pic/2/19/999.jpg","thumbs":"/upload/shop_pic/2/19/0.jpg,/upload/shop_pic/2/19/1.jpg,/upload/shop_pic/2/19/2.jpg","category_id":"11","content":"\n持光大银行信用卡1活动期间，每周日在月福汽车装饰有限公司指定洗车行刷光大银行信用卡即可享受10元洗车一次。每人每周限参与一次。\n2.每店每个活动日10个名额，权益数额有限，额满为止。首都机场T2、T3航站楼两家月福洗车门店不参与活动。\n3.可参与活动车型：五座(含)以下小轿车；车辆规格：车长：5300毫米以内、车宽：2000毫米以内、车高：2200毫米以内、胎宽：275毫米以内。\n\n                ","create_time":"2017-12-26 12:47:42"},{"id":20,"name":"宽途汽车龙泉天洗汽车养护会所","describe":"6折","tel":"400-6666-377","deadline":"2020/12/31","address":"丰融园15号楼B2","bankcard":"1","city":"110000","lng":39.917,"lat":116.366,"thumb":null,"thumbs":null,"category_id":"11","content":"\n工银信用卡在我行指定的宽途门店积分兑换宽途储值洗车卡，持卡人可使用宽途洗车卡在去昂过1287家宽途洗车门店结算，并享受市场价6-7折的专业洗车服务;每600信用卡综合积分兑换1宽途积分，持卡人每次可兑换积分数为50、100、200、500的宽途洗车卡\n                ","create_time":"2017-12-26 12:47:42"},{"id":21,"name":"太平洋咖啡（华润大厦店）","describe":"咖啡6.2元","tel":"010-85192997","deadline":"2018/3/31","address":"建国门北大街8号华润大厦一层大堂","bankcard":"23","city":"110000","lng":39.913,"lat":116.434,"thumb":"/upload/shop_pic/2/21/999.jpg","thumbs":"/upload/shop_pic/2/21/0.jpg,/upload/shop_pic/2/21/1.jpg,/upload/shop_pic/2/21/2.jpg","category_id":"2","content":"\n1、每月16、26日，使用邮储银联白金信用卡（卡号以62开头）持卡人购买任意一款挂耳咖啡，可尊享6.2元专享价。2、每周二、六，使用邮储银联信用卡（卡号以62开头）及信用卡云闪付持卡人购买任意手调饮品，可尊享16元特大杯饮品。\n                ","create_time":"2017-12-26 12:47:42"},{"id":22,"name":"太平洋咖啡（万丰路店）","describe":"咖啡6.2元","tel":"无","deadline":"2018/3/31","address":"万丰路68号院和谐广场一层127号","bankcard":"23","city":"110000","lng":39.8826,"lat":116.299,"thumb":"/upload/shop_pic/2/22/999.jpg","thumbs":"/upload/shop_pic/2/22/0.jpg,/upload/shop_pic/2/22/1.jpg,/upload/shop_pic/2/22/2.jpg","category_id":"2","content":"\n1、每月16、26日，使用邮储银联白金信用卡（卡号以62开头）持卡人购买任意一款挂耳咖啡，可尊享6.2元专享价。2、每周二、六，使用邮储银联信用卡（卡号以62开头）及信用卡云闪付持卡人购买任意手调饮品，可尊享16元特大杯饮品。\n                ","create_time":"2017-12-26 12:47:42"},{"id":23,"name":"汉堡王(北京龙湖店)","describe":"15元优惠价享皇堡/天椒皇堡套餐一份","tel":"无","deadline":"2018/2/8","address":"永兴路7号院1号楼龙湖天街BJSDTJSY-2F-19","bankcard":"9","city":"110000","lng":39.6866,"lat":116.323,"thumb":null,"thumbs":null,"category_id":"2","content":"\n活动期间每周六，至汉堡王全国指定门店使用龙卡信用卡消费（含刷卡、云闪付）即可以15元优惠价享皇堡/天椒皇堡套餐一份。客户每活动日限享1次本活动优惠。每活动日优惠名额有限，先到先得。\n                ","create_time":"2017-12-26 12:47:42"},{"id":24,"name":"汉堡王(北京中海地产店)","describe":"15元优惠价享皇堡/天椒皇堡套餐一份","tel":"010-87924368","deadline":"2018/3/11","address":"西滨河路中海地产F1-01A单元","bankcard":"9","city":"110000","lng":39.8705,"lat":116.389,"thumb":"/upload/shop_pic/2/24/999.jpg","thumbs":"/upload/shop_pic/2/24/0.jpg,/upload/shop_pic/2/24/1.jpg,/upload/shop_pic/2/24/2.jpg","category_id":"2","content":"\n活动期间每周六，至汉堡王全国指定门店使用龙卡信用卡消费（含刷卡、云闪付）即可以15元优惠价享皇堡/天椒皇堡套餐一份。客户每活动日限享1次本活动优惠。每活动日优惠名额有限，先到先得。\n                ","create_time":"2017-12-26 12:47:42"},{"id":25,"name":"太平洋咖啡（五彩城1店）","describe":"咖啡6.2元","tel":"010-82815212","deadline":"2018/3/31","address":"清河中街68号五彩城购物中心4层401","bankcard":"23","city":"110000","lng":40.0306,"lat":116.334,"thumb":"/upload/shop_pic/2/25/999.jpg","thumbs":"/upload/shop_pic/2/25/0.jpg,/upload/shop_pic/2/25/1.jpg,/upload/shop_pic/2/25/2.jpg","category_id":"2","content":"\n1、每月16、26日，使用邮储银联白金信用卡（卡号以62开头）持卡人购买任意一款挂耳咖啡，可尊享6.2元专享价。2、每周二、六，使用邮储银联信用卡（卡号以62开头）及信用卡云闪付持卡人购买任意手调饮品，可尊享16元特大杯饮品。\n                ","create_time":"2017-12-26 12:47:42"}]
+         * cardfind_list : {"total":12,"per_page":"10","current_page":"1","last_page":2,"data":[{"id":4179,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":4184,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/4184/999.jpg","thumbs":"/upload/shop_pic/5/4184/0.jpg,/upload/shop_pic/5/4184/1.jpg,/upload/shop_pic/5/4184/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"},{"id":9507,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":9511,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/9511/999.jpg","thumbs":"/upload/shop_pic/5/9511/0.jpg,/upload/shop_pic/5/9511/1.jpg,/upload/shop_pic/5/9511/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"},{"id":9971,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/9971/999.jpg","thumbs":"/upload/shop_pic/5/9971/0.jpg,/upload/shop_pic/5/9971/1.jpg,/upload/shop_pic/5/9971/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"},{"id":9987,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":10426,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/10426/999.jpg","thumbs":"/upload/shop_pic/5/10426/0.jpg,/upload/shop_pic/5/10426/1.jpg,/upload/shop_pic/5/10426/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"},{"id":10427,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":10861,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":10871,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/10871/999.jpg","thumbs":"/upload/shop_pic/5/10871/0.jpg,/upload/shop_pic/5/10871/1.jpg,/upload/shop_pic/5/10871/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"}]}
          */
 
-        @SerializedName("total")
-        private int total;
-        @SerializedName("per_page")
-        private int perPage;
-        @SerializedName("current_page")
-        private int currentPage;
-        @SerializedName("last_page")
-        private int lastPage;
-        @SerializedName("data")
-        private List<DataBean> data;
+        @SerializedName("cardfind_list")
+        private CardfindListBean cardfindList;
 
-        public int getTotal() {
-            return total;
+        public CardfindListBean getCardfindList() {
+            return cardfindList;
         }
 
-        public void setTotal(int total) {
-            this.total = total;
+        public void setCardfindList(CardfindListBean cardfindList) {
+            this.cardfindList = cardfindList;
         }
 
-        public int getPerPage() {
-            return perPage;
-        }
-
-        public void setPerPage(int perPage) {
-            this.perPage = perPage;
-        }
-
-        public int getCurrentPage() {
-            return currentPage;
-        }
-
-        public void setCurrentPage(int currentPage) {
-            this.currentPage = currentPage;
-        }
-
-        public int getLastPage() {
-            return lastPage;
-        }
-
-        public void setLastPage(int lastPage) {
-            this.lastPage = lastPage;
-        }
-
-        public List<DataBean> getData() {
-            return data;
-        }
-
-        public void setData(List<DataBean> data) {
-            this.data = data;
-        }
-
-        public static class DataBean {
+        public static class CardfindListBean implements Serializable{
             /**
-             * id : 11
-             * name : 月福汽车装饰(北洼路店)
-             * describe : 享受10元洗车一次
-             * tel : 010-68464425
-             * deadline : 2020/12/31
-             * address : 北洼路东里5号
-             * bankcard : 14
-             * city : 110000
-             * lng : 39.939
-             * lat : 116.305
-             * thumb : null
-             * thumbs : null
-             * category_id : 11
-             * content :
-             持光大银行信用卡1活动期间，每周日在月福汽车装饰有限公司指定洗车行刷光大银行信用卡即可享受10元洗车一次。每人每周限参与一次。
-             2.每店每个活动日10个名额，权益数额有限，额满为止。首都机场T2、T3航站楼两家月福洗车门店不参与活动。
-             3.可参与活动车型：五座(含)以下小轿车；车辆规格：车长：5300毫米以内、车宽：2000毫米以内、车高：2200毫米以内、胎宽：275毫米以内。
-
-
-             * create_time : 2017-12-26 12:47:42
+             * total : 12
+             * per_page : 10
+             * current_page : 1
+             * last_page : 2
+             * data : [{"id":4179,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":4184,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/4184/999.jpg","thumbs":"/upload/shop_pic/5/4184/0.jpg,/upload/shop_pic/5/4184/1.jpg,/upload/shop_pic/5/4184/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"},{"id":9507,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":9511,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/9511/999.jpg","thumbs":"/upload/shop_pic/5/9511/0.jpg,/upload/shop_pic/5/9511/1.jpg,/upload/shop_pic/5/9511/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"},{"id":9971,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/9971/999.jpg","thumbs":"/upload/shop_pic/5/9971/0.jpg,/upload/shop_pic/5/9971/1.jpg,/upload/shop_pic/5/9971/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"},{"id":9987,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":10426,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/10426/999.jpg","thumbs":"/upload/shop_pic/5/10426/0.jpg,/upload/shop_pic/5/10426/1.jpg,/upload/shop_pic/5/10426/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"},{"id":10427,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":10861,"name":"涵沛女子","describe":"8折","tel":"025-84738687","deadline":"2020/12/31","address":"中山南路122号大洋百货8楼","bankcard":"9","city":"320100","lng":32.0387,"lat":118.783,"thumb":null,"thumbs":null,"category_id":"12","content":"\n商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687  \n                ","create_time":"2017-12-26 12:47:42"},{"id":10871,"name":"经禅和按摩","describe":"9折","tel":"025-86668466","deadline":"2020/12/31","address":"王府大街65-2号","bankcard":"9","city":"320100","lng":32.0375,"lat":118.779,"thumb":"/upload/shop_pic/5/10871/999.jpg","thumbs":"/upload/shop_pic/5/10871/0.jpg,/upload/shop_pic/5/10871/1.jpg,/upload/shop_pic/5/10871/2.jpg","category_id":"12","content":"\n\n商户名称： 南京经禅和全息法按摩中心  优惠内容： 刷龙卡消费享受9折  截止时间： 长期  商户地址： 王府大街65-2号  商户电话： 025-86668466  商户介绍： 专业的技术，一流的服务，绿色疗法和养生的完美结合。虽是小店，但品质超越大店。  \n                ","create_time":"2017-12-26 12:47:42"}]
              */
 
-            @SerializedName("id")
-            private int id;
-            @SerializedName("name")
-            private String name;
-            @SerializedName("describe")
-            private String describe;
-            @SerializedName("tel")
-            private String tel;
-            @SerializedName("deadline")
-            private String deadline;
-            @SerializedName("address")
-            private String address;
-            @SerializedName("bankcard")
-            private String bankcard;
-            @SerializedName("city")
-            private String city;
-            @SerializedName("lng")
-            private double lng;
-            @SerializedName("lat")
-            private double lat;
-            @SerializedName("thumb")
-            private Object thumb;
-            @SerializedName("thumbs")
-            private Object thumbs;
-            @SerializedName("category_id")
-            private String categoryId;
-            @SerializedName("content")
-            private String content;
-            @SerializedName("create_time")
-            private String createTime;
+            @SerializedName("total")
+            private int total;
+            @SerializedName("per_page")
+            private String perPage;
+            @SerializedName("current_page")
+            private String currentPage;
+            @SerializedName("last_page")
+            private int lastPage;
+            @SerializedName("data")
+            private List<DataBean> data;
 
-            public int getId() {
-                return id;
+            public int getTotal() {
+                return total;
             }
 
-            public void setId(int id) {
-                this.id = id;
+            public void setTotal(int total) {
+                this.total = total;
             }
 
-            public String getName() {
-                return name;
+            public String getPerPage() {
+                return perPage;
             }
 
-            public void setName(String name) {
-                this.name = name;
+            public void setPerPage(String perPage) {
+                this.perPage = perPage;
             }
 
-            public String getDescribe() {
-                return describe;
+            public String getCurrentPage() {
+                return currentPage;
             }
 
-            public void setDescribe(String describe) {
-                this.describe = describe;
+            public void setCurrentPage(String currentPage) {
+                this.currentPage = currentPage;
             }
 
-            public String getTel() {
-                return tel;
+            public int getLastPage() {
+                return lastPage;
             }
 
-            public void setTel(String tel) {
-                this.tel = tel;
+            public void setLastPage(int lastPage) {
+                this.lastPage = lastPage;
             }
 
-            public String getDeadline() {
-                return deadline;
+            public List<DataBean> getData() {
+                return data;
             }
 
-            public void setDeadline(String deadline) {
-                this.deadline = deadline;
+            public void setData(List<DataBean> data) {
+                this.data = data;
             }
 
-            public String getAddress() {
-                return address;
-            }
+            public static class DataBean implements Serializable{
+                /**
+                 * id : 4179
+                 * name : 涵沛女子
+                 * describe : 8折
+                 * tel : 025-84738687
+                 * deadline : 2020/12/31
+                 * address : 中山南路122号大洋百货8楼
+                 * bankcard : 9
+                 * city : 320100
+                 * lng : 32.0387
+                 * lat : 118.783
+                 * thumb : null
+                 * thumbs : null
+                 * category_id : 12
+                 * content :
+                 商户名称： 南京涵沛女子SPA生活馆   优惠内容： 持龙卡消费单次体验芳疗护理享8折入会银卡赠7000点无折扣入会金卡赠3000点无折扣  截止时间： 长期  商户地址： 中山南路122号大洋百货8楼  商户电话： 025-84738687
 
-            public void setAddress(String address) {
-                this.address = address;
-            }
+                 * create_time : 2017-12-26 12:47:42
+                 */
 
-            public String getBankcard() {
-                return bankcard;
-            }
+                @SerializedName("id")
+                private int id;
+                @SerializedName("name")
+                private String name;
+                @SerializedName("describe")
+                private String describe;
+                @SerializedName("tel")
+                private String tel;
+                @SerializedName("deadline")
+                private String deadline;
+                @SerializedName("address")
+                private String address;
+                @SerializedName("bankcard")
+                private String bankcard;
+                @SerializedName("city")
+                private String city;
+                @SerializedName("lng")
+                private double lng;
+                @SerializedName("lat")
+                private double lat;
+                @SerializedName("thumb")
+                private Object thumb;
+                @SerializedName("thumbs")
+                private Object thumbs;
+                @SerializedName("category_id")
+                private String categoryId;
+                @SerializedName("content")
+                private String content;
+                @SerializedName("create_time")
+                private String createTime;
 
-            public void setBankcard(String bankcard) {
-                this.bankcard = bankcard;
-            }
+                public int getId() {
+                    return id;
+                }
 
-            public String getCity() {
-                return city;
-            }
+                public void setId(int id) {
+                    this.id = id;
+                }
 
-            public void setCity(String city) {
-                this.city = city;
-            }
+                public String getName() {
+                    return name;
+                }
 
-            public double getLng() {
-                return lng;
-            }
+                public void setName(String name) {
+                    this.name = name;
+                }
 
-            public void setLng(double lng) {
-                this.lng = lng;
-            }
+                public String getDescribe() {
+                    return describe;
+                }
 
-            public double getLat() {
-                return lat;
-            }
+                public void setDescribe(String describe) {
+                    this.describe = describe;
+                }
 
-            public void setLat(double lat) {
-                this.lat = lat;
-            }
+                public String getTel() {
+                    return tel;
+                }
 
-            public Object getThumb() {
-                return thumb;
-            }
+                public void setTel(String tel) {
+                    this.tel = tel;
+                }
 
-            public void setThumb(Object thumb) {
-                this.thumb = thumb;
-            }
+                public String getDeadline() {
+                    return deadline;
+                }
 
-            public Object getThumbs() {
-                return thumbs;
-            }
+                public void setDeadline(String deadline) {
+                    this.deadline = deadline;
+                }
 
-            public void setThumbs(Object thumbs) {
-                this.thumbs = thumbs;
-            }
+                public String getAddress() {
+                    return address;
+                }
 
-            public String getCategoryId() {
-                return categoryId;
-            }
+                public void setAddress(String address) {
+                    this.address = address;
+                }
 
-            public void setCategoryId(String categoryId) {
-                this.categoryId = categoryId;
-            }
+                public String getBankcard() {
+                    return bankcard;
+                }
 
-            public String getContent() {
-                return content;
-            }
+                public void setBankcard(String bankcard) {
+                    this.bankcard = bankcard;
+                }
 
-            public void setContent(String content) {
-                this.content = content;
-            }
+                public String getCity() {
+                    return city;
+                }
 
-            public String getCreateTime() {
-                return createTime;
-            }
+                public void setCity(String city) {
+                    this.city = city;
+                }
 
-            public void setCreateTime(String createTime) {
-                this.createTime = createTime;
+                public double getLng() {
+                    return lng;
+                }
+
+                public void setLng(double lng) {
+                    this.lng = lng;
+                }
+
+                public double getLat() {
+                    return lat;
+                }
+
+                public void setLat(double lat) {
+                    this.lat = lat;
+                }
+
+                public Object getThumb() {
+                    return thumb;
+                }
+
+                public void setThumb(Object thumb) {
+                    this.thumb = thumb;
+                }
+
+                public Object getThumbs() {
+                    return thumbs;
+                }
+
+                public void setThumbs(Object thumbs) {
+                    this.thumbs = thumbs;
+                }
+
+                public String getCategoryId() {
+                    return categoryId;
+                }
+
+                public void setCategoryId(String categoryId) {
+                    this.categoryId = categoryId;
+                }
+
+                public String getContent() {
+                    return content;
+                }
+
+                public void setContent(String content) {
+                    this.content = content;
+                }
+
+                public String getCreateTime() {
+                    return createTime;
+                }
+
+                public void setCreateTime(String createTime) {
+                    this.createTime = createTime;
+                }
             }
         }
     }

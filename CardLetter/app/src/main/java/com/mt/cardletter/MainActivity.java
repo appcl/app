@@ -34,7 +34,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
-
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener{
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -69,6 +68,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.READ_PHONE_STATE
     };
+
+    private String city;
+    private double lat,lon;
 
     @Override
     protected int getLayoutResId() {
@@ -327,8 +329,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                     sb.append("\ndescribe : ");
                     sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
                 }
+                lat = location.getLatitude();
+                lon = location.getLongitude();
                 String district = location.getDistrict().toString();
-                String city = location.getCity().toString();
+                city = location.getCity().toString();
                 if (!district.equals("")||district!=null){
                     AppContext.getInstance().setDistrict(district);
                 }else {

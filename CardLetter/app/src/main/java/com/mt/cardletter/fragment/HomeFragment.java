@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     private PagerSlidingTabStrip search_edit;
     private TopScrollView myScrollView;
     private int searchLayoutTop;
-    LinearLayout search01,search02;
+    LinearLayout search01,search02,search03;
     RelativeLayout rlayout;
     private View view;
     private boolean isOk = false;
@@ -107,32 +107,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.test,container,false);
         getDatas(view);
-
         //========
         pager = (MyViewPager) view.findViewById(R.id.pager);
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
-
         tabs.setFocusable(true);
         tabs.setFocusableInTouchMode(true);
         tabs.requestFocus();
         pager.setFocusable(false);
-
         init();
         //========
         pathContent2 = (LinearLayout) view.findViewById(R.id.path_content2);
-        //make_integral = (RelativeLayout) view.findViewById(R.id.make_integral);
+        make_integral = (RelativeLayout) view.findViewById(R.id.make_integral);
         search_integral = (RelativeLayout) view.findViewById(R.id.search_integral);
         search_seckill = (RelativeLayout) view.findViewById(R.id.search_seckill);
         my_order = (RelativeLayout) view.findViewById(R.id.my_order);
-
         locatio_address= (LinearLayout) view.findViewById(R.id.locatio_address);
         fragment_home_top_text_address= (TextView) view.findViewById(R.id.fragment_home_top_text_address);
-
-        //make_integral.setOnClickListener(this);
+        make_integral.setOnClickListener(this);
         search_integral.setOnClickListener(this);
         search_seckill.setOnClickListener(this);
         my_order.setOnClickListener(this);
-
         locatio_address.setOnClickListener(this);
         parentScrollView = (ScrollView) view.findViewById(R.id.home_scroll);
         return view;
@@ -141,8 +135,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+//        loadData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         loadData();
     }
+
     //======================================
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void init() {
@@ -152,6 +153,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
 
         search01 = (LinearLayout)view.findViewById(R.id.search01);
         search02 = (LinearLayout)view.findViewById(R.id.search02);
+        search03 = (LinearLayout)view.findViewById(R.id.search03);
         rlayout = (RelativeLayout)view.findViewById(R.id.rlayout);
         myScrollView.setOnScrollListener(this);
 
@@ -235,14 +237,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
             @Override
             public void onSucceed(NetNewsCategory data) {
                 tabDatas = data.getResult().getResult();
-                tabDatas.add(1,"本地");
                 fragments = new Fragment[tabDatas.size()];
                 FragmentPagerAdapter adapter = new HomeFragment.NewsAdapter(getChildFragmentManager(),tabDatas);
                 pager.setAdapter(adapter);
                 final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
                 pager.setPageMargin(pageMargin);
-                //pager1.setOffscreenPageLimit(tabDatas.size());
-                pager.setOffscreenPageLimit(1);
+                pager.setOffscreenPageLimit(tabDatas.size());
+                //pager.setOffscreenPageLimit(1);
                 tabs.setViewPager(pager);
             }
             @Override
@@ -314,11 +315,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         @Override
         public Fragment getItem(int position) {
             if (fragments[position] == null){
-                fragments[position] =  new NetNewsFragment(myScrollView,pager);
+                fragments[position] =  new NetNewsFragment(myScrollView,pager,search03);
                 Bundle bundle=new Bundle();
                 bundle.putString("news_category",tabDatas.get(position));
                 bundle.putInt("pager_id",position);
-                //bundle.putSerializable("myScrollView",myScrollView);
                 fragments[position].setArguments(bundle);
             }
             return fragments[position];

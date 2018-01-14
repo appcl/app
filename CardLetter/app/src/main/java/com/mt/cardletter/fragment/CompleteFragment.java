@@ -16,8 +16,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.ScreenActivity;
 import com.mt.cardletter.activity.SetailsActivity;
 import com.mt.cardletter.entity.merchant.Bank;
+import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.https.HttpSubscriber;
@@ -26,6 +28,7 @@ import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
+import com.mt.cardletter.view.pulltorefresh.ILoadingLayout;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 
@@ -44,8 +47,8 @@ public class CompleteFragment extends Fragment {
     private static final int UPDATA_DOWN = 0X02; //下拉刷新
     private static final int UPDATA_DEF = 0X03; //默认加载
     private Activity context;
-    private  List<GoodsBean.ResultBean> list = new ArrayList();
-    private  List<Goods.DataBeanX.DataBean>  myList = new ArrayList<>();
+    private List<GoodsBean.ResultBean> list = new ArrayList();
+    private List<Goods.DataBeanX.CardfindListBean.DataBean>  myList = new ArrayList<>();
     private MyAdapter myAdapter;
     private int page_index = 1;
     private String cartgory_id = "";
@@ -55,17 +58,16 @@ public class CompleteFragment extends Fragment {
     private boolean isOpen = true;
     private View view;
     public View loadmoreView;
-    private  List<Bank.DataBean> banks;
+    private List<Bank.DataBean> banks = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (isOpen){
             view = inflater.inflate(R.layout.activity_fragment_find, container, false);
             loadmoreView = View.inflate(getContext(),R.layout.load_more,null);//上拉加载更多布局
-            loadmoreView.setVisibility(View.VISIBLE);//设置刷新视图默认情况下是不可见的
+            loadmoreView.setVisibility(View.VISIBLE);//设置刷新视图默认情况下是不可见的32.02004, 118.763108
             ButterKnife.bind(this, view);
-            myList = new ArrayList<>();
             cartgory_id= (int) getArguments().get("id") + "";
-            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id );
+            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,"320100", "","32.04","118.78" );
             toLogin(Constant.Access_Token);
         }
         return view;
@@ -81,36 +83,46 @@ public class CompleteFragment extends Fragment {
         }
     }
 
-    private void loadData(final int upDataFlag , String list_rows, String page, String category_id) {
+    private void loadData(final int upDataFlag , String list_rows, String page, String category_id,String city,String  bankcard,String lng,String lat) {
+        System.out.println("jk=====category_id:"+category_id+"   page:"+page);
         /*
          * 获取商家列表
+       1  access_token
+       2  list_rows
+       3  page
+       4  category_id
+       5  city
+       6  bankcard
+       7  lng
+       8  lat
          */
-        CardLetterRequestApi.getInstance().getFindMerchant(Constant.Access_Token,list_rows,page,category_id,new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
-            @Override
-            public void onSucceed(Goods data) {
-                System.out.println("商家请求成功");
-                if (data.getCode()==0){
-                    List<Goods.DataBeanX.DataBean> data1 = data.getData().getData();
-                    if (upDataFlag == UPDATA_DEF){
-                        myList = data1;
-                    }else if(upDataFlag == UPDATA_UP){
-                        myList.addAll(data1);
-                    }else if(upDataFlag == UPDATA_DOWN){
-                        if (myList.get(0).getId() == data1.get(0).getId() ){
-                            ToastUtils.makeShortText("没有更多可加载",getContext());
+        CardLetterRequestApi.getInstance().getFindMerchant(
+                Constant.Access_Token,list_rows,page,category_id,city, bankcard,lng,lat,new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
+                    @Override
+                    public void onSucceed(Goods data) {
+                        System.out.println("jk=======商家请求成功");
+                        if (data.getCode()==0){
+                            List<Goods.DataBeanX.CardfindListBean.DataBean> data1 = data.getData().getCardfindList().getData();
+                            if (upDataFlag == UPDATA_DEF){
+                                myList = data1;
+                            }else if(upDataFlag == UPDATA_UP){
+                                myList.addAll(data1);
+                            }else if(upDataFlag == UPDATA_DOWN){
+                                if (data.getData().getCardfindList().getCurrentPage()==data.getData().getCardfindList().getLastPage()+""){
+                                    ToastUtils.makeShortText("没有更多可加载",getContext());
+                                }
+                                myList = data1;
+                            }
+                            myAdapter.notifyDataSetChanged();
+
+                            listView.onRefreshComplete();
                         }
-                        myList = data1;
                     }
-                    myAdapter.notifyDataSetChanged();
-                    loadmoreView.setVisibility(View.GONE);
-                    listView.onRefreshComplete();
-                }
-            }
-            @Override
-            public void onError(int code, String msg) {
-                ToastUtils.showShort(getContext(),"网络异常");
-            }
-        },getContext()));
+                    @Override
+                    public void onError(int code, String msg) {
+                        ToastUtils.showShort(getContext(),"jk=======网络异常");
+                    }
+                },getContext()));
     }
 
     private void initView() {
@@ -131,56 +143,33 @@ public class CompleteFragment extends Fragment {
                 intent.setClass(getActivity(),SetailsActivity.class);
                 if(myList.get(position)!=null){
                     intent.putExtra("cardfind_id",myList.get(position-1).getId()+"");
-                    intent.putExtra("banks",banks.get(position).getName());
+                    intent.putExtra("bank",banks.get(Integer.parseInt(myList.get(position-1).getBankcard())-1).getName());
+                    System.out.println("intent:bank:2== "+myList.get(position-1).getBankcard());
                 }
                 UIHelper.showDetails(getContext(), intent);
             }
         });
-        //listView.withLoadMoreView();
         listView.setAdapter(myAdapter = new MyAdapter());
-
+        listView.setMode(PullToRefreshBase.Mode.BOTH);
         /**
-         * 注册下拉刷新
+         * 注册加载
          */
 
-        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                System.out.println("onPullDownToRefresh");
                 page_index = 1;
-                loadData(UPDATA_DOWN , page_size, page_index+"",cartgory_id);
-                //new CompleteFragment.GetDataTask().execute();
+                loadData( UPDATA_DOWN , page_size , ""+page_index , cartgory_id ,"", "","32.04","118.78" );
             }
-        });
 
-        /**
-         * 注册上拉加载
-         */
-
-        listView.setOnLastItemVisibleListener(new PullToRefreshBase.OnLastItemVisibleListener() {
             @Override
-            public void onLastItemVisible() {
-            page_index = page_index + 1;
-            loadData(UPDATA_UP,page_size,page_index+"",cartgory_id);
-            loadmoreView.setVisibility(View.VISIBLE);
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                System.out.println("onPullUpToRefresh");
+                page_index = page_index + 1;
+                loadData( UPDATA_UP , page_size , ""+page_index , cartgory_id ,"", "","32.04","118.78" );
             }
         });
-    }
-
-    /**
-     * 下拉刷新
-     */
-    private class GetDataTask extends AsyncTask<Void, Void, List<GoodsBean.ResultBean>> {
-        @Override
-        protected List<GoodsBean.ResultBean> doInBackground(Void... params) {
-            page_index = 1;
-            loadData(UPDATA_DOWN , page_size, page_index+"",cartgory_id);
-            return list;
-        }
-        @Override
-        protected void onPostExecute(List<GoodsBean.ResultBean> result) {
-            listView.onRefreshComplete();
-            super.onPostExecute(result);
-        }
     }
 
     class MyAdapter extends BaseAdapter{
@@ -218,10 +207,7 @@ public class CompleteFragment extends Fragment {
                 holder.title.setText(myList.get(position).getName());
                 holder.discounts.setText(myList.get(position).getDescribe());
                 holder.obj.setText(myList.get(position).getCreateTime());
-
-                if (myList.get(position).getThumb() != null){
-                    Glide.with(CompleteFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
-                }
+                Glide.with(CompleteFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
             }
             return convertView;
         }
@@ -230,21 +216,18 @@ public class CompleteFragment extends Fragment {
             ImageView img;
         }
     }
-
     private void toLogin(String ak) {
         CardLetterRequestApi.getInstance().getBank(ak, new HttpSubscriber<Bank>(new SubscriberOnListener<Bank>() {
             @Override
             public void onSucceed(Bank data) {
                 if (data.getCode() == 0) {
                     banks = data.getData();
-
                 }
             }
             @Override
             public void onError(int code, String msg) {
-                ToastUtils.makeShortText("网络故障"+code, getContext());
+
             }
         }, getContext()));
     }
-
 }

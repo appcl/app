@@ -24,10 +24,12 @@ import com.mt.cardletter.activity.ViolateActivity;
 import com.mt.cardletter.activity.ViolateDetailActivity;
 import com.mt.cardletter.activity.WeatherActivity;
 import com.mt.cardletter.activity.WebView_QQActivity;
+import com.mt.cardletter.activity.bank.SHActivity;
 import com.mt.cardletter.activity.seckill.SeckillActivity;
 import com.mt.cardletter.activity.setting.SettingActivity;
 import com.mt.cardletter.activity.setting.SettingMsgActivity;
 import com.mt.cardletter.entity.article.ArticleBean;
+import com.mt.cardletter.entity.bank.BankEntity;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.entity.data.ViolateData;
 import com.mt.cardletter.entity.express.Express_Content;
@@ -270,5 +272,17 @@ public class UIHelper {
         Intent intent = new Intent(context, SearchActivity.class);
         context.startActivity(intent);
     }
+
+    public static void showSHActivity(Context context, String sid,List<BankEntity.BankBean.ShListBean> sh_list)
+    {
+        Intent intent = new Intent(context, SHActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("sid",sid);
+        System.out.println("----sid----"+sid);
+        intent.putExtras(bundle);
+        intent.putExtra("sh_list", (Serializable) sh_list);
+        context.startActivity(intent);
+    }
+
 
 }

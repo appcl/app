@@ -2,6 +2,7 @@ package com.mt.cardletter.entity.merchant;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * 银行列表
  */
 
-public class Bank {
+public class Bank implements Serializable {
 
 
     /**
@@ -61,7 +62,7 @@ public class Bank {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * id : 1
          * name : 工商银行

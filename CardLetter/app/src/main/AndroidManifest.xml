@@ -135,10 +135,13 @@
         <!-- 信用卡分类列表信息-->
         <activity android:name=".activity.CreditListActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.bank.SHActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.bank.SHWebActiviy"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name="com.zaaach.citypicker.CityPickerActivity"
+            android:name=".activity.CityPickerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/CityPicker.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <meta-data

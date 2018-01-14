@@ -284,7 +284,7 @@ public class CreditDatas implements Serializable{
             private String fid;
             private String subj;
             private String abs;
-            private int date;
+            private long date;
             private int UTC;
             private String xqqstyle;
             private FromBean from;
@@ -323,11 +323,11 @@ public class CreditDatas implements Serializable{
                 this.abs = abs;
             }
 
-            public int getDate() {
+            public long getDate() {
                 return date;
             }
 
-            public void setDate(int date) {
+            public void setDate(long date) {
                 this.date = date;
             }
 

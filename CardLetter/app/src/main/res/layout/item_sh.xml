@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="10dp"
+    android:gravity="center">
+    <TextView
+        android:id="@+id/item_subj"
+        android:text="光大银行信用卡电子对账单20170920"
+        android:textColor="@color/color_text_black_31"
+        android:textSize="12sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:paddingTop="5dp"
+        android:id="@+id/item_date"
+        android:text="2017-09-20"
+        android:textSize="12sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:paddingTop="5dp"
+        android:id="@+id/item_abs"
+        android:text="尊敬的 王克军 先生 您好! 感谢您使用中国光大银行信用卡！特为您呈上2017年08月21日至2017年09月20日信"
+        android:textColor="@color/color_text_black_31"
+        android:textSize="12sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -4,7 +4,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,18 +15,12 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
 import com.mt.cardletter.entity.merchant.Good;
-import com.mt.cardletter.entity.merchant.Goods;
-import com.mt.cardletter.entity.merchant.GoodsBean;
-import com.mt.cardletter.fragment.CompleteFragment;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.ToastUtils;
-import com.mt.cardletter.utils.UIHelper;
-
-import java.util.List;
 
 /**
  * 商品详情
@@ -44,7 +37,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    private String banks = "";
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_setails;
@@ -76,6 +69,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         setails_discounts = (TextView) findViewById(R.id.setails_discounts);
         bigImg = (ImageView) findViewById(R.id.setails_big_img);
         String cardfind_id = getIntent().getStringExtra("cardfind_id");
+        banks = (String)getIntent().getSerializableExtra("banks");
         if (cardfind_id != null) {
             loadData(cardfind_id);
         }
@@ -111,10 +105,13 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
                 setails_tel.setText(good.getTel());
                 setails_address.setText(good.getAddress());
                 setails_centent.setText(good.getContent());
-                setails_obj.setText("银行");
+
                 setails_discounts.setText(good.getDescribe());
                 if (good.getThumb()!=null){
                     Glide.with(this).load(Constant.BASE_URL+good.getThumb()).error(R.drawable.default_error).into(bigImg);
+                }
+                if (banks!=null){
+                    setails_obj.setText(banks);
                 }
             }
         } else {

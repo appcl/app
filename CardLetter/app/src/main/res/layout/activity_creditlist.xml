@@ -2,14 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!--<ListView-->
+        <!--android:padding="10dp"-->
+        <!--android:id="@+id/credit_listview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scrollbars="none"-->
+        <!--android:divider="@drawable/divider"-->
+        <!--android:dividerHeight="0.5dp"-->
+        <!--/>-->
     <include layout="@layout/action_title"/>
-    <ListView
-        android:padding="10dp"
-        android:id="@+id/credit_listview"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:scrollbars="none"
-        android:divider="@drawable/divider"
-        android:dividerHeight="0.5dp"
-        />
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/item_sh"
+        android:src="@drawable/jt_bank"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    <ImageView
+        android:id="@+id/item_pa"
+        android:src="@drawable/jt_bank"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    <ImageView
+        android:id="@+id/item_gd"
+        android:src="@drawable/jt_bank"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    <ImageView
+        android:id="@+id/item_jt"
+        android:src="@drawable/jt_bank"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    <ImageView
+        android:id="@+id/item_zs"
+        android:src="@drawable/jt_bank"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

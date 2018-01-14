@@ -80,7 +80,6 @@ public class Good {
 
          * create_time : 2017-12-26 12:47:42
          */
-
         @SerializedName("id")
         private int id;
         @SerializedName("name")

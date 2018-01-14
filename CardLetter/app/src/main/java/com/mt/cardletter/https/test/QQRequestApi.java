@@ -60,9 +60,9 @@ public class QQRequestApi extends BaseApi {
         toSubscribe(observable,subscriber);
     }
 
-    public void getCreditDetail(String sid,String t,Subscriber<String> subscriber){
+    public void getCreditDetail(String sid,String t,Subscriber<Object> subscriber){
         Observable observable = httpRequestService.getCreditDetailData(sid,t)
-                .map(new HttpResultFunc<String>());
+                .map(new HttpResultFunc<Object>());
         toSubscribe(observable,subscriber);
     }
 }

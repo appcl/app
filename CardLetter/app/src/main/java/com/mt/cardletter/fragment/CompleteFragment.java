@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.SetailsActivity;
-import com.mt.cardletter.entity.merchant.FindCategoryList;
+import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.https.HttpSubscriber;
@@ -26,7 +26,6 @@ import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
-import com.mt.cardletter.view.pulltorefresh.ILoadingLayout;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 
@@ -56,7 +55,7 @@ public class CompleteFragment extends Fragment {
     private boolean isOpen = true;
     private View view;
     public View loadmoreView;
-
+    private  List<Bank.DataBean> banks;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (isOpen){
@@ -67,6 +66,7 @@ public class CompleteFragment extends Fragment {
             myList = new ArrayList<>();
             cartgory_id= (int) getArguments().get("id") + "";
             loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id );
+            toLogin(Constant.Access_Token);
         }
         return view;
     }
@@ -131,6 +131,7 @@ public class CompleteFragment extends Fragment {
                 intent.setClass(getActivity(),SetailsActivity.class);
                 if(myList.get(position)!=null){
                     intent.putExtra("cardfind_id",myList.get(position-1).getId()+"");
+                    intent.putExtra("banks",banks.get(position).getName());
                 }
                 UIHelper.showDetails(getContext(), intent);
             }
@@ -228,6 +229,22 @@ public class CompleteFragment extends Fragment {
             TextView title,discounts,obj;
             ImageView img;
         }
+    }
+
+    private void toLogin(String ak) {
+        CardLetterRequestApi.getInstance().getBank(ak, new HttpSubscriber<Bank>(new SubscriberOnListener<Bank>() {
+            @Override
+            public void onSucceed(Bank data) {
+                if (data.getCode() == 0) {
+                    banks = data.getData();
+
+                }
+            }
+            @Override
+            public void onError(int code, String msg) {
+                ToastUtils.makeShortText("网络故障"+code, getContext());
+            }
+        }, getContext()));
     }
 
 }

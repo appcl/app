@@ -23,9 +23,9 @@ public class CreditListAdapter extends BaseAdapter {
 
     private Context context;
     private LayoutInflater inflater;
-    private List<BankEntity> list;
+    private List<BankEntity.BankBean> list;
 
-    public CreditListAdapter(Context context, List<BankEntity> list) {
+    public CreditListAdapter(Context context, List<BankEntity.BankBean> list) {
         this.context=context;
         this.list = list;
         inflater=LayoutInflater.from(context);
@@ -49,7 +49,7 @@ public class CreditListAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder =null;
-        final BankEntity bean= list.get(position);
+        final BankEntity.BankBean bean= list.get(position);
         if (convertView==null){
             viewHolder=new ViewHolder();
             convertView=inflater.inflate(R.layout.credit_list_layout,parent,false);
@@ -58,7 +58,7 @@ public class CreditListAdapter extends BaseAdapter {
         }else {
             viewHolder= (ViewHolder) convertView.getTag();
         }
-        viewHolder.credit.setImageDrawable(bean.getPic());
+//        viewHolder.credit.setImageDrawable(bean.getPic());
         return convertView;
     }
 

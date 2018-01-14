@@ -19,10 +19,10 @@ import java.util.List;
 public class CategoryAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    private List<CategoryEntity.DataBean> list;
+    private List<CategoryEntity.DataBeanX.SellerCategoryListBean> list;
 
 
-    public CategoryAdapter(Context context, List<CategoryEntity.DataBean> list) {
+    public CategoryAdapter(Context context, List<CategoryEntity.DataBeanX.SellerCategoryListBean> list) {
         this.context=context;
         this.list = list;
         inflater=LayoutInflater.from(this.context);
@@ -46,7 +46,7 @@ public class CategoryAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View itemView, ViewGroup viewGroup) {
         ViewHolder mHolder;
-        CategoryEntity.DataBean bean = list.get(i);
+        CategoryEntity.DataBeanX.SellerCategoryListBean bean = list.get(i);
         if (itemView == null) {
             mHolder = new ViewHolder();
             itemView = inflater.inflate(R.layout.item_cagegroy, viewGroup, false);

@@ -19,7 +19,6 @@ import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.entity.news.NetNews;
 import com.mt.cardletter.entity.news.NetNewsCategory;
-import com.mt.cardletter.entity.news.NetNewsForMap;
 import com.mt.cardletter.entity.news.News;
 import com.mt.cardletter.entity.news.NewsCategory;
 import com.mt.cardletter.entity.picture.PictureEntity;
@@ -204,8 +203,8 @@ public interface HttpRequestService {
      * @param access_token
      * @return
      */
-    @POST("/api.php/seller/categorylist")
-    Observable<CategoryEntity> getCategory(@Query("access_token") String access_token);
+    @POST("/api.php/combseller/seller/access_token/{access_token}")
+    Observable<CategoryEntity> getCategory(@Path("access_token") String access_token);
 
     /**
      * 银行列表
@@ -385,6 +384,6 @@ public interface HttpRequestService {
      * @return
      */
     @GET("/cgi-bin/mobile")
-    Observable<String> getCreditDetailData(@Query("sid") String sid,
+    Observable<Object> getCreditDetailData(@Query("sid") String sid,
                                            @Query("t") String t);
 }

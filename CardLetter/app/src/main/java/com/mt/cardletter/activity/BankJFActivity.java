@@ -76,6 +76,7 @@ public class BankJFActivity extends BaseActivity implements SwipeRefreshLayout.O
         adapter = new BankSellerAdapter(this,sell_list);
         recyclerView.setAdapter(adapter);
 
+
         adapter.setItemClickListener(new BankSellerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {

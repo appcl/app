@@ -19,11 +19,33 @@
         <LinearLayout
             android:id="@+id/search_main_layout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:background="@color/coloreeeeee"
             android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/locatio_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
+                <TextView
+                    android:id="@+id/fragment_home_top_text_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="南京"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_text_black_31" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:src="@mipmap/cp_ic_locate" />
+            </LinearLayout>
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -44,7 +66,6 @@
                         android:layout_height="20dp"
                         android:src="@mipmap/cancel" />
                 </RelativeLayout>
-
                 <EditText
                     android:id="@+id/search_main_et_input"
                     android:layout_width="match_parent"
@@ -66,53 +87,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" >
-            <com.mt.cardletter.view.rollviewpager.RollPagerView
-                android:id="@+id/fragment_home_top_pagerview"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                app:rollviewpager_play_delay="3000" >
-                <LinearLayout
-                    android:id="@+id/locatio_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
 
-                    <TextView
-                        android:id="@+id/fragment_home_top_text_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="南京"
-                        android:textSize="14sp"
-                        android:textColor="@color/white" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/drop_down" />
-                </LinearLayout>
-
-            </com.mt.cardletter.view.rollviewpager.RollPagerView>
-            <ViewFlipper
-               android:layout_marginTop="150dp"
-                android:id="@+id/marquee_view"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/white"
-                android:autoStart="true"
-                android:flipInterval="2500"
-                android:inAnimation="@anim/anim_marquee_in"
-                android:outAnimation="@anim/anim_marquee_out" >
-            </ViewFlipper>
             <LinearLayout
-                android:layout_below="@id/marquee_view"
+                android:layout_below="@+id/fragment_home_top_pagerview"
+                android:id="@+id/line_layout"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="40dp">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:padding="5dp"
+                    android:src="@drawable/red_table" />
+                <ViewFlipper
+                    android:id="@+id/marquee_view"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:autoStart="true"
+                    android:flipInterval="2500"
+                    android:inAnimation="@anim/anim_marquee_in"
+                    android:outAnimation="@anim/anim_marquee_out" >
+                </ViewFlipper>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_below="@id/line_layout"
                 android:orientation="vertical"
                 android:background="@color/colorbg"
                 android:layout_width="match_parent"
@@ -124,6 +125,16 @@
                 android:layout_height="10dp"
                 android:background="@color/colorspaceline"/>
             </LinearLayout>
+
+            <com.mt.cardletter.view.rollviewpager.RollPagerView
+                android:id="@+id/fragment_home_top_pagerview"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:rollviewpager_play_delay="3000"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+            </com.mt.cardletter.view.rollviewpager.RollPagerView>
         </RelativeLayout>
         <!--保持部分-->
         <LinearLayout

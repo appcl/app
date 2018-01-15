@@ -62,6 +62,7 @@ public class SearchIntegralAdapter extends RecyclerView.Adapter<SearchIntegralAd
         final SearchIntegralData.DataBeanX.DataBean bean = list.get(position);
         holder.tv_name.setText(bean.getName());
         holder.bjf_jf.setText("消费积分: "+String.valueOf(bean.getNeed_score()));
+        holder.bjf_time.setText(bean.getCreate_time());
         Glide.with(context)
                 .load(Constant.PIC_URL+bean.getThumb())
                 .error(R.drawable.default_error)
@@ -75,13 +76,14 @@ public class SearchIntegralAdapter extends RecyclerView.Adapter<SearchIntegralAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView tv_name,bjf_jf;
+        private TextView tv_name,bjf_jf,bjf_time;
         private ImageView img_bfj;
         public ViewHolder(View itemView){
             super(itemView);
             tv_name = (TextView) itemView.findViewById(R.id.bjf_name);
             bjf_jf = (TextView) itemView.findViewById(R.id.bjf_jf);
             img_bfj = (ImageView) itemView.findViewById(R.id.bjf_img);
+            bjf_time = (TextView) itemView.findViewById(R.id.bjf_time);
         }
     }
 

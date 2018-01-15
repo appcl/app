@@ -10,7 +10,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Base64;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +22,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.GlideUrl;
-import com.bumptech.glide.load.model.LazyHeaders;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.CityPickerActivity;
 import com.mt.cardletter.app.AppContext;
@@ -291,28 +287,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         @Override
         public View getView(ViewGroup container, int position) {
             ImageView view = new ImageView(container.getContext());
-//            view.setImageResource(image[position]);
-            System.out.println("---------pic--------"+Constant.PIC_URL+dataBeanList.get(position).getThumb());
-            String credentials="51kalaxin:62kaxin";
-            final String basic =
-                    "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
             //Authorization 请求头信息
-            LazyHeaders headers=  new LazyHeaders.Builder().addHeader("Authorization", basic).build();
-            //用其它图片作为缩略图
-            DrawableRequestBuilder<Integer> thumbnailRequest = Glide
-                    .with(context)
-                    .load(R.drawable.new03);
-//            Glide.with(context)
-//                    .load(Constant.PIC_URL+this.dataBeanList.get(position).getThumb())
-//                    .thumbnail(thumbnailRequest)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .into(view);
             Glide.with(context)
-                    .load(new GlideUrl(Constant.PIC_URL+this.dataBeanList.get(position).getThumb(), headers))
-                    .thumbnail(thumbnailRequest)
+                    .load(Constant.PIC_URL+this.dataBeanList.get(position).getThumb())
+                    .error(R.drawable.default_error)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(view);
-            view.setScaleType(ImageView.ScaleType.CENTER);
+            view.setScaleType(ImageView.ScaleType.CENTER_CROP);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             return view;
         }

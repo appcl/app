@@ -153,6 +153,7 @@ public class PullToRefreshRecyclerView extends SwipeRefreshLayout implements Prv
     @Override
     public void setAdapter(RecyclerView.Adapter adapter) {
         mRecyclerView.setAdapter(adapter);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST));
         if(mAdapterObserver == null){
             mAdapterObserver = new AdapterObserver();
         }

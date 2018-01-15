@@ -63,6 +63,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         final SearchDatas.DataBeanX.DataBean bean = list.get(position);
         holder.tv_name.setText(bean.getName());
         holder.tv_des.setText(bean.getDescribe());
+        holder.tv_time.setText(bean.getCreate_time());
         Glide.with(context)
                 .load(Constant.PIC_URL+bean.getThumb())
                 .error(R.drawable.default_error)
@@ -76,13 +77,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView tv_name,tv_des;
+        private TextView tv_name,tv_des,tv_time;
         private ImageView ss_img;
         public ViewHolder(View itemView){
             super(itemView);
             tv_name = (TextView) itemView.findViewById(R.id.s_name);
             tv_des = (TextView) itemView.findViewById(R.id.s_des);
             ss_img = (ImageView) itemView.findViewById(R.id.ss_img);
+            tv_time= (TextView) itemView.findViewById(R.id.s_time);
         }
     }
 

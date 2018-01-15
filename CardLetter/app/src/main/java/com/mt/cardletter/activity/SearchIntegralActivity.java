@@ -45,7 +45,7 @@ public class SearchIntegralActivity extends BaseActivity {
     private TextView search_btn;
     private PullToRefreshRecyclerView recyclerView;
     private int page = 1;
-    private int num = 5;
+    private int num = 10;
     private List<SearchIntegralData.DataBeanX.DataBean> list = new ArrayList<>();
     private SearchIntegralAdapter adapter;
 
@@ -165,7 +165,7 @@ public class SearchIntegralActivity extends BaseActivity {
                     @Override
                     public void onSucceed(SearchIntegralData data) {
                         if (data.getCode()==0){
-                            if (data.getData().getTotal()>0) {
+                            if (data.getData().getData().size()>0) {
                                 list = data.getData().getData();
                                 adapter.addData(list);
                                 recyclerView.setOnRefreshComplete();

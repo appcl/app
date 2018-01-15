@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_view"
-    android:background="@drawable/seller_bg"
-    android:layout_margin="10dp"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content" android:padding="10dp">
-    <TextView
-        android:id="@+id/s_name"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Info" android:textSize="14dp"
-        android:textColor="@color/color_text_black_31"/>
     <ImageView
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:id="@+id/ss_img"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/default_error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:paddingTop="5dp"
-        android:id="@+id/s_des"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Info" android:textSize="12dp"
-        android:textColor="@color/color_text_black_31"/>
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="5dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/s_name"
+            android:paddingBottom="5dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="6积分抢兑Blueair空气净化器" android:textSize="14dp"
+            android:textColor="@color/color_text_black_31"/>
+        <TextView
+            android:paddingTop="5dp"
+            android:id="@+id/s_des"
+            android:layout_below="@+id/s_name"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="消耗积分:500" android:textSize="12dp"
+            android:textColor="@color/color_text_red"/>
+        <TextView
+            android:layout_alignParentRight="true"
+            android:paddingTop="5dp"
+            android:layout_below="@+id/s_name"
+            android:id="@+id/s_time"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="2018-10-12 " android:textSize="12dp"
+            />
+    </RelativeLayout>
 </LinearLayout>

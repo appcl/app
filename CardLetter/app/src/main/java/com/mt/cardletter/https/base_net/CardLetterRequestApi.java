@@ -4,6 +4,7 @@ package com.mt.cardletter.https.base_net;
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.data.SearchDatas;
 import com.mt.cardletter.entity.integral.CategoryEntity;
+import com.mt.cardletter.entity.integral.SearchIntegralData;
 import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Good;
@@ -217,6 +218,62 @@ public class CardLetterRequestApi extends BaseApi {
     public void getSearchData(String ak , int list_rows, int page , int category_id,String str_search,Subscriber<SearchDatas> subscriber){
         Observable observable = httpRequestService.getSearchData(ak,list_rows,page,category_id,str_search)
                 .map(new HttpResultFunc<SearchDatas>());
+        toSubscribe(observable,subscriber);
+    }
+
+    /**
+     * 银行积分
+     * @param id
+     * @param ak
+     * @param page
+     * @param subscriber
+     */
+    public void getBank_JF(int id,String ak,int page,Subscriber<CategoryEntity> subscriber){
+        Observable observable = httpRequestService.getBank_JF(id,ak,page)
+                .map(new HttpResultFunc<CategoryEntity>());
+        toSubscribe(observable,subscriber);
+    }
+
+    /**
+     * 推荐积分
+     * @param channel
+     * @param ak
+     * @param page
+     * @param subscriber
+     */
+    public void getChannel_BJ(String channel,String ak,int page,Subscriber<CategoryEntity> subscriber){
+        Observable observable = httpRequestService.getChannel_JF(channel,ak,page)
+                .map(new HttpResultFunc<CategoryEntity>());
+
+        toSubscribe(observable,subscriber);
+    }
+
+    /**
+     * 标签积分
+     * @param category_id
+     * @param ak
+     * @param page
+     * @param subscriber
+     */
+    public void getTAG_BJ(int category_id,String ak,int page,Subscriber<CategoryEntity> subscriber){
+        Observable observable = httpRequestService.getTAG_JF(category_id,ak,page)
+                .map(new HttpResultFunc<CategoryEntity>());
+
+        toSubscribe(observable,subscriber);
+    }
+
+    /**
+     * 搜索积分接口
+     * @param ak
+     * @param list_rows
+     * @param page
+     * @param category_id
+     * @param str_search
+     * @param subscriber
+     */
+    public void getSearchIntegralData(String ak , int list_rows, int page , int category_id,String str_search,Subscriber<SearchIntegralData> subscriber){
+        Observable observable = httpRequestService.getSearchIntegralData(ak,list_rows,page,category_id,str_search)
+                .map(new HttpResultFunc<SearchIntegralData>());
         toSubscribe(observable,subscriber);
     }
 }

@@ -16,6 +16,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
+        <LinearLayout
+            android:id="@+id/search_main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:background="@color/coloreeeeee"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <!--drawableLeft在EditText左边的图片-->
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/search_iv_delete"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="15sp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/cancel" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/search_main_et_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/search_edittext_shape"
+                    android:drawableLeft="@mipmap/search_bar_icon_normal"
+                    android:drawablePadding="5dp"
+                    android:hint="请输入关键字"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:textColor="@color/color_text_black_31"
+                    android:textSize="12sp" />
+            </FrameLayout>
+        </LinearLayout>
         <!--TOP部分-->
         <RelativeLayout
             android:id="@+id/rlayout"

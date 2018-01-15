@@ -13,8 +13,8 @@ public class SearchDatas {
     /**
      * code : 0
      * msg : 操作成功
-     * data : {"total":47,"per_page":15,"current_page":1,"last_page":4,"data":[{"id":11,"name":"月福汽车装饰(北洼路店)","category_id":"11","describe":"享受10元洗车一次","create_time":"2017-12-26 12:47:42"},{"id":4236,"name":"马立可汽车服务中心（1003金沙店）","category_id":"11","describe":"8.5折","create_time":"2017-12-26 12:47:42"}]}
-     * exe_time : 0.066004
+     * data : {"total":6,"per_page":"10","current_page":1,"last_page":1,"data":[{"id":3706,"name":"costa咖啡（虹悦城店）","describe":"7元中杯饮品","tel":"无","deadline":"2018/5/20","address":"应天大街619号虹悦城B1-W10","bankcard":"11","city":"320100","lng":32.0095,"lat":118.766,"thumb":"/upload/shop_pic/5/3706/999.jpg","thumbs":"/upload/shop_pic/5/3706/0.jpg,/upload/shop_pic/5/3706/1.jpg,/upload/shop_pic/5/3706/2.jpg","category_id":"2","content":"\n刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；\n                ","create_time":"2017-12-26 12:47:42"},{"id":9113,"name":"costa咖啡（虹悦城店）","describe":"7元中杯饮品","tel":"无","deadline":"2018/5/20","address":"应天大街619号虹悦城B1-W10","bankcard":"11","city":"320100","lng":32.0095,"lat":118.766,"thumb":"/upload/shop_pic/5/9113/999.jpg","thumbs":"/upload/shop_pic/5/9113/0.jpg,/upload/shop_pic/5/9113/1.jpg,/upload/shop_pic/5/9113/2.jpg","category_id":"2","content":"\n刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；\n                ","create_time":"2017-12-26 12:47:42"},{"id":9644,"name":"costa咖啡（虹悦城店）","describe":"7元中杯饮品","tel":"无","deadline":"2018/5/20","address":"应天大街619号虹悦城B1-W10","bankcard":"11","city":"320100","lng":32.0095,"lat":118.766,"thumb":"/upload/shop_pic/5/9644/999.jpg","thumbs":"/upload/shop_pic/5/9644/0.jpg,/upload/shop_pic/5/9644/1.jpg,/upload/shop_pic/5/9644/2.jpg","category_id":"2","content":"\n刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；\n                ","create_time":"2017-12-26 12:47:42"},{"id":10066,"name":"costa咖啡（虹悦城店）","describe":"7元中杯饮品","tel":"无","deadline":"2018/5/20","address":"应天大街619号虹悦城B1-W10","bankcard":"11","city":"320100","lng":32.0095,"lat":118.766,"thumb":"/upload/shop_pic/5/10066/999.jpg","thumbs":"/upload/shop_pic/5/10066/0.jpg,/upload/shop_pic/5/10066/1.jpg,/upload/shop_pic/5/10066/2.jpg","category_id":"2","content":"\n刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；\n                ","create_time":"2017-12-26 12:47:42"},{"id":10458,"name":"costa咖啡（虹悦城店）","describe":"7元中杯饮品","tel":"无","deadline":"2018/5/20","address":"应天大街619号虹悦城B1-W10","bankcard":"11","city":"320100","lng":32.0095,"lat":118.766,"thumb":"/upload/shop_pic/5/10458/999.jpg","thumbs":"/upload/shop_pic/5/10458/0.jpg,/upload/shop_pic/5/10458/1.jpg,/upload/shop_pic/5/10458/2.jpg","category_id":"2","content":"\n刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；\n                ","create_time":"2017-12-26 12:47:42"},{"id":10918,"name":"costa咖啡（虹悦城店）","describe":"7元中杯饮品","tel":"无","deadline":"2018/5/20","address":"应天大街619号虹悦城B1-W10","bankcard":"11","city":"320100","lng":32.0095,"lat":118.766,"thumb":"/upload/shop_pic/5/10918/999.jpg","thumbs":"/upload/shop_pic/5/10918/0.jpg,/upload/shop_pic/5/10918/1.jpg,/upload/shop_pic/5/10918/2.jpg","category_id":"2","content":"\n刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；\n                ","create_time":"2017-12-26 12:47:42"}]}
+     * exe_time : 0.016145
      */
 
     private int code;
@@ -56,15 +56,15 @@ public class SearchDatas {
 
     public static class DataBeanX {
         /**
-         * total : 47
-         * per_page : 15
+         * total : 6
+         * per_page : 10
          * current_page : 1
-         * last_page : 4
-         * data : [{"id":11,"name":"月福汽车装饰(北洼路店)","category_id":"11","describe":"享受10元洗车一次","create_time":"2017-12-26 12:47:42"},{"id":4236,"name":"马立可汽车服务中心（1003金沙店）","category_id":"11","describe":"8.5折","create_time":"2017-12-26 12:47:42"}]
+         * last_page : 1
+         * data : [{"id":3706,"name":"costa咖啡（虹悦城店）","describe":"7元中杯饮品","tel":"无","deadline":"2018/5/20","address":"应天大街619号虹悦城B1-W10","bankcard":"11","city":"320100","lng":32.0095,"lat":118.766,"thumb":"/upload/shop_pic/5/3706/999.jpg","thumbs":"/upload/shop_pic/5/3706/0.jpg,/upload/shop_pic/5/3706/1.jpg,/upload/shop_pic/5/3706/2.jpg","category_id":"2","content":"\n刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；\n                ","create_time":"2017-12-26 12:47:42"},{"id":9113,"name":"costa咖啡（虹悦城店）","describe":"7元中杯饮品","tel":"无","deadline":"2018/5/20","address":"应天大街619号虹悦城B1-W10","bankcard":"11","city":"320100","lng":32.0095,"lat":118.766,"thumb":"/upload/shop_pic/5/9113/999.jpg","thumbs":"/upload/shop_pic/5/9113/0.jpg,/upload/shop_pic/5/9113/1.jpg,/upload/shop_pic/5/9113/2.jpg","category_id":"2","content":"\n刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；\n                ","create_time":"2017-12-26 12:47:42"},{"id":9644,"name":"costa咖啡（虹悦城店）","describe":"7元中杯饮品","tel":"无","deadline":"2018/5/20","address":"应天大街619号虹悦城B1-W10","bankcard":"11","city":"320100","lng":32.0095,"lat":118.766,"thumb":"/upload/shop_pic/5/9644/999.jpg","thumbs":"/upload/shop_pic/5/9644/0.jpg,/upload/shop_pic/5/9644/1.jpg,/upload/shop_pic/5/9644/2.jpg","category_id":"2","content":"\n刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；\n                ","create_time":"2017-12-26 12:47:42"},{"id":10066,"name":"costa咖啡（虹悦城店）","describe":"7元中杯饮品","tel":"无","deadline":"2018/5/20","address":"应天大街619号虹悦城B1-W10","bankcard":"11","city":"320100","lng":32.0095,"lat":118.766,"thumb":"/upload/shop_pic/5/10066/999.jpg","thumbs":"/upload/shop_pic/5/10066/0.jpg,/upload/shop_pic/5/10066/1.jpg,/upload/shop_pic/5/10066/2.jpg","category_id":"2","content":"\n刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；\n                ","create_time":"2017-12-26 12:47:42"},{"id":10458,"name":"costa咖啡（虹悦城店）","describe":"7元中杯饮品","tel":"无","deadline":"2018/5/20","address":"应天大街619号虹悦城B1-W10","bankcard":"11","city":"320100","lng":32.0095,"lat":118.766,"thumb":"/upload/shop_pic/5/10458/999.jpg","thumbs":"/upload/shop_pic/5/10458/0.jpg,/upload/shop_pic/5/10458/1.jpg,/upload/shop_pic/5/10458/2.jpg","category_id":"2","content":"\n刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；\n                ","create_time":"2017-12-26 12:47:42"},{"id":10918,"name":"costa咖啡（虹悦城店）","describe":"7元中杯饮品","tel":"无","deadline":"2018/5/20","address":"应天大街619号虹悦城B1-W10","bankcard":"11","city":"320100","lng":32.0095,"lat":118.766,"thumb":"/upload/shop_pic/5/10918/999.jpg","thumbs":"/upload/shop_pic/5/10918/0.jpg,/upload/shop_pic/5/10918/1.jpg,/upload/shop_pic/5/10918/2.jpg","category_id":"2","content":"\n刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；\n                ","create_time":"2017-12-26 12:47:42"}]
          */
 
         private int total;
-        private int per_page;
+        private String per_page;
         private int current_page;
         private int last_page;
         private List<DataBean> data;
@@ -77,11 +77,11 @@ public class SearchDatas {
             this.total = total;
         }
 
-        public int getPer_page() {
+        public String getPer_page() {
             return per_page;
         }
 
-        public void setPer_page(int per_page) {
+        public void setPer_page(String per_page) {
             this.per_page = per_page;
         }
 
@@ -111,17 +111,39 @@ public class SearchDatas {
 
         public static class DataBean {
             /**
-             * id : 11
-             * name : 月福汽车装饰(北洼路店)
-             * category_id : 11
-             * describe : 享受10元洗车一次
+             * id : 3706
+             * name : costa咖啡（虹悦城店）
+             * describe : 7元中杯饮品
+             * tel : 无
+             * deadline : 2018/5/20
+             * address : 应天大街619号虹悦城B1-W10
+             * bankcard : 11
+             * city : 320100
+             * lng : 32.0095
+             * lat : 118.766
+             * thumb : /upload/shop_pic/5/3706/999.jpg
+             * thumbs : /upload/shop_pic/5/3706/0.jpg,/upload/shop_pic/5/3706/1.jpg,/upload/shop_pic/5/3706/2.jpg
+             * category_id : 2
+             * content :
+             刷民生信用卡每自然周消费满3笔且单笔满199元或等值外币（达标交易类型包含计积分交易、微信交易、支付宝交易），即可于消费达标的次周周一（10:00后）至COSTA指定门店7元领取中杯饮品一杯，每人每活动日所有门店限领取一杯，名额有限，先到先得；
+
              * create_time : 2017-12-26 12:47:42
              */
 
             private int id;
             private String name;
-            private String category_id;
             private String describe;
+            private String tel;
+            private String deadline;
+            private String address;
+            private String bankcard;
+            private String city;
+            private double lng;
+            private double lat;
+            private String thumb;
+            private String thumbs;
+            private String category_id;
+            private String content;
             private String create_time;
 
             public int getId() {
@@ -140,6 +162,86 @@ public class SearchDatas {
                 this.name = name;
             }
 
+            public String getDescribe() {
+                return describe;
+            }
+
+            public void setDescribe(String describe) {
+                this.describe = describe;
+            }
+
+            public String getTel() {
+                return tel;
+            }
+
+            public void setTel(String tel) {
+                this.tel = tel;
+            }
+
+            public String getDeadline() {
+                return deadline;
+            }
+
+            public void setDeadline(String deadline) {
+                this.deadline = deadline;
+            }
+
+            public String getAddress() {
+                return address;
+            }
+
+            public void setAddress(String address) {
+                this.address = address;
+            }
+
+            public String getBankcard() {
+                return bankcard;
+            }
+
+            public void setBankcard(String bankcard) {
+                this.bankcard = bankcard;
+            }
+
+            public String getCity() {
+                return city;
+            }
+
+            public void setCity(String city) {
+                this.city = city;
+            }
+
+            public double getLng() {
+                return lng;
+            }
+
+            public void setLng(double lng) {
+                this.lng = lng;
+            }
+
+            public double getLat() {
+                return lat;
+            }
+
+            public void setLat(double lat) {
+                this.lat = lat;
+            }
+
+            public String getThumb() {
+                return thumb;
+            }
+
+            public void setThumb(String thumb) {
+                this.thumb = thumb;
+            }
+
+            public String getThumbs() {
+                return thumbs;
+            }
+
+            public void setThumbs(String thumbs) {
+                this.thumbs = thumbs;
+            }
+
             public String getCategory_id() {
                 return category_id;
             }
@@ -148,12 +250,12 @@ public class SearchDatas {
                 this.category_id = category_id;
             }
 
-            public String getDescribe() {
-                return describe;
+            public String getContent() {
+                return content;
             }
 
-            public void setDescribe(String describe) {
-                this.describe = describe;
+            public void setContent(String content) {
+                this.content = content;
             }
 
             public String getCreate_time() {

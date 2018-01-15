@@ -11,31 +11,29 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mt.cardletter.R;
-import com.mt.cardletter.entity.data.SearchDatas;
+import com.mt.cardletter.entity.integral.CategoryEntity;
 import com.mt.cardletter.utils.Constant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by MQ on 2016/11/11.
  */
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+public class BankSellerAdapter extends RecyclerView.Adapter<BankSellerAdapter.ViewHolder> {
     private Context context;
     private LayoutInflater inflater;
-    private List<SearchDatas.DataBeanX.DataBean> list;
+    List<CategoryEntity.DataBeanX.SellerListBean.DataBean> list;
     private OnItemClickListener mItemClickListener;
 
 
-
-    public SearchAdapter(Context context) {
+    public BankSellerAdapter(Context context,List<CategoryEntity.DataBeanX.SellerListBean.DataBean> list) {
         this.context=context;
-        list = new ArrayList<>();
+        this.list = list;
         inflater=LayoutInflater.from(this.context);
     }
 
-    public void addData(List<SearchDatas.DataBeanX.DataBean> list){
+    public void addData(List<CategoryEntity.DataBeanX.SellerListBean.DataBean> list){
         this.list.addAll(list);
         notifyDataSetChanged();
     }
@@ -46,7 +44,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_seller, parent, false);
+        View view = inflater.inflate(R.layout.item_b_seller, parent, false);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,14 +58,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final SearchDatas.DataBeanX.DataBean bean = list.get(position);
+        final CategoryEntity.DataBeanX.SellerListBean.DataBean bean = list.get(position);
         holder.tv_name.setText(bean.getName());
-        holder.tv_des.setText(bean.getDescribe());
+        holder.bjf_jf.setText("消费积分: "+String.valueOf(bean.getNeed_score()));
         Glide.with(context)
                 .load(Constant.PIC_URL+bean.getThumb())
                 .error(R.drawable.default_error)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.ss_img);
+                .into(holder.img_bfj);
         holder.itemView.setTag(position);
     }
     @Override
@@ -76,13 +74,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView tv_name,tv_des;
-        private ImageView ss_img;
+        private TextView tv_name,bjf_jf;
+        private ImageView img_bfj;
         public ViewHolder(View itemView){
             super(itemView);
-            tv_name = (TextView) itemView.findViewById(R.id.s_name);
-            tv_des = (TextView) itemView.findViewById(R.id.s_des);
-            ss_img = (ImageView) itemView.findViewById(R.id.ss_img);
+            tv_name = (TextView) itemView.findViewById(R.id.bjf_name);
+            bjf_jf = (TextView) itemView.findViewById(R.id.bjf_jf);
+            img_bfj = (ImageView) itemView.findViewById(R.id.bjf_img);
         }
     }
 

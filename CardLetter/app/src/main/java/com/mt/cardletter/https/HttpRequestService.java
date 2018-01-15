@@ -12,6 +12,7 @@ import com.mt.cardletter.entity.data.ViolateData;
 import com.mt.cardletter.entity.express.ExpressCom;
 import com.mt.cardletter.entity.express.Express_Content;
 import com.mt.cardletter.entity.integral.CategoryEntity;
+import com.mt.cardletter.entity.integral.SearchIntegralData;
 import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Good;
@@ -398,4 +399,79 @@ public interface HttpRequestService {
     @GET("/cgi-bin/mobile")
     Observable<Object> getCreditDetailData(@Query("sid") String sid,
                                            @Query("t") String t);
+
+    /**
+     * 查银行积分商品
+     * @param bankcard_id
+     * @param access_token
+     * @param page
+     * @return
+     */
+    @POST("/api.php/combseller/seller/bankcard/{bankcard_id}/access_token/{access_token}")
+    Observable<CategoryEntity> getBank_JF(@Path("bankcard_id")int bankcard_id,
+                                          @Path("access_token")String access_token,
+                                          @Query("page")int page);
+
+    /**
+     * 推荐积分
+     * @param need_score
+     * @param access_token
+     * @param page
+     * @return
+     */
+    @POST("/api.php/combseller/seller/need_score/{need_score}/access_token/{access_token}")
+    Observable<CategoryEntity> getChannel_JF(@Path("need_score")String need_score,
+                                             @Path("access_token")String access_token,
+                                             @Query("page")int page);
+
+
+    /**
+     * 查标签积分商品
+     * @param category_id
+     * @param access_token
+     * @param page
+     * @return
+     */
+    @POST("/api.php/combseller/seller/category_id/{category_id}/access_token/{access_token}")
+    Observable<CategoryEntity> getTAG_JF(@Path("category_id")int category_id,
+                                          @Path("access_token")String access_token,
+                                          @Query("page")int page);
+
+    /**
+     * 积分列表分页
+     * @param access_token
+     * @param list_rows
+     * @param page
+     * @param category_id
+     * @param need_scroe
+     * @param bankcard
+     * @param ud1
+     * @param ud2
+     * @return
+     */
+    @POST("/combseller/seller")
+    Observable<CategoryEntity> getJF(@Query("access_token") String access_token,
+                                     @Query("list_rows") int list_rows,
+                                     @Query("page") int page,
+                                     @Query("category_id") int category_id,
+                                     @Query("need_scroe") String need_scroe,
+                                     @Query("bankcard") int bankcard,
+                                     @Query("ud1")String ud1,
+                                     @Query("ud2")String ud2);
+
+    /**
+     * 搜索积分接口
+     * @param access_token
+     * @param list_rows
+     * @param page
+     * @param category_id
+     * @param search_data
+     * @return
+     */
+    @POST("/api.php/seller/sellerlist")
+    Observable<SearchIntegralData> getSearchIntegralData(@Query("access_token") String access_token,
+                                                         @Query("list_rows") int list_rows,
+                                                         @Query("page") int page,
+                                                         @Query("category_id") int category_id,
+                                                         @Query("search_data")String search_data);
 }

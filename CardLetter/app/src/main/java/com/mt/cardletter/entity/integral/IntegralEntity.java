@@ -1,5 +1,7 @@
 package com.mt.cardletter.entity.integral;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.List;
 
 /**
@@ -35,6 +37,16 @@ public class IntegralEntity {
         this.i_tv = i_tv;
     }
 
+
+    public Drawable getI_pic() {
+        return i_pic;
+    }
+
+    public void setI_pic(Drawable i_pic) {
+        this.i_pic = i_pic;
+    }
+
+    private Drawable i_pic;
     private String i_tv;
     private List<IntegralBean> bean;
 

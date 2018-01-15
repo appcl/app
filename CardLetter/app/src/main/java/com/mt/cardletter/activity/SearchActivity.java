@@ -78,6 +78,13 @@ public class SearchActivity extends BaseActivity {
         });
         adapter = new SearchAdapter(this);
         recyclerView.setAdapter(adapter);
+
+        adapter.setItemClickListener(new SearchAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        });
     }
 
     @Override

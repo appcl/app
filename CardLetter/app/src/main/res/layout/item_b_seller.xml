@@ -6,22 +6,23 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content" android:padding="10dp">
     <TextView
-        android:id="@+id/s_name"
+        android:id="@+id/bjf_name"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Info" android:textSize="14dp"
+        android:text="6积分抢兑Blueair空气净化器" android:textSize="14dp"
         android:textColor="@color/color_text_black_31"/>
+
     <ImageView
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:id="@+id/ss_img"
+        android:id="@+id/bjf_img"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/default_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
     <TextView
-        android:paddingTop="5dp"
-        android:id="@+id/s_des"
+        android:id="@+id/bjf_jf"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Info" android:textSize="12dp"
+        android:text="消耗积分:500" android:textSize="12dp"
         android:textColor="@color/color_text_black_31"/>
 </LinearLayout>

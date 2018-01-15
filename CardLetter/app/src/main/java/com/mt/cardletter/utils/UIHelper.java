@@ -9,7 +9,6 @@ import android.widget.Toast;
 import com.mt.cardletter.MainActivity;
 import com.mt.cardletter.activity.AboutActivity;
 import com.mt.cardletter.activity.ArticleActivity;
-import com.mt.cardletter.activity.ClassifyActivity;
 import com.mt.cardletter.activity.ExpressActivity;
 import com.mt.cardletter.activity.ExpressDetailActivity;
 import com.mt.cardletter.activity.LoactionActivity;
@@ -20,6 +19,7 @@ import com.mt.cardletter.activity.RegisterActivity;
 import com.mt.cardletter.activity.ScreenActivity;
 import com.mt.cardletter.activity.SearchActivity;
 import com.mt.cardletter.activity.SearchClassicActivity;
+import com.mt.cardletter.activity.SearchIntegralActivity;
 import com.mt.cardletter.activity.ViolateActivity;
 import com.mt.cardletter.activity.ViolateDetailActivity;
 import com.mt.cardletter.activity.WeatherActivity;
@@ -248,18 +248,6 @@ public class UIHelper {
     }
 
     /**
-     * 分类列表内容
-     */
-    public static void showClassifyActivity(Context context,int id ,String name){
-        Intent intent = new Intent(context, ClassifyActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt("c_id",id);
-        bundle.putString("c_name",name);
-        intent.putExtras(bundle);
-        context.startActivity(intent);
-    }
-
-    /**
      * QQ邮箱H5页面
      * @param context
      */
@@ -278,11 +266,13 @@ public class UIHelper {
         Intent intent = new Intent(context, SHActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("sid",sid);
-        System.out.println("----sid----"+sid);
         intent.putExtras(bundle);
         intent.putExtra("sh_list", (Serializable) sh_list);
         context.startActivity(intent);
     }
 
-
+    public static void showSearchIntegralActivity(Context context){
+        Intent intent = new Intent(context, SearchIntegralActivity.class);
+        context.startActivity(intent);
+    }
 }

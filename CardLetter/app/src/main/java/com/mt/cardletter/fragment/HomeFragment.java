@@ -15,6 +15,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -100,6 +101,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     private MyViewPager pager;
     private List<String>  tabDatas = new ArrayList<>();
 
+    private LinearLayout searchView;
+    private EditText search_et_input;
+
     private int viewY;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
@@ -129,6 +133,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         my_order.setOnClickListener(this);
         locatio_address.setOnClickListener(this);
         parentScrollView = (ScrollView) view.findViewById(R.id.home_scroll);
+
+        //搜索框
+
+        searchView = (LinearLayout) view.findViewById(R.id.search_main_layout);
+        search_et_input= (EditText) view.findViewById(R.id.search_main_et_input);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIHelper.showSearchActivity(getContext());
+            }
+        });
+        search_et_input.setFocusable(false);//让EditText失去焦点，然后获取点击事件
+        search_et_input.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIHelper.showSearchActivity(getContext());
+            }
+        });
         return view;
     }
 

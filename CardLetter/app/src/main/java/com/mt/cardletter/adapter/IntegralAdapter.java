@@ -58,7 +58,7 @@ public class IntegralAdapter extends BaseAdapter {
             mHolder = (ViewHolder) itemView.getTag();
         }
         if (bean != null) {
-            mHolder.iv_img.setImageResource(R.drawable.default_error);
+            mHolder.iv_img.setImageDrawable(bean.getI_pic());
             mHolder.tv_text.setText(bean.getI_tv());
         }
         return itemView;

@@ -1,6 +1,7 @@
-package test.abc;
+package com.mt.cardletter.activity.share;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,14 +12,13 @@ import android.widget.Toast;
 
 import com.mt.cardletter.R;
 import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
-import java.util.ArrayList;
-
-public class MyActivity extends AppCompatActivity {
+public class ShareActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +26,6 @@ public class MyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         System.out.println("================分享");
     }
-
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if(requestCode == 123){
@@ -36,15 +33,11 @@ public class MyActivity extends AppCompatActivity {
             showMyShare();
         }
     }
-
     public void onClick(View v){
-
         if(Build.VERSION.SDK_INT>=23){
             String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
             ActivityCompat.requestPermissions(this,mPermissionList,123);
         }
-
-
     }
 
     private void showMyShare(){
@@ -53,7 +46,7 @@ public class MyActivity extends AppCompatActivity {
         web.setTitle("This is web title");
         web.setThumb(new UMImage(this, R.drawable.thumb));
         web.setDescription("my description");
-        new ShareAction(MyActivity.this)
+        new ShareAction(ShareActivity.this)
                 .withText("hello")
                 .withMedia(web)
                 .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
@@ -76,7 +69,7 @@ public class MyActivity extends AppCompatActivity {
          */
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(MyActivity.this,"成功了",Toast.LENGTH_LONG).show();
+            Toast.makeText(ShareActivity.this,"成功了",Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -86,7 +79,7 @@ public class MyActivity extends AppCompatActivity {
          */
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(MyActivity.this,"失败"+t.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(ShareActivity.this,"失败"+t.getMessage(),Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -95,8 +88,14 @@ public class MyActivity extends AppCompatActivity {
          */
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(MyActivity.this,"取消了",Toast.LENGTH_LONG).show();
+            Toast.makeText(ShareActivity.this,"取消了",Toast.LENGTH_LONG).show();
 
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
 }

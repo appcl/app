@@ -4,6 +4,7 @@ import android.media.Image;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -21,7 +22,7 @@ public class NewsItemActivity extends BaseActivity {
     private TextView new_title,new_src,new_time;
     private ImageView new_img;
     private NetNews.ResultBeanX.ResultBean.ListBean bean;
-    private TextView title_name;
+    private TextView title_name ,new_text;
     private ScrollView new_scroll;
     @Override
     protected int getLayoutResId() {
@@ -38,6 +39,7 @@ public class NewsItemActivity extends BaseActivity {
         new_title = (TextView) findViewById(R.id.new_title);
         new_src = (TextView) findViewById(R.id.new_src);
         new_time = (TextView) findViewById(R.id.new_time);
+        new_text = (TextView) findViewById(R.id.new_text);
         new_img = (ImageView) findViewById(R.id.new_img);
     }
     @Override
@@ -46,11 +48,21 @@ public class NewsItemActivity extends BaseActivity {
         new_title.setText(bean.getTitle());
         new_src.setText(bean.getSrc());
         new_time.setText(bean.getTime());
+
         if (bean.getPic() != null&&!bean.getPic().equals("")){
             Glide.with(this).load(bean.getPic()).error(R.drawable.default_error).into(new_img);
         }else{
             new_img.setVisibility(View.GONE);
         }
+
+        CharSequence charSequence;
+        String content = bean.getContent();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            charSequence = Html.fromHtml(content,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            charSequence = Html.fromHtml(content);
+        }
+        new_text.setText(charSequence);
     }
     @Override
     public void initListener() {

@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.AboutActivity;
 import com.mt.cardletter.activity.BaseActivity;
+import com.mt.cardletter.activity.showimg.ImagePagerActivity;
 import com.mt.cardletter.utils.DataCleanUtil;
-import com.mt.cardletter.utils.UIHelper;
 
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener{
@@ -68,7 +68,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 }
                 break;
             case R.id.user_msg:
-                UIHelper.showSettingMsg(this);
+                startActivity(new Intent(SettingActivity.this, ImagePagerActivity.class));
+                //UIHelper.showSettingMsg(this);
                 break;
             case R.id.test :
                 startActivity(new Intent(this, AboutActivity.class));

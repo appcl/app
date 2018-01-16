@@ -99,12 +99,10 @@ public class NetNewsFragment extends Fragment {
                 }else{
                     loadData(1,news_category,0);
                 }
-
             }
             isOpen = false;
         }
     }
-
     /**
      * 本地新闻
      * @param news_category
@@ -186,8 +184,6 @@ public class NetNewsFragment extends Fragment {
             }
         });
         listView.setAdapter(myAdapter = new MyAdapter(data1));
-        myViewPager.setCurrentItem(2);
-
     }
     class MyAdapter extends BaseAdapter{
         private List<NetNews.ResultBeanX.ResultBean.ListBean> list;

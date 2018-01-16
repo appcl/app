@@ -145,7 +145,8 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
                     btnExit.setEnabled(false);
                     SharedPreferences.getInstance().putInt("headImgIndex",-1);
                     resetInfo();
-                    ToastUtils.makeShortText("退出成功",getApplicationContext());
+                    finish();
+                    //ToastUtils.makeShortText("退出成功",getApplicationContext());
                 }
                 //startActivity(new Intent(SettingMsgActivity.this, H5Activity.class));
                 break;

@@ -153,13 +153,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        loadData();
+        loadData();
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
-        loadData();
+        //loadData();
     }
 
     //======================================
@@ -260,13 +261,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                 pager.setAdapter(adapter);
                 final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
                 pager.setPageMargin(pageMargin);
-                pager.setOffscreenPageLimit(tabDatas.size());
-                //pager.setOffscreenPageLimit(1);
+               // pager.setOffscreenPageLimit(tabDatas.size());
+                pager.setOffscreenPageLimit(1);
                 tabs.setViewPager(pager);
             }
             @Override
             public void onError(int code, String msg) {
-                System.out.println("msg======"+msg);
                 ToastUtils.showShort(getContext(),"网络故障");
             }
         },getContext()));

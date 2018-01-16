@@ -29,11 +29,16 @@ public class AppContext extends Application {
        2.腾讯
             APP ID  1106542925
             APP KEY 57VgIL08mxb0kua8
+        3,微信
+             APP ID  1106542925
+             APP KEY 57VgIL08mxb0kua8
      */
     {
-        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
+        PlatformConfig.setWeixin("wxdbdbfca2a7b69690", "1b4021358cf4f4a80e4f873fb44a1030");
         PlatformConfig.setQQZone("1106542925", "57VgIL08mxb0kua8");
         PlatformConfig.setSinaWeibo("2928292335", "8f16088f8122c87f695c2893e6595aeb", "http://sns.whalecloud.com");
+
+
     }
     public LocationService locationService;
     public Vibrator mVibrator;
@@ -51,6 +56,23 @@ public class AppContext extends Application {
     }
 
     public String city;
+    public double lat;
+    public double lon;
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
 
     public String getDistrict() {
         return district;

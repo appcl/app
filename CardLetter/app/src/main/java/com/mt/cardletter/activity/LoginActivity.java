@@ -161,7 +161,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 startActivity(new Intent(LoginActivity.this, MyLoginActivity.class));
                 break;
             case R.id.weixin:
-
+                ThirdpartyLoginUtils.loginForWinxin(this);
                 break;
             case R.id.qq:
                 //loginForQQ();

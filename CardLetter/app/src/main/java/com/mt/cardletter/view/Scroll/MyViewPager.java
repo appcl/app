@@ -19,7 +19,6 @@ public class MyViewPager extends ViewPager {
     }
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        System.out.println("========onMeasure=======");
         int height = 0;
         for(int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);

@@ -61,6 +61,7 @@
             android:layout_width="360dp"
             android:layout_height="180dp" />
         <TextView
+            android:id="@+id/new_text"
             android:layout_marginTop="10dp"
             android:lineSpacingExtra="3dp"
             android:lineSpacingMultiplier="1.5"

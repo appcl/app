@@ -36,15 +36,31 @@
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/goods_discounts"
+            <LinearLayout
                 android:layout_below="@id/goods_title"
                 android:layout_marginTop="10dp"
-                android:text="消费满88减44元"
-                android:textSize="10sp"
-                android:textColor="@color/color_btn_red_de"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+                <TextView
+                    android:padding="1dp"
+                    android:background="@drawable/shape_img_bg"
+                    android:id="@+id/goods_bank"
+                    android:text="民生银行"
+                    android:textSize="10sp"
+                    android:textColor="@color/color_text_gray_66"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/goods_discounts"
+                    android:layout_marginLeft="10dp"
+                    android:text="消费满88减44元"
+                    android:textSize="10sp"
+                    android:textColor="@color/color_btn_red_de"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
             <RelativeLayout
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="5dp"
@@ -69,6 +85,7 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/goods_distance"
                     android:layout_marginRight="10dp"
                     android:layout_alignParentRight="true"
                     android:text="查看详情"

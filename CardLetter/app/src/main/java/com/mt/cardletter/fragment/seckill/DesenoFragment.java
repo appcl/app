@@ -1,8 +1,6 @@
 package com.mt.cardletter.fragment.seckill;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,10 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.fragment.BaseFragment;
 import com.mt.cardletter.utils.ToastUtils;
-
-import test.abc.MyActivity;
+import com.mt.cardletter.activity.share.ShareActivity;
 
 /**
  * jk 限时购买
@@ -30,7 +26,7 @@ public class DesenoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ToastUtils.makeShortText("TextView",getContext());
-                startActivity(new Intent(getContext(),MyActivity.class));
+                startActivity(new Intent(getContext(),ShareActivity.class));
             }
         });
         return view;

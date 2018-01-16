@@ -1,5 +1,6 @@
 package com.mt.cardletter.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -9,6 +10,7 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
@@ -28,8 +30,18 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.mt.cardletter.R;
+import com.mt.cardletter.app.AppContext;
+import com.mt.cardletter.entity.merchant.Bank;
+import com.mt.cardletter.entity.merchant.Goods;
+import com.mt.cardletter.https.HttpSubscriber;
+import com.mt.cardletter.https.SubscriberOnListener;
+import com.mt.cardletter.https.base_net.CardLetterRequestApi;
+import com.mt.cardletter.utils.Constant;
+import com.mt.cardletter.utils.ToastUtils;
+import com.mt.cardletter.utils.UIHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Date:2018/1/3
@@ -38,10 +50,16 @@ import java.util.ArrayList;
  */
 
 public class LoactionActivity extends BaseActivity implements SensorEventListener{
-
+    private double lat;
+    private double lon;
     private TextView name;
     private FrameLayout back;
 
+    private View view;
+    private TextView map_tv;
+    private ImageView map_img;
+    private List<Marker> markers;
+    private List<Bank.DataBean> banks;
     // 定位相关
     LocationClient mLocClient;
     public MyLocationListenner myListener = new MyLocationListenner();
@@ -77,7 +95,10 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
             .fromResource(R.drawable.icon_gcoding);
     BitmapDescriptor bdGround = BitmapDescriptorFactory
             .fromResource(R.drawable.ground_overlay);
-
+    /**
+     * 附近商家集合
+     */
+    private List<Goods.DataBeanX.CardfindListBean.DataBean> merchantList;
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_location;
@@ -85,7 +106,14 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
 
     @Override
     public void initView() {
-
+        lon = AppContext.getInstance().getLon();
+        lat = AppContext.getInstance().getLat();
+        view = View.inflate(this,R.layout.icon_map_marker,null);
+        map_tv = (TextView) view.findViewById(R.id.map_icon_tv);
+        map_img = (ImageView) view.findViewById(R.id.map_icon_img);
+        merchantList = new ArrayList<>();
+        markers = new ArrayList<>();
+        banks = new ArrayList<>();
         name = (TextView) findViewById(R.id.title_name);
         name.setText("附近商家");
 
@@ -113,33 +141,74 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
 //        MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(14.0f);
 //        mBaiduMap.setMapStatus(msu);
 //        initOverlay();
+
     }
+    private void initMerchantLatLng(){
+        // TODO 使用商家经纬度
+        for (Goods.DataBeanX.CardfindListBean.DataBean data:merchantList) {
+            if (merchantList.size()>0){
+                isOpen = false;
+            }
+            map_tv.setText(data.getName());
+            //map_img.setImageResource(R.);
+            double lat = data.getLat();
+            double lng = data.getLng();
+            LatLng latLng = new LatLng(lng, lat);
+            //marker.setIcon(BitmapDescriptorFactory.fromView(view));
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(latLng);
+            markerOptions.icon(BitmapDescriptorFactory.fromView(view));
+            markerOptions.zIndex(9);
+            markerOptions.draggable(false);
+            Marker mMarker = (Marker) (mBaiduMap.addOverlay(markerOptions));
 
-    private void initOverlay() {
-        // add marker overlay
-        LatLng llA = new LatLng(32.02004, 118.763108);
-        LatLng llB = new LatLng(32.02104, 118.763008);
-        LatLng llC = new LatLng(32.01004, 118.763108);
-        LatLng llD = new LatLng(32.02004, 118.763208);
+            markers.add(mMarker);
+        }
+    }
+    /**
+     * 实时监听
+     * @param locData
+     */
+    private boolean isOpen = true;
+    private void initOverlay(MyLocationData locData) {
+        /**
+         * 根据商家显示   locData
+         */
+        if (isOpen){
+            System.out.println("jk========2222");
+            initMerchantLatLng();
+        }
+        /**
+         * 静态地标
+         */
+//        LatLng llA = new LatLng(32.02004, 118.763108);
+//        LatLng llB = new LatLng(32.02104, 118.763008);
+//        LatLng llC = new LatLng(32.01004, 118.763108);
+//        LatLng llD = new LatLng(32.02004, 118.763208);
+//        MarkerOptions ooA = new MarkerOptions().position(llA).icon(bdA)
+//                .zIndex(9).draggable(true);
+//        mMarkerA = (Marker) (mBaiduMap.addOverlay(ooA));
+//        MarkerOptions ooB = new MarkerOptions().position(llB).icon(bdB)
+//                .zIndex(5);
+//        mMarkerB = (Marker) (mBaiduMap.addOverlay(ooB));
 
-        MarkerOptions ooA = new MarkerOptions().position(llA).icon(bdA)
-                .zIndex(9).draggable(true);
-        mMarkerA = (Marker) (mBaiduMap.addOverlay(ooA));
-        MarkerOptions ooB = new MarkerOptions().position(llB).icon(bdB)
-                .zIndex(5);
-        mMarkerB = (Marker) (mBaiduMap.addOverlay(ooB));
-        MarkerOptions ooC = new MarkerOptions().position(llC).icon(bdC)
-                .perspective(false).anchor(0.5f, 0.5f).rotate(30).zIndex(7);
-        mMarkerC = (Marker) (mBaiduMap.addOverlay(ooC));
-
-        ArrayList<BitmapDescriptor> giflist = new ArrayList<BitmapDescriptor>();
-        giflist.add(bdA);
-        giflist.add(bdB);
-        giflist.add(bdC);
-        MarkerOptions ooD = new MarkerOptions().position(llD).icons(giflist)
-                .zIndex(0).period(10);
-        mMarkerD = (Marker) (mBaiduMap.addOverlay(ooD));
-        // add ground overlay
+//        MarkerOptions ooC = new MarkerOptions().position(llC).icon(bdC)
+//                .perspective(false).anchor(0.5f, 0.5f).rotate(30).zIndex(7);
+//
+//        mMarkerC = (Marker) (mBaiduMap.addOverlay(ooC));
+        /**
+         * 变化地标
+         */
+//        ArrayList<BitmapDescriptor> giflist = new ArrayList<BitmapDescriptor>();
+//        giflist.add(bdA);
+//        giflist.add(bdB);
+//        giflist.add(bdC);
+//        MarkerOptions ooD = new MarkerOptions().position(llD).icons(giflist)
+//                .zIndex(0).period(10);
+//        mMarkerD = (Marker) (mBaiduMap.addOverlay(ooD));
+        /**
+         * 添加底层叠加层
+         */
 //        LatLng southwest = new LatLng(39.92235, 116.380338);
 //        LatLng northeast = new LatLng(39.947246, 116.414977);
 //        LatLngBounds bounds = new LatLngBounds.Builder().include(northeast)
@@ -172,53 +241,64 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
     @Override
     public void initListener() {
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
-
             @Override
             public boolean onMarkerClick(final Marker marker) {
-                Button button = new Button(getApplicationContext());
-                button.setBackgroundResource(R.drawable.popup);
-                InfoWindow.OnInfoWindowClickListener listener = null;
-                if (marker == mMarkerA || marker == mMarkerD) {
-                    button.setText("更改位置");
-                    button.setTextColor(Color.BLACK);
-                    button.setWidth(300);
-
-                    listener = new InfoWindow.OnInfoWindowClickListener() {
-                        public void onInfoWindowClick() {
-                            LatLng ll = marker.getPosition();
-                            LatLng llNew = new LatLng(ll.latitude + 0.005,
-                                    ll.longitude + 0.005);
-                            marker.setPosition(llNew);
-                            mBaiduMap.hideInfoWindow();
+//                Button button = new Button(getApplicationContext());
+//                button.setBackgroundResource(R.drawable.popup);
+//                InfoWindow.OnInfoWindowClickListener listener = null;
+//                if (marker == mMarkerA || marker == mMarkerD) {
+//                    button.setText("更改位置");
+//                    button.setTextColor(Color.BLACK);
+//                    button.setWidth(300);
+//
+//                    listener = new InfoWindow.OnInfoWindowClickListener() {
+//                        public void onInfoWindowClick() {
+//                            LatLng ll = marker.getPosition();
+//                            LatLng llNew = new LatLng(ll.latitude + 0.005,
+//                                    ll.longitude + 0.005);
+//                            marker.setPosition(llNew);
+//                            mBaiduMap.hideInfoWindow();
+//                        }
+//                    };
+//                    LatLng ll = marker.getPosition();
+//                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
+//                    mBaiduMap.showInfoWindow(mInfoWindow);
+//                } else if (marker == mMarkerB) {
+//                    button.setText("更改图标");
+//                    button.setTextColor(Color.BLACK);
+//                    button.setOnClickListener(new View.OnClickListener() {
+//                        public void onClick(View v) {
+//                            marker.setIcon(bd);
+//                            mBaiduMap.hideInfoWindow();
+//                        }
+//                    });
+//                    LatLng ll = marker.getPosition();
+//                    mInfoWindow = new InfoWindow(button, ll, -47);
+//                    mBaiduMap.showInfoWindow(mInfoWindow);
+//                } else if (marker == mMarkerC) {
+//                    button.setText("删除");
+//                    button.setTextColor(Color.BLACK);
+//                    button.setOnClickListener(new View.OnClickListener() {
+//                        public void onClick(View v) {
+//                            marker.remove();
+//                            mBaiduMap.hideInfoWindow();
+//                        }
+//                    });
+//                    LatLng ll = marker.getPosition();
+//                    mInfoWindow = new InfoWindow(button, ll, -47);
+//                    mBaiduMap.showInfoWindow(mInfoWindow);
+//                }
+                for (int i = 0; i < markers.size(); i++) {
+                    if (marker == markers.get(i)){
+                        Intent intent = LoactionActivity.this.getIntent();
+                        intent.setClass(LoactionActivity.this,SetailsActivity.class);
+                        if(merchantList.get(i)!=null){
+                            intent.putExtra("cardfind_id",merchantList.get(i).getId()+"");
+                            intent.putExtra("bank",banks.get(Integer.parseInt(merchantList.get(i).getBankcard())-1).getName());
+                            System.out.println("intent:bank:2== "+merchantList.get(i).getBankcard()+"    "+banks.get(Integer.parseInt(merchantList.get(i).getBankcard())-1).getName());
                         }
-                    };
-                    LatLng ll = marker.getPosition();
-                    mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), ll, -47, listener);
-                    mBaiduMap.showInfoWindow(mInfoWindow);
-                } else if (marker == mMarkerB) {
-                    button.setText("更改图标");
-                    button.setTextColor(Color.BLACK);
-                    button.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            marker.setIcon(bd);
-                            mBaiduMap.hideInfoWindow();
-                        }
-                    });
-                    LatLng ll = marker.getPosition();
-                    mInfoWindow = new InfoWindow(button, ll, -47);
-                    mBaiduMap.showInfoWindow(mInfoWindow);
-                } else if (marker == mMarkerC) {
-                    button.setText("删除");
-                    button.setTextColor(Color.BLACK);
-                    button.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            marker.remove();
-                            mBaiduMap.hideInfoWindow();
-                        }
-                    });
-                    LatLng ll = marker.getPosition();
-                    mInfoWindow = new InfoWindow(button, ll, -47);
-                    mBaiduMap.showInfoWindow(mInfoWindow);
+                        UIHelper.showDetails(LoactionActivity.this, intent);
+                    }
                 }
                 return true;
             }
@@ -259,7 +339,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
                 builder.target(ll).zoom(20.0f);
                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
             }
-            initOverlay();
+            initOverlay(locData);
         }
 
         public void onReceivePoi(BDLocation poiLocation) {
@@ -289,9 +369,10 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
 
     @Override
     protected void initData() {
-
+        //TODO 经纬度  地区
+        loadData( 1 , 100+"" , ""+1 , "" ,"320100", "",lat+"",lon+"" );
+        toLogin(Constant.Access_Token);
     }
-
     @Override
     protected void handler(Message msg) {
 
@@ -339,5 +420,35 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
         bdD.recycle();
         bd.recycle();
         bdGround.recycle();
+    }
+
+    private void loadData(final int upDataFlag , String list_rows, String page, String category_id,String city,String  bankcard,String lng,String lat) {
+        CardLetterRequestApi.getInstance().getFindMerchant(
+                Constant.Access_Token,list_rows,page,category_id,city, bankcard,lng,lat,new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
+                    @Override
+                    public void onSucceed(Goods data) {
+                        if (data.getCode()==0){
+                            List<Goods.DataBeanX.CardfindListBean.DataBean> data1 = data.getData().getCardfindList().getData();
+                            merchantList = data1;
+                        }
+                    }
+                    @Override
+                    public void onError(int code, String msg) {
+                        ToastUtils.showShort(LoactionActivity.this,"网络异常");
+                    }
+                },LoactionActivity.this));
+    }
+    private void toLogin(String ak) {
+        CardLetterRequestApi.getInstance().getBank(ak, new HttpSubscriber<Bank>(new SubscriberOnListener<Bank>() {
+            @Override
+            public void onSucceed(Bank data) {
+                if (data.getCode() == 0) {
+                    banks = data.getData();
+                }
+            }
+            @Override
+            public void onError(int code, String msg) {
+            }
+        }, LoactionActivity.this));
     }
 }

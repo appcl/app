@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     };
 
     private String city;
-    private double lat,lon;
+    private double lat = 0,lon = 0;
 
     @Override
     protected int getLayoutResId() {
@@ -338,7 +338,10 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 }else {
                     AppContext.getInstance().setDistrict(city);
                 }
-
+                if (lat!=0 && lon!=0){
+                    AppContext.getInstance().setLat(lat);
+                    AppContext.getInstance().setLon(lon);
+                }
                 AppContext.getInstance().setCity(city);
             }
         }

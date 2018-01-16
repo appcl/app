@@ -271,6 +271,8 @@ public class UIHelper {
         context.startActivity(intent);
     }
 
+
+
     public static void showSearchIntegralActivity(Context context){
         Intent intent = new Intent(context, SearchIntegralActivity.class);
         context.startActivity(intent);

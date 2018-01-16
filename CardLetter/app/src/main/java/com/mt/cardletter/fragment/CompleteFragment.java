@@ -14,10 +14,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.model.inner.GeoPoint;
+import com.baidu.mapapi.utils.DistanceUtil;
 import com.bumptech.glide.Glide;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.ScreenActivity;
 import com.mt.cardletter.activity.SetailsActivity;
+import com.mt.cardletter.app.AppContext;
 import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Goods;
@@ -32,6 +37,8 @@ import com.mt.cardletter.view.pulltorefresh.ILoadingLayout;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +49,7 @@ import butterknife.ButterKnife;
  * Created by jk on 2017/12/11.
  */
 
-public class CompleteFragment extends Fragment {
+public class CompleteFragment extends BaseFragment {
     private static final int UPDATA_UP = 0X01; // 上拉加载
     private static final int UPDATA_DOWN = 0X02; //下拉刷新
     private static final int UPDATA_DEF = 0X03; //默认加载
@@ -59,15 +66,24 @@ public class CompleteFragment extends Fragment {
     private View view;
     public View loadmoreView;
     private List<Bank.DataBean> banks = new ArrayList<>();
+
+    private String lng;
+    private String lat;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (isOpen){
+            context = getActivity();
             view = inflater.inflate(R.layout.activity_fragment_find, container, false);
             loadmoreView = View.inflate(getContext(),R.layout.load_more,null);//上拉加载更多布局
             loadmoreView.setVisibility(View.VISIBLE);//设置刷新视图默认情况下是不可见的32.02004, 118.763108
             ButterKnife.bind(this, view);
             cartgory_id= (int) getArguments().get("id") + "";
-            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,"320100", "","32.04","118.78" );
+            //TODO 经纬度
+            //loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,"320100", "","32.04","118.78" );
+            lng = AppContext.getInstance().getLat()+"";//32.020843  --118.763019
+            lat = AppContext.getInstance().getLon()+"";
+            System.out.println("jk======"+lng+"   ---   "+lat);
+            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,"320100", "",lng,lat);
             toLogin(Constant.Access_Token);
         }
         return view;
@@ -77,13 +93,20 @@ public class CompleteFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (isOpen){
-            context = getActivity();
-            initView();
+
+            initViews();
             isOpen = false;
         }
     }
 
-    private void loadData(final int upDataFlag , String list_rows, String page, String category_id,String city,String  bankcard,String lng,String lat) {
+    @Override
+    protected void onLazyLoad() {
+        super.onLazyLoad();
+
+
+    }
+
+    private void loadData(final int upDataFlag , String list_rows, String page, String category_id, String city, String  bankcard, String lng, String lat) {
         System.out.println("jk=====category_id:"+category_id+"   page:"+page);
         /*
          * 获取商家列表
@@ -100,7 +123,6 @@ public class CompleteFragment extends Fragment {
                 Constant.Access_Token,list_rows,page,category_id,city, bankcard,lng,lat,new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
                     @Override
                     public void onSucceed(Goods data) {
-                        System.out.println("jk=======商家请求成功");
                         if (data.getCode()==0){
                             List<Goods.DataBeanX.CardfindListBean.DataBean> data1 = data.getData().getCardfindList().getData();
                             if (upDataFlag == UPDATA_DEF){
@@ -120,12 +142,12 @@ public class CompleteFragment extends Fragment {
                     }
                     @Override
                     public void onError(int code, String msg) {
-                        ToastUtils.showShort(getContext(),"jk=======网络异常");
+                        ToastUtils.showShort(getContext(),"网络异常");
                     }
                 },getContext()));
     }
 
-    private void initView() {
+    private void initViews() {
         /**
          * 设置加载更多布局
          */
@@ -144,7 +166,6 @@ public class CompleteFragment extends Fragment {
                 if(myList.get(position)!=null){
                     intent.putExtra("cardfind_id",myList.get(position-1).getId()+"");
                     intent.putExtra("bank",banks.get(Integer.parseInt(myList.get(position-1).getBankcard())-1).getName());
-                    System.out.println("intent:bank:2== "+myList.get(position-1).getBankcard());
                 }
                 UIHelper.showDetails(getContext(), intent);
             }
@@ -158,18 +179,26 @@ public class CompleteFragment extends Fragment {
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                System.out.println("onPullDownToRefresh");
                 page_index = 1;
-                loadData( UPDATA_DOWN , page_size , ""+page_index , cartgory_id ,"", "","32.04","118.78" );
+                loadData( UPDATA_DOWN , page_size , ""+page_index , cartgory_id ,"", "",lng,lat );
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                System.out.println("onPullUpToRefresh");
                 page_index = page_index + 1;
-                loadData( UPDATA_UP , page_size , ""+page_index , cartgory_id ,"", "","32.04","118.78" );
+                loadData( UPDATA_UP , page_size , ""+page_index , cartgory_id ,"", "",lng,lat );
             }
         });
+    }
+
+    @Override
+    protected int setLayoutResouceId() {
+        return 0;
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     class MyAdapter extends BaseAdapter{
@@ -199,6 +228,8 @@ public class CompleteFragment extends Fragment {
                 holder.discounts = (TextView) convertView.findViewById(R.id.goods_discounts);
                 holder.obj = (TextView) convertView.findViewById(R.id.goods_obj);
                 holder.img = (ImageView) convertView.findViewById(R.id.goods_img);
+                holder.bank = (TextView) convertView.findViewById(R.id.goods_bank);
+                holder.distance = (TextView) convertView.findViewById(R.id.goods_distance);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -207,12 +238,29 @@ public class CompleteFragment extends Fragment {
                 holder.title.setText(myList.get(position).getName());
                 holder.discounts.setText(myList.get(position).getDescribe());
                 holder.obj.setText(myList.get(position).getCreateTime());
+
+                if (banks.size()>0){
+                    int bankcard = Integer.parseInt(myList.get(position).getBankcard());
+                    if (bankcard <= 31){
+                        Bank.DataBean dataBean = banks.get(bankcard - 1);
+                        String name = dataBean.getName();
+                        holder.bank.setText(name);
+                   }else{
+                        holder.bank.setText("------------");
+                   }
+                }
+                LatLng p1LL = new LatLng(  AppContext.getInstance().getLat(),AppContext.getInstance().getLon());
+                LatLng p2LL = new LatLng( myList.get(position).getLng(),myList.get(position).getLat());
+                BigDecimal bg = new BigDecimal(DistanceUtil.getDistance(p1LL, p2LL));
+                DecimalFormat df = new DecimalFormat("#.0");
+                String format = df.format(bg);
+                holder.distance.setText(format+"M");
                 Glide.with(CompleteFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
             }
             return convertView;
         }
         class ViewHolder{
-            TextView title,discounts,obj;
+            TextView title,discounts,obj,bank,distance;
             ImageView img;
         }
     }

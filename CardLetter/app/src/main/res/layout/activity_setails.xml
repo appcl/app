@@ -7,7 +7,7 @@
     tools:context="com.mt.cardletter.activity.SetailsActivity">
     <include layout="@layout/action_title" />
     <ScrollView
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginTop="48dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <RelativeLayout
+                android:padding="2dp"
                 android:id="@+id/setails_rl"
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
@@ -39,19 +40,44 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <LinearLayout
+                <RelativeLayout
                     android:layout_marginLeft="10dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/setails_title"
+                        android:layout_marginRight="100dp"
                         android:layout_marginTop="10dp"
                         android:text="加载中 ..."
                         android:textSize="14sp"
                         android:textColor="@color/umeng_socialize_text_share_content"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                </LinearLayout>
+                    <RelativeLayout
+                        android:padding="5dp"
+                        android:layout_marginLeft="280dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/collection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+                        <ImageView
+                            android:id="@+id/pic_one"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@mipmap/collect"/>
+                        <TextView
+                            android:gravity="center_horizontal"
+                            android:id="@+id/pic_tow"
+                            android:layout_below="@+id/pic_one"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@color/color_text_gray_66"
+                            android:textSize="10sp"
+                            android:text="收藏"/>
+                    </RelativeLayout>
+                </RelativeLayout>
                 <LinearLayout
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
@@ -220,42 +246,4 @@
             <!--android:layout_height="25dp" />-->
     <!--</RelativeLayout>-->
 
-    <RelativeLayout
-        android:background="@color/redbg"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-        <RelativeLayout
-            android:layout_marginLeft="20dp"
-            android:layout_centerVertical="true"
-            android:id="@+id/collection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            <ImageView
-                android:id="@+id/pic_one"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/select_my_collect"/>
-            <TextView
-                android:layout_below="@+id/pic_one"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:text="收藏"/>
-        </RelativeLayout>
-        <TextView
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:text="立即购买"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
 </RelativeLayout>

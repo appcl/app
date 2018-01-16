@@ -1,13 +1,20 @@
 package com.mt.cardletter.activity;
 
+import android.Manifest;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.appindexing.Action;
@@ -15,6 +22,8 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.setting.SettingActivity;
+import com.mt.cardletter.activity.share.ShareActivity;
 import com.mt.cardletter.entity.merchant.Good;
 import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.merchant.GoodsBean;
@@ -26,6 +35,12 @@ import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import java.util.List;
 
@@ -39,12 +54,15 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     //private ImageView setails_back,setails_share;
     private TextView setails_title, setails_time, setails_tel, setails_address, setails_obj, setails_centent, setails_discounts;
     private ImageView bigImg;
+    private RelativeLayout collect;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
     private String bank;
+    private ImageView collect_img;
+    private TextView collect_text;
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_setails;
@@ -63,7 +81,8 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         next.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
-                finish();
+                jurisdiction();//权限申请  分享入口
+                //startActivity(new Intent(SetailsActivity.this, ShareActivity.class));
             }
         });
         //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -77,10 +96,13 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         bigImg = (ImageView) findViewById(R.id.setails_big_img);
         String cardfind_id = getIntent().getStringExtra("cardfind_id");
         bank = getIntent().getStringExtra("bank");
-        System.out.println("SetailsActivity:==="+bank);
         if (cardfind_id != null) {
             loadData(cardfind_id);
         }
+        collect = (RelativeLayout) findViewById(R.id.collection);
+        collect_img = (ImageView) findViewById(R.id.pic_one);
+        collect_text = (TextView) findViewById(R.id.pic_tow);
+        collect.setOnClickListener(this);
     }
 
     private void loadData(String cardfind_id) {
@@ -95,7 +117,6 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
                     updataView(good);
                 }
             }
-
             @Override
             public void onError(int code, String msg) {
                 ToastUtils.showShort(SetailsActivity.this, msg);
@@ -131,13 +152,26 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
 
 
     }
-
+    private boolean isSelect = false;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.setails_back:
-//
-//                break;
+            case R.id.collection:
+                if (!isSelect){
+                    collect_img.setImageResource(R.drawable.collected_select);
+                    collect_text.setText("已收藏");
+                    ToastUtils.makeShortText("已收藏",SetailsActivity.this);
+                    isSelect = true;
+                    // TODO: 2018/1/16 收藏
+
+                }else {
+                    collect_img.setImageResource(R.mipmap.collect);
+                    collect_text.setText("收藏");
+                    ToastUtils.makeShortText("已取消收藏",SetailsActivity.this);
+                    isSelect = false;
+                    // TODO: 2018/1/16 取消收藏
+                }
+                break;
 //            case R.id.setails_back:
 //
 //                break;
@@ -155,50 +189,78 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     protected void handler(Message msg) {
 
     }
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if(requestCode == 123){
+            Log.i("jingkang","成功");
+            showMyShare();
+        }
     }
-
     /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     * 权限申请
      */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("Setails Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
+    private void jurisdiction(){
+        if(Build.VERSION.SDK_INT>=23){
+            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
+            ActivityCompat.requestPermissions(this,mPermissionList,123);
+        }
     }
+    private void showMyShare(){
+        //UMImage image = new UMImage(MyActivity.this, R.drawable.thumb);//资源文件
+        UMWeb web = new UMWeb("http://video.browser.qq.com/live/beauty/?ADTAG=newtabweb");
+        web.setTitle("来自smort--jk对你的调戏");
+        web.setThumb(new UMImage(this, R.drawable.thumb));
+        web.setDescription("2货");
+        new ShareAction(SetailsActivity.this)
+                .withText("hello")
+                .withMedia(web)
+                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setCallback(shareListener)
+                .open();
+    }
+    private UMShareListener shareListener = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
 
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(SetailsActivity.this,"成功了",Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(SetailsActivity.this,"失败"+t.getMessage(),Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(SetailsActivity.this,"取消了",Toast.LENGTH_LONG).show();
+
+        }
+    };
     @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
-    }
 }

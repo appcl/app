@@ -146,6 +146,7 @@ public abstract class BaseFragment extends Fragment {
      * @date
      */
     protected void onLazyLoad() {
+
     }
 
     @SuppressWarnings("unchecked")

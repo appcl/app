@@ -5,12 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.mt.cardletter.activity.SetailsActivity">
-    <include layout="@layout/action_title" />
+    <include layout="@layout/action_title"
+        android:id="@+id/include" />
+
     <ScrollView
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="48dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/include"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"

@@ -164,7 +164,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 ThirdpartyLoginUtils.loginForWinxin(this);
                 break;
             case R.id.qq:
-                //loginForQQ();
                 ThirdpartyLoginUtils.loginForQQ(this);
                 break;
         }
@@ -181,64 +180,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
         phone.setText(SharedPreferences.getInstance().getString("account", ""));
     }
-
-    private void loginForQQ() {
-        UMShareAPI mShareAPI = UMShareAPI.get(LoginActivity.this);
-        UMAuthListener umAuthListener = new UMAuthListener() {
-            /**
-             * @desc 授权开始的回调
-             * @param platform 平台名称
-             */
-            @Override
-            public void onStart(SHARE_MEDIA platform) {
-                //Toast.makeText(LoginActivity.this, "开始", Toast.LENGTH_LONG).show();
-            }
-
-            /**
-             * @desc 授权成功的回调
-             * @param platform 平台名称
-             * @param action 行为序号，开发者用不上
-             * @param data 用户资料返回
-             */
-            @Override
-            public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-                String name = data.get("name").toString();
-                String iconurl = data.get("iconurl");
-                SharedPreferences.getInstance().putString("nick_name",name);
-                SharedPreferences.getInstance().putString("url",iconurl);
-                SharedPreferences.getInstance().putBoolean("isLogin",true);
-                finish();
-            }
-
-            /**
-             * @desc 授权失败的回调
-             * @param platform 平台名称
-             * @param action 行为序号，开发者用不上
-             * @param t 错误原因
-             */
-            @Override
-            public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-                Toast.makeText(LoginActivity.this, "失败：" + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-
-            /**
-             * @desc 授权取消的回调
-             * @param platform 平台名称
-             * @param action 行为序号，开发者用不上
-             */
-            @Override
-            public void onCancel(SHARE_MEDIA platform, int action) {
-                Toast.makeText(LoginActivity.this, "取消了", Toast.LENGTH_LONG).show();
-            }
-        };
-        if (isShouQuan) {
-            mShareAPI.deleteOauth(LoginActivity.this, SHARE_MEDIA.QQ, umAuthListener);
-        } else {
-            mShareAPI.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, umAuthListener);
-        }
-
-    }
-
 
     @Override
     protected void onDestroy() {

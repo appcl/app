@@ -31,7 +31,6 @@ public class ThirdpartyLoginUtils {
         //boolean isShouQuan = SharedPreferences.getInstance().getBoolean("islogin",false);
         mShareAPI = UMShareAPI.get(mActivity);
         umAuthListener = new UMAuthListener() {
-
             /**
              * @desc 授权开始的回调
              * @param platform 平台名称
@@ -54,7 +53,7 @@ public class ThirdpartyLoginUtils {
                 SharedPreferences.getInstance().putString("nick_name",name);
                 SharedPreferences.getInstance().putString("url",iconurl);
                 SharedPreferences.getInstance().putBoolean("isLogin",true);
-                Toast.makeText(mActivity, "AA:" + name + "  " + iconurl, Toast.LENGTH_LONG).show();
+                //Toast.makeText(mActivity, "AA:" + name + "  " + iconurl, Toast.LENGTH_LONG).show();
                 mActivity.finish();
             }
 
@@ -67,7 +66,7 @@ public class ThirdpartyLoginUtils {
             @Override
             public void onError(SHARE_MEDIA platform, int action, Throwable t) {
 
-                Toast.makeText(mActivity, "失败：" + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(mActivity, "网络异常：" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
 
             /**
@@ -77,7 +76,7 @@ public class ThirdpartyLoginUtils {
              */
             @Override
             public void onCancel(SHARE_MEDIA platform, int action) {
-                Toast.makeText(mActivity, "取消了", Toast.LENGTH_LONG).show();
+                //Toast.makeText(mActivity, "取消了", Toast.LENGTH_LONG).show();
             }
         };
         mShareAPI.getPlatformInfo(mActivity, SHARE_MEDIA.QQ, umAuthListener);
@@ -121,7 +120,7 @@ public class ThirdpartyLoginUtils {
              */
             @Override
             public void onStart(SHARE_MEDIA platform) {
-                //Toast.makeText(LoginActivity.this, "开始", Toast.LENGTH_LONG).show();
+                Toast.makeText(defActivity, "开始", Toast.LENGTH_LONG).show();
             }
             /**
              * @desc 授权成功的回调
@@ -137,6 +136,7 @@ public class ThirdpartyLoginUtils {
                 SharedPreferences.getInstance().putString("url",iconurl);
                 SharedPreferences.getInstance().putBoolean("isLogin",true);
                 Toast.makeText(mActivity, "AA:" + name + "  " + iconurl, Toast.LENGTH_LONG).show();
+                System.out.println("jk===================="+"AA:" + name + "  " + iconurl);
                 mActivity.finish();
             }
 
@@ -149,7 +149,7 @@ public class ThirdpartyLoginUtils {
             @Override
             public void onError(SHARE_MEDIA platform, int action, Throwable t) {
 
-                Toast.makeText(mActivity, "失败：" + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(mActivity, "网络异常：" + t.getMessage(), Toast.LENGTH_LONG).show();
             }
 
             /**

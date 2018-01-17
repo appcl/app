@@ -59,8 +59,8 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
     private RelativeLayout msgTop;
     private boolean isLogin;
     private Button btnExit;
-    private RelativeLayout updataUserName;
-    private TextView updata;
+
+    private TextView updata,user_loginname;
     private EditText old_pw,new_pw,new_pw_re;
     @Override
     protected int getLayoutResId() {
@@ -72,9 +72,9 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
         old_pw = (EditText) findViewById(R.id.old_pw);
         new_pw = (EditText) findViewById(R.id.new_pw);
         new_pw_re = (EditText) findViewById(R.id.new_pw_re);
+        user_loginname = (TextView) findViewById(R.id.user_loginname);
 
-        updataUserName = (RelativeLayout) findViewById(R.id.user_msg);
-        updataUserName.setOnClickListener(this);
+
         updata = (TextView) findViewById(R.id.updata);
         updata.setOnClickListener(this);
         findViewById(R.id.user_head).setOnClickListener(this);
@@ -85,7 +85,7 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
         msgTop.setOnClickListener(this);
 
         isLogin = SharedPreferences.getInstance().getBoolean("isLogin", false);
-        System.out.println("isLogin: "+isLogin);
+        user_loginname.setText(SharedPreferences.getInstance().getString("nick_name",""));
         if (isLogin){
             btnExit.setBackgroundResource(R.color.blue);
             btnExit.setClickable(true);
@@ -150,8 +150,6 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
                 }
                 //startActivity(new Intent(SettingMsgActivity.this, H5Activity.class));
                 break;
-            case R.id.user_msg:
-                break;
             case R.id.updata:
                 checkout();
                 break;
@@ -190,7 +188,7 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
 
     public void resetInfo() {
         isLogin = SharedPreferences.getInstance().getBoolean("isLogin", false);
-        ToastUtils.showShort(this,"================"+isLogin+"  "+SharedPreferences.getInstance().getString("nick_name","")+" "+ SharedPreferences.getInstance().getString("url","")+" ");
+        //ToastUtils.showShort(this,"================"+isLogin+"  "+SharedPreferences.getInstance().getString("nick_name","")+" "+ SharedPreferences.getInstance().getString("url","")+" ");
         if (isLogin) {
             String name = SharedPreferences.getInstance().getString("nick_name","");
             String url = SharedPreferences.getInstance().getString("url","");

@@ -11,6 +11,8 @@ import com.mt.cardletter.activity.AboutActivity;
 import com.mt.cardletter.activity.BaseActivity;
 import com.mt.cardletter.activity.showimg.ImagePagerActivity;
 import com.mt.cardletter.utils.DataCleanUtil;
+import com.mt.cardletter.utils.ToastUtils;
+import com.mt.cardletter.utils.UIHelper;
 
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener{
@@ -68,14 +70,15 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 }
                 break;
             case R.id.user_msg:
-                startActivity(new Intent(SettingActivity.this, ImagePagerActivity.class));
-                //UIHelper.showSettingMsg(this);
+                //startActivity(new Intent(SettingActivity.this, ImagePagerActivity.class));
+                UIHelper.showSettingMsg(this);
                 break;
             case R.id.test :
                 startActivity(new Intent(this, AboutActivity.class));
                 break;
             case R.id.setting_help :
-                //TODO  帮助
+                //TODO  版本更新
+                ToastUtils.makeShortText("目前是最新版本",this);
                 break;
         }
     }

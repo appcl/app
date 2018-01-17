@@ -25,7 +25,7 @@ public class AppContext extends Application {
     /**
      * 1.新浪微博
      *      App Key：2928292335
-            App Secret：8f16088f8122c87f695c2893e6595aeb
+            App Secret：c9826c523bcd32c5042167ac4e3939b1
        2.腾讯
             APP ID  1106542925
             APP KEY 57VgIL08mxb0kua8
@@ -34,11 +34,9 @@ public class AppContext extends Application {
              APP KEY 57VgIL08mxb0kua8
      */
     {
-        PlatformConfig.setWeixin("wxdbdbfca2a7b69690", "1b4021358cf4f4a80e4f873fb44a1030");
+        PlatformConfig.setWeixin("wxdbdbfca2a7b69690", "c9826c523bcd32c5042167ac4e3939b1");
         PlatformConfig.setQQZone("1106542925", "57VgIL08mxb0kua8");
         PlatformConfig.setSinaWeibo("2928292335", "8f16088f8122c87f695c2893e6595aeb", "http://sns.whalecloud.com");
-
-
     }
     public LocationService locationService;
     public Vibrator mVibrator;

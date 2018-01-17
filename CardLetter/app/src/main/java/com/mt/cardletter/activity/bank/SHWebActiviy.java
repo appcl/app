@@ -6,11 +6,13 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.BaseActivity;
@@ -38,7 +40,7 @@ public class SHWebActiviy extends BaseActivity{
     private WebView webView;
     private String sid,item_id;
     private String url;
-//    private TextView mail_tv;
+    private TextView mail_tv;
     ExecutorService mThreadPool = Executors.newSingleThreadExecutor();
 
     @Override
@@ -62,7 +64,7 @@ public class SHWebActiviy extends BaseActivity{
     @Override
     public void initView() {
         webView = (WebView) findViewById(R.id.mail_web);
-//        mail_tv= (TextView) findViewById(R.id.mail_tv);
+        mail_tv= (TextView) findViewById(R.id.mail_tv);
 //        js=new JavaScriptQQ(this);
         WebSettings webSettings = webView.getSettings();
         webSettings.setDomStorageEnabled(true);
@@ -149,7 +151,15 @@ public class SHWebActiviy extends BaseActivity{
                      获取数据，更新UI
                      */
                     formatDatas(msg.obj.toString());
-//                    mail_tv.setText(msg.obj.toString());
+                    CharSequence charSequence;
+                    String content = msg.obj.toString();
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                        charSequence = Html.fromHtml(content,Html.FROM_HTML_MODE_LEGACY);
+                    } else {
+                        charSequence = Html.fromHtml(content);
+                    }
+                    mail_tv.setText(charSequence);
+                    System.out.println("jk----:"+mail_tv.getText());
                     break;
                 case 2:
 //                    mail_tv.setText(msg.obj.toString());

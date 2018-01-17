@@ -161,7 +161,6 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
             markerOptions.zIndex(9);
             markerOptions.draggable(false);
             Marker mMarker = (Marker) (mBaiduMap.addOverlay(markerOptions));
-
             markers.add(mMarker);
         }
     }
@@ -175,7 +174,6 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
          * 根据商家显示   locData
          */
         if (isOpen){
-            System.out.println("jk========2222");
             initMerchantLatLng();
         }
         /**
@@ -295,7 +293,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
                         if(merchantList.get(i)!=null){
                             intent.putExtra("cardfind_id",merchantList.get(i).getId()+"");
                             intent.putExtra("bank",banks.get(Integer.parseInt(merchantList.get(i).getBankcard())-1).getName());
-                            System.out.println("intent:bank:2== "+merchantList.get(i).getBankcard()+"    "+banks.get(Integer.parseInt(merchantList.get(i).getBankcard())-1).getName());
+                            intent.putExtra("bank_url",banks.get(Integer.parseInt(merchantList.get(i).getBankcard())-1).getCardThumb());
                         }
                         UIHelper.showDetails(LoactionActivity.this, intent);
                     }
@@ -336,7 +334,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
                         location.getLongitude());
                 System.out.println("------"+location.getLatitude()+"\n"+location.getLongitude());
                 MapStatus.Builder builder = new MapStatus.Builder();
-                builder.target(ll).zoom(20.0f);
+                builder.target(ll).zoom(15.0f);
                 mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
             }
             initOverlay(locData);
@@ -370,7 +368,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
     @Override
     protected void initData() {
         //TODO 经纬度  地区
-        loadData( 1 , 100+"" , ""+1 , "" ,"320100", "",lat+"",lon+"" );
+        loadData( 1 , 100+"" , ""+1 , "" ,"", "",lat+"",lon+"" );
         toLogin(Constant.Access_Token);
     }
     @Override

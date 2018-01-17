@@ -126,7 +126,7 @@
             android:layout_marginLeft="20dp"
             android:textSize="14sp"
             android:textColor="@color/color_text_black_31"
-            android:text="求助反馈"
+            android:text="检测版本"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView

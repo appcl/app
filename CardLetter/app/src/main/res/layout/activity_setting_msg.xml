@@ -19,12 +19,14 @@
                 android:layout_height="45dp"
                 android:src="@mipmap/icon_default"/>
             <TextView
+                android:id="@+id/user_loginname"
                 android:textColor="@color/white"
                 android:layout_marginTop="5dp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/user_head"
                 android:textSize="10sp"
-                android:text="点击修改头像"
+                android:text=""
+                android:maxLines="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
     </RelativeLayout>
@@ -32,39 +34,39 @@
         android:background="@drawable/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp" />
-    <RelativeLayout
-        android:id="@+id/user_msg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/msg_user_name"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
-            android:textSize="14sp"
-            android:textColor="@color/color_text_black_31"
-            android:text="编辑昵称"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:padding="10dp"
-            android:background="@null"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@id/msg_user_name"
-            android:hint="输入新昵称"
-            android:textSize="14sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"/>
-        <ImageView
-            android:visibility="gone"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/next"
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
-    </RelativeLayout>
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/user_msg"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<TextView-->
+            <!--android:id="@+id/msg_user_name"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="30dp"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@color/color_text_black_31"-->
+            <!--android:text="编辑昵称"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+        <!--<EditText-->
+            <!--android:padding="10dp"-->
+            <!--android:background="@null"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:layout_toRightOf="@id/msg_user_name"-->
+            <!--android:hint="输入新昵称"-->
+            <!--android:textSize="14sp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginRight="30dp"/>-->
+        <!--<ImageView-->
+            <!--android:visibility="gone"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:src="@mipmap/next"-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp" />-->
+    <!--</RelativeLayout>-->
     <View
         android:background="@drawable/divider"
         android:layout_width="match_parent"
@@ -89,6 +91,7 @@
                 android:layout_marginRight="30dp"/>
             <EditText
                 android:id="@+id/old_pw"
+                android:password="true"
                 android:padding="8dp"
                 android:background="@null"
                 android:textSize="14sp"
@@ -117,6 +120,7 @@
                 android:id="@+id/new_pw"
                 android:padding="8dp"
                 android:background="@null"
+                android:password="true"
                 android:textSize="14sp"
                 android:hint="请输入新密码"
                 android:layout_width="match_parent"
@@ -140,6 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"/>
             <EditText
+                android:password="true"
                 android:id="@+id/new_pw_re"
                 android:padding="8dp"
                 android:background="@null"

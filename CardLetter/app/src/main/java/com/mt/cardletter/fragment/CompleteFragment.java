@@ -166,6 +166,7 @@ public class CompleteFragment extends BaseFragment {
                 if(myList.get(position)!=null){
                     intent.putExtra("cardfind_id",myList.get(position-1).getId()+"");
                     intent.putExtra("bank",banks.get(Integer.parseInt(myList.get(position-1).getBankcard())-1).getName());
+                    intent.putExtra("bank_url",banks.get(Integer.parseInt(myList.get(position-1).getBankcard())-1).getCardThumb());
                 }
                 UIHelper.showDetails(getContext(), intent);
             }
@@ -241,7 +242,7 @@ public class CompleteFragment extends BaseFragment {
 
                 if (banks.size()>0){
                     int bankcard = Integer.parseInt(myList.get(position).getBankcard());
-                    if (bankcard <= 31){
+                    if (bankcard <= 33){
                         Bank.DataBean dataBean = banks.get(bankcard - 1);
                         String name = dataBean.getName();
                         holder.bank.setText(name);
@@ -252,7 +253,7 @@ public class CompleteFragment extends BaseFragment {
                 LatLng p1LL = new LatLng(  AppContext.getInstance().getLat(),AppContext.getInstance().getLon());
                 LatLng p2LL = new LatLng( myList.get(position).getLng(),myList.get(position).getLat());
                 BigDecimal bg = new BigDecimal(DistanceUtil.getDistance(p1LL, p2LL));
-                DecimalFormat df = new DecimalFormat("#.0");
+                DecimalFormat df = new DecimalFormat("#");
                 String format = df.format(bg);
                 holder.distance.setText(format+"M");
                 Glide.with(CompleteFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);

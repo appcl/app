@@ -53,7 +53,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     private TextView next;
     //private ImageView setails_back,setails_share;
     private TextView setails_title, setails_time, setails_tel, setails_address, setails_obj, setails_centent, setails_discounts;
-    private ImageView bigImg;
+    private ImageView bigImg ,item_bank;
     private RelativeLayout collect;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -63,6 +63,8 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     private String bank;
     private ImageView collect_img;
     private TextView collect_text;
+    private String bank_url;
+    private Good.DataBean good;
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_setails;
@@ -94,8 +96,10 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         setails_centent = (TextView) findViewById(R.id.setails_centent);
         setails_discounts = (TextView) findViewById(R.id.setails_discounts);
         bigImg = (ImageView) findViewById(R.id.setails_big_img);
+        item_bank = (ImageView) findViewById(R.id.item_img);
         String cardfind_id = getIntent().getStringExtra("cardfind_id");
         bank = getIntent().getStringExtra("bank");
+        bank_url = getIntent().getStringExtra("bank_url");
         if (cardfind_id != null) {
             loadData(cardfind_id);
         }
@@ -113,7 +117,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onSucceed(Good data) {
                 if (data.getCode() == 0) {
-                    Good.DataBean good = data.getData();
+                    good = data.getData();
                     updataView(good);
                 }
             }
@@ -135,11 +139,15 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
                 setails_address.setText(good.getAddress());
                 setails_centent.setText(good.getContent());
                 setails_discounts.setText(good.getDescribe());
+
                 if (good.getThumb()!=null){
                     Glide.with(this).load(Constant.BASE_URL+good.getThumb()).error(R.drawable.default_error).into(bigImg);
                 }
                 if(bank!=null){
                     setails_obj.setText(bank);
+                }
+                if (bank_url!=null){
+                    Glide.with(this).load(Constant.BASE_URL+bank_url).error(R.drawable.default_error).into(item_bank);
                 }
             }
         } else {
@@ -163,7 +171,6 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
                     ToastUtils.makeShortText("已收藏",SetailsActivity.this);
                     isSelect = true;
                     // TODO: 2018/1/16 收藏
-
                 }else {
                     collect_img.setImageResource(R.mipmap.collect);
                     collect_text.setText("收藏");
@@ -192,7 +199,6 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if(requestCode == 123){
-            Log.i("jingkang","成功");
             showMyShare();
         }
     }
@@ -208,11 +214,11 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     private void showMyShare(){
         //UMImage image = new UMImage(MyActivity.this, R.drawable.thumb);//资源文件
         UMWeb web = new UMWeb("http://video.browser.qq.com/live/beauty/?ADTAG=newtabweb");
-        web.setTitle("来自smort--jk对你的调戏");
-        web.setThumb(new UMImage(this, R.drawable.thumb));
-        web.setDescription("2货");
+        web.setTitle(good.getName());
+        web.setThumb(new UMImage(this, R.mipmap.ic_launcher));
+        web.setDescription(good.getDescribe());
         new ShareAction(SetailsActivity.this)
-                .withText("hello")
+                .withText("卡信")
                 .withMedia(web)
                 .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
                 .setCallback(shareListener)
@@ -234,7 +240,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
          */
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(SetailsActivity.this,"成功了",Toast.LENGTH_LONG).show();
+            Toast.makeText(SetailsActivity.this,"分享成功",Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -244,7 +250,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
          */
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(SetailsActivity.this,"失败"+t.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(SetailsActivity.this,"网络故障"+t.getMessage(),Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -253,7 +259,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
          */
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(SetailsActivity.this,"取消了",Toast.LENGTH_LONG).show();
+            //Toast.makeText(SetailsActivity.this,"取消了",Toast.LENGTH_LONG).show();
 
         }
     };

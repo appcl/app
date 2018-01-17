@@ -232,8 +232,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                 UIHelper.showViolateActivity(getContext());
                 break;
             case R.id.search_seckill://TODO活动精选
-                UIHelper.showSeckillActivity(getContext());
 //                UIHelper.showSeckillActivity(getContext());
+//                UIHelper.showSeckillActivity(getContext());
+                ToastUtils.makeShortText("功能待开放",getContext());
             case R.id.my_order://订单
 //                toLogin(Constant.Access_Token,"test","123123");
 //                Util.showCommonDialog(getActivity(),R.drawable.error_500);

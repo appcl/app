@@ -81,7 +81,6 @@ public class ExpressActivity extends BaseActivity {
 
             @Override
             public void onError(int code, String msg) {
-
             }
         },ExpressActivity.this));
     }
@@ -91,7 +90,11 @@ public class ExpressActivity extends BaseActivity {
         express_com.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
-                showWheelDialog();
+                if (stringArrayList.size()>0){
+                    showWheelDialog();
+                }else {
+                    ToastUtils.makeShortText("为获取到快递公司",ExpressActivity.this);
+                }
             }
         });
 

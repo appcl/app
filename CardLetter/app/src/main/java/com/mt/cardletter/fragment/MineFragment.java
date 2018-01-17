@@ -86,6 +86,7 @@ public class MineFragment extends Fragment{
                     UIHelper.showLoginActivity(getActivity());
                     return;
                 }
+                ToastUtils.makeShortText("功能待开放",getContext());
             }
         });
         headView.findViewById(R.id.question).setOnClickListener(new View.OnClickListener() {
@@ -95,6 +96,7 @@ public class MineFragment extends Fragment{
                     UIHelper.showLoginActivity(getActivity());
                     return;
                 }
+                ToastUtils.makeShortText("功能待开放",getContext());
             }
         });
 
@@ -106,6 +108,7 @@ public class MineFragment extends Fragment{
                     UIHelper.showLoginActivity(getActivity());
                     return;
                 }
+                ToastUtils.makeShortText("功能待开放",getContext());
             }
         });
         scrollView.getPullRootView().findViewById(R.id.location).setOnClickListener(new View.OnClickListener() {
@@ -134,6 +137,7 @@ public class MineFragment extends Fragment{
                     UIHelper.showLoginActivity(getActivity());
                     return;
                 }
+                ToastUtils.makeShortText("功能待开放",getContext());
             }
         });
         scrollView.getPullRootView().findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {

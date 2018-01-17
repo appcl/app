@@ -56,11 +56,11 @@ public class BankJFActivity extends BaseActivity implements SwipeRefreshLayout.O
         if (is_from==0){
             channel= b.getString("channel");
         }else if (is_from==1){
-            c_id=b.getInt("id");
+            b_id=b.getInt("b_id");
         }else {
-            b_id = b.getInt("id");
+            c_id = b.getInt("c_id");
         }
-        System.out.println("----页面传值-----"+channel+"\n"+c_id+"\n"+b_id);
+        System.out.println("----页面传值-----"+channel+"\n"+"----点击银行id-----"+b_id+"\n"+"----点击标签id-----"+c_id);
         sell_list = (List<CategoryEntity.DataBeanX.SellerListBean.DataBean>) getIntent().getSerializableExtra("list");
     }
 
@@ -84,7 +84,11 @@ public class BankJFActivity extends BaseActivity implements SwipeRefreshLayout.O
             public void onItemClick(int position) {
                 Intent intent = new Intent(BankJFActivity.this,BankJFWebViewActivity.class);
                 Bundle b = new Bundle();
-                b.putString("url",sell_lists.get(position).getB_url());
+//                if (sell_lists.size()>0){
+//                    b.putString("url",sell_lists.get(position).getB_url());
+//                }else {
+                    b.putString("url",sell_list.get(position).getB_url());
+//                }
                 intent.putExtras(b);
                 startActivity(intent);
             }

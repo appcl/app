@@ -66,6 +66,7 @@ public class SearchIntegralActivity extends BaseActivity {
         recyclerView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                adapter.clearData();
                 page = 1;
                 getDatas(page);
             }

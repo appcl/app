@@ -2,14 +2,10 @@ package com.mt.cardletter.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -17,32 +13,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
-import com.mt.cardletter.activity.setting.SettingActivity;
-import com.mt.cardletter.activity.share.ShareActivity;
 import com.mt.cardletter.entity.merchant.Good;
-import com.mt.cardletter.entity.merchant.Goods;
-import com.mt.cardletter.entity.merchant.GoodsBean;
-import com.mt.cardletter.fragment.CompleteFragment;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.ToastUtils;
-import com.mt.cardletter.utils.UIHelper;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
-
-import java.util.List;
 
 /**
  * 商品详情
@@ -215,7 +200,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         UMImage image = new UMImage(SetailsActivity.this, R.mipmap.logo);//资源文件
         UMWeb web = new UMWeb("http://www.51kaxin.xyz/appdown.html");
         web.setTitle(good.getName());
-        web.setThumb(new UMImage(this, R.drawable.share_loge));
+        web.setThumb(new UMImage(this, R.drawable.share_icon));
         web.setDescription(good.getDescribe());
         new ShareAction(SetailsActivity.this)
                 .withText("卡信")

@@ -386,10 +386,6 @@
         <activity android:name=".wxapi.WXEntryActivity" />
 
         <activity android:name=".activity.showimg.ImagePagerActivity"></activity>
-        <!--多渠道打包-->
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}" />
     </application>
 
 </manifest>

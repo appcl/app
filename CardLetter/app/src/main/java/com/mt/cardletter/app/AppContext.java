@@ -121,6 +121,4 @@ public class AppContext extends Application {
     private void registerUncaughtExceptionHandler() {
         Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler());
     }
-
-
 }

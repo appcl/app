@@ -16,12 +16,3 @@
 #   public *;
 #}
 
-#-----------------混淆配置设定------------------------------------------------------------------------
--optimizationpasses 5                                                       #指定代码压缩级别
--dontusemixedcaseclassnames                                                 #混淆时不会产生形形色色的类名
--dontskipnonpubliclibraryclasses                                            #指定不忽略非公共类库
--dontpreverify                                                              #不预校验，如果需要预校验，是-dontoptimize
--ignorewarnings                                                             #屏蔽警告
--verbose                                                                    #混淆时记录日志
--optimizations !code/simplification/arithmetic,!field/*,!class/merging/*    #优化
-

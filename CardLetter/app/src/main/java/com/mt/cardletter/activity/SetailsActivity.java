@@ -220,7 +220,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         new ShareAction(SetailsActivity.this)
                 .withText("卡信")
                 .withMedia(web)
-                .setDisplayList(SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setDisplayList(SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)//..XL
                 .setCallback(shareListener)
                 .open();
     }

@@ -27,7 +27,7 @@ public class AboutActivity extends BaseActivity {
         back = (FrameLayout) findViewById(R.id.com_back_click);
         back.setVisibility(View.VISIBLE);
         textView = (TextView) findViewById(R.id.tv_about);
-        textView.setText(getIntroduce());
+        //textView.setText(getIntroduce());
     }
     
     public String getIntroduce() {

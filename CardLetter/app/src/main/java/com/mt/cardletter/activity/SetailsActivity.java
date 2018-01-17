@@ -212,15 +212,15 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         }
     }
     private void showMyShare(){
-        //UMImage image = new UMImage(MyActivity.this, R.drawable.thumb);//资源文件
-        UMWeb web = new UMWeb("http://video.browser.qq.com/live/beauty/?ADTAG=newtabweb");
+        UMImage image = new UMImage(SetailsActivity.this, R.mipmap.logo);//资源文件
+        UMWeb web = new UMWeb("http://www.51kaxin.xyz/appdown.html");
         web.setTitle(good.getName());
-        web.setThumb(new UMImage(this, R.mipmap.ic_launcher));
+        web.setThumb(new UMImage(this, R.drawable.share_loge));
         web.setDescription(good.getDescribe());
         new ShareAction(SetailsActivity.this)
                 .withText("卡信")
                 .withMedia(web)
-                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setDisplayList(SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
                 .setCallback(shareListener)
                 .open();
     }

@@ -66,7 +66,7 @@ public class CompleteFragment extends BaseFragment {
     private View view;
     public View loadmoreView;
     private List<Bank.DataBean> banks = new ArrayList<>();
-
+    private TextView tv_noll;
     private String lng;
     private String lat;
     @Override
@@ -76,6 +76,8 @@ public class CompleteFragment extends BaseFragment {
             view = inflater.inflate(R.layout.activity_fragment_find, container, false);
             loadmoreView = View.inflate(getContext(),R.layout.load_more,null);//上拉加载更多布局
             loadmoreView.setVisibility(View.VISIBLE);//设置刷新视图默认情况下是不可见的32.02004, 118.763108
+            tv_noll = (TextView) view.findViewById(R.id.tv_noll);
+            tv_noll.setVisibility(View.GONE);
             ButterKnife.bind(this, view);
             cartgory_id= (int) getArguments().get("id") + "";
             //TODO 经纬度
@@ -83,7 +85,7 @@ public class CompleteFragment extends BaseFragment {
             lng = AppContext.getInstance().getLat()+"";//32.020843  --118.763019
             lat = AppContext.getInstance().getLon()+"";
             System.out.println("jk======"+lng+"   ---   "+lat);
-            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,"320100", "",lng,lat);
+            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,"", "",lng,lat);
             toLogin(Constant.Access_Token);
         }
         return view;
@@ -102,8 +104,6 @@ public class CompleteFragment extends BaseFragment {
     @Override
     protected void onLazyLoad() {
         super.onLazyLoad();
-
-
     }
 
     private void loadData(final int upDataFlag , String list_rows, String page, String category_id, String city, String  bankcard, String lng, String lat) {
@@ -120,23 +120,23 @@ public class CompleteFragment extends BaseFragment {
        8  lat
          */
         CardLetterRequestApi.getInstance().getFindMerchant(
-                Constant.Access_Token,list_rows,page,category_id,city, bankcard,lng,lat,new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
+                Constant.Access_Token,list_rows,page,category_id,"", "",lng,lat,new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
                     @Override
                     public void onSucceed(Goods data) {
                         if (data.getCode()==0){
                             List<Goods.DataBeanX.CardfindListBean.DataBean> data1 = data.getData().getCardfindList().getData();
                             if (upDataFlag == UPDATA_DEF){
+                                if (data.getData().getCardfindList().getTotal()==0){
+                                    tv_noll.setVisibility(View.VISIBLE);
+                                }
                                 myList = data1;
                             }else if(upDataFlag == UPDATA_UP){
                                 myList.addAll(data1);
                             }else if(upDataFlag == UPDATA_DOWN){
-                                if (data.getData().getCardfindList().getCurrentPage()==data.getData().getCardfindList().getLastPage()+""){
-                                    ToastUtils.makeShortText("没有更多可加载",getContext());
-                                }
+                                ToastUtils.makeShortText("已是加载最新",getContext());
                                 myList = data1;
                             }
                             myAdapter.notifyDataSetChanged();
-
                             listView.onRefreshComplete();
                         }
                     }
@@ -182,6 +182,7 @@ public class CompleteFragment extends BaseFragment {
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 page_index = 1;
                 loadData( UPDATA_DOWN , page_size , ""+page_index , cartgory_id ,"", "",lng,lat );
+
             }
 
             @Override
@@ -246,16 +247,16 @@ public class CompleteFragment extends BaseFragment {
                         Bank.DataBean dataBean = banks.get(bankcard - 1);
                         String name = dataBean.getName();
                         holder.bank.setText(name);
-                   }else{
+                    }else{
                         holder.bank.setText("------------");
-                   }
+                    }
                 }
                 LatLng p1LL = new LatLng(  AppContext.getInstance().getLat(),AppContext.getInstance().getLon());
                 LatLng p2LL = new LatLng( myList.get(position).getLng(),myList.get(position).getLat());
                 BigDecimal bg = new BigDecimal(DistanceUtil.getDistance(p1LL, p2LL));
                 DecimalFormat df = new DecimalFormat("#");
                 String format = df.format(bg);
-                holder.distance.setText(format+"M");
+                holder.distance.setText(format+" M");
                 Glide.with(CompleteFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
             }
             return convertView;

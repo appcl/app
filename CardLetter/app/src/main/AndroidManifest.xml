@@ -185,12 +185,12 @@
             android:exported="false"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize"
-            >
-        </activity>
+        <!--<activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation"-->
+            <!--android:exported="false"-->
+            <!--android:windowSoftInputMode="adjustResize"-->
+            <!--&gt;-->
+        <!--</activity>-->
         <activity
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
             android:launchMode="singleTask"
@@ -386,6 +386,10 @@
         <activity android:name=".wxapi.WXEntryActivity" />
 
         <activity android:name=".activity.showimg.ImagePagerActivity"></activity>
+        <!--多渠道打包-->
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
     </application>
 
 </manifest>

@@ -182,7 +182,6 @@ public class CompleteFragment extends BaseFragment {
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 page_index = 1;
                 loadData( UPDATA_DOWN , page_size , ""+page_index , cartgory_id ,"", "",lng,lat );
-
             }
 
             @Override
@@ -253,9 +252,11 @@ public class CompleteFragment extends BaseFragment {
                 }
                 LatLng p1LL = new LatLng(  AppContext.getInstance().getLat(),AppContext.getInstance().getLon());
                 LatLng p2LL = new LatLng( myList.get(position).getLng(),myList.get(position).getLat());
+
                 BigDecimal bg = new BigDecimal(DistanceUtil.getDistance(p1LL, p2LL));
                 DecimalFormat df = new DecimalFormat("#");
                 String format = df.format(bg);
+                byte[] bytes = format.getBytes();
                 holder.distance.setText(format+" M");
                 Glide.with(CompleteFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
             }

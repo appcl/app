@@ -6,6 +6,7 @@ import com.mt.cardletter.entity.creditcard.CreditCard;
 import com.mt.cardletter.entity.creditcard.CreditDatas;
 import com.mt.cardletter.entity.data.AirDatas;
 import com.mt.cardletter.entity.data.HeWeather;
+import com.mt.cardletter.entity.data.Peccant;
 import com.mt.cardletter.entity.data.SearchDatas;
 import com.mt.cardletter.entity.data.ViolateCity;
 import com.mt.cardletter.entity.data.ViolateData;
@@ -530,5 +531,52 @@ public interface HttpRequestService {
     @POST("/api.php/favorite/favoritelist")
     Observable<SearchIntegralData> delFavoriteList(@Query("access_token") String access_token,
                                                    @Query("member_id") String member_id);
+
+    //    public static void main(String[] args) {
+//        String host = "http://ddycapi.market.alicloudapi.com";
+//        String path = "/violation/query";
+//        String method = "POST";
+//        String appcode = "你自己的AppCode";
+
+
+//        Map<String, String> headers = new HashMap<String, String>();
+//        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+//        headers.put("Authorization", "APPCODE " + appcode);
+
+//        //根据API的要求，定义相对应的Content-Type
+//        headers.put("Content-Type", "application/json; charset=UTF-8");
+//        Map<String, String> querys = new HashMap<String, String>();
+//        String bodys = "{\"
+// plateNumber\":\"鲁FE5026\"(车牌号，必填)
+// vin\":\"167786\"(车架号，视城市规则是否必填),\"
+// engineNo\":\"013166\"(发动机号，视城市规则是否必填),\"
+// carType\":\"02\"(车辆类型01大车02小车,不必填,默认小车),\"
+// city\":\"烟台市\"(查询城市,不必填,默认查归属地)}";
+//
+//
+//        try {
+//            /**
+//             * 重要提示如下:
+//             * HttpUtils请从
+//             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/src/main/java/com/aliyun/api/gateway/demo/util/HttpUtils.java
+//             * 下载
+//             *
+//             * 相应的依赖请参照
+//             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
+//             */
+//            HttpResponse response = HttpUtils.doPost(host, path, method, headers, querys, bodys);
+//            System.out.println(response.toString());
+//            //获取response的body
+//            //System.out.println(EntityUtils.toString(response.getEntity()));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+    @POST("/violation/query")
+    Observable<Peccant> getPeccant(@Query("plateNumber") String plateNumber,
+                                   @Query("vin") String vin,
+                                   @Query("engineNo") String engineNo,
+                                   @Query("carType") String carType,
+                                   @Query("city") String city);
 
 }

@@ -91,6 +91,7 @@
             <LinearLayout
                 android:layout_below="@+id/fragment_home_top_pagerview"
                 android:id="@+id/line_layout"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="40dp">

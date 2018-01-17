@@ -28,12 +28,12 @@ public class WheelViewDialog extends Dialog {
     private Button btn_cancle;
 
     private OnSelectedListener listener;
-    private  List<ExpressCom.ResultBean> stringArrayList = new ArrayList<>();
+    private  List<ExpressCom.ExpBean> stringArrayList = new ArrayList<>();
     private List<String> list = new ArrayList<>();
     private int position = 0;
     public String no;
 
-    public WheelViewDialog(Context context, List<ExpressCom.ResultBean> arrayList, List<String> list) {
+    public WheelViewDialog(Context context, List<ExpressCom.ExpBean> arrayList, List<String> list) {
         super(context,R.style.alert_dialog);
         stringArrayList = arrayList;
         this.list = list;

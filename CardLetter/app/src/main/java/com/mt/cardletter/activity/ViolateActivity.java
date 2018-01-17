@@ -11,11 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.entity.data.Peccant;
 import com.mt.cardletter.entity.data.ViolateCity;
 import com.mt.cardletter.entity.data.ViolateData;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
+import com.mt.cardletter.https.test.PeccantRequestApi;
 import com.mt.cardletter.https.violate_net.ViolateRequestApi;
+import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.RegexUtils;
 import com.mt.cardletter.utils.ToastUtils;
@@ -82,6 +85,8 @@ public class ViolateActivity extends BaseActivity implements ProvinceCallBack{
         ButterKnife.bind(this);
         title_name.setText("违章查询");
         com_back_click.setVisibility(View.VISIBLE);
+        //// TODO: 2018/1/17
+//        loadData();
     }
 
     @Override
@@ -105,7 +110,7 @@ public class ViolateActivity extends BaseActivity implements ProvinceCallBack{
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                         btn_search.setBackground(getResources().getDrawable(R.color.color_btn_red_de));
                     }
-                    ViolateRequestApi.getInstance().getViolates("","",mCode,full_number,car_fdj,car_fdj,key,
+                    ViolateRequestApi.getInstance().getViolates("","",mCode,full_number,car_fdj,car_fdj, Constant.JH_CAR,
                             new HttpSubscriber<ViolateData>(new SubscriberOnListener<ViolateData>() {
                         @Override
                         public void onSucceed(ViolateData data) {
@@ -132,7 +137,21 @@ public class ViolateActivity extends BaseActivity implements ProvinceCallBack{
             }
         });
     }
-
+    private void loadData() {
+       /*
+         * 获取文章分类列表
+         */
+        PeccantRequestApi.getInstance().getPeccant("APPCODE 4be7846862f141bab64b37897447ea56","苏AE4D00","","0306ps","","",new HttpSubscriber<Peccant>(new SubscriberOnListener<Peccant>() {
+            @Override
+            public void onSucceed(Peccant data) {
+                System.out.println("jk========:"+data.getData().getTotalFine());
+            }
+            @Override
+            public void onError(int code, String msg) {
+                ToastUtils.showShort(ViolateActivity.this,"网络故障");
+            }
+        },ViolateActivity.this));
+    }
 
     /**
      * 检查注册输入的内容
@@ -173,7 +192,7 @@ public class ViolateActivity extends BaseActivity implements ProvinceCallBack{
 
 //获取可用城市
     private void getCityData() {
-        ViolateRequestApi.getInstance().getCitys("","",key,new HttpSubscriber<ViolateCity>(new SubscriberOnListener<ViolateCity>() {
+        ViolateRequestApi.getInstance().getCitys("","",Constant.JH_CAR,new HttpSubscriber<ViolateCity>(new SubscriberOnListener<ViolateCity>() {
             @Override
             public void onSucceed(ViolateCity data) {
                 if (data.getError_code() == 0){

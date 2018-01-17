@@ -10,51 +10,18 @@ import java.util.List;
 
 public class ExpressCom {
 
-    /**
-     * resultcode : 200
-     * reason : 查询支持的快递公司成功
-     * result : [{"com":"顺丰","no":"sf"},{"com":"申通","no":"sto"},{"com":"圆通","no":"yt"},{"com":"韵达","no":"yd"},{"com":"天天","no":"tt"}]
-     * error_code : 0
-     */
 
-    private String resultcode;
-    private String reason;
-    private int error_code;
-    private List<ResultBean> result;
+    private List<ExpBean> exp;
 
-    public String getResultcode() {
-        return resultcode;
+    public List<ExpBean> getExp() {
+        return exp;
     }
 
-    public void setResultcode(String resultcode) {
-        this.resultcode = resultcode;
+    public void setExp(List<ExpBean> exp) {
+        this.exp = exp;
     }
 
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public int getError_code() {
-        return error_code;
-    }
-
-    public void setError_code(int error_code) {
-        this.error_code = error_code;
-    }
-
-    public List<ResultBean> getResult() {
-        return result;
-    }
-
-    public void setResult(List<ResultBean> result) {
-        this.result = result;
-    }
-
-    public static class ResultBean {
+    public static class ExpBean {
         /**
          * com : 顺丰
          * no : sf

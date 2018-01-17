@@ -16,6 +16,23 @@ android {
         cruncherEnabled = false
         useNewCruncher = false
     }
+    signingConfigs {
+        release {
+            storeFile file("E:/mt_keytools.jks")
+            storePassword "mt123456"
+            keyAlias "mt_keytools"
+            keyPassword "mt123456"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
 
     lintOptions {
         checkReleaseBuilds false

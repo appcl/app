@@ -68,6 +68,7 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
     private void initLocation() {
         locationService = AppContext.getInstance().locationService;
         locationService.registerListener(mListener);
+        locationService.setLocationOption(locationService.getDefaultLocationClientOption());
         locationService.start();
     }
 
@@ -75,6 +76,12 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
     protected void onStart() {
         super.onStart();
         initLocation();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        locationService.stop();
     }
 
     private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {

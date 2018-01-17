@@ -64,7 +64,7 @@ public class SHWebActiviy extends BaseActivity{
     @Override
     public void initView() {
         webView = (WebView) findViewById(R.id.mail_web);
-        mail_tv= (TextView) findViewById(R.id.mail_tv);
+//        mail_tv= (TextView) findViewById(R.id.mail_tv);
 //        js=new JavaScriptQQ(this);
         WebSettings webSettings = webView.getSettings();
         webSettings.setDomStorageEnabled(true);
@@ -158,7 +158,7 @@ public class SHWebActiviy extends BaseActivity{
                     } else {
                         charSequence = Html.fromHtml(content);
                     }
-                    mail_tv.setText(charSequence);
+//                    mail_tv.setText(charSequence);
                     System.out.println("jk----:"+mail_tv.getText());
                     break;
                 case 2:

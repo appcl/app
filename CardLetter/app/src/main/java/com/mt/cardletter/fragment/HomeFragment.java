@@ -235,6 +235,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
 //                UIHelper.showSeckillActivity(getContext());
 //                UIHelper.showSeckillActivity(getContext());
                 ToastUtils.makeShortText("功能待开放",getContext());
+                break;
             case R.id.my_order://订单
 //                toLogin(Constant.Access_Token,"test","123123");
 //                Util.showCommonDialog(getActivity(),R.drawable.error_500);
@@ -249,6 +250,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         }
     }
 
+
     private void loadData() {
        /*
          * 获取文章分类列表
@@ -258,7 +260,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
             public void onSucceed(NetNewsCategory data) {
                 tabDatas = data.getResult().getResult();
                 fragments = new Fragment[tabDatas.size()];
-                FragmentPagerAdapter adapter = new HomeFragment.NewsAdapter(getChildFragmentManager(),tabDatas);
+                FragmentPagerAdapter adapter = new NewsAdapter(getChildFragmentManager(),tabDatas);
                 pager.setAdapter(adapter);
                 final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
                 pager.setPageMargin(pageMargin);

@@ -19,6 +19,7 @@ import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.view.RefreshRecyclerView.PullToRefreshRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,6 +39,7 @@ public class BankJFActivity extends BaseActivity implements SwipeRefreshLayout.O
     private BankSellerAdapter adapter;
 
     List<CategoryEntity.DataBeanX.SellerListBean.DataBean> sell_list;
+    List<CategoryEntity.DataBeanX.SellerListBean.DataBean> sell_lists=new ArrayList<>();
     private int is_from;
     private int c_id=0;
     private int b_id=0;
@@ -82,7 +84,7 @@ public class BankJFActivity extends BaseActivity implements SwipeRefreshLayout.O
             public void onItemClick(int position) {
                 Intent intent = new Intent(BankJFActivity.this,BankJFWebViewActivity.class);
                 Bundle b = new Bundle();
-                b.putString("url",sell_list.get(position).getB_url());
+                b.putString("url",sell_lists.get(position).getB_url());
                 intent.putExtras(b);
                 startActivity(intent);
             }
@@ -95,8 +97,8 @@ public class BankJFActivity extends BaseActivity implements SwipeRefreshLayout.O
             @Override
             public void onSucceed(CategoryEntity data) {
                 if (data.getData().getSeller_list().getData().size()>0) {
-                    sell_list = data.getData().getSeller_list().getData();
-                    adapter.addData(sell_list);
+                    sell_lists = data.getData().getSeller_list().getData();
+                    adapter.addData(sell_lists);
                     recyclerView.setOnRefreshComplete();
                     recyclerView.onFinishLoading(true,false);
                 }else {
@@ -118,8 +120,8 @@ public class BankJFActivity extends BaseActivity implements SwipeRefreshLayout.O
             @Override
             public void onSucceed(CategoryEntity data) {
                 if (data.getData().getSeller_list().getData().size()>0) {
-                    sell_list = data.getData().getSeller_list().getData();
-                    adapter.addData(sell_list);
+                    sell_lists = data.getData().getSeller_list().getData();
+                    adapter.addData(sell_lists);
                     recyclerView.setOnRefreshComplete();
                     recyclerView.onFinishLoading(true,false);
                 }else {
@@ -140,8 +142,8 @@ public class BankJFActivity extends BaseActivity implements SwipeRefreshLayout.O
             @Override
             public void onSucceed(CategoryEntity data) {
                 if (data.getData().getSeller_list().getData().size()>0) {
-                    sell_list = data.getData().getSeller_list().getData();
-                    adapter.addData(sell_list);
+                    sell_lists = data.getData().getSeller_list().getData();
+                    adapter.addData(sell_lists);
                     recyclerView.setOnRefreshComplete();
                     recyclerView.onFinishLoading(true,false);
                 }else {
@@ -174,6 +176,7 @@ public class BankJFActivity extends BaseActivity implements SwipeRefreshLayout.O
 
     @Override
     public void onRefresh() {
+        adapter.clearData();
         page = 1;
         switch (is_from){
             case 0:

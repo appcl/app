@@ -1,7 +1,5 @@
 package com.mt.cardletter.activity;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Message;
@@ -12,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.view.animview.AnimDialog;
 
 /**
  * Date:2018/1/14
@@ -22,7 +21,6 @@ import com.mt.cardletter.R;
 public class BankJFWebViewActivity extends BaseActivity {
     private WebView webView;
     private String url;
-
     @Override
     protected int getLayoutResId() {
         getDatas();
@@ -48,7 +46,8 @@ public class BankJFWebViewActivity extends BaseActivity {
 //        webView.addJavascriptInterface(js,"pt");
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.setWebViewClient(new WebViewClient() {
-            Dialog progressDialog = ProgressDialog.show(BankJFWebViewActivity.this, null, "正在加载...");
+//            Dialog progressDialog = ProgressDialog.show(BankJFWebViewActivity.this, null, "正在加载...");
+            AnimDialog dialog = AnimDialog.newInstance();
 
             @Override
             public void onPageFinished(WebView view, String url) {
@@ -58,14 +57,15 @@ public class BankJFWebViewActivity extends BaseActivity {
                     System.out.println("cookie:-----------" + CookieStr);
                 }
                 super.onPageFinished(view, url);
-                progressDialog.cancel();
+//                progressDialog.cancel();
+                dialog.dissmissDialog();
                 System.out.println("-----登录成功-----");
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                progressDialog.show();
+                dialog.show(BankJFWebViewActivity.this.getSupportFragmentManager());
             }
         });
         webView.loadUrl(url);

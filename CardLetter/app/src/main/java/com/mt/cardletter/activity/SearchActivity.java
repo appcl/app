@@ -1,6 +1,9 @@
 package com.mt.cardletter.activity;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,12 +16,18 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.adapter.SearchAdapter;
+import com.mt.cardletter.entity.city.District;
 import com.mt.cardletter.entity.data.SearchDatas;
+import com.mt.cardletter.entity.integral.SearchIntegralData;
+import com.mt.cardletter.entity.merchant.Goods;
+import com.mt.cardletter.fragment.CompleteFragment;
+import com.mt.cardletter.fragment.SearchHomeFragment;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
@@ -27,6 +36,7 @@ import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.view.RefreshRecyclerView.PullToRefreshRecyclerView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,17 +47,14 @@ import java.util.List;
  */
 
 public class SearchActivity extends BaseActivity {
-
+    private LinearLayout search_fragment;
     private FrameLayout back_btn;
     private EditText search_et_input;
     private RelativeLayout search_iv_delete;
     private TextView search_btn;
-    private PullToRefreshRecyclerView recyclerView;
-    private int page = 1;
-    private int num = 10;
-    private List<SearchDatas.DataBeanX.DataBean> list = new ArrayList<>();
-    private SearchAdapter adapter;
-
+    private android.support.v4.app.FragmentTransaction beginTransaction;
+    private android.support.v4.app.FragmentManager fragmentManager;
+    private List<District.DataBean> districtList;
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_search;
@@ -55,37 +62,17 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        getdDistrictID(); //获取地区ID
         back_btn = (FrameLayout) findViewById(R.id.back_btn);
         search_et_input = (EditText) findViewById(R.id.search_et_input);
         search_iv_delete = (RelativeLayout) findViewById(R.id.search_iv_delete);
         search_btn = (TextView) findViewById(R.id.search_btn);
+        search_fragment = (LinearLayout) findViewById(R.id.search_fragment);
 
-        recyclerView = (PullToRefreshRecyclerView) findViewById(R.id.search_recycler_view);
-        recyclerView.initRefreshView(this,new LinearLayoutManager(this));
-        recyclerView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                adapter.clearData();
-                page = 1;
-                getDatas(page);
-            }
-        });
-        recyclerView.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener() {
-            @Override
-            public void onLoadMoreItems() {
-                page++;
-                getDatas(page);
-            }
-        });
-        adapter = new SearchAdapter(this);
-        recyclerView.setAdapter(adapter);
-
-        adapter.setItemClickListener(new SearchAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-
-            }
-        });
+        fragmentManager = getSupportFragmentManager();
+        beginTransaction = fragmentManager.beginTransaction();
+        //beginTransaction.add(R.id.search_fragment,new SearchHomeFragment());
+        beginTransaction.commit();
     }
 
     @Override
@@ -131,9 +118,16 @@ public class SearchActivity extends BaseActivity {
             @Override
             public void onMultiClick(View v) {
                 if (checkInput(search_et_input.getText().toString())){
-                    getDatas(page);
-                    adapter.clearData();
-                    adapter.notifyDataSetChanged();
+                    SearchHomeFragment fragment = new SearchHomeFragment();
+                    Bundle bundle = new Bundle();
+                    String strValue = search_et_input.getText().toString();
+                    bundle.putString("search_data", strValue);
+                    bundle.putSerializable("district_list", (Serializable) districtList);// TODO: 2018/1/19 地区id 需要进行全局设置
+                    fragment.setArguments(bundle);
+
+                    beginTransaction = fragmentManager.beginTransaction();
+                    beginTransaction.replace(R.id.search_fragment,fragment);
+                    beginTransaction.commit();
                 }
             }
         });
@@ -144,9 +138,16 @@ public class SearchActivity extends BaseActivity {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH){
                     hideSoftKeyboard(search_et_input);
                     if (checkInput(search_et_input.getText().toString())){
-                        getDatas(page);
-                        adapter.clearData();
-                        adapter.notifyDataSetChanged();
+                        SearchHomeFragment fragment = new SearchHomeFragment();
+                        Bundle bundle = new Bundle();
+                        String strValue = search_et_input.getText().toString();
+                        bundle.putString("search_data", strValue);
+                        bundle.putSerializable("district_list", (Serializable) districtList);// TODO: 2018/1/19 地区id 需要进行全局设置
+                        fragment.setArguments(bundle);
+
+                        beginTransaction = fragmentManager.beginTransaction();
+                        beginTransaction.replace(R.id.search_fragment,fragment);
+                        beginTransaction.commit();
                     }
                     return true;
                 }
@@ -155,32 +156,7 @@ public class SearchActivity extends BaseActivity {
         });
     }
 
-    private void getDatas(int page){
-        CardLetterRequestApi.getInstance().getSearchData(Constant.Access_Token,num,page,0,search_et_input.getText().toString(),
-                new HttpSubscriber<SearchDatas>(new SubscriberOnListener<SearchDatas>() {
-            @Override
-            public void onSucceed(SearchDatas data) {
-                if (data.getCode()==0){
-                    if (data.getData().getData().size()>0) {
-                        list = data.getData().getData();
-                        adapter.addData(list);
-                        recyclerView.setOnRefreshComplete();
-                        recyclerView.onFinishLoading(true,false);
-                    }else {
-                        recyclerView.setOnLoadMoreComplete();
-                        ToastUtils.makeShortText("已没有更多",SearchActivity.this);
-                    }
-                }else {
-                    ToastUtils.makeShortText(data.getMsg(),SearchActivity.this);
-                }
-            }
 
-            @Override
-            public void onError(int code, String msg) {
-
-            }
-        },this));
-    }
 
     @Override
     protected void initData() {
@@ -210,5 +186,23 @@ public class SearchActivity extends BaseActivity {
             return true;
         }
         return false;
+    }
+
+    private void getdDistrictID(){
+        CardLetterRequestApi.getInstance().getdDistrictID(
+                new HttpSubscriber<District>(new SubscriberOnListener<District>() {
+                    @Override
+                    public void onSucceed(District data) {
+                        if (data.getCode()==0){
+                            System.out.println("jk=======District"+data.getData().size()+data.getData().get(10).getName());
+                            districtList = data.getData();
+                        }
+                    }
+
+                    @Override
+                    public void onError(int code, String msg) {
+
+                    }
+                },this));
     }
 }

@@ -2,6 +2,7 @@ package com.mt.cardletter.https.base_net;
 
 
 import com.mt.cardletter.entity.article.ArticleBean;
+import com.mt.cardletter.entity.city.District;
 import com.mt.cardletter.entity.data.SearchDatas;
 import com.mt.cardletter.entity.integral.CategoryEntity;
 import com.mt.cardletter.entity.integral.SearchIntegralData;
@@ -16,6 +17,7 @@ import com.mt.cardletter.entity.seller.SellerEntity;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.BaseApi;
 import com.mt.cardletter.https.HttpRequestService;
+import com.mt.cardletter.utils.Constant;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -117,8 +119,8 @@ public class CardLetterRequestApi extends BaseApi {
      * @param subscriber
      */
     public void getFindMerchant(
-            String ak,  String list_rows,  String page,  String category_id,String city,String  bankcard,String lng,String lat, Subscriber<Goods> subscriber){
-        Observable observable = httpRequestService.getFindMerchant(ak,  list_rows,  page,  category_id,city,bankcard,lng,lat)
+            String ak,  String list_rows,  String page,  String category_id,String city,String  bankcard,String lng,String lat,String search_data, Subscriber<Goods> subscriber){
+        Observable observable = httpRequestService.getFindMerchant(ak,  list_rows,  page,  category_id,city,bankcard,lng,lat,search_data)
                 .map(new HttpResultFunc<Goods>());
         toSubscribe(observable,subscriber);
     }
@@ -276,4 +278,15 @@ public class CardLetterRequestApi extends BaseApi {
                 .map(new HttpResultFunc<SearchIntegralData>());
         toSubscribe(observable,subscriber);
     }
+
+    /**
+     * 地区类表
+     * @param subscriber
+     */
+    public void getdDistrictID(Subscriber<District> subscriber){
+        Observable observable = httpRequestService.getdDistrictID(Constant.Access_Token)
+                .map(new HttpResultFunc<District>());
+        toSubscribe(observable,subscriber);
+    }
+
 }

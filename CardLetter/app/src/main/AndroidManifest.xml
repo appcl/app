@@ -173,10 +173,12 @@
         <!-- android:name="com.amap.api.v2.apikey" -->
         <!-- android:value="ea928b115602e46b08ae48d583925655" /> -->
 
-        <activity android:name=".activity.seckill.SeckillActivity" />
+        <activity android:name=".activity.seckill.SeckillActivity"
+            android:screenOrientation="portrait"/>
 
         <!-- 友盟所需 -->
-        <activity android:name="test.WXEntryActivity" />
+        <activity android:name="test.WXEntryActivity"
+            android:screenOrientation="portrait"/>
         <!-- 新浪微博 分享 -->
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
@@ -194,6 +196,7 @@
         <activity
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
@@ -213,6 +216,7 @@
         //========================================================================================
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>
@@ -234,9 +238,12 @@
             android:name="UMENG_APPKEY"
             android:value="5a4d95b5f43e480afe0000e7" />
 
-        <activity android:name=".activity.share.ShareActivity" />
-        <activity android:name=".activity.setting.SettingActivity" />
-        <activity android:name=".activity.setting.SettingMsgActivity" />
+        <activity android:name=".activity.share.ShareActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.setting.SettingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.setting.SettingMsgActivity"
+            android:screenOrientation="portrait"/>
         <!-- 用于相机权限的内容提供者 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -252,19 +259,25 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="test.abc.H5Activity" />
-        <activity android:name=".activity.ScreenActivity" />
-        <activity android:name=".activity.SetailsActivity" />
-        <activity android:name=".activity.AboutActivity" />
+        <activity android:name="test.abc.H5Activity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ScreenActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AboutActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/MyDialogStyle" />
         <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
@@ -378,13 +391,21 @@
             android:name=".activity.MyLoginActivity"
             android:configChanges="orientation|keyboard"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.NetNewsActivity" />
-        <activity android:name=".activity.NewsListActivity" />
-        <activity android:name=".activity.NewsActivity" />
-        <activity android:name=".activity.NewsItemActivity" />
-        <activity android:name=".wxapi.WXEntryActivity" />
+        <activity android:name=".activity.NetNewsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.NewsListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.NewsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.NewsItemActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".wxapi.WXEntryActivity"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.showimg.ImagePagerActivity"></activity>
+        <activity android:name=".activity.showimg.ImagePagerActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
 
     </application>

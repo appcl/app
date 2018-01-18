@@ -2,9 +2,7 @@ package com.mt.cardletter.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +12,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.model.inner.GeoPoint;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.bumptech.glide.Glide;
 import com.mt.cardletter.R;
-import com.mt.cardletter.activity.ScreenActivity;
 import com.mt.cardletter.activity.SetailsActivity;
 import com.mt.cardletter.app.AppContext;
+import com.mt.cardletter.entity.city.District;
 import com.mt.cardletter.entity.merchant.Bank;
-import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.https.HttpSubscriber;
@@ -33,10 +28,10 @@ import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
-import com.mt.cardletter.view.pulltorefresh.ILoadingLayout;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -49,8 +44,8 @@ import butterknife.ButterKnife;
  * Created by jk on 2017/12/11.
  */
 
-public class CompleteFragment extends BaseFragment {
-    private static final int RESULT_CODE = 0X10;// 启动码
+public class SearchHomeFragment extends BaseFragment {
+
     private static final int UPDATA_UP = 0X01; // 上拉加载
     private static final int UPDATA_DOWN = 0X02; //下拉刷新
     private static final int UPDATA_DEF = 0X03; //默认加载
@@ -59,7 +54,7 @@ public class CompleteFragment extends BaseFragment {
     private List<Goods.DataBeanX.CardfindListBean.DataBean>  myList = new ArrayList<>();
     private MyAdapter myAdapter;
     private int page_index = 1;
-    private String cartgory_id = "";
+    private String cartgory_id = "2";
     private String page_size = "10";
     @Bind(R.id.listView)
     PullToRefreshListView listView;
@@ -70,28 +65,44 @@ public class CompleteFragment extends BaseFragment {
     private TextView tv_noll;
     private String lng;
     private String lat;
+    private String search_data;
+    private List<District.DataBean> districtList;
+    private String city;
+    private String city_id = "";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (isOpen){
             context = getActivity();
             view = inflater.inflate(R.layout.activity_fragment_find, container, false);
-            loadmoreView = View.inflate(getContext(),R.layout.load_more,null);//上拉加载更多布局
-            loadmoreView.setVisibility(View.VISIBLE);//设置刷新视图默认情况下是不可见的32.02004, 118.763108
+            loadmoreView = View.inflate(getContext(),R.layout.load_more,null);
+            loadmoreView.setVisibility(View.VISIBLE);
             tv_noll = (TextView) view.findViewById(R.id.tv_noll);
             tv_noll.setVisibility(View.GONE);
             ButterKnife.bind(this, view);
-            cartgory_id= (int) getArguments().get("id") + "";
-            //TODO 经纬度
-
-            lng = AppContext.getInstance().getLat()+"";//32.020843  --118.763019
+            search_data = getArguments().getString("search_data");
+            districtList = (List<District.DataBean>) getArguments().getSerializable("district_list");
+            System.out.println("jk========"+search_data);
+            lng = AppContext.getInstance().getLat()+"";
             lat = AppContext.getInstance().getLon()+"";
             if (lng==null&&lng.equals("")){
                 lng = 32.020843+"";
                 lat = 118.763019 +"";
-                System.out.println("jk=====为获取到经纬度="+lng+"   ---   "+lat);
             }
-            System.out.println("jk====获取到经纬度=="+lng+"   ---   "+lat);
-            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,"", "",lng,lat);
+            city = AppContext.getInstance().getCity();
+            for (int i = 0; i < districtList.size(); i++) {
+                if (city.equals(districtList.get(i).getName())){
+                    city_id = districtList.get(i).getId()+"";
+                    break;
+                }
+            }
+            System.out.println("jk======"+city_id);
+            if (this.city_id ==null&& this.city_id.equals("")){
+                loadData( UPDATA_DEF , ""+page_index , "" ,"", "",lng,lat,search_data);
+            }else{
+                loadData( UPDATA_DEF , ""+page_index , "" , this.city_id, "","","",search_data);
+            }
+
+
             toLogin(Constant.Access_Token);
         }
         return view;
@@ -111,25 +122,18 @@ public class CompleteFragment extends BaseFragment {
         super.onLazyLoad();
     }
 
-    private void loadData(final int upDataFlag , String list_rows, String page, String category_id, String city, String  bankcard, String lng, String lat) {
-        System.out.println("jk=====category_id:"+category_id+"   page:"+page);
-        /*
-         * 获取商家列表
-       1  access_token
-       2  list_rows
-       3  page
-       4  category_id
-       5  city
-       6  bankcard
-       7  lng
-       8  lat
-         */
+    private void loadData(final int upDataFlag ,String page, String category_id, String city, String  bankcard, String lng, String lat,String search_data) {
         CardLetterRequestApi.getInstance().getFindMerchant(
-                Constant.Access_Token,list_rows,page,category_id,"", "",lng,lat,"",new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
+                Constant.Access_Token,10+"",page,"",city,"",lng,lat,search_data,new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
                     @Override
                     public void onSucceed(Goods data) {
                         if (data.getCode()==0){
                             List<Goods.DataBeanX.CardfindListBean.DataBean> data1 = data.getData().getCardfindList().getData();
+                            if (data1.size()==0){
+                                ToastUtils.makeShortText("已没有更多",getContext());
+                                listView.onRefreshComplete();
+                                return;
+                            }
                             if (upDataFlag == UPDATA_DEF){
                                 if (data.getData().getCardfindList().getTotal()==0){
                                     tv_noll.setVisibility(View.VISIBLE);
@@ -173,8 +177,8 @@ public class CompleteFragment extends BaseFragment {
                     intent.putExtra("bank",banks.get(Integer.parseInt(myList.get(position-1).getBankcard())-1).getName());
                     intent.putExtra("bank_url",banks.get(Integer.parseInt(myList.get(position-1).getBankcard())-1).getCardThumb());
                 }
-                //UIHelper.showDetails(getContext(), intent);
-                startActivityForResult(intent,RESULT_CODE);
+                UIHelper.showDetails(getContext(), intent);
+
             }
         });
         listView.setAdapter(myAdapter = new MyAdapter());
@@ -187,13 +191,21 @@ public class CompleteFragment extends BaseFragment {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 page_index = 1;
-                loadData( UPDATA_DOWN , page_size , ""+page_index , cartgory_id ,"", "",lng,lat );
+                if (city_id ==null&& city_id.equals("")){
+                    loadData( UPDATA_DOWN , ""+page_index , "" ,"", "",lng,lat,search_data);
+                }else{
+                    loadData( UPDATA_DOWN , ""+page_index , "" , city_id, "","","",search_data);
+                }
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 page_index = page_index + 1;
-                loadData( UPDATA_UP , page_size , ""+page_index , cartgory_id ,"", "",lng,lat );
+                if (city_id ==null&& city_id.equals("")){
+                    loadData( UPDATA_UP , ""+page_index , "" ,"", "",lng,lat,search_data);
+                }else{
+                    loadData( UPDATA_UP , ""+page_index , "" , city_id, "","","",search_data);
+                }
             }
         });
     }
@@ -264,7 +276,7 @@ public class CompleteFragment extends BaseFragment {
                 String format = df.format(bg);
                 byte[] bytes = format.getBytes();
                 holder.distance.setText(format+" M");
-                Glide.with(CompleteFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
+                Glide.with(SearchHomeFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
             }
             return convertView;
         }
@@ -288,12 +300,5 @@ public class CompleteFragment extends BaseFragment {
         }, getContext()));
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_CODE){
-            List<Bank.DataBean> dataBeanList = (List<Bank.DataBean>) data.getSerializableExtra("checked_data");
-            System.out.println("jk====asdasd==="+dataBeanList.size());
-        }
-    }
+
 }

@@ -98,8 +98,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
 
     private LinearLayout searchView;
     private EditText search_et_input;
-
-    private int viewY;
+    private TextView district;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
     @Override
@@ -345,6 +344,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
             if (data != null){
                 String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
                 fragment_home_top_text_address.setText(city);
+                Constant.LOACTION_CITY = fragment_home_top_text_address.getText().toString();
             }
         }
     }

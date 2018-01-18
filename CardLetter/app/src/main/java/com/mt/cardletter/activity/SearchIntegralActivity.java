@@ -60,6 +60,8 @@ public class SearchIntegralActivity extends BaseActivity implements SwipeRefresh
         search_iv_delete = (RelativeLayout) findViewById(R.id.search_iv_delete);
         search_btn = (TextView) findViewById(R.id.search_btn);
         recyclerView = (PullToRefreshRecyclerView) findViewById(R.id.search_recycler_view);
+
+        //recyclerView = (PullToRefreshRecyclerView) findViewById(R.id.search_recycler_view);
         recyclerView.initRefreshView(this,new LinearLayoutManager(this));
         recyclerView.setOnRefreshListener(this);
         recyclerView.setPagingableListener(this);

@@ -422,7 +422,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
 
     private void loadData(final int upDataFlag , String list_rows, String page, String category_id,String city,String  bankcard,String lng,String lat) {
         CardLetterRequestApi.getInstance().getFindMerchant(
-                Constant.Access_Token,list_rows,page,category_id,city, bankcard,lng,lat,new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
+                Constant.Access_Token,list_rows,page,category_id,city, bankcard,lng,lat,"",new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
                     @Override
                     public void onSucceed(Goods data) {
                         if (data.getCode()==0){

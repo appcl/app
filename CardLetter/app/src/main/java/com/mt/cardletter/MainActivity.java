@@ -332,6 +332,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 lat = location.getLatitude();
                 lon = location.getLongitude();
                 String district = location.getDistrict().toString();
+                System.out.println(lat+"--"+lon+"---"+district);
                 city = location.getCity().toString();
                 if (!district.equals("")||district!=null){
                     AppContext.getInstance().setDistrict(district);

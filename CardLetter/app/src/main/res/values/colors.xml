@@ -87,5 +87,6 @@
     <color name="cp_colorAccent">#F3F3F3</color>
     <color name="cp_colorPrimary">@color/cp_colorAccent</color>
     <color name="cp_colorPrimaryDark">@color/cp_colorAccent</color>
+    <color name="splash_item">#ddf0f4</color>
 
 </resources>

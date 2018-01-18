@@ -1,5 +1,6 @@
 package com.mt.cardletter.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
@@ -36,9 +37,11 @@ import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.id.checkbox;
 import static android.R.id.list;
 
 public class ScreenActivity extends BaseActivity implements View.OnClickListener{
@@ -107,7 +110,7 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
             }
             @Override
             public void onError(int code, String msg) {
-                ToastUtils.makeShortText("====xz======网络故障+code:  "+code, ScreenActivity.this);
+                ToastUtils.makeShortText("网络故障", ScreenActivity.this);
             }
         }, ScreenActivity.this));
     }
@@ -288,5 +291,18 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void handler(Message msg) {
 
+    }
+
+    @Override
+    public void finish() {
+        Intent intent = new Intent();
+        for (int i = 0; i < checkeddata.size(); i++) {
+            int id = checkeddata.get(i).getId();
+            String name = checkeddata.get(i).getName();
+            System.out.println("jk====="+id+"    "+name);
+        }
+        intent.putExtra("checked_data", (Serializable) checkeddata);
+        this.setResult(16, intent);
+        super.finish();
     }
 }

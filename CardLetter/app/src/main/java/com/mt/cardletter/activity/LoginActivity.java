@@ -158,11 +158,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 break;
             case R.id.sina://sina
-                ToastUtils.makeShortText("功能带开放",this);
+                ToastUtils.makeShortText("功能待开放",this);
                 //startActivity(new Intent(LoginActivity.this, MyLoginActivity.class));
                 break;
             case R.id.weixin://weixin
-                ToastUtils.makeShortText("功能带开放",this);
+                ToastUtils.makeShortText("功能待开放",this);
                 //ThirdpartyLoginUtils.loginForWinxin(this);
                 break;
             case R.id.qq:

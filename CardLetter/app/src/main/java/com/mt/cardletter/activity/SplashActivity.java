@@ -2,10 +2,15 @@ package com.mt.cardletter.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -14,10 +19,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.fragment.HomeFragment;
+import com.mt.cardletter.fragment.SplashItemFragment;
 import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.indicator.CirclePageIndicator;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.mt.cardletter.R.id.pager;
 
 
 /**
@@ -26,103 +37,66 @@ import com.mt.cardletter.view.indicator.CirclePageIndicator;
  * author:demons
  */
 
-public class SplashActivity extends FragmentActivity {
-    private Button btnHome;
-    private CirclePageIndicator indicator;
-    private ViewPager pager;
-    private GalleryPagerAdapter adapter;
-    private int[] images = {
-            R.drawable.new01,
-            R.drawable.new02,
-            R.drawable.new03,
-    };
+public class SplashActivity extends BaseActivity {
+    private ViewPager viewPager;
+    private CirclePageIndicator circlePageIndicator;
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_splash;
+    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+    public void initView() {
 
-        final boolean firstTimeUse = SharedPreferences.getInstance().getBoolean("first-time-use", true);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(firstTimeUse) {
-                    Animation fadeOut = AnimationUtils.loadAnimation(SplashActivity.this, R.anim.fadeout);
-                    fadeOut.setFillAfter(true);
-                    findViewById(R.id.guideImage).startAnimation(fadeOut);
-                    initGuideGallery();
-                } else {
-                    UIHelper.showMainActivity(SplashActivity.this);
-                }
-            }
-        }, 2000);
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
+
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        SplashAdapter adapter = new SplashActivity.SplashAdapter(supportFragmentManager);
+        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
+        viewPager.setPageMargin(pageMargin);
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setAdapter(adapter);
+
     }
 
-    private void initGuideGallery() {
-        final Animation fadeIn= AnimationUtils.loadAnimation(this, R.anim.fadein);
-        btnHome = (Button) findViewById(R.id.btnHome);
-        btnHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences.getInstance().putBoolean("first-time-use", false);
-                UIHelper.showMainActivity(SplashActivity.this);
-            }
-        });
+    private class SplashAdapter extends FragmentPagerAdapter{
 
-        indicator = (CirclePageIndicator) findViewById(R.id.indicator);
-        indicator.setVisibility(View.VISIBLE);
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setVisibility(View.VISIBLE);
+        public SplashAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-        adapter = new GalleryPagerAdapter();
-        pager.setAdapter(adapter);
-        indicator.setViewPager(pager);
-
-        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == images.length - 1) {
-                    btnHome.setVisibility(View.VISIBLE);
-                    btnHome.startAnimation(fadeIn);
-                } else {
-                    btnHome.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
-    }
-
-    public class GalleryPagerAdapter extends PagerAdapter {
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return  position+"";
+        }
+        @Override
+        public Fragment getItem(int position) {
+            SplashItemFragment splashItemFragment = new SplashItemFragment(viewPager);
+            Bundle bundle = new Bundle();
+            bundle.putInt("splash_index",position);
+            splashItemFragment.setArguments(bundle);
+            return splashItemFragment;
+        }
 
         @Override
         public int getCount() {
-            return images.length;
+            return 3;
         }
+    }
 
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
+    @Override
+    public void initListener() {
 
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            ImageView item = new ImageView(SplashActivity.this);
-            item.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            item.setImageResource(images[position]);
-            container.addView(item);
-            return item;
-        }
+    }
 
-        @Override
-        public void destroyItem(ViewGroup collection, int position, Object view) {
-            collection.removeView((View) view);
-        }
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void handler(Message msg) {
+
     }
 }

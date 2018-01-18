@@ -239,10 +239,13 @@ public class NetNewsFragment extends Fragment {
                     holder.tv_content.setText("");
                     holder.img.setVisibility(View.GONE);
                 }else{
-                    holder.item_def.setVisibility(View.GONE);
+                    holder.item_def.setVisibility(View.GONE);//
                     holder.tv_title.setText(data1.get(position).getTitle());
                     holder.tv_content.setText(data1.get(position).getTime());
-                    Glide.with(NetNewsFragment.this).load(data1.get(position).getPic()).error(R.drawable.default_error).into(holder.img);
+                    Glide.with(NetNewsFragment.this)
+                            .load(data1.get(position).getPic())
+                            .error(R.drawable.default_error)
+                            .into(holder.img);
                 }
             return convertView;
         }

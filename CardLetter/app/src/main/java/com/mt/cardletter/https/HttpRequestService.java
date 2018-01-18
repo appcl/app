@@ -2,6 +2,7 @@ package com.mt.cardletter.https;
 
 
 import com.mt.cardletter.entity.article.ArticleBean;
+import com.mt.cardletter.entity.city.District;
 import com.mt.cardletter.entity.creditcard.CreditCard;
 import com.mt.cardletter.entity.creditcard.CreditDatas;
 import com.mt.cardletter.entity.data.AirDatas;
@@ -210,7 +211,8 @@ public interface HttpRequestService {
                                        @Query("city") String city,
                                        @Query("bankcard") String bankcard,
                                        @Query("lng") String lng,
-                                       @Query("lat") String lat);
+                                       @Query("lat") String lat,
+                                       @Query("search_data") String search_data);
 
     /**
      * 积分商城分类列表
@@ -578,5 +580,13 @@ public interface HttpRequestService {
                                    @Query("engineNo") String engineNo,
                                    @Query("carType") String carType,
                                    @Query("city") String city);
+
+    /**
+     * 地区列表
+     * @param access_token
+     * @return
+     */
+    @POST("/api.php/region/regionlist")
+    Observable<District> getdDistrictID(@Query("access_token") String access_token);
 
 }

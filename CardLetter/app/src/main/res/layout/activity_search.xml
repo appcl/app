@@ -68,8 +68,12 @@
             android:textColor="@color/color_text_black_31"
             android:textSize="14sp" />
     </LinearLayout>
-    <com.mt.cardletter.view.RefreshRecyclerView.PullToRefreshRecyclerView
-        android:id="@+id/search_recycler_view"
+    <LinearLayout
+        android:id="@+id/search_fragment"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+    </LinearLayout>
+
 </LinearLayout>

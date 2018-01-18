@@ -68,7 +68,9 @@ android {
         yingyonghui{
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "yingyonghui"]
         }
-
+        yingyongbao{
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "yingyongbao"]
+        }
     }
 }
 

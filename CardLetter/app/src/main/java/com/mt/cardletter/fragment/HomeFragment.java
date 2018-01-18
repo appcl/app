@@ -26,7 +26,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.CityPickerActivity;
-import com.mt.cardletter.app.AppContext;
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.entity.news.NetNewsCategory;
@@ -214,12 +213,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.make_integral://赚积分
-                System.out.println(AppContext.getInstance().getDistrict());
-                if (AppContext.getInstance().getDistrict()!=null){
-                    getDatas(AppContext.getInstance().getDistrict(),"5ee8321670ca46aab8e7555d3b3c074b");
-                }else {
-                    getDatas(AppContext.getInstance().getCity(),"5ee8321670ca46aab8e7555d3b3c074b");
-                }
+//                System.out.println(AppContext.getInstance().getDistrict());
+//                if (AppContext.getInstance().getDistrict()!=null){
+                    getDatas(fragment_home_top_text_address.getText().toString(),"5ee8321670ca46aab8e7555d3b3c074b");
+//                }else {
+//                    getDatas(AppContext.getInstance().getCity(),"5ee8321670ca46aab8e7555d3b3c074b");
+//                }
                 break;
             case R.id.search_integral://查积分
 //                UIHelper.showSearchIntegralActivity(getContext());
@@ -357,6 +356,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                 String statue=data.getHeWeather6().get(0).getStatus();
                 weather6Bean= data.getHeWeather6().get(0);
                 if (statue.equals("ok")){
+                    System.out.println(city+"");
                     UIHelper.showWeather(getContext(),city,weather6Bean);
                 }else {
                     weather6Bean=new HeWeather.HeWeather6Bean();

@@ -20,7 +20,6 @@ import com.mt.cardletter.adapter.ViewPagerAdapter;
 import com.mt.cardletter.adapter.WeatherViewAdapter;
 import com.mt.cardletter.adapter.WeatherWeekViewAdapter;
 import com.mt.cardletter.adapter.WeekViewPagerAdapter;
-import com.mt.cardletter.app.AppContext;
 import com.mt.cardletter.entity.data.AirDatas;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.https.HttpRequestApi;
@@ -108,7 +107,7 @@ public class WeatherActivity extends BaseActivity {
      */
     private void getAirDatas() {
         air_bean = new AirDatas.HeWeather6Bean();
-        HttpRequestApi.getInstance().getAir(AppContext.getInstance().getCity(),"5ee8321670ca46aab8e7555d3b3c074b",
+        HttpRequestApi.getInstance().getAir(city,"5ee8321670ca46aab8e7555d3b3c074b",
                 new HttpSubscriber<AirDatas>(new SubscriberOnListener<AirDatas>() {
             @Override
             public void onSucceed(AirDatas data) {

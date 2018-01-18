@@ -1,6 +1,8 @@
 package com.mt.cardletter.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +13,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.BankJFWebViewActivity;
+import com.mt.cardletter.activity.SearchIntegralActivity;
 import com.mt.cardletter.entity.integral.SearchIntegralData;
 import com.mt.cardletter.utils.Constant;
+import com.mt.cardletter.utils.ToastUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,8 +33,12 @@ public class SearchIntegralAdapter extends RecyclerView.Adapter<SearchIntegralAd
 
 
     public SearchIntegralAdapter(Context context) {
+
+    }
+
+    public SearchIntegralAdapter(SearchIntegralActivity context, List<SearchIntegralData.DataBeanX.DataBean> list) {
         this.context=context;
-        list = new ArrayList<>();
+        this.list = list;
         inflater=LayoutInflater.from(this.context);
     }
 
@@ -49,8 +57,20 @@ public class SearchIntegralAdapter extends RecyclerView.Adapter<SearchIntegralAd
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mItemClickListener!=null){
-                    mItemClickListener.onItemClick((Integer) v.getTag());
+//                if (mItemClickListener!=null){
+//                    mItemClickListener.onItemClick((Integer) v.getTag());
+//                }
+                int position =(Integer) v.getTag();
+                System.out.println("-----点击------"+position);
+                if (list.get(position).getB_url()==null||list.get(position).getB_url().equals("")){
+                    ToastUtils.makeShortText("商品已下架，请等待更新",context);
+                }else
+                {
+                    Intent intent = new Intent(context,BankJFWebViewActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("url",list.get(position).getB_url());
+                    intent.putExtras(b);
+                    context.startActivity(intent);
                 }
             }
         });

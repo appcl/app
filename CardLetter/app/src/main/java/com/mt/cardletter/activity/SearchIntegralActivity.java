@@ -1,8 +1,6 @@
 package com.mt.cardletter.activity;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,7 +36,7 @@ import java.util.List;
  * author:demons
  */
 
-public class SearchIntegralActivity extends BaseActivity {
+public class SearchIntegralActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener,PullToRefreshRecyclerView.PagingableListener{
     private FrameLayout back_btn;
     private EditText search_et_input;
     private RelativeLayout search_iv_delete;
@@ -47,6 +45,7 @@ public class SearchIntegralActivity extends BaseActivity {
     private int page = 1;
     private int num = 10;
     private List<SearchIntegralData.DataBeanX.DataBean> list = new ArrayList<>();
+    private List<SearchIntegralData.DataBeanX.DataBean> lists = new ArrayList<>();
     private SearchIntegralAdapter adapter;
 
     @Override
@@ -60,37 +59,10 @@ public class SearchIntegralActivity extends BaseActivity {
         search_et_input = (EditText) findViewById(R.id.search_et_input);
         search_iv_delete = (RelativeLayout) findViewById(R.id.search_iv_delete);
         search_btn = (TextView) findViewById(R.id.search_btn);
-
         recyclerView = (PullToRefreshRecyclerView) findViewById(R.id.search_recycler_view);
         recyclerView.initRefreshView(this,new LinearLayoutManager(this));
-        recyclerView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                adapter.clearData();
-                page = 1;
-                getDatas(page);
-            }
-        });
-        recyclerView.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener() {
-            @Override
-            public void onLoadMoreItems() {
-                page++;
-                getDatas(page);
-            }
-        });
-        adapter = new SearchIntegralAdapter(this);
-        recyclerView.setAdapter(adapter);
-
-        adapter.setItemClickListener(new SearchIntegralAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(SearchIntegralActivity.this,BankJFWebViewActivity.class);
-                Bundle b = new Bundle();
-                b.putString("url",list.get(position).getB_url());
-                intent.putExtras(b);
-                startActivity(intent);
-            }
-        });
+        recyclerView.setOnRefreshListener(this);
+        recyclerView.setPagingableListener(this);
     }
 
     @Override
@@ -137,8 +109,8 @@ public class SearchIntegralActivity extends BaseActivity {
             public void onMultiClick(View v) {
                 if (checkInput(search_et_input.getText().toString())){
                     getDatas(page);
-                    adapter.clearData();
-                    adapter.notifyDataSetChanged();
+//                    adapter.clearData();
+//                    adapter.notifyDataSetChanged();
                 }
             }
         });
@@ -147,11 +119,10 @@ public class SearchIntegralActivity extends BaseActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH){
-                    hideSoftKeyboard(search_et_input);
                     if (checkInput(search_et_input.getText().toString())){
                         getDatas(page);
-                        adapter.clearData();
-                        adapter.notifyDataSetChanged();
+//                        adapter.clearData();
+//                        adapter.notifyDataSetChanged();
                     }
                     return true;
                 }
@@ -168,7 +139,31 @@ public class SearchIntegralActivity extends BaseActivity {
                         if (data.getCode()==0){
                             if (data.getData().getData().size()>0) {
                                 list = data.getData().getData();
-                                adapter.addData(list);
+                                adapter = new SearchIntegralAdapter(SearchIntegralActivity.this,list);
+                                recyclerView.setAdapter(adapter);
+                                System.out.println("---list----"+list.size());
+                            }
+                        }else {
+                            ToastUtils.makeShortText(data.getMsg(),SearchIntegralActivity.this);
+                        }
+                    }
+
+                    @Override
+                    public void onError(int code, String msg) {
+
+                    }
+                },this));
+    }
+
+    private void getinitDatas(int page){
+        CardLetterRequestApi.getInstance().getSearchIntegralData(Constant.Access_Token,num,page,0,search_et_input.getText().toString(),
+                new HttpSubscriber<SearchIntegralData>(new SubscriberOnListener<SearchIntegralData>() {
+                    @Override
+                    public void onSucceed(SearchIntegralData data) {
+                        if (data.getCode()==0){
+                            if (data.getData().getData().size()>0) {
+                                lists = data.getData().getData();
+                                adapter.addData(lists);
                                 recyclerView.setOnRefreshComplete();
                                 recyclerView.onFinishLoading(true,false);
                             }else {
@@ -216,4 +211,18 @@ public class SearchIntegralActivity extends BaseActivity {
         }
         return false;
     }
+
+    @Override
+    public void onRefresh() {
+        adapter.clearData();
+        page = 1;
+        getinitDatas(page);
+    }
+
+    @Override
+    public void onLoadMoreItems() {
+        page++;
+        getinitDatas(page);
+    }
+
 }

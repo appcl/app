@@ -55,7 +55,8 @@ public class IntegralFragment extends BaseFragment {
         return R.layout.fragment_integral;
     }
 
-
+    int b_id;
+    String b_name;
     @Override
     protected void initView() {
         super.initView();
@@ -91,6 +92,43 @@ public class IntegralFragment extends BaseFragment {
 
         b_gridview = findViewById(R.id.bank_list);
 
+        b_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                bAdapter.setSelectItem(position);
+
+                if (b_list1.get(position).getName().
+                        equals("更多"))
+                {
+                    bAdapter.setSelectItem(-1);
+                    b_list1.clear();
+                    b_list1.addAll(b_list);
+                    b_list1.get(position).setName("收起");
+                    bAdapter.notifyDataSetChanged();
+                }else if (b_list1.get(position).getName().
+                        equals("收起")){
+                    bAdapter.setSelectItem(-1);
+                    b_list1.clear();
+                    for(int i=0;i<11;i++){
+                        b_list1.add(b_list.get(i));
+                    }
+                    CategoryEntity.DataBeanX.BankcardListBean bean = new CategoryEntity.DataBeanX.BankcardListBean();
+                    bean.setName("更多");
+                    b_list1.add(bean);
+                    bAdapter.notifyDataSetChanged();
+                }else {
+                    if (b_list1.get(position).getName().equals("汇丰银行")){
+                        ToastUtils.makeShortText("暂不支持汇丰银行积分查询、兑换",getContext());
+                    }else {
+                        b_id = b_list1.get(position).getId();
+                        b_name = b_list1.get(position).getName();
+                        System.out.println("点击了-----"+b_name);
+                        getBank(1,b_name,b_id,Constant.Access_Token,1);
+                        bAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -116,14 +154,6 @@ public class IntegralFragment extends BaseFragment {
             }
         });
 
-        b_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int b_id = b_list.get(position).getId();
-                String b_name = b_list.get(position).getName();
-                getBank(1,b_name,b_id,Constant.Access_Token,1);
-            }
-        });
     }
 
     private void getChangeData(final String name, final String channel, String access_token, int i) {
@@ -159,6 +189,7 @@ public class IntegralFragment extends BaseFragment {
         CardLetterRequestApi.getInstance().getBank_JF(b_id,access_token,i,new HttpSubscriber<CategoryEntity>(new SubscriberOnListener<CategoryEntity>() {
             @Override
             public void onSucceed(CategoryEntity data) {
+                System.out.println("------onSucceed------");
                 if (data.getCode()==0){
                     List<CategoryEntity.DataBeanX.SellerListBean.DataBean> sell_list = data.getData().getSeller_list().getData();
                     if (sell_list.size()>0){
@@ -179,7 +210,7 @@ public class IntegralFragment extends BaseFragment {
 
             @Override
             public void onError(int code, String msg) {
-
+                System.out.println("------onError------");
             }
         },getContext()));
     }
@@ -258,9 +289,7 @@ public class IntegralFragment extends BaseFragment {
                             System.out.println("-----c_list--------"+c_list.size());
                             cAdapter = new CategoryAdapter(getContext(),c_list);
                             content_list.setAdapter(cAdapter);
-
-                            bAdapter= new BankAdapter(getContext(),b_list);
-                            b_gridview.setAdapter(bAdapter);
+                            setGridView(b_list);
                         }else {
                             ToastUtils.makeShortText(data.getMsg(),getContext());
                         }
@@ -271,6 +300,23 @@ public class IntegralFragment extends BaseFragment {
 
                     }
                 },getContext()));
+    }
+    private List<CategoryEntity.DataBeanX.BankcardListBean> b_list1;
+    private void setGridView(final List<CategoryEntity.DataBeanX.BankcardListBean> b_list) {
+        if (b_list.size()>12){ //>12即为三行 超过三行隐藏
+            b_list1 = new ArrayList<>();
+            for (int i =0;i<11;i++){
+                b_list1.add(b_list.get(i));
+            }
+            CategoryEntity.DataBeanX.BankcardListBean bean = new CategoryEntity.DataBeanX.BankcardListBean();
+            bean.setName("更多");
+            b_list1.add(bean);
+            bAdapter= new BankAdapter(getContext(),b_list1);
+            b_gridview.setAdapter(bAdapter);
+        }else {
+            bAdapter= new BankAdapter(getContext(),b_list);
+            b_gridview.setAdapter(bAdapter);
+        }
     }
 
     protected void setupRecycler(){

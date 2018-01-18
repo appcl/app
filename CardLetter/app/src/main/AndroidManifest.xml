@@ -89,7 +89,7 @@
         <!-- 查积分 -->
         <activity
             android:name=".activity.SearchIntegralActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" android:windowSoftInputMode="stateVisible|adjustResize"  />
         <!-- 分类搜索 -->
         <activity
             android:name=".activity.SearchClassicActivity"
@@ -134,7 +134,7 @@
         <activity
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <!-- 信用卡分类列表信息 -->
         <activity
             android:name=".activity.CreditListActivity"

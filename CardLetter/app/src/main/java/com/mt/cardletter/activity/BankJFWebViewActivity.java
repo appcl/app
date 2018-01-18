@@ -34,6 +34,7 @@ public class BankJFWebViewActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        System.out.println("url------"+url);
         webView = (WebView) findViewById(R.id.mail_web);
 //        js=new JavaScriptQQ(this);
         WebSettings webSettings = webView.getSettings();

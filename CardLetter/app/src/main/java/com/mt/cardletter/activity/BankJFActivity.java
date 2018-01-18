@@ -82,15 +82,15 @@ public class BankJFActivity extends BaseActivity implements SwipeRefreshLayout.O
         adapter.setItemClickListener(new BankSellerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(BankJFActivity.this,BankJFWebViewActivity.class);
-                Bundle b = new Bundle();
-//                if (sell_lists.size()>0){
-//                    b.putString("url",sell_lists.get(position).getB_url());
-//                }else {
+                if (sell_list.get(position).getB_url()==null||sell_list.get(position).getB_url().equals("")){
+                    ToastUtils.makeShortText("商品已下架，请等待更新",BankJFActivity.this);
+                }else {
+                    Intent intent = new Intent(BankJFActivity.this,BankJFWebViewActivity.class);
+                    Bundle b = new Bundle();
                     b.putString("url",sell_list.get(position).getB_url());
-//                }
-                intent.putExtras(b);
-                startActivity(intent);
+                    intent.putExtras(b);
+                    startActivity(intent);
+                }
             }
         });
     }

@@ -50,7 +50,7 @@ public class SearchIntegralActivity extends BaseActivity implements SwipeRefresh
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.activity_search;
+        return R.layout.activity_integral_search;
     }
 
     @Override

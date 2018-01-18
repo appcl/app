@@ -44,6 +44,15 @@ public class BankJFWebViewActivity extends BaseActivity {
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
 //        webView.addJavascriptInterface(js,"pt");
+        /**
+         *
+         */
+        // 设置可以支持缩放
+        //webview.getSettings().setSupportZoom(true);
+        // 设置出现缩放工具
+        webView.getSettings().setBuiltInZoomControls(true);
+        // 为图片添加放大缩小功能
+        webView.getSettings().setUseWideViewPort(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.setWebViewClient(new WebViewClient() {
 //            Dialog progressDialog = ProgressDialog.show(BankJFWebViewActivity.this, null, "正在加载...");

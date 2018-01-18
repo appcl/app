@@ -157,12 +157,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     }
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        //loadData();
-    }
-
     //======================================
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void init() {
@@ -320,14 +314,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         }
         @Override
         public Fragment getItem(int position) {
-            if (fragments[position] == null){
-                fragments[position] =  new NetNewsFragment(myScrollView,pager,search03);
+//            if (fragments[position] == null){
+//                fragments[position] =  new NetNewsFragment(myScrollView,pager,search03);
+//                Bundle bundle=new Bundle();
+//                bundle.putString("news_category",tabDatas.get(position));
+//                bundle.putInt("pager_id",position);
+//                fragments[position].setArguments(bundle);
+//            }
+            NetNewsFragment netNewsFragment = new NetNewsFragment(myScrollView, pager, search03);
                 Bundle bundle=new Bundle();
                 bundle.putString("news_category",tabDatas.get(position));
                 bundle.putInt("pager_id",position);
-                fragments[position].setArguments(bundle);
-            }
-            return fragments[position];
+                netNewsFragment.setArguments(bundle);
+            return netNewsFragment;
         }
         @Override
         public CharSequence getPageTitle(int position) {

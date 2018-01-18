@@ -369,7 +369,6 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="85006f829aaf90152c813e41" />
-
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait"
@@ -386,6 +385,8 @@
         <activity android:name=".wxapi.WXEntryActivity" />
 
         <activity android:name=".activity.showimg.ImagePagerActivity"></activity>
+
+
     </application>
 
 </manifest>

@@ -100,7 +100,7 @@ public class NetNewsFragment extends Fragment {
                     loadData(1,news_category,0);
                 }
             }
-            isOpen = false;
+            isOpen = true;
         }
     }
     /**

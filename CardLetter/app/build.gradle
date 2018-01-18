@@ -18,7 +18,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("E:/mt_keytools.jks")
+            storeFile file("mt_keytools.jks")
             storePassword "mt123456"
             keyAlias "mt_keytools"
             keyPassword "mt123456"
@@ -26,9 +26,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            signingConfig signingConfigs.release
-        }
         release {
             signingConfig signingConfigs.release
         }
@@ -49,7 +46,30 @@ android {
             jniLibs.srcDir("jniLibs")
         }
     }
+    productFlavors {
+        kuan {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "kuan"]
+        }
+        xiaomi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        }
+        qh360 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qh360"]
+        }
+        baidu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+        }
+        wandoujia {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+        }
+        huawei {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
+        }
+        yingyonghui{
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "yingyonghui"]
+        }
 
+    }
 }
 
 dependencies {

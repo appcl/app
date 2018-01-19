@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -96,14 +97,21 @@ public class IntegralFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 bAdapter.setSelectItem(position);
-
+                TextView tv_= (TextView) view.findViewById(R.id.b_bank);
+                ImageView img_ = (ImageView) view.findViewById(R.id.b_img);
                 if (b_list1.get(position).getName().
                         equals("更多"))
                 {
                     bAdapter.setSelectItem(-1);
                     b_list1.clear();
                     b_list1.addAll(b_list);
-                    b_list1.get(position).setName("收起");
+//                    tv_.setVisibility(View.INVISIBLE);
+//                    img_.setVisibility();
+                    CategoryEntity.DataBeanX.BankcardListBean bean = new CategoryEntity.DataBeanX.BankcardListBean();
+                    bean.setName("收起");
+
+//                    b_list1.get(position).setName("收起");
+                    b_list1.add(bean);
                     bAdapter.notifyDataSetChanged();
                 }else if (b_list1.get(position).getName().
                         equals("收起")){
@@ -115,6 +123,7 @@ public class IntegralFragment extends BaseFragment {
                     CategoryEntity.DataBeanX.BankcardListBean bean = new CategoryEntity.DataBeanX.BankcardListBean();
                     bean.setName("更多");
                     b_list1.add(bean);
+                    tv_.setVisibility(View.VISIBLE);
                     bAdapter.notifyDataSetChanged();
                 }else {
                     if (b_list1.get(position).getName().equals("汇丰银行")){

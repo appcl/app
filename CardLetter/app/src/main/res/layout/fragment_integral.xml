@@ -90,7 +90,7 @@
                 android:paddingRight="16dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:numColumns="3"
+                android:numColumns="4"
                 android:horizontalSpacing="12dp"
                 android:verticalSpacing="12dp"
                 android:gravity="center"

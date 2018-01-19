@@ -472,7 +472,7 @@ public interface HttpRequestService {
      * @return
      */
     @POST("/api.php/seller/sellerlist")
-    Observable<SearchIntegralData> getSearchIntegralData(@Query("access_token") String access_token,
+    Observable<SearchIntegralData>  getSearchIntegralData(@Query("access_token") String access_token,
                                                          @Query("list_rows") int list_rows,
                                                          @Query("page") int page,
                                                          @Query("category_id") int category_id,

@@ -1,6 +1,5 @@
 package com.mt.cardletter.activity;
 
-import android.os.Build;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
@@ -105,11 +104,11 @@ public class ViolateActivity extends BaseActivity implements ProvinceCallBack{
                 String car_fdj = fdj_editText.getText().toString();
                 String full_number = mAbbr+car_number;
                 if (checkInput(car_number,full_number,car_fdj)){
-                    btn_search.setClickable(true);
-                    btn_search.setEnabled(true);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        btn_search.setBackground(getResources().getDrawable(R.color.color_btn_red_de));
-                    }
+//                    btn_search.setClickable(true);
+//                    btn_search.setEnabled(true);
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//                        btn_search.setBackground(getResources().getDrawable(R.color.color_btn_red_de));
+//                    }
                     ViolateRequestApi.getInstance().getViolates("","",mCode,full_number,car_fdj,car_fdj, Constant.JH_CAR,
                             new HttpSubscriber<ViolateData>(new SubscriberOnListener<ViolateData>() {
                         @Override
@@ -127,12 +126,12 @@ public class ViolateActivity extends BaseActivity implements ProvinceCallBack{
 
                         }
                     },ViolateActivity.this));
-                }else {
-                    btn_search.setClickable(false);
-                    btn_search.setEnabled(false);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        btn_search.setBackgroundColor(getResources().getColor(R.color.gray_d1d1d1));
-                    }
+//                }else {
+//                    btn_search.setClickable(false);
+//                    btn_search.setEnabled(false);
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//                        btn_search.setBackgroundColor(getResources().getColor(R.color.gray_d1d1d1));
+//                    }
                 }
             }
         });

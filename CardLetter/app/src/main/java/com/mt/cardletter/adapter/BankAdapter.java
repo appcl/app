@@ -55,7 +55,7 @@ public class BankAdapter extends BaseAdapter {
         if (itemView == null) {
             mHolder = new ViewHolder();
             itemView = inflater.inflate(R.layout.item_bank_tag, viewGroup, false);
-            mHolder.tv_text = (ImageView) itemView.findViewById(R.id.b_img);
+            mHolder.tv_img = (ImageView) itemView.findViewById(R.id.b_img);
             mHolder.show_tv = (TextView) itemView.findViewById(R.id.b_bank);
             itemView.setTag(mHolder);
         } else {
@@ -66,19 +66,26 @@ public class BankAdapter extends BaseAdapter {
                     .load(Constant.PIC_URL+bean.getCard_img())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .error(R.drawable.default_error)
-                    .into(mHolder.tv_text);
-            mHolder.show_tv.setText(bean.getName());
+                    .into(mHolder.tv_img);
             if (bean.getName().equals("更多")||bean.getName().equals("收起")){
-
-            }else if (position == selectItem) {
-            } else {
+                System.out.println("---更多-收起---"+position);
+                mHolder.show_tv.setText(bean.getName());
+                mHolder.tv_img.setVisibility(View.INVISIBLE);
+            }
+//            else if (position == selectItem) {
+//                mHolder.show_tv.setVisibility(View.INVISIBLE);
+////                mHolder.tv_img.setVisibility(View.VISIBLE);
+//            }
+        else {
+                mHolder.show_tv.setVisibility(View.VISIBLE);
+                mHolder.tv_img.setVisibility(View.VISIBLE);
             }
         }
         return itemView;
     }
 
     private class ViewHolder {
-        private ImageView tv_text;
+        private ImageView tv_img;
         private TextView show_tv;
     }
 

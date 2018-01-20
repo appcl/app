@@ -99,7 +99,8 @@ public interface HttpRequestService {
     @POST("/api.php/common/login")
     Observable<LoginEntity> getUserInfo(@Query("access_token") String access_token,
                                         @Query("username") String username,
-                                        @Query("password") String password);
+                                        @Query("password") String password,
+                                        @Query("ext_token") String ext_token);
 
     /**
      * 优惠 test

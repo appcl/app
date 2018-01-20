@@ -45,7 +45,6 @@ import butterknife.ButterKnife;
  */
 
 public class SearchHomeFragment extends BaseFragment {
-
     private static final int UPDATA_UP = 0X01; // 上拉加载
     private static final int UPDATA_DOWN = 0X02; //下拉刷新
     private static final int UPDATA_DEF = 0X03; //默认加载
@@ -80,29 +79,9 @@ public class SearchHomeFragment extends BaseFragment {
             tv_noll.setVisibility(View.GONE);
             ButterKnife.bind(this, view);
             search_data = getArguments().getString("search_data");
-            districtList = (List<District.DataBean>) getArguments().getSerializable("district_list");
-            System.out.println("jk========"+search_data);
             lng = AppContext.getInstance().getLat()+"";
             lat = AppContext.getInstance().getLon()+"";
-            if (lng==null&&lng.equals("")){
-                lng = 32.020843+"";
-                lat = 118.763019 +"";
-            }
-            city = AppContext.getInstance().getCity();
-            for (int i = 0; i < districtList.size(); i++) {
-                if (city.equals(districtList.get(i).getName())){
-                    city_id = districtList.get(i).getId()+"";
-                    break;
-                }
-            }
-            System.out.println("jk======"+city_id);
-            if (this.city_id ==null&& this.city_id.equals("")){
-                loadData( UPDATA_DEF , ""+page_index , "" ,"", "",lng,lat,search_data);
-            }else{
-                loadData( UPDATA_DEF , ""+page_index , "" , this.city_id, "","","",search_data);
-            }
-
-
+            loadData( UPDATA_DEF , ""+page_index , "" ,Constant.CITY_ID, "",lng,lat,search_data);
             toLogin(Constant.Access_Token);
         }
         return view;
@@ -191,21 +170,15 @@ public class SearchHomeFragment extends BaseFragment {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 page_index = 1;
-                if (city_id ==null&& city_id.equals("")){
-                    loadData( UPDATA_DOWN , ""+page_index , "" ,"", "",lng,lat,search_data);
-                }else{
-                    loadData( UPDATA_DOWN , ""+page_index , "" , city_id, "","","",search_data);
-                }
+                loadData( UPDATA_DOWN , ""+page_index , "" ,Constant.CITY_ID, "",AppContext.getInstance().getLat()+"",AppContext.getInstance().getLon()+"",search_data);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 page_index = page_index + 1;
-                if (city_id ==null&& city_id.equals("")){
-                    loadData( UPDATA_UP , ""+page_index , "" ,"", "",lng,lat,search_data);
-                }else{
-                    loadData( UPDATA_UP , ""+page_index , "" , city_id, "","","",search_data);
-                }
+
+                loadData( UPDATA_UP , ""+page_index , "" ,Constant.CITY_ID, "",AppContext.getInstance().getLat()+"",AppContext.getInstance().getLon()+"",search_data);
+
             }
         });
     }

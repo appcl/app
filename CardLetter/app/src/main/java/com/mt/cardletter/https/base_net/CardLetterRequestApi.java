@@ -51,8 +51,8 @@ public class CardLetterRequestApi extends BaseApi {
      * @param password
      * @param subscriber
      */
-    public void getUserInfo(String ak, String username, String password, Subscriber<LoginEntity> subscriber){
-        Observable observable = httpRequestService.getUserInfo(ak,username,password)
+    public void getUserInfo(String ak, String username, String password,String ext_token, Subscriber<LoginEntity> subscriber){
+        Observable observable = httpRequestService.getUserInfo(ak,username,password,ext_token)
                 .map(new HttpResultFunc<LoginEntity>());
         toSubscribe(observable,subscriber);
     }
@@ -120,6 +120,18 @@ public class CardLetterRequestApi extends BaseApi {
      */
     public void getFindMerchant(
             String ak,  String list_rows,  String page,  String category_id,String city,String  bankcard,String lng,String lat,String search_data, Subscriber<Goods> subscriber){
+        if (city.equals("")){
+            if (lng.equals("")||lng.equals("0.0")){
+                lng = 32.020843+"";
+                lat = 118.763019 +"";
+                System.out.println("jk=====未获取到经纬度="+lng+"   ---   "+lat);
+            }
+        }else{
+            lng = "";
+            lat = "";
+        }
+        System.out.println("jk-------Constant.CITY_ID----+"+Constant.CITY_ID);
+        System.out.println("jk---------city_id+"+city);
         Observable observable = httpRequestService.getFindMerchant(ak,  list_rows,  page,  category_id,city,bankcard,lng,lat,search_data)
                 .map(new HttpResultFunc<Goods>());
         toSubscribe(observable,subscriber);

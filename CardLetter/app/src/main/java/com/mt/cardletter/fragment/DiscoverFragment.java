@@ -1,6 +1,7 @@
 package com.mt.cardletter.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,7 @@ import java.util.List;
 
 
 /**
+ *  最外层fragment
  * Created by jk on 2017/11/13.
  */
 
@@ -157,5 +159,9 @@ public class DiscoverFragment extends Fragment {
 //        ShareSDK.stopSDK();
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("jk========================");
+    }
 }

@@ -315,6 +315,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
             if (location == null || mMapView == null) {
                 return;
             }
+            location.getCity();
             mCurrentLat = location.getLatitude();
             mCurrentLon = location.getLongitude();
             mCurrentAccracy = location.getRadius();
@@ -330,13 +331,29 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
             mBaiduMap.setMyLocationData(locData);
             if (isFirstLoc) {
                 isFirstLoc = false;
-                LatLng ll = new LatLng(location.getLatitude(),
-                        location.getLongitude());
-                System.out.println("------"+location.getLatitude()+"\n"+location.getLongitude());
-                MapStatus.Builder builder = new MapStatus.Builder();
-                builder.target(ll).zoom(15.0f);
-                mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+//                location
+//                if (!Constant.CITY_ID.equals("")||(Constant.LOACTION_CITY.indexOf(location.getCity())!=-1)){
+//                    LatLng ll = new LatLng(location.getLatitude(),
+//                            location.getLongitude());
+//                    System.out.println("---1---"+location.getLatitude()+"\n"+location.getLongitude());
+//
+//                    MapStatus.Builder builder = new MapStatus.Builder();
+//                    builder.target(ll).zoom(5.0f);
+//                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+//                }else{
+                    LatLng ll = new LatLng(location.getLatitude(),
+                            location.getLongitude());
+                    System.out.println("---2---"+location.getLatitude()+"\n"+location.getLongitude());
+
+                    MapStatus.Builder builder = new MapStatus.Builder();
+                    builder.target(ll).zoom(15.0f);
+                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+              //  }
+
+
             }
+            System.out.println("jk-------------"+"地图回调");
+
             initOverlay(locData);
         }
 
@@ -368,7 +385,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
     @Override
     protected void initData() {
         //TODO 经纬度  地区
-        loadData( 1 , 100+"" , ""+1 , "" ,"", "",lat+"",lon+"" );
+        loadData( 1 , 100+"" , ""+1 , "" ,Constant.CITY_ID, "",lat+"",lon+"" );
         toLogin(Constant.Access_Token);
     }
     @Override
@@ -421,6 +438,8 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
     }
 
     private void loadData(final int upDataFlag , String list_rows, String page, String category_id,String city,String  bankcard,String lng,String lat) {
+        lng = AppContext.getInstance().getLat()+"";
+        lat = AppContext.getInstance().getLon()+"";
         CardLetterRequestApi.getInstance().getFindMerchant(
                 Constant.Access_Token,list_rows,page,category_id,city, bankcard,lng,lat,"",new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
                     @Override
@@ -442,6 +461,8 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
             public void onSucceed(Bank data) {
                 if (data.getCode() == 0) {
                     banks = data.getData();
+
+
                 }
             }
             @Override

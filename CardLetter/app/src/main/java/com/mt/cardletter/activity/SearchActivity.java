@@ -62,7 +62,6 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        getdDistrictID(); //获取地区ID
         back_btn = (FrameLayout) findViewById(R.id.back_btn);
         search_et_input = (EditText) findViewById(R.id.search_et_input);
         search_iv_delete = (RelativeLayout) findViewById(R.id.search_iv_delete);
@@ -122,7 +121,7 @@ public class SearchActivity extends BaseActivity {
                     Bundle bundle = new Bundle();
                     String strValue = search_et_input.getText().toString();
                     bundle.putString("search_data", strValue);
-                    bundle.putSerializable("district_list", (Serializable) districtList);// TODO: 2018/1/19 地区id 需要进行全局设置
+
                     fragment.setArguments(bundle);
 
                     beginTransaction = fragmentManager.beginTransaction();
@@ -142,7 +141,6 @@ public class SearchActivity extends BaseActivity {
                         Bundle bundle = new Bundle();
                         String strValue = search_et_input.getText().toString();
                         bundle.putString("search_data", strValue);
-                        bundle.putSerializable("district_list", (Serializable) districtList);// TODO: 2018/1/19 地区id 需要进行全局设置
                         fragment.setArguments(bundle);
 
                         beginTransaction = fragmentManager.beginTransaction();
@@ -188,21 +186,4 @@ public class SearchActivity extends BaseActivity {
         return false;
     }
 
-    private void getdDistrictID(){
-        CardLetterRequestApi.getInstance().getdDistrictID(
-                new HttpSubscriber<District>(new SubscriberOnListener<District>() {
-                    @Override
-                    public void onSucceed(District data) {
-                        if (data.getCode()==0){
-                            System.out.println("jk=======District"+data.getData().size()+data.getData().get(10).getName());
-                            districtList = data.getData();
-                        }
-                    }
-
-                    @Override
-                    public void onError(int code, String msg) {
-
-                    }
-                },this));
-    }
 }

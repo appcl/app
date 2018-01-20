@@ -2,9 +2,15 @@ package com.mt.cardletter.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.mt.cardletter.activity.LoginActivity;
+import com.mt.cardletter.activity.RegisterActivity;
+import com.mt.cardletter.entity.user.LoginEntity;
+import com.mt.cardletter.https.HttpSubscriber;
+import com.mt.cardletter.https.SubscriberOnListener;
+import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -48,12 +54,19 @@ public class ThirdpartyLoginUtils {
              */
             @Override
             public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-                String name = data.get("name").toString();
+                String uid = data.get("uid");
+                String name = data.get("name");
                 String iconurl = data.get("iconurl");
+                String u_pw = "";
+                if (uid!=null&&uid.equals("")){
+                    u_pw = uid.substring(0,6);
+                }
                 SharedPreferences.getInstance().putString("nick_name",name);
                 SharedPreferences.getInstance().putString("url",iconurl);
                 SharedPreferences.getInstance().putBoolean("isLogin",true);
-                //Toast.makeText(mActivity, "AA:" + name + "  " + iconurl, Toast.LENGTH_LONG).show();
+
+                //toRegister(mActivity,name,"",uid);//// TODO: 2018/1/20 帮用户模拟注册
+                System.out.println("jk-----:"+uid);
                 mActivity.finish();
             }
 
@@ -163,5 +176,24 @@ public class ThirdpartyLoginUtils {
             }
         };
         mShareAPI.getPlatformInfo(mActivity, SHARE_MEDIA.WEIXIN, umAuthListener);
+    }
+
+    public static void toRegister(final Activity mActivity,String username,String password,String ext_token){
+        CardLetterRequestApi.getInstance().getUserInfo(Constant.Access_Token,username,password,ext_token,new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
+            @Override
+            public void onSucceed(LoginEntity data) {
+                if (data.getCode() == 0){
+
+
+                }else {
+                    ToastUtils.makeShortText(data.getMsg(),mActivity);
+                }
+            }
+
+            @Override
+            public void onError(int code, String msg) {
+                ToastUtils.makeShortText(msg,mActivity);
+            }
+        },mActivity));
     }
 }

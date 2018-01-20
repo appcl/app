@@ -23,4 +23,11 @@
 		app:strokeWidth="0dp"
 		android:layout_marginBottom="30dp"
 		android:padding="5dp"/>
+	<ImageView
+		android:id="@+id/splash_img"
+		android:visibility="gone"
+		android:scaleType="fitXY"
+		android:src="@drawable/new01"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" />
 </RelativeLayout>

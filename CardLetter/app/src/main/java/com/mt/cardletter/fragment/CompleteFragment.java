@@ -50,12 +50,10 @@ import butterknife.ButterKnife;
  */
 
 public class CompleteFragment extends BaseFragment {
-    private static final int RESULT_CODE = 0X10;// 启动码
     private static final int UPDATA_UP = 0X01; // 上拉加载
     private static final int UPDATA_DOWN = 0X02; //下拉刷新
     private static final int UPDATA_DEF = 0X03; //默认加载
     private Activity context;
-    private List<GoodsBean.ResultBean> list = new ArrayList();
     private List<Goods.DataBeanX.CardfindListBean.DataBean>  myList = new ArrayList<>();
     private MyAdapter myAdapter;
     private int page_index = 1;
@@ -65,7 +63,6 @@ public class CompleteFragment extends BaseFragment {
     PullToRefreshListView listView;
     private boolean isOpen = true;
     private View view;
-    public View loadmoreView;
     private List<Bank.DataBean> banks = new ArrayList<>();
     private TextView tv_noll;
     private String lng;
@@ -75,23 +72,12 @@ public class CompleteFragment extends BaseFragment {
         if (isOpen){
             context = getActivity();
             view = inflater.inflate(R.layout.activity_fragment_find, container, false);
-            loadmoreView = View.inflate(getContext(),R.layout.load_more,null);//上拉加载更多布局
-            loadmoreView.setVisibility(View.VISIBLE);//设置刷新视图默认情况下是不可见的32.02004, 118.763108
             tv_noll = (TextView) view.findViewById(R.id.tv_noll);
             tv_noll.setVisibility(View.GONE);
             ButterKnife.bind(this, view);
-            cartgory_id= (int) getArguments().get("id") + "";
-            //TODO 经纬度
 
-            lng = AppContext.getInstance().getLat()+"";//32.020843  --118.763019
-            lat = AppContext.getInstance().getLon()+"";
-            if (lng==null&&lng.equals("")){
-                lng = 32.020843+"";
-                lat = 118.763019 +"";
-                System.out.println("jk=====为获取到经纬度="+lng+"   ---   "+lat);
-            }
-            System.out.println("jk====获取到经纬度=="+lng+"   ---   "+lat);
-            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,"", "",lng,lat);
+            cartgory_id= (int) getArguments().get("id")+"";
+            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,Constant.CITY_ID, "", AppContext.getInstance().getLat()+"", AppContext.getInstance().getLon()+"");
             toLogin(Constant.Access_Token);
         }
         return view;
@@ -112,20 +98,8 @@ public class CompleteFragment extends BaseFragment {
     }
 
     private void loadData(final int upDataFlag , String list_rows, String page, String category_id, String city, String  bankcard, String lng, String lat) {
-        System.out.println("jk=====category_id:"+category_id+"   page:"+page);
-        /*
-         * 获取商家列表
-       1  access_token
-       2  list_rows
-       3  page
-       4  category_id
-       5  city
-       6  bankcard
-       7  lng
-       8  lat
-         */
         CardLetterRequestApi.getInstance().getFindMerchant(
-                Constant.Access_Token,list_rows,page,category_id,"", "",lng,lat,"",new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
+                Constant.Access_Token,list_rows,page,category_id,city, "",lng,lat,"",new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
                     @Override
                     public void onSucceed(Goods data) {
                         if (data.getCode()==0){
@@ -154,18 +128,11 @@ public class CompleteFragment extends BaseFragment {
 
     private void initViews() {
         /**
-         * 设置加载更多布局
-         */
-
-        //TODO 上拉加载提示
-
-        /**
          * 点击事件
          */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Intent intent = new Intent(getActivity(), SetailsActivity.class);
                 Intent intent = getActivity().getIntent();
                 intent.setClass(getActivity(),SetailsActivity.class);
                 if(myList.get(position-1)!=null){
@@ -173,8 +140,7 @@ public class CompleteFragment extends BaseFragment {
                     intent.putExtra("bank",banks.get(Integer.parseInt(myList.get(position-1).getBankcard())-1).getName());
                     intent.putExtra("bank_url",banks.get(Integer.parseInt(myList.get(position-1).getBankcard())-1).getCardThumb());
                 }
-                //UIHelper.showDetails(getContext(), intent);
-                startActivityForResult(intent,RESULT_CODE);
+                startActivity(intent);
             }
         });
         listView.setAdapter(myAdapter = new MyAdapter());
@@ -187,26 +153,21 @@ public class CompleteFragment extends BaseFragment {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 page_index = 1;
-                loadData( UPDATA_DOWN , page_size , ""+page_index , cartgory_id ,"", "",lng,lat );
+                loadData( UPDATA_DOWN , page_size , ""+page_index , cartgory_id ,Constant.CITY_ID, "",AppContext.getInstance().getLat()+"",AppContext.getInstance().getLon()+"");
             }
-
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 page_index = page_index + 1;
-                loadData( UPDATA_UP , page_size , ""+page_index , cartgory_id ,"", "",lng,lat );
+                loadData( UPDATA_UP , page_size , ""+page_index , cartgory_id ,Constant.CITY_ID, "",AppContext.getInstance().getLat()+"",AppContext.getInstance().getLon()+"");
             }
         });
     }
 
     @Override
-    protected int setLayoutResouceId() {
-        return 0;
-    }
+    protected int setLayoutResouceId() {return 0;}
 
     @Override
-    public void initData() {
-
-    }
+    public void initData() { }
 
     class MyAdapter extends BaseAdapter{
 
@@ -288,12 +249,14 @@ public class CompleteFragment extends BaseFragment {
         }, getContext()));
     }
 
+    /**
+     * @param requestCode  请求码，即调用startActivityForResult()传递过去的值
+     * @param resultCode  结果码，结果码用于标识返回数据来自哪个新Activity
+     * @param data  Intent 数据
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_CODE){
-            List<Bank.DataBean> dataBeanList = (List<Bank.DataBean>) data.getSerializableExtra("checked_data");
-            System.out.println("jk====asdasd==="+dataBeanList.size());
-        }
+        System.out.println("jk====onActivityResult===");
     }
 }

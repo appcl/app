@@ -11,6 +11,8 @@ import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
+import org.litepal.LitePalApplication;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +20,7 @@ import java.util.Map;
 import cn.jpush.android.api.JPushInterface;
 
 
-public class AppContext extends Application {
+public class AppContext extends LitePalApplication {
     private static AppContext app;
     //友盟分享  微信，微博，QQ空间的分享配置
 

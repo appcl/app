@@ -1,6 +1,7 @@
 package com.mt.cardletter;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -27,6 +28,8 @@ import com.mt.cardletter.fragment.MineFragment;
 import com.mt.cardletter.service.LocationService;
 import com.mt.cardletter.utils.PermissionUtils;
 import com.mt.cardletter.utils.ToastUtils;
+
+import org.litepal.tablemanager.Connector;
 
 import java.util.Set;
 
@@ -87,6 +90,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 //        setAlias(SharedPreferences.getInstance().getString("account",""));//设置别名推送
         setAlias("cardletter");
         bottom_radiobuttonsize();
+        //数据库创建
+        //SQLiteDatabase db = Connector.getDatabase();
     }
 
     private void bottom_radiobuttonsize(){

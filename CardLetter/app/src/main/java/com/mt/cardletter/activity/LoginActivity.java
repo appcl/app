@@ -100,7 +100,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void toLogin(String ak, final String username, final String password) {
-        CardLetterRequestApi.getInstance().getUserInfo(ak, username, password, new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
+        CardLetterRequestApi.getInstance().getUserInfo(ak, username, password,"", new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
             @Override
             public void onSucceed(LoginEntity data) {
                 if (data.getCode() == 0) {

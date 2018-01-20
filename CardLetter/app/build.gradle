@@ -16,6 +16,9 @@ android {
         cruncherEnabled = false
         useNewCruncher = false
     }
+    dexOptions{
+        jumboMode true
+    }
     signingConfigs {
         release {
             storeFile file("mt_keytools.jks")

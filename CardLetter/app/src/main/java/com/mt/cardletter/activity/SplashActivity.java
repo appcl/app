@@ -40,6 +40,9 @@ import static com.mt.cardletter.R.id.pager;
 public class SplashActivity extends BaseActivity {
     private ViewPager viewPager;
     private CirclePageIndicator circlePageIndicator;
+    public static final int SPLASH_OPEN = 0X01;
+    public static final int SPLASH_UNOPEN = 0X02;
+    private ImageView imageView;
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_splash;
@@ -50,14 +53,42 @@ public class SplashActivity extends BaseActivity {
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
+        imageView = (ImageView) findViewById(R.id.splash_img);
+        int splash_is_open = SharedPreferences.getInstance().getInt("splash_is_open", SPLASH_OPEN);
+        if (splash_is_open == SPLASH_OPEN){
+            FragmentManager supportFragmentManager = getSupportFragmentManager();
+            SplashAdapter adapter = new SplashActivity.SplashAdapter(supportFragmentManager);
+            final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
+            viewPager.setPageMargin(pageMargin);
+            viewPager.setOffscreenPageLimit(3);
+            viewPager.setAdapter(adapter);
 
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        SplashAdapter adapter = new SplashActivity.SplashAdapter(supportFragmentManager);
-        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
-        viewPager.setPageMargin(pageMargin);
-        viewPager.setOffscreenPageLimit(3);
-        viewPager.setAdapter(adapter);
+            circlePageIndicator.setVisibility(View.VISIBLE);
 
+            circlePageIndicator.setViewPager(viewPager);
+
+            circlePageIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+
+                }
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                }
+            });
+        }else{
+            imageView.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    UIHelper.showMainActivity(SplashActivity.this);
+                }
+            }, 1000);
+        }
     }
 
     private class SplashAdapter extends FragmentPagerAdapter{

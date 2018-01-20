@@ -343,6 +343,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == -1){
             if (data != null){
                 String city = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
+                String id = data.getStringExtra("cityID");
+                System.out.println("---cityID-------"+id);
+                Constant.CITY_ID = id;
                 fragment_home_top_text_address.setText(city);
                 Constant.LOACTION_CITY = fragment_home_top_text_address.getText().toString();
             }

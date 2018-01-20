@@ -21,11 +21,12 @@ import java.util.List;
  * author Bro0cL on 2016/1/26.
  */
 public class DBManager {
-    private static final String ASSETS_NAME = "china_cities.db";
-    private static final String DB_NAME = "china_cities.db";
+    private static final String ASSETS_NAME = "citys.db";
+    private static final String DB_NAME = "citys.db";
     private static final String TABLE_NAME = "city";
     private static final String NAME = "name";
     private static final String PINYIN = "pinyin";
+    private static final String ID="id";
     private static final int BUFFER_SIZE = 1024;
     private String DB_PATH;
     private Context mContext;
@@ -49,6 +50,7 @@ public class DBManager {
             OutputStream os;
             try {
                 is = mContext.getResources().getAssets().open(ASSETS_NAME);
+                System.out.println("----输出流----"+is);
                 os = new FileOutputStream(dbFile);
                 byte[] buffer = new byte[BUFFER_SIZE];
                 int length;
@@ -72,7 +74,8 @@ public class DBManager {
         while (cursor.moveToNext()){
             String name = cursor.getString(cursor.getColumnIndex(NAME));
             String pinyin = cursor.getString(cursor.getColumnIndex(PINYIN));
-            city = new City(name, pinyin);
+            String id = cursor.getString(cursor.getColumnIndex(ID));
+            city = new City(name, pinyin,id);
             result.add(city);
         }
         cursor.close();
@@ -90,7 +93,8 @@ public class DBManager {
         while (cursor.moveToNext()){
             String name = cursor.getString(cursor.getColumnIndex(NAME));
             String pinyin = cursor.getString(cursor.getColumnIndex(PINYIN));
-            city = new City(name, pinyin);
+            String id = cursor.getString(cursor.getColumnIndex(ID));
+            city = new City(name, pinyin,id);
             result.add(city);
         }
         cursor.close();

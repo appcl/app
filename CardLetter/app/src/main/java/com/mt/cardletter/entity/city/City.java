@@ -7,11 +7,22 @@ public class City {
     private String name;
     private String pinyin;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    private String id;
+
     public City() {}
 
-    public City(String name, String pinyin) {
+    public City(String name, String pinyin,String id) {
         this.name = name;
         this.pinyin = pinyin;
+        this.id = id;
     }
 
     public String getName() {

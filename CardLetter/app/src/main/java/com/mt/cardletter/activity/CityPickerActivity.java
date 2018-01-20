@@ -268,10 +268,16 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
         clearBtn.setOnClickListener(this);
         cancelBtn.setOnClickListener(this);
     }
-
+    String city_id;
     private void backWithData(String city){
+        for (int i=0;i<mAllCities.size();i++){
+            if (mAllCities.get(i).getName().equals(city)){
+                city_id = mAllCities.get(i).getId();
+            }
+        }
         Intent data = new Intent();
         data.putExtra(KEY_PICKED_CITY, city);
+        data.putExtra("cityID",city_id);
         setResult(RESULT_OK, data);
         finish();
     }

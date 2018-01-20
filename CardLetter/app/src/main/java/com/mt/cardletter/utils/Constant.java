@@ -73,4 +73,5 @@ public class Constant {
     public static final String QQ_MAIN_WEB ="https://mail.qq.com/cgi-bin/loginpage";
 
     public static String LOACTION_CITY;//全局城市
+    public static String CITY_ID;//选择城市返回城市ID
 }

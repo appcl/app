@@ -1,14 +1,12 @@
 package com.mt.cardletter.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,7 +47,7 @@ import java.util.List;
  * author:demons
  */
 
-public class LoactionActivity extends BaseActivity implements SensorEventListener{
+public class LoactionActivity extends BaseActivity implements SensorEventListener {
     private double lat;
     private double lon;
     private TextView name;
@@ -99,6 +97,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
      * 附近商家集合
      */
     private List<Goods.DataBeanX.CardfindListBean.DataBean> merchantList;
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_location;
@@ -108,7 +107,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
     public void initView() {
         lon = AppContext.getInstance().getLon();
         lat = AppContext.getInstance().getLat();
-        view = View.inflate(this,R.layout.icon_map_marker,null);
+        view = View.inflate(this, R.layout.icon_map_marker, null);
         map_tv = (TextView) view.findViewById(R.id.map_icon_tv);
         map_img = (ImageView) view.findViewById(R.id.map_icon_img);
         merchantList = new ArrayList<>();
@@ -143,10 +142,11 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
 //        initOverlay();
 
     }
-    private void initMerchantLatLng(){
+
+    private void initMerchantLatLng() {
         // TODO 使用商家经纬度
-        for (Goods.DataBeanX.CardfindListBean.DataBean data:merchantList) {
-            if (merchantList.size()>0){
+        for (Goods.DataBeanX.CardfindListBean.DataBean data : merchantList) {
+            if (merchantList.size() > 0) {
                 isOpen = false;
             }
             map_tv.setText(data.getName());
@@ -164,16 +164,19 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
             markers.add(mMarker);
         }
     }
+
     /**
      * 实时监听
+     *
      * @param locData
      */
     private boolean isOpen = true;
+
     private void initOverlay(MyLocationData locData) {
         /**
          * 根据商家显示   locData
          */
-        if (isOpen){
+        if (isOpen) {
             initMerchantLatLng();
         }
         /**
@@ -287,13 +290,13 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
 //                    mBaiduMap.showInfoWindow(mInfoWindow);
 //                }
                 for (int i = 0; i < markers.size(); i++) {
-                    if (marker == markers.get(i)){
+                    if (marker == markers.get(i)) {
                         Intent intent = LoactionActivity.this.getIntent();
-                        intent.setClass(LoactionActivity.this,SetailsActivity.class);
-                        if(merchantList.get(i)!=null){
-                            intent.putExtra("cardfind_id",merchantList.get(i).getId()+"");
-                            intent.putExtra("bank",banks.get(Integer.parseInt(merchantList.get(i).getBankcard())-1).getName());
-                            intent.putExtra("bank_url",banks.get(Integer.parseInt(merchantList.get(i).getBankcard())-1).getCardThumb());
+                        intent.setClass(LoactionActivity.this, SetailsActivity.class);
+                        if (merchantList.get(i) != null) {
+                            intent.putExtra("cardfind_id", merchantList.get(i).getId() + "");
+                            intent.putExtra("bank", banks.get(Integer.parseInt(merchantList.get(i).getBankcard()) - 1).getName());
+                            intent.putExtra("bank_url", banks.get(Integer.parseInt(merchantList.get(i).getBankcard()) - 1).getCardThumb());
                         }
                         UIHelper.showDetails(LoactionActivity.this, intent);
                     }
@@ -331,28 +334,16 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
             mBaiduMap.setMyLocationData(locData);
             if (isFirstLoc) {
                 isFirstLoc = false;
-//                location
-//                if (!Constant.CITY_ID.equals("")||(Constant.LOACTION_CITY.indexOf(location.getCity())!=-1)){
-//                    LatLng ll = new LatLng(location.getLatitude(),
-//                            location.getLongitude());
-//                    System.out.println("---1---"+location.getLatitude()+"\n"+location.getLongitude());
-//
-//                    MapStatus.Builder builder = new MapStatus.Builder();
-//                    builder.target(ll).zoom(5.0f);
-//                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-//                }else{
-                    LatLng ll = new LatLng(location.getLatitude(),
-                            location.getLongitude());
-                    System.out.println("---2---"+location.getLatitude()+"\n"+location.getLongitude());
-
-                    MapStatus.Builder builder = new MapStatus.Builder();
-                    builder.target(ll).zoom(15.0f);
-                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-              //  }
+                LatLng ll = new LatLng(location.getLatitude(),
+                        location.getLongitude());
+                MapStatus.Builder builder = new MapStatus.Builder();
+                builder.target(ll).zoom(15.0f);
+                mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+                //  }
 
 
             }
-            System.out.println("jk-------------"+"地图回调");
+            System.out.println("jk-------------" + "地图回调");
 
             initOverlay(locData);
         }
@@ -385,9 +376,10 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
     @Override
     protected void initData() {
         //TODO 经纬度  地区
-        loadData( 1 , 100+"" , ""+1 , "" ,Constant.CITY_ID, "",lat+"",lon+"" );
+        loadData(1, 100 + "", "" + 1, "", Constant.CITY_ID, "", lat + "", lon + "");
         toLogin(Constant.Access_Token);
     }
+
     @Override
     protected void handler(Message msg) {
 
@@ -437,24 +429,26 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
         bdGround.recycle();
     }
 
-    private void loadData(final int upDataFlag , String list_rows, String page, String category_id,String city,String  bankcard,String lng,String lat) {
-        lng = AppContext.getInstance().getLat()+"";
-        lat = AppContext.getInstance().getLon()+"";
+    private void loadData(final int upDataFlag, String list_rows, String page, String category_id, String city, String bankcard, String lng, String lat) {
+        lng = AppContext.getInstance().getLat() + "";
+        lat = AppContext.getInstance().getLon() + "";
         CardLetterRequestApi.getInstance().getFindMerchant(
-                Constant.Access_Token,list_rows,page,category_id,city, bankcard,lng,lat,"",new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
+                Constant.Access_Token, list_rows, page, category_id, city, bankcard, lng, lat, "", new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
                     @Override
                     public void onSucceed(Goods data) {
-                        if (data.getCode()==0){
+                        if (data.getCode() == 0) {
                             List<Goods.DataBeanX.CardfindListBean.DataBean> data1 = data.getData().getCardfindList().getData();
                             merchantList = data1;
                         }
                     }
+
                     @Override
                     public void onError(int code, String msg) {
-                        ToastUtils.showShort(LoactionActivity.this,"网络异常");
+                        ToastUtils.showShort(LoactionActivity.this, "网络异常");
                     }
-                },LoactionActivity.this));
+                }, LoactionActivity.this));
     }
+
     private void toLogin(String ak) {
         CardLetterRequestApi.getInstance().getBank(ak, new HttpSubscriber<Bank>(new SubscriberOnListener<Bank>() {
             @Override
@@ -465,6 +459,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
 
                 }
             }
+
             @Override
             public void onError(int code, String msg) {
             }

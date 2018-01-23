@@ -63,6 +63,7 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.cp_activity_city_list);
         initData();
         initView();
+//        initLocation();
     }
 
     private void initLocation() {

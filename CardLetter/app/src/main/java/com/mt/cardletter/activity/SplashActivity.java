@@ -3,32 +3,20 @@ package com.mt.cardletter.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.fragment.HomeFragment;
 import com.mt.cardletter.fragment.SplashItemFragment;
+import com.mt.cardletter.utils.PermissionUtils;
 import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.indicator.CirclePageIndicator;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.mt.cardletter.R.id.pager;
 
 
 /**
@@ -43,6 +31,16 @@ public class SplashActivity extends BaseActivity {
     public static final int SPLASH_OPEN = 0X01;
     public static final int SPLASH_UNOPEN = 0X02;
     private ImageView imageView;
+
+    /*权限数组*/
+    private String[] permissionArray = new String[]{
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.READ_PHONE_STATE
+    };
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_splash;
@@ -50,7 +48,10 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        /**
+         * 申请软件所需权限
+         */
+        PermissionUtils.checkPermissionArray(this, permissionArray, 0x10);
         viewPager = (ViewPager) findViewById(R.id.pager);
         circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         imageView = (ImageView) findViewById(R.id.splash_img);

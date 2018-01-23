@@ -94,7 +94,7 @@ public class DiscoverFragment extends Fragment {
         next.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
-                UIHelper.showScreenActivity(getContext());
+                UIHelper.showScreenActivity("from_dis",getContext());
             }
         });
         TITLES = getResources().getStringArray(R.array.news_titles);

@@ -34,6 +34,10 @@ public class SplashItemFragment extends Fragment {
         this.viewPager = viewPager;
     }
 
+    public SplashItemFragment(){
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,7 +53,8 @@ public class SplashItemFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 SharedPreferences.getInstance().putInt("splash_is_open", SplashActivity.SPLASH_UNOPEN);
-                UIHelper.showMainActivity(getActivity());
+//                UIHelper.showMainActivity(getActivity());
+                UIHelper.showScreenActivity("",getActivity());
             }
         });
         return view;

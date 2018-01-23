@@ -2,7 +2,6 @@ package com.mt.cardletter.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,33 +15,25 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.mt.cardletter.R;
 import com.mt.cardletter.entity.merchant.Bank;
-import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
-import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.id.checkbox;
-import static android.R.id.list;
 
 public class ScreenActivity extends BaseActivity implements View.OnClickListener{
     private RecyclerView recyclerView;
@@ -52,21 +43,26 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
     private List<Bank.DataBean> myList = new ArrayList<>();
     private List<Bank.DataBean> checkeddata = new ArrayList<>();// 选中的数据
     private TextView next;
+    private String from_dis;
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_screen;
     }
     @Override
     public void initView() {
-
+        from_dis = getIntent().getExtras().getString("from_dis");
         next = (TextView) findViewById(R.id.commonal_tv);
-        next.setVisibility(View.VISIBLE);
         next.setText("跳过");
         next.setTextColor(getResources().getColor(R.color.color_text_black_31));
+        next.setVisibility(View.VISIBLE);
         next.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
-                finish();
+                if (from_dis.equals("from_dis")){
+                    finish();
+                }else {
+                    UIHelper.showMainActivity(ScreenActivity.this);
+                }
             }
         });
         findViewById(R.id.screen_affirm).setOnClickListener(this);
@@ -296,13 +292,17 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void finish() {
         Intent intent = new Intent();
-        for (int i = 0; i < checkeddata.size(); i++) {
-            int id = checkeddata.get(i).getId();
-            String name = checkeddata.get(i).getName();
-            System.out.println("jk====="+id+"    "+name);
-        }
-        intent.putExtra("checked_data", (Serializable) checkeddata);
-        this.setResult(16, intent);
+//        if (from_dis.equals("from_dis")){
+            for (int i = 0; i < checkeddata.size(); i++) {
+                int id = checkeddata.get(i).getId();
+                String name = checkeddata.get(i).getName();
+                System.out.println("jk====="+id+"    "+name);
+            }
+            intent.putExtra("checked_data", (Serializable) checkeddata);
+            this.setResult(16, intent);
+//        }else {
+//            UIHelper.showMainActivity(ScreenActivity.this);
+//        }
         super.finish();
     }
 }

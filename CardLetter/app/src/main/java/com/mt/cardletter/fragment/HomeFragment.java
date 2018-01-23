@@ -2,6 +2,7 @@ package com.mt.cardletter.fragment;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.Scroll.MyViewPager;
 import com.mt.cardletter.view.Scroll.TopScrollView;
+import com.mt.cardletter.view.dialog.CustomDialog;
 import com.mt.cardletter.view.rollviewpager.OnItemClickListener;
 import com.mt.cardletter.view.rollviewpager.RollPagerView;
 import com.mt.cardletter.view.rollviewpager.adapter.StaticPagerAdapter;
@@ -145,6 +147,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                 UIHelper.showSearchActivity(getContext());
             }
         });
+        showToast("");
         return view;
     }
 
@@ -265,6 +268,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                 ToastUtils.showShort(getContext(),"网络故障");
             }
         },getContext()));
+    }
+
+    //城市发生变化弹出的dialog
+    private void showToast(String city) {
+        CustomDialog.Builder builder = new CustomDialog.Builder(getContext());
+        builder.setTitle("当前定位到"+"南京"+"是否要切换城市？");
+        builder.setPositiveButton("切换", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                //设置你的操作事项
+                dialog.dismiss();
+                startActivityForResult(new Intent(getContext(), CityPickerActivity.class),
+                        REQUEST_CODE_PICK_CITY);
+            }
+        });
+
+        builder.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.create().show();
     }
     /**
      *   适配器

@@ -1,7 +1,6 @@
 package com.mt.cardletter;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -26,10 +25,7 @@ import com.mt.cardletter.fragment.HomeFragment;
 import com.mt.cardletter.fragment.IntegralFragment;
 import com.mt.cardletter.fragment.MineFragment;
 import com.mt.cardletter.service.LocationService;
-import com.mt.cardletter.utils.PermissionUtils;
 import com.mt.cardletter.utils.ToastUtils;
-
-import org.litepal.tablemanager.Connector;
 
 import java.util.Set;
 
@@ -63,14 +59,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private FragmentManager fragmentManager;
     private Fragment showFragment;
 
-    /*权限数组*/
-    private String[] permissionArray = new String[]{
-            android.Manifest.permission.ACCESS_COARSE_LOCATION,
-            android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            android.Manifest.permission.READ_PHONE_STATE
-    };
 
     private String city;
     private double lat = 0,lon = 0;
@@ -82,10 +70,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     public void initView() {
-        /**
-         * 申请软件所需权限
-         */
-        PermissionUtils.checkPermissionArray(this, permissionArray, 0x10);
         ButterKnife.bind(this);
 //        setAlias(SharedPreferences.getInstance().getString("account",""));//设置别名推送
         setAlias("cardletter");
@@ -337,7 +321,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 lat = location.getLatitude();
                 lon = location.getLongitude();
                 String district = location.getDistrict().toString();
-                System.out.println(lat+"--"+lon+"---"+district);
+//                System.out.println(lat+"--"+lon+"---"+district);
                 city = location.getCity().toString();
                 if (!district.equals("")||district!=null){
                     AppContext.getInstance().setDistrict(district);

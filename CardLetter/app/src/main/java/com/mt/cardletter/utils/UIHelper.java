@@ -161,8 +161,11 @@ public class UIHelper {
      * 筛选
      * @param context
      */
-    public static void showScreenActivity(Context context) {
+    public static void showScreenActivity(String from,Context context) {
         Intent intent = new Intent(context, ScreenActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("from_dis",from);
+        intent.putExtras(bundle);
         context.startActivity(intent);
     }
 

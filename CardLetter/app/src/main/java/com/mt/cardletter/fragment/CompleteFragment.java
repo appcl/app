@@ -156,8 +156,8 @@ public class CompleteFragment extends BaseFragment {
                 if(myList.get(position-1)!=null){
                     List<BankTable> bankTable = DataSupport.where("bank_id = ?",myList.get(position-1).getBankcard()+"").find(BankTable.class);//查询数据库
                     intent.putExtra("cardfind_id",myList.get(position-1).getId()+"");
-                    intent.putExtra("bank",bankTable.get(0).getName());  // TODO: 2018/1/23 银行类别待修改
-                    intent.putExtra("bank_url",bankTable.get(0).getCardThumb());
+//                    intent.putExtra("bank",bankTable.get(0).getName());  // TODO: 2018/1/23 银行类别待修改
+//                    intent.putExtra("bank_url",bankTable.get(0).getCardThumb());
                 }
                 startActivity(intent);
             }

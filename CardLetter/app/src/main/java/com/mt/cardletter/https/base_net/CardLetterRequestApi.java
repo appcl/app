@@ -4,6 +4,7 @@ package com.mt.cardletter.https.base_net;
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.city.District;
 import com.mt.cardletter.entity.collect.Collect;
+import com.mt.cardletter.entity.collect.CollectList;
 import com.mt.cardletter.entity.data.SearchDatas;
 import com.mt.cardletter.entity.integral.CategoryEntity;
 import com.mt.cardletter.entity.integral.SearchIntegralData;
@@ -322,4 +323,23 @@ public class CardLetterRequestApi extends BaseApi {
                 .map(new HttpResultFunc<Collect>());
         toSubscribe(observable,subscriber);
     }
+    /**
+     * 收藏列表
+     * @param subscriber
+     */
+    public void favoriteList(int list_rows, int page, String member_id, Subscriber<CollectList> subscriber){
+        Observable observable = httpRequestService.favoriteList(Constant.Access_Token,list_rows,page,member_id)
+                .map(new HttpResultFunc<CollectList>());
+        toSubscribe(observable,subscriber);
+    }
+    /**
+     * 删除收藏
+     * @param subscriber
+     */
+    public void delFavorite(String id, String member_id, String name, Subscriber<Collect> subscriber){
+        Observable observable = httpRequestService.delFavorite(Constant.Access_Token,id,member_id,name)
+                .map(new HttpResultFunc<Collect>());
+        toSubscribe(observable,subscriber);
+    }
+
 }

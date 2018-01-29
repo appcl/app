@@ -2,7 +2,14 @@ package com.mt.cardletter.utils.impower;
 
 import android.app.Activity;
 
+import com.mt.cardletter.activity.LoginActivity;
+import com.mt.cardletter.entity.user.LoginEntity;
+import com.mt.cardletter.https.HttpSubscriber;
+import com.mt.cardletter.https.SubscriberOnListener;
+import com.mt.cardletter.https.base_net.CardLetterRequestApi;
+import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.SharedPreferences;
+import com.mt.cardletter.utils.ToastUtils;
 
 import java.util.HashMap;
 
@@ -52,12 +59,17 @@ public class ImpowerAndShareUtil {
                         String userId = platDB.getUserId();
                         String userName = platDB.getUserName();
                         System.out.println("jk===="+token+"--"+userGender+"---"+userIcon+"---"+userId+"---"+userName);
-                        //设置第三方名字和头像
+                        //设置第三方名字,头像,第三方id
                         SharedPreferences.getInstance().putString("nick_name",userName);
                         SharedPreferences.getInstance().putString("url",userIcon);
+                        SharedPreferences.getInstance().putString("ext_token", userId);
+                        SharedPreferences.getInstance().putBoolean("isLogin",true);
+                        System.out.println("jk----"+userName+"-------"+userId);
+                        toLogin(activity,userName,userId.substring(0,6),userId);
+
                     }
-                    SharedPreferences.getInstance().putBoolean("isLogin",true);
-                    activity.finish();
+
+
                 }
 
                 @Override
@@ -78,4 +90,35 @@ public class ImpowerAndShareUtil {
 
         }
     }
+    /**
+     * 静默注册
+     */
+    private static void toLogin(final Activity activity, final String username, final String password, final String ext_token) {
+        CardLetterRequestApi.getInstance().getUserInfo(Constant.Access_Token, username, password,ext_token, new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
+            @Override
+            public void onSucceed(LoginEntity data) {
+                System.out.println("jk------"+"进入0"+data.getMsg()+"---getMemberId-"+data.getData().getMemberId());
+                if (data.getCode() == 0) {
+                    System.out.println("jk------"+"进入1");
+                    String memberId = data.getData().getMemberId();
+                    String user_token = data.getData().getUserToken();
+                    SharedPreferences.getInstance().putString("account", username);
+                    SharedPreferences.getInstance().putString("password", password);
+                    SharedPreferences.getInstance().putString("user_token", user_token);
+                    SharedPreferences.getInstance().putString("member_id", memberId);
+                    System.out.println("jk------"+"进入2");
+                    activity.finish();
+                } else {
+                    ToastUtils.makeShortText("网络故障", activity);
+                }
+            }
+
+            @Override
+            public void onError(int code, String msg) {
+                ToastUtils.makeShortText("网络故障", activity);
+            }
+        }, activity));
+    }
 }
+
+

@@ -54,15 +54,17 @@
     <application
         android:name=".app.AppContext"
         android:allowBackup="true"
+        android:debuggable="false"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:debuggable="false"
-        tools:node="replace"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:node="replace">
 
         <!-- 友盟所需的meta-data -->
-        <meta-data android:name="UMENG_APPKEY" android:value="5a4d95b5f43e480afe0000e7" />
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5a4d95b5f43e480afe0000e7" />
 
         <activity
             android:name=".activity.SplashActivity"
@@ -92,7 +94,8 @@
         <!-- 查积分 -->
         <activity
             android:name=".activity.SearchIntegralActivity"
-            android:screenOrientation="portrait" android:windowSoftInputMode="stateVisible|adjustResize"  />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <!-- 分类搜索 -->
         <activity
             android:name=".activity.SearchClassicActivity"
@@ -145,14 +148,14 @@
         <activity
             android:name=".activity.bank.SHActivity"
             android:screenOrientation="portrait" />
-        <!--上海银行信用卡详情展示-->
+        <!-- 上海银行信用卡详情展示 -->
         <activity
             android:name=".activity.bank.SHWebActiviy"
             android:screenOrientation="portrait" />
-        <!--交通银行信用卡详情展示-->
+        <!-- 交通银行信用卡详情展示 -->
         <activity
             android:name=".activity.bank.JTWebActiviy"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CityPickerActivity"
             android:screenOrientation="portrait"
@@ -181,23 +184,25 @@
         <!-- android:name="com.amap.api.v2.apikey" -->
         <!-- android:value="ea928b115602e46b08ae48d583925655" /> -->
 
-        <activity android:name=".activity.seckill.SeckillActivity"
-            android:screenOrientation="portrait"/>
-<!--友盟所需-->
-        <!--新浪所需-->
+        <activity
+            android:name=".activity.seckill.SeckillActivity"
+            android:screenOrientation="portrait" />
+        <!-- 友盟所需 -->
+        <!-- 新浪所需 -->
 
-        <!--QQ所需-->
+
+        <!-- QQ所需 -->
 
 
-        <!--分享编辑页-->
+        <!-- 分享编辑页 -->
 
         //========================================================================================
-
-
-        <activity android:name=".activity.setting.SettingActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.setting.SettingMsgActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.setting.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.setting.SettingMsgActivity"
+            android:screenOrientation="portrait" />
         <!-- 用于相机权限的内容提供者 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -213,14 +218,18 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="test.abc.H5Activity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ScreenActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.SetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.AboutActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name="test.abc.H5Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ScreenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AboutActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:exported="false"
@@ -336,24 +345,35 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="85006f829aaf90152c813e41" />
+
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".activity.NetNewsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.NewsListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.NewsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.NewsItemActivity"
+        <activity
+            android:name=".activity.NetNewsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.showimg.ImagePagerActivity"
+        <activity
+            android:name=".activity.NewsListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NewsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NewsItemActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.showimg.ImagePagerActivity"
             android:screenOrientation="portrait">
+
         </activity>
+        <!--收藏-->
+        <activity
+            android:name=".activity.collect.CollectActivity"
+            android:screenOrientation="portrait">
 
-
+        </activity>
     </application>
 
 </manifest>

@@ -70,7 +70,7 @@ public class LoginEntity {
          */
 
         @SerializedName("member_id")
-        private int memberId;
+        private String memberId;
         @SerializedName("nickname")
         private String nickname;
         @SerializedName("username")
@@ -86,11 +86,11 @@ public class LoginEntity {
         @SerializedName("data_sign")
         private String dataSign;
 
-        public int getMemberId() {
+        public String getMemberId() {
             return memberId;
         }
 
-        public void setMemberId(int memberId) {
+        public void setMemberId(String memberId) {
             this.memberId = memberId;
         }
 

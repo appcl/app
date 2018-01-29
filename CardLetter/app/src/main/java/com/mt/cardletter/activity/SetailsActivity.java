@@ -21,14 +21,17 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.collect.CollectActivity;
 import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.collect.Collect;
+import com.mt.cardletter.entity.collect.CollectList;
 import com.mt.cardletter.entity.merchant.Good;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
+import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
 
 
@@ -58,11 +61,12 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    private String bank;
+
     private ImageView collect_img;
     private TextView collect_text;
-    private String bank_url;
     private Good.DataBean good;
+    private String cardfind_id;
+    private String title;
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_setails;
@@ -79,6 +83,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         next.setText("分享");
         next.setTextColor(getResources().getColor(R.color.color_text_black_31));
         next.setOnClickListener(new OnMultiClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onMultiClick(View v) {
                 showShare();
@@ -96,9 +101,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         setails_discounts = (TextView) findViewById(R.id.setails_discounts);
         bigImg = (ImageView) findViewById(R.id.setails_big_img);
         item_bank = (ImageView) findViewById(R.id.item_img);
-        String cardfind_id = getIntent().getStringExtra("cardfind_id");
-        bank = getIntent().getStringExtra("bank");
-        bank_url = getIntent().getStringExtra("bank_url");
+        cardfind_id = getIntent().getStringExtra("cardfind_id");
         if (cardfind_id != null) {
             loadDataForGood(cardfind_id);
         }
@@ -132,7 +135,8 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
             if (good.getName() != null && good.getDeadline() != null
                     && good.getTel() != null && good.getAddress() != null
                     && good.getContent() != null && good.getDescribe() != null) {
-                setails_title.setText(good.getName());
+                title = good.getName();
+                setails_title.setText(title);
                 setails_time.setText(good.getDeadline());
                 setails_tel.setText(good.getTel());
                 setails_address.setText(good.getAddress());
@@ -148,24 +152,26 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
                 Glide.with(this).load(Constant.BASE_URL+bankTable.get(0).getCardThumb()).error(R.drawable.default_error).into(item_bank);
             }
         } else {
-            ToastUtils.showShort(getApplicationContext(), "数据异常，请检测网络");
+            ToastUtils.showShort(getApplicationContext(), "数据异常");
         }
     }
 
     @Override
-    protected void initData() {}
+    protected void initData() {
+
+    }
     private boolean isSelect = false;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.collection:
-                if (!isSelect){
-                    collect_img.setImageResource(R.drawable.collected_select);
-                    collect_text.setText("已收藏");
-                    ToastUtils.makeShortText("已收藏",SetailsActivity.this);
-                    isSelect = true;
+                if (!isSelect) {
                     // TODO: 2018/1/16 收藏
-                }else {
+                    String member_id = SharedPreferences.getInstance().getString("member_id", "");
+                    String fvalue = "http://www.51kaxin.xyz/api.php/cardfind/cardfindinfo/access_token/"+Constant.Access_Token+"/cardfind_id/"+cardfind_id;
+                    System.out.println("jk-----"+title+"---"+member_id+"-----"+cardfind_id+"------"+fvalue);
+                    addFavorite(title,member_id,cardfind_id,fvalue);
+                } else {
                     collect_img.setImageResource(R.mipmap.collect);
                     collect_text.setText("收藏");
                     ToastUtils.makeShortText("已取消收藏",SetailsActivity.this);
@@ -184,21 +190,44 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
      * 
      */
     // TODO: 2018/1/24 等待接口
-    private void loadForCollect(String name ,String member_id,String name_id,String fvalue){
-        CardLetterRequestApi.getInstance().addFavorite(name,member_id,name_id,fvalue, new HttpSubscriber<Collect>(new SubscriberOnListener<Collect>() {
+    private void addFavorite(String title_name ,String member_id,String name_id,String fvalue){
+        CardLetterRequestApi.getInstance().addFavorite(title_name,member_id,name_id,fvalue, new HttpSubscriber<Collect>(new SubscriberOnListener<Collect>() {
             @Override
             public void onSucceed(Collect data) {
+                System.out.println("jk----Collect--"+data.getMsg());
                 if (data.getCode() == 0) {
-
+                    collect_img.setImageResource(R.drawable.collected_select);
+                    collect_text.setText("已收藏");
+                    ToastUtils.makeShortText("已收藏",SetailsActivity.this);
+                    isSelect = true;
                 }
             }
             @Override
             public void onError(int code, String msg) {
+                System.out.println("jk----Collect--"+msg);
                 ToastUtils.showShort(SetailsActivity.this, "网络故障");
             }
         }, SetailsActivity.this));
     }
-
+    /**
+     * 删除收藏
+     *
+     */
+    private void delFavorite(String id,String member_id, String name){
+        CardLetterRequestApi.getInstance().delFavorite( id, member_id, name, new HttpSubscriber<Collect>(new SubscriberOnListener<Collect>() {
+            @Override
+            public void onSucceed(Collect data) {
+                if (data.getCode() == 0) {
+                    System.out.println("jk============"+"删除成功");
+                }
+            }
+            @Override
+            public void onError(int code, String msg) {
+                System.out.println("jk----code--"+code+"------"+msg);
+                ToastUtils.showShort(SetailsActivity.this, "网络故障");
+            }
+        }, SetailsActivity.this));
+    }
     @Override
     public void initListener() {
 
@@ -211,25 +240,6 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void showShare() {
-//        OnekeyShare oks = new OnekeyShare();
-//        //关闭sso授权
-//        oks.disableSSOWhenAuthorize();
-//
-//        // title标题，微信、QQ和QQ空间等平台使用
-//        oks.setTitle("asdasdasdasd");
-//        // titleUrl QQ和QQ空间跳转链接
-//        oks.setTitleUrl("http://sharesdk.cn");
-//        // text是分享文本，所有平台都需要这个字段
-//        oks.setText("我是分享文本");
-//        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-//        oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
-//        oks.setImageData(drawableToBitmap(SetailsActivity.this.getDrawable(R.mipmap.logo)));
-//        // url在微信、微博，Facebook等平台中使用
-//        oks.setUrl("http://sharesdk.cn");
-//        // comment是我对这条分享的评论，仅在人人网使用
-//        oks.setComment("我是测试评论文本");
-//        // 启动分享GUI
-//        oks.show(this);
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
@@ -304,6 +314,4 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         drawable.draw(canvas);
         return bitmap;
     }
-
-
 }

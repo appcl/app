@@ -2,6 +2,7 @@ package com.mt.cardletter.fragment;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.collect.CollectActivity;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
@@ -109,7 +111,10 @@ public class MineFragment extends Fragment{
                     UIHelper.showLoginActivity(getActivity());
                     return;
                 }
-                ToastUtils.makeShortText("功能待开放",getContext());
+                //UIHelper.showCollectActivity(getActivity()); //收藏列表
+
+                startActivity(new Intent(getActivity(), CollectActivity.class));
+                System.out.println("jk--------startActivity");
             }
         });
         scrollView.getPullRootView().findViewById(R.id.location).setOnClickListener(new OnMultiClickListener() {
@@ -119,7 +124,7 @@ public class MineFragment extends Fragment{
                     UIHelper.showLoginActivity(getActivity());
                     return;
                 }
-                UIHelper.showLocationActivity(getActivity());
+                UIHelper.showLocationActivity(getActivity()); // 地图
             }
         });
         scrollView.getPullRootView().findViewById(R.id.discover).setOnClickListener(new View.OnClickListener() {
@@ -148,6 +153,7 @@ public class MineFragment extends Fragment{
                 UIHelper.showSetting(getContext());
             }
         });
+
 //===================================================================================
     }
 

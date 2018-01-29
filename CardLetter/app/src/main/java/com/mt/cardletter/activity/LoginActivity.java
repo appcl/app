@@ -157,7 +157,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.sina://sina
                 ImpowerAndShareUtil.impower(this,SinaWeibo.NAME,0);
-
                 //startActivity(new Intent(LoginActivity.this, MyLoginActivity.class));
                 break;
             case R.id.weixin://weixin

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.mt.cardletter.MainActivity;
@@ -25,6 +26,7 @@ import com.mt.cardletter.activity.ViolateDetailActivity;
 import com.mt.cardletter.activity.WeatherActivity;
 import com.mt.cardletter.activity.WebView_QQActivity;
 import com.mt.cardletter.activity.bank.SHActivity;
+import com.mt.cardletter.activity.collect.CollectActivity;
 import com.mt.cardletter.activity.seckill.SeckillActivity;
 import com.mt.cardletter.activity.setting.SettingActivity;
 import com.mt.cardletter.activity.setting.SettingMsgActivity;
@@ -323,6 +325,16 @@ public class UIHelper {
 
     public static void showSearchIntegralActivity(Context context){
         Intent intent = new Intent(context, SearchIntegralActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 我的--收藏列表
+     * @param context
+     */
+    public static void showCollectActivity(Context context) {
+        Intent intent = new Intent(context, CollectActivity.class);
+        System.out.println("jk--------进入收藏列表");
         context.startActivity(intent);
     }
 }

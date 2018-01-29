@@ -1,42 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
 
-MobSDK {
-    appKey "23f07cf0db010"
-    appSecret "7f1d4e4a06d0c14044aeaea34f412345"
-    ShareSDK {
-        //平台配置信息
-        devInfo {
-            SinaWeibo {
-                appKey "2928292335"
-                appSecret "8f16088f8122c87f695c2893e6595aeb"
-                callbackUri "http://open.weibo.com"
-                shareByAppClient false
-            }
-            Wechat {
-                appId "wxdc18eb813baac5f0"
-                appSecret "7685f3096a19535a46e5cddfe91b997a"
-                shareByAppClient true
-            }
-            WechatMoments{
-                appId "wxdc18eb813baac5f0"
-                appSecret "7685f3096a19535a46e5cddfe91b997a"
-                shareByAppClient true
-            }
-            QQ {
-                appId "1106542925"
-                appKey "57VgIL08mxb0kua8"
-                shareByAppClient true
-                bypassApproval false
-            }
-            QZone{
-                appId "1106542925"
-                appKey "57VgIL08mxb0kua8"
-                bypassApproval false
-            }
-        }
-    }
-}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -90,6 +55,7 @@ android {
             jniLibs.srcDir("jniLibs")
         }
     }
+
     productFlavors {
         kuan {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "kuan"]
@@ -146,4 +112,40 @@ dependencies {
     compile 'com.weigan:loopView:0.1.2'
     compile files('libs/nineoldandroids-2.4.0.jar')
     compile files('libs/jsoup-1.11.2.jar')
+}
+MobSDK {
+    appKey "23f07cf0db010"
+    appSecret "7f1d4e4a06d0c14044aeaea34f412345"
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            SinaWeibo {
+                appKey "2928292335"
+                appSecret "8f16088f8122c87f695c2893e6595aeb"
+                callbackUri "http://open.weibo.com"
+                shareByAppClient false
+            }
+            Wechat {
+                appId "wxdc18eb813baac5f0"
+                appSecret "7685f3096a19535a46e5cddfe91b997a"
+                shareByAppClient true
+            }
+            WechatMoments{
+                appId "wxdc18eb813baac5f0"
+                appSecret "7685f3096a19535a46e5cddfe91b997a"
+                shareByAppClient true
+            }
+            QQ {
+                appId "1106542925"
+                appKey "57VgIL08mxb0kua8"
+                shareByAppClient true
+                bypassApproval false
+            }
+            QZone{
+                appId "1106542925"
+                appKey "57VgIL08mxb0kua8"
+                bypassApproval false
+            }
+        }
+    }
 }

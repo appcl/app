@@ -4,6 +4,7 @@ package com.mt.cardletter.https;
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.city.District;
 import com.mt.cardletter.entity.collect.Collect;
+import com.mt.cardletter.entity.collect.CollectList;
 import com.mt.cardletter.entity.creditcard.CreditCard;
 import com.mt.cardletter.entity.creditcard.CreditDatas;
 import com.mt.cardletter.entity.data.AirDatas;
@@ -519,8 +520,9 @@ public interface HttpRequestService {
      */
     @POST("/api.php/favorite/favoritedel")
     Observable<Collect> delFavorite(@Query("access_token") String access_token,
-                                               @Query("id") int id,
-                                                @Query("member_id") String member_id);
+                                               @Query("id") String id,
+                                                @Query("member_id") String member_id,
+                                                @Query("name") String name);
 
     /**
      * 收藏列表
@@ -528,9 +530,11 @@ public interface HttpRequestService {
      * @param member_id
      * @return
      */
-    @POST("/api.php/favorite/favoritelist")
-    Observable<Collect> delFavoriteList(@Query("access_token") String access_token,
-                                                   @Query("member_id") String member_id);
+    @POST("/api.php/cardfind/cardfindlistf")
+    Observable<CollectList> favoriteList(@Query("access_token") String access_token,
+                                            @Query("list_rows") int list_rows,
+                                            @Query("page") int page,
+                                            @Query("member_id") String member_id);
 
     //    public static void main(String[] args) {
 //        String host = "http://ddycapi.market.alicloudapi.com";

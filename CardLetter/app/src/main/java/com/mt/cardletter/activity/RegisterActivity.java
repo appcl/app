@@ -73,7 +73,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             public void onSucceed(LoginEntity data) {
                 if (data.getCode() == 0){
                     String nick_name = data.getData().getNickname();
-                    String user_token = data.getData().getUser_token();
+                    String user_token = data.getData().getUserToken();
                     SharedPreferences.getInstance().putString("account",username);
                     SharedPreferences.getInstance().putString("password",password);
                     SharedPreferences.getInstance().putString("nick_name",nick_name);
@@ -81,7 +81,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     SharedPreferences.getInstance().putBoolean("isLogin",false);
                     Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                     intent.putExtra("userName",username);
-                    //intent.putExtra("password",password);
                     startActivity(intent);
                     finish();
                 }else {

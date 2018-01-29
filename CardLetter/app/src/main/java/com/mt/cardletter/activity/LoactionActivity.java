@@ -80,17 +80,17 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
     private Marker mMarkerC;
     private Marker mMarkerD;
     private InfoWindow mInfoWindow;
-    // 初始化全局 bitmap 信息，不用时及时 recycle
-    BitmapDescriptor bdA = BitmapDescriptorFactory
-            .fromResource(R.drawable.icon_marka);
-    BitmapDescriptor bdB = BitmapDescriptorFactory
-            .fromResource(R.drawable.icon_markb);
-    BitmapDescriptor bdC = BitmapDescriptorFactory
-            .fromResource(R.drawable.icon_markc);
-    BitmapDescriptor bdD = BitmapDescriptorFactory
-            .fromResource(R.drawable.icon_markd);
-    BitmapDescriptor bd = BitmapDescriptorFactory
-            .fromResource(R.drawable.icon_gcoding);
+//    初始化全局 bitmap 信息，不用时及时 recycle
+//    BitmapDescriptor bdA = BitmapDescriptorFactory
+//            .fromResource(R.drawable.icon_marka);
+//    BitmapDescriptor bdB = BitmapDescriptorFactory
+//            .fromResource(R.drawable.icon_markb);
+//    BitmapDescriptor bdC = BitmapDescriptorFactory
+//            .fromResource(R.drawable.icon_markc);
+//    BitmapDescriptor bdD = BitmapDescriptorFactory
+//            .fromResource(R.drawable.icon_markd);
+//    BitmapDescriptor bd = BitmapDescriptorFactory
+//            .fromResource(R.drawable.icon_gcoding);
     BitmapDescriptor bdGround = BitmapDescriptorFactory
             .fromResource(R.drawable.ground_overlay);
     /**
@@ -414,19 +414,28 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
     protected void onDestroy() {
         // MapView的生命周期与Activity同步，当activity销毁时需调用MapView.destroy()
         // 退出时销毁定位
-        mLocClient.stop();
+        if (mLocClient!=null){
+            mLocClient.stop();
+        }
         // 关闭定位图层
-        mBaiduMap.setMyLocationEnabled(false);
-        mMapView.onDestroy();
-        mMapView = null;
+        if (mBaiduMap != null){
+            mBaiduMap.setMyLocationEnabled(false);
+        }
+        if (mMapView != null){
+            mMapView.onDestroy();
+            mMapView = null;
+        }
         super.onDestroy();
         // 回收 bitmap 资源
-        bdA.recycle();
-        bdB.recycle();
-        bdC.recycle();
-        bdD.recycle();
-        bd.recycle();
-        bdGround.recycle();
+//        bdA.recycle();
+//        bdB.recycle();
+//        bdC.recycle();
+//        bdD.recycle();
+        //bd.recycle();
+        if (bdGround != null){
+            bdGround.recycle();
+        }
+
     }
 
     private void loadData(final int upDataFlag, String list_rows, String page, String category_id, String city, String bankcard, String lng, String lat) {

@@ -3,6 +3,7 @@ package com.mt.cardletter.https.base_net;
 
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.city.District;
+import com.mt.cardletter.entity.collect.Collect;
 import com.mt.cardletter.entity.data.SearchDatas;
 import com.mt.cardletter.entity.integral.CategoryEntity;
 import com.mt.cardletter.entity.integral.SearchIntegralData;
@@ -10,6 +11,7 @@ import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Good;
 import com.mt.cardletter.entity.merchant.Goods;
+import com.mt.cardletter.entity.merchant.MyBank;
 import com.mt.cardletter.entity.news.News;
 import com.mt.cardletter.entity.news.NewsCategory;
 import com.mt.cardletter.entity.picture.PictureEntity;
@@ -19,13 +21,14 @@ import com.mt.cardletter.https.BaseApi;
 import com.mt.cardletter.https.HttpRequestService;
 import com.mt.cardletter.utils.Constant;
 
+import retrofit2.http.Query;
 import rx.Observable;
 import rx.Subscriber;
 
 /**
  * Created by HQ_Demos on 2017/4/27.
  */
-
+// TODO: 2018/1/24 目前有id为int 型  ，为防止溢出，需修改为 long 或者 String ! jk
 public class CardLetterRequestApi extends BaseApi {
     public static CardLetterRequestApi httpRequestApi;
     public HttpRequestService httpRequestService;
@@ -301,4 +304,22 @@ public class CardLetterRequestApi extends BaseApi {
         toSubscribe(observable,subscriber);
     }
 
+    /**
+     * 保存关注银行
+     * @param subscriber
+     */
+    public void addMybank(String user_token,String my_bank ,Subscriber<MyBank> subscriber){
+        Observable observable = httpRequestService.addMybank(Constant.Access_Token,user_token,my_bank)
+                .map(new HttpResultFunc<MyBank>());
+        toSubscribe(observable,subscriber);
+    }
+    /**
+     * 添加收藏
+     * @param subscriber
+     */
+    public void addFavorite(String name, String member_id, String name_id, String fvalue,Subscriber<Collect> subscriber){
+        Observable observable = httpRequestService.addFavorite(Constant.Access_Token,name,member_id,name_id,fvalue)
+                .map(new HttpResultFunc<Collect>());
+        toSubscribe(observable,subscriber);
+    }
 }

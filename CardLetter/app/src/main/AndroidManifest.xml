@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mt.cardletter">
 
     <!-- 添加必要的权限 -->
@@ -13,7 +14,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 地图部分权限 -->
-    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
     <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
@@ -57,9 +57,12 @@
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:debuggable="false"
+        tools:node="replace"
         android:theme="@style/AppTheme">
 
         <!-- 友盟所需的meta-data -->
+        <meta-data android:name="UMENG_APPKEY" android:value="5a4d95b5f43e480afe0000e7" />
 
         <activity
             android:name=".activity.SplashActivity"
@@ -180,71 +183,17 @@
 
         <activity android:name=".activity.seckill.SeckillActivity"
             android:screenOrientation="portrait"/>
+<!--友盟所需-->
+        <!--新浪所需-->
 
-        <!-- 友盟所需 -->
-        <activity android:name="test.WXEntryActivity"
-            android:screenOrientation="portrait"/>
-        <!-- 新浪微博 分享 -->
-        <activity
-            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:exported="false"
-            android:screenOrientation="portrait" >
-        </activity>
-        <!--<activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"-->
-            <!--android:configChanges="keyboardHidden|orientation"-->
-            <!--android:exported="false"-->
-            <!--android:windowSoftInputMode="adjustResize"-->
-            <!--&gt;-->
-        <!--</activity>-->
-        <activity
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+        <!--QQ所需-->
 
-        </activity>
-        <activity
-            android:name=".WBShareActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+
+        <!--分享编辑页-->
+
         //========================================================================================
-        <activity
-            android:name="com.umeng.qq.tencent.AuthActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-            android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent1106542925" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.umeng.qq.tencent.AssistActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="5a4d95b5f43e480afe0000e7" />
-
-        <activity android:name=".activity.share.ShareActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".activity.setting.SettingActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.setting.SettingMsgActivity"
@@ -392,10 +341,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
-            android:name=".activity.MyLoginActivity"
-            android:configChanges="orientation|keyboard"
-            android:screenOrientation="portrait" />
         <activity android:name=".activity.NetNewsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.NewsListActivity"
@@ -403,11 +348,7 @@
         <activity android:name=".activity.NewsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.NewsItemActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".wxapi.WXEntryActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.showimg.ImagePagerActivity"
             android:screenOrientation="portrait">
         </activity>

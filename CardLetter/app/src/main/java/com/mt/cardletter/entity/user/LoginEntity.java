@@ -1,5 +1,7 @@
 package com.mt.cardletter.entity.user;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Date:2018/1/2
  * Time:9:57
@@ -7,16 +9,21 @@ package com.mt.cardletter.entity.user;
  */
 
 public class LoginEntity {
-
     /**
      * code : 0
      * msg : 操作成功
-     * data : {"member_id":51,"nickname":"sadasdas","username":"sadasdas","create_time":"2017-09-09 13:40:17","user_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmVCYXNlIEpXVCIsImlhdCI6MTUwNDkzNTYxNywiZXhwIjoxNTA0OTM2NjE3LCJhdWQiOiJPbmVCYXNlIiwic3ViIjoiT25lQmFzZSIsImRhdGEiOnsibWVtYmVyX2lkIjo1MSwibmlja25hbWUiOiJzYWRhc2RhcyIsInVzZXJuYW1lIjoic2FkYXNkYXMiLCJjcmVhdGVfdGltZSI6IjIwMTctMDktMDkgMTM6NDA6MTcifX0.6PEShODuifNsa-x1TumLoEaR2TCXpUEYgjpD3Mz3GRM"}
+     * data : {"member_id":25,"nickname":"12","username":"12","mybank":"1","myliked":null,"create_time":"2018-01-23 15:25:27","user_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJLYXhpbiBKV1QiLCJpYXQiOjE1MTY2OTY2MDQsImV4cCI6MzAzMzM5MzIwOCwiYXVkIjoiS2F4aW4iLCJzdWIiOiJLYXhpbiIsImRhdGEiOnsibWVtYmVyX2lkIjoyNSwibmlja25hbWUiOiIxMiIsInVzZXJuYW1lIjoiMTIiLCJteWJhbmsiOiIxIiwibXlsaWtlZCI6bnVsbCwiY3JlYXRlX3RpbWUiOiIyMDE4LTAxLTIzIDE1OjI1OjI3In19.dLl6JU269rcF46jms_h9NnW32QvLVVlI1xl3jkpzmSQ","data_sign":"543334cdde45d8a55bbabd5faa53051d051b424a"}
+     * exe_time : 0.004581
      */
 
+    @SerializedName("code")
     private int code;
+    @SerializedName("msg")
     private String msg;
+    @SerializedName("data")
     private DataBean data;
+    @SerializedName("exe_time")
+    private String exeTime;
 
     public int getCode() {
         return code;
@@ -42,27 +49,49 @@ public class LoginEntity {
         this.data = data;
     }
 
+    public String getExeTime() {
+        return exeTime;
+    }
+
+    public void setExeTime(String exeTime) {
+        this.exeTime = exeTime;
+    }
+
     public static class DataBean {
         /**
-         * member_id : 51
-         * nickname : sadasdas
-         * username : sadasdas
-         * create_time : 2017-09-09 13:40:17
-         * user_token : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmVCYXNlIEpXVCIsImlhdCI6MTUwNDkzNTYxNywiZXhwIjoxNTA0OTM2NjE3LCJhdWQiOiJPbmVCYXNlIiwic3ViIjoiT25lQmFzZSIsImRhdGEiOnsibWVtYmVyX2lkIjo1MSwibmlja25hbWUiOiJzYWRhc2RhcyIsInVzZXJuYW1lIjoic2FkYXNkYXMiLCJjcmVhdGVfdGltZSI6IjIwMTctMDktMDkgMTM6NDA6MTcifX0.6PEShODuifNsa-x1TumLoEaR2TCXpUEYgjpD3Mz3GRM
+         * member_id : 25
+         * nickname : 12
+         * username : 12
+         * mybank : 1
+         * myliked : null
+         * create_time : 2018-01-23 15:25:27
+         * user_token : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJLYXhpbiBKV1QiLCJpYXQiOjE1MTY2OTY2MDQsImV4cCI6MzAzMzM5MzIwOCwiYXVkIjoiS2F4aW4iLCJzdWIiOiJLYXhpbiIsImRhdGEiOnsibWVtYmVyX2lkIjoyNSwibmlja25hbWUiOiIxMiIsInVzZXJuYW1lIjoiMTIiLCJteWJhbmsiOiIxIiwibXlsaWtlZCI6bnVsbCwiY3JlYXRlX3RpbWUiOiIyMDE4LTAxLTIzIDE1OjI1OjI3In19.dLl6JU269rcF46jms_h9NnW32QvLVVlI1xl3jkpzmSQ
+         * data_sign : 543334cdde45d8a55bbabd5faa53051d051b424a
          */
 
-        private int member_id;
+        @SerializedName("member_id")
+        private int memberId;
+        @SerializedName("nickname")
         private String nickname;
+        @SerializedName("username")
         private String username;
-        private String create_time;
-        private String user_token;
+        @SerializedName("mybank")
+        private String mybank;
+        @SerializedName("myliked")
+        private Object myliked;
+        @SerializedName("create_time")
+        private String createTime;
+        @SerializedName("user_token")
+        private String userToken;
+        @SerializedName("data_sign")
+        private String dataSign;
 
-        public int getMember_id() {
-            return member_id;
+        public int getMemberId() {
+            return memberId;
         }
 
-        public void setMember_id(int member_id) {
-            this.member_id = member_id;
+        public void setMemberId(int memberId) {
+            this.memberId = memberId;
         }
 
         public String getNickname() {
@@ -81,20 +110,44 @@ public class LoginEntity {
             this.username = username;
         }
 
-        public String getCreate_time() {
-            return create_time;
+        public String getMybank() {
+            return mybank;
         }
 
-        public void setCreate_time(String create_time) {
-            this.create_time = create_time;
+        public void setMybank(String mybank) {
+            this.mybank = mybank;
         }
 
-        public String getUser_token() {
-            return user_token;
+        public Object getMyliked() {
+            return myliked;
         }
 
-        public void setUser_token(String user_token) {
-            this.user_token = user_token;
+        public void setMyliked(Object myliked) {
+            this.myliked = myliked;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        public String getUserToken() {
+            return userToken;
+        }
+
+        public void setUserToken(String userToken) {
+            this.userToken = userToken;
+        }
+
+        public String getDataSign() {
+            return dataSign;
+        }
+
+        public void setDataSign(String dataSign) {
+            this.dataSign = dataSign;
         }
     }
 }

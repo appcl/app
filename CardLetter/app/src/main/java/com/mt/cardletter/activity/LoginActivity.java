@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.entity.user.LoginEntity;
@@ -19,14 +18,13 @@ import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.SharedPreferences;
-import com.mt.cardletter.utils.ThirdpartyLoginUtils;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
-import com.umeng.socialize.UMAuthListener;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.mt.cardletter.utils.impower.ImpowerAndShareUtil;
 
-import java.util.Map;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.wechat.friends.Wechat;
 
 /**
  * Date:2017/12/13
@@ -105,7 +103,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             public void onSucceed(LoginEntity data) {
                 if (data.getCode() == 0) {
                     String nick_name = data.getData().getNickname();
-                    String user_token = data.getData().getUser_token();
+                    String user_token = data.getData().getUserToken();
                     SharedPreferences.getInstance().putString("account", username);
                     SharedPreferences.getInstance().putString("password", password);
                     SharedPreferences.getInstance().putString("nick_name", nick_name);
@@ -158,15 +156,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 break;
             case R.id.sina://sina
-                ToastUtils.makeShortText("功能待开放",this);
+                ImpowerAndShareUtil.impower(this,SinaWeibo.NAME,0);
+
                 //startActivity(new Intent(LoginActivity.this, MyLoginActivity.class));
                 break;
             case R.id.weixin://weixin
-                ToastUtils.makeShortText("功能待开放",this);
-                //ThirdpartyLoginUtils.loginForWinxin(this);
+                ImpowerAndShareUtil.impower(this, Wechat.NAME ,0);
+
                 break;
             case R.id.qq:
-                ThirdpartyLoginUtils.loginForQQ(this);
+                ImpowerAndShareUtil.impower(this,QQ.NAME,0);
                 break;
         }
     }
@@ -187,16 +186,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onDestroy() {
         super.onDestroy();
     }
-
-
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
-    }
-
-
 
 }

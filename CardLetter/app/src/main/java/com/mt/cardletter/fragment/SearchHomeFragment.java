@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.SetailsActivity;
 import com.mt.cardletter.app.AppContext;
+import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.city.District;
 import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.Goods;
@@ -30,6 +31,8 @@ import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
+
+import org.litepal.crud.DataSupport;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -152,9 +155,10 @@ public class SearchHomeFragment extends BaseFragment {
                 Intent intent = getActivity().getIntent();
                 intent.setClass(getActivity(),SetailsActivity.class);
                 if(myList.get(position-1)!=null){
+                    List<BankTable> bankTable = DataSupport.where("bank_id = ?",myList.get(position-1).getBankcard()+"").find(BankTable.class);//查询数据库
                     intent.putExtra("cardfind_id",myList.get(position-1).getId()+"");
-                    intent.putExtra("bank",banks.get(Integer.parseInt(myList.get(position-1).getBankcard())-1).getName());
-                    intent.putExtra("bank_url",banks.get(Integer.parseInt(myList.get(position-1).getBankcard())-1).getCardThumb());
+                    intent.putExtra("bank",bankTable.get(0).getName());  // TODO: 2018/1/23 银行类别待修改
+                    intent.putExtra("bank_url",bankTable.get(0).getCardThumb());
                 }
                 UIHelper.showDetails(getContext(), intent);
 
@@ -231,16 +235,8 @@ public class SearchHomeFragment extends BaseFragment {
                 holder.discounts.setText(myList.get(position).getDescribe());
                 holder.obj.setText(myList.get(position).getCreateTime());
 
-                if (banks.size()>0){
-                    int bankcard = Integer.parseInt(myList.get(position).getBankcard());
-                    if (bankcard < 34){
-                        Bank.DataBean dataBean = banks.get(bankcard - 1);
-                        String name = dataBean.getName();
-                        holder.bank.setText(name);
-                    }else{
-                        holder.bank.setText("------------");
-                    }
-                }
+                List<BankTable> bankTable = DataSupport.where("bank_id = ?",myList.get(position).getBankcard()+"").find(BankTable.class);
+                holder.bank.setText(bankTable.get(0).getName());
                 LatLng p1LL = new LatLng(  AppContext.getInstance().getLat(),AppContext.getInstance().getLon());
                 LatLng p2LL = new LatLng( myList.get(position).getLng(),myList.get(position).getLat());
 

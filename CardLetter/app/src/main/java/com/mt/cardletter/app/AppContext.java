@@ -1,15 +1,16 @@
 package com.mt.cardletter.app;
 
-import android.app.Application;
+
 import android.app.Service;
+
 import android.os.Vibrator;
+
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
+import com.mob.MobSDK;
 import com.mt.cardletter.service.LocationService;
-import com.umeng.socialize.Config;
-import com.umeng.socialize.PlatformConfig;
-import com.umeng.socialize.UMShareAPI;
+
 
 import org.litepal.LitePalApplication;
 
@@ -18,33 +19,20 @@ import java.util.List;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.sharesdk.framework.ShareSDK;
 
 
 public class AppContext extends LitePalApplication {
     private static AppContext app;
-    //友盟分享  微信，微博，QQ空间的分享配置
-
-    /**
-     * 1.新浪微博
-     *      App Key：2928292335
-            App Secret：c9826c523bcd32c5042167ac4e3939b1
-       2.腾讯
-            APP ID  1106542925
-            APP KEY 57VgIL08mxb0kua8
-        3,微信
-             APP ID  1106542925
-             APP KEY 57VgIL08mxb0kua8
-     */
     {
-        PlatformConfig.setWeixin("wxdbdbfca2a7b69690", "c9826c523bcd32c5042167ac4e3939b1");
-        PlatformConfig.setQQZone("1106542925", "57VgIL08mxb0kua8");
-        PlatformConfig.setSinaWeibo("2928292335", "8f16088f8122c87f695c2893e6595aeb", "http://sns.whalecloud.com");
+//        PlatformConfig.setWeixin("wxdc18eb813baac5f0", "7685f3096a19535a46e5cddfe91b997a");
+//        PlatformConfig.setQQZone("1106542925", "57VgIL08mxb0kua8");
+//        PlatformConfig.setSinaWeibo("2928292335", "8f16088f8122c87f695c2893e6595aeb", "http://app.mi.com/download/562671?ref=search");
     }
     public LocationService locationService;
     public Vibrator mVibrator;
 
     public static List<Map<String, Object>> push_data=new ArrayList<Map<String, Object>>();
-
 
 
     public String getCity() {
@@ -101,13 +89,14 @@ public class AppContext extends LitePalApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        //友盟分享  微信，微博，QQ空间的分享配置
-        UMShareAPI.get(this);
-        Config.DEBUG = true;
-        //MobSDK.init(this,"230ba2d633f9d","6611150155097717a1ca80c17e703c2b");
+
+        /**
+         * 初始化社会化组件
+         */
+        MobSDK.init(this);
+        ShareSDK.isDebug();
 
         registerUncaughtExceptionHandler();
-
         locationService = new LocationService(getApplicationContext());
         mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
         SDKInitializer.initialize(this);
@@ -123,4 +112,8 @@ public class AppContext extends LitePalApplication {
     private void registerUncaughtExceptionHandler() {
         Thread.setDefaultUncaughtExceptionHandler(AppException.getAppExceptionHandler());
     }
+//    @Override
+//    protected void attachBaseContext(Context base) {
+//        super.attachBaseContext(base); MultiDex.install(this);
+//    }
 }

@@ -1,13 +1,11 @@
 package com.mt.cardletter.activity.setting;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
+import android.os.Bundle;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
@@ -20,7 +18,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -28,9 +25,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.BaseActivity;
-import com.mt.cardletter.activity.LoginActivity;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
@@ -39,29 +39,34 @@ import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.PermissionUtils;
 import com.mt.cardletter.utils.PictureUtils;
 import com.mt.cardletter.utils.SharedPreferences;
-import com.mt.cardletter.utils.ThirdpartyLoginUtils;
 import com.mt.cardletter.utils.ToastUtils;
-import com.umeng.socialize.UMShareAPI;
+import com.mt.cardletter.utils.impower.ImpowerAndShareUtil;
+
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import test.abc.H5Activity;
 
 /**
- *  jk - 修改文件
+ * jk - 修改文件
  */
-public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClickListener {
-    private int[] headImgID = {R.mipmap.head1,R.mipmap.head2,R.mipmap.head3,R.mipmap.head4,R.mipmap.head5,R.mipmap.head6};
+public class SettingMsgActivity extends BaseActivity implements View.OnClickListener {
+    private int[] headImgID = {R.mipmap.head1, R.mipmap.head2, R.mipmap.head3, R.mipmap.head4, R.mipmap.head5, R.mipmap.head6};
     private CircleImageView circleImageView;
     private RelativeLayout msgTop;
     private boolean isLogin;
     private Button btnExit;
 
-    private TextView updata,user_loginname;
-    private EditText old_pw,new_pw,new_pw_re;
+    private TextView updata, user_loginname;
+    private EditText old_pw, new_pw, new_pw_re;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_setting_msg;
@@ -85,8 +90,8 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
         msgTop.setOnClickListener(this);
 
         isLogin = SharedPreferences.getInstance().getBoolean("isLogin", false);
-        user_loginname.setText(SharedPreferences.getInstance().getString("nick_name",""));
-        if (isLogin){
+        user_loginname.setText(SharedPreferences.getInstance().getString("nick_name", ""));
+        if (isLogin) {
             btnExit.setBackgroundResource(R.color.blue);
             btnExit.setClickable(true);
             btnExit.setEnabled(true);
@@ -97,28 +102,31 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
         }
         resetInfo();
     }
+
     @Override
-    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
-        switch(permsRequestCode){
+    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults) {
+        switch (permsRequestCode) {
             case 200:
-                boolean cameraAccepted = grantResults[0]== PackageManager.PERMISSION_GRANTED;
-                if(cameraAccepted){
+                boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                if (cameraAccepted) {
                     showTakePicture();
-                }else{
-                    ToastUtils.showShort(this,"您可以在应用管理中打开相应权限");
+                } else {
+                    ToastUtils.showShort(this, "您可以在应用管理中打开相应权限");
                 }
-            break;
+                break;
         }
     }
+
     /**
      * 获取相机和SD卡权限
      */
-    private void getPermissions(){
+    private void getPermissions() {
         String[] permissions = {Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE};
         PermissionUtils.checkPermissionArray(this, permissions, 200);
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -129,12 +137,13 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
                 //circleImageView.setImageResource(R.mipmap.head1);
                 break;
             case R.id.btnExit:
+
                 boolean isLogin = SharedPreferences.getInstance().getBoolean("isLogin", false);
-                if (isLogin){
-                    ThirdpartyLoginUtils.unLoginForQQ();
+                if (isLogin) {
+                    ImpowerAndShareUtil.impower(this,SharedPreferences.getInstance().getString("impower_mode",""),1);
                     btnExit.setClickable(true);
                     btnExit.setEnabled(true);
-                    SharedPreferences.getInstance().putBoolean("isLogin",false);
+                    SharedPreferences.getInstance().putBoolean("isLogin", false);
                     SharedPreferences.getInstance().remove("account");
                     SharedPreferences.getInstance().remove("password");
                     SharedPreferences.getInstance().remove("nick_name");
@@ -143,7 +152,7 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
                     btnExit.setBackgroundResource(R.color.button_bg);
                     btnExit.setClickable(false);
                     btnExit.setEnabled(false);
-                    SharedPreferences.getInstance().putInt("headImgIndex",-1);
+                    SharedPreferences.getInstance().putInt("headImgIndex", -1);
                     resetInfo();
                     finish();
                     //ToastUtils.makeShortText("退出成功",getApplicationContext());
@@ -155,33 +164,36 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
                 break;
         }
     }
-    private void checkout(){
-        if (old_pw.getText().toString().trim().isEmpty()){
-            ToastUtils.makeShortText("旧密码不能为空",getApplicationContext());
+
+    private void checkout() {
+        if (old_pw.getText().toString().trim().isEmpty()) {
+            ToastUtils.makeShortText("旧密码不能为空", getApplicationContext());
             return;
         }
-        if (new_pw.getText().toString().trim().isEmpty()){
-            ToastUtils.makeShortText("新密码不能为空",getApplicationContext());
+        if (new_pw.getText().toString().trim().isEmpty()) {
+            ToastUtils.makeShortText("新密码不能为空", getApplicationContext());
             return;
         }
-        if (!new_pw_re.getText().toString().trim().equals(new_pw.getText().toString().trim())){
-            ToastUtils.makeShortText("两次输入新密码不相同",getApplicationContext());
+        if (!new_pw_re.getText().toString().trim().equals(new_pw.getText().toString().trim())) {
+            ToastUtils.makeShortText("两次输入新密码不相同", getApplicationContext());
             return;
         }
-        updataUserData(old_pw.getText().toString().trim(),new_pw.getText().toString().trim());
+        updataUserData(old_pw.getText().toString().trim(), new_pw.getText().toString().trim());
     }
-    private void updataUserData(String old_password,String new_password) {
+
+    private void updataUserData(String old_password, String new_password) {
         CardLetterRequestApi.getInstance().updataPassword(Constant.Access_Token,
-                SharedPreferences.getInstance().getString("user_token",""),old_password,new_password,new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
-            @Override
-            public void onSucceed(LoginEntity data) {
-                ToastUtils.makeShortText("成功",SettingMsgActivity.this);
-            }
-            @Override
-            public void onError(int code, String msg) {
-                ToastUtils.makeShortText("网络故障",SettingMsgActivity.this);
-            }
-        },SettingMsgActivity.this));
+                SharedPreferences.getInstance().getString("user_token", ""), old_password, new_password, new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
+                    @Override
+                    public void onSucceed(LoginEntity data) {
+                        ToastUtils.makeShortText("成功", SettingMsgActivity.this);
+                    }
+
+                    @Override
+                    public void onError(int code, String msg) {
+                        ToastUtils.makeShortText("网络故障", SettingMsgActivity.this);
+                    }
+                }, SettingMsgActivity.this));
 
 
     }
@@ -190,22 +202,24 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
         isLogin = SharedPreferences.getInstance().getBoolean("isLogin", false);
         //ToastUtils.showShort(this,"================"+isLogin+"  "+SharedPreferences.getInstance().getString("nick_name","")+" "+ SharedPreferences.getInstance().getString("url","")+" ");
         if (isLogin) {
-            String name = SharedPreferences.getInstance().getString("nick_name","");
-            String url = SharedPreferences.getInstance().getString("url","");
-            if ((!url.isEmpty())&&(!url.equals(""))){
+            String name = SharedPreferences.getInstance().getString("nick_name", "");
+            String url = SharedPreferences.getInstance().getString("url", "");
+            if ((!url.isEmpty()) && (!url.equals(""))) {
                 Glide.with(this).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).into(circleImageView);//设置网络头像
-            }else{
+            } else {
                 setTingHead();//设置随机头像
             }
-        }else {
+        } else {
             circleImageView.setImageResource(R.mipmap.icon_default);
         }
 
     }
+
     /**
      * 弹窗选择：相机/相册
      */
     private PopupWindow mPopupWindow;
+
     private void showMenuPop() {
         View popView = LayoutInflater.from(this).inflate(R.layout.pull_popu_icon, null);
         mPopupWindow = new PopupWindow(popView, LinearLayout.LayoutParams.MATCH_PARENT,
@@ -264,17 +278,20 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
     private static final int REQUEST_CODE_PICK_IMAGE = 222;
     private static final int REQ_GALLERY = 333;
     private String mPublicPhotoPath;
+
     public void getImageFromAlbum() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");//相片类型
         startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
     }
+
     /**
      * 拍照的功能
      */
     private void showTakePicture() {
         startTake();
     }
+
     /**
      * 拍照
      */
@@ -304,12 +321,12 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
     /**
      * 设置随机设置头像
      */
-    private void setTingHead(){
+    private void setTingHead() {
         Random rand = new Random();
         SharedPreferences sp = SharedPreferences.getInstance();
         int defImgIndex = sp.getInt("headImgIndex", -1);
-        if (defImgIndex == -1){
-            sp.putInt("headImgIndex",rand.nextInt(6));
+        if (defImgIndex == -1) {
+            sp.putInt("headImgIndex", rand.nextInt(6));
         }
         defImgIndex = sp.getInt("headImgIndex", -1);
         circleImageView.setImageResource(headImgID[defImgIndex]);
@@ -322,16 +339,61 @@ public class  SettingMsgActivity  extends  BaseActivity  implements  View.OnClic
     }
 
     @Override
-    public void initListener() { }
+    public void initListener() {
+    }
 
     @Override
-    protected void initData() { }
-    @Override
-    protected void handler(Message msg) { }
+    protected void initData() {
+    }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    protected void handler(Message msg) {
+    }
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("SettingMsg Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
     }
 }

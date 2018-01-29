@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.model.LatLng;
@@ -23,19 +24,24 @@ import com.mt.cardletter.R;
 import com.mt.cardletter.activity.ScreenActivity;
 import com.mt.cardletter.activity.SetailsActivity;
 import com.mt.cardletter.app.AppContext;
+import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.merchant.GoodsBean;
+import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
+import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.pulltorefresh.ILoadingLayout;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
+
+import org.litepal.crud.DataSupport;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -75,10 +81,8 @@ public class CompleteFragment extends BaseFragment {
             tv_noll = (TextView) view.findViewById(R.id.tv_noll);
             tv_noll.setVisibility(View.GONE);
             ButterKnife.bind(this, view);
-
             cartgory_id= (int) getArguments().get("id")+"";
-            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,Constant.CITY_ID, "", AppContext.getInstance().getLat()+"", AppContext.getInstance().getLon()+"");
-            toLogin(Constant.Access_Token);
+            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,Constant.CITY_ID, Constant.MY_BANK, AppContext.getInstance().getLat()+"", AppContext.getInstance().getLon()+"");
         }
         return view;
     }
@@ -88,7 +92,7 @@ public class CompleteFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         if (isOpen){
             initViews();
-            isOpen = false;
+            isOpen = true;
         }
     }
 
@@ -97,22 +101,36 @@ public class CompleteFragment extends BaseFragment {
         super.onLazyLoad();
     }
 
-    private void loadData(final int upDataFlag , String list_rows, String page, String category_id, String city, String  bankcard, String lng, String lat) {
+    private void loadData(final int upDataFlag , final String list_rows, final String page, final String category_id, final String city, final String  bankcard, final String lng, final String lat) {
         CardLetterRequestApi.getInstance().getFindMerchant(
-                Constant.Access_Token,list_rows,page,category_id,city, "",lng,lat,"",new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
+                Constant.Access_Token,list_rows,page,category_id,city, bankcard,lng,lat,"",new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
                     @Override
                     public void onSucceed(Goods data) {
+                        System.out.println("jk==--"+list_rows+" - "+page+" - "+category_id+" - "+city+" - "+bankcard+" - "+lng+"   - "+lat);
                         if (data.getCode()==0){
+                            System.out.println("jk---------"+data.getData().getCardfindList().getData().size());
                             List<Goods.DataBeanX.CardfindListBean.DataBean> data1 = data.getData().getCardfindList().getData();
                             if (upDataFlag == UPDATA_DEF){
                                 if (data.getData().getCardfindList().getTotal()==0){
                                     tv_noll.setVisibility(View.VISIBLE);
+                                }else{
+                                    tv_noll.setVisibility(View.GONE);
                                 }
                                 myList = data1;
                             }else if(upDataFlag == UPDATA_UP){
+                                if (data.getData().getCardfindList().getTotal()==0){
+                                    Toast.makeText(getContext(),"已到底了",Toast.LENGTH_SHORT).show();
+                                    tv_noll.setVisibility(View.VISIBLE);
+                                }else{
+                                    tv_noll.setVisibility(View.GONE);
+                                }
                                 myList.addAll(data1);
                             }else if(upDataFlag == UPDATA_DOWN){
-                                ToastUtils.makeShortText("已是加载最新",getContext());
+                                if (data.getData().getCardfindList().getTotal()==0){
+                                    tv_noll.setVisibility(View.VISIBLE);
+                                }else{
+                                    tv_noll.setVisibility(View.GONE);
+                                }
                                 myList = data1;
                             }
                             myAdapter.notifyDataSetChanged();
@@ -136,9 +154,10 @@ public class CompleteFragment extends BaseFragment {
                 Intent intent = getActivity().getIntent();
                 intent.setClass(getActivity(),SetailsActivity.class);
                 if(myList.get(position-1)!=null){
+                    List<BankTable> bankTable = DataSupport.where("bank_id = ?",myList.get(position-1).getBankcard()+"").find(BankTable.class);//查询数据库
                     intent.putExtra("cardfind_id",myList.get(position-1).getId()+"");
-                    intent.putExtra("bank",banks.get(Integer.parseInt(myList.get(position-1).getBankcard())-1).getName());
-                    intent.putExtra("bank_url",banks.get(Integer.parseInt(myList.get(position-1).getBankcard())-1).getCardThumb());
+                    intent.putExtra("bank",bankTable.get(0).getName());  // TODO: 2018/1/23 银行类别待修改
+                    intent.putExtra("bank_url",bankTable.get(0).getCardThumb());
                 }
                 startActivity(intent);
             }
@@ -153,12 +172,12 @@ public class CompleteFragment extends BaseFragment {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 page_index = 1;
-                loadData( UPDATA_DOWN , page_size , ""+page_index , cartgory_id ,Constant.CITY_ID, "",AppContext.getInstance().getLat()+"",AppContext.getInstance().getLon()+"");
+                loadData( UPDATA_DOWN , page_size , ""+page_index , cartgory_id ,Constant.CITY_ID, Constant.MY_BANK,AppContext.getInstance().getLat()+"",AppContext.getInstance().getLon()+"");
             }
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 page_index = page_index + 1;
-                loadData( UPDATA_UP , page_size , ""+page_index , cartgory_id ,Constant.CITY_ID, "",AppContext.getInstance().getLat()+"",AppContext.getInstance().getLon()+"");
+                loadData( UPDATA_UP , page_size , ""+page_index , cartgory_id ,Constant.CITY_ID, Constant.MY_BANK,AppContext.getInstance().getLat()+"",AppContext.getInstance().getLon()+"");
             }
         });
     }
@@ -207,16 +226,9 @@ public class CompleteFragment extends BaseFragment {
                 holder.discounts.setText(myList.get(position).getDescribe());
                 holder.obj.setText(myList.get(position).getCreateTime());
 
-                if (banks.size()>0){
-                    int bankcard = Integer.parseInt(myList.get(position).getBankcard());
-                    if (bankcard < 34){
-                        Bank.DataBean dataBean = banks.get(bankcard - 1);
-                        String name = dataBean.getName();
-                        holder.bank.setText(name);
-                    }else{
-                        holder.bank.setText("------------");
-                    }
-                }
+                List<BankTable> bankTable = DataSupport.where("bank_id = ?",myList.get(position).getBankcard()+"").find(BankTable.class);
+                holder.bank.setText(bankTable.get(0).getName());
+
                 LatLng p1LL = new LatLng(  AppContext.getInstance().getLat(),AppContext.getInstance().getLon());
                 LatLng p2LL = new LatLng( myList.get(position).getLng(),myList.get(position).getLat());
 
@@ -224,7 +236,7 @@ public class CompleteFragment extends BaseFragment {
                 DecimalFormat df = new DecimalFormat("#");
                 String format = df.format(bg);
                 byte[] bytes = format.getBytes();
-                holder.distance.setText(format+" M");
+                holder.distance.setText(format+" 米");
                 Glide.with(CompleteFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
             }
             return convertView;
@@ -234,21 +246,6 @@ public class CompleteFragment extends BaseFragment {
             ImageView img;
         }
     }
-    private void toLogin(String ak) {
-        CardLetterRequestApi.getInstance().getBank(ak, new HttpSubscriber<Bank>(new SubscriberOnListener<Bank>() {
-            @Override
-            public void onSucceed(Bank data) {
-                if (data.getCode() == 0) {
-                    banks = data.getData();
-                }
-            }
-            @Override
-            public void onError(int code, String msg) {
-
-            }
-        }, getContext()));
-    }
-
     /**
      * @param requestCode  请求码，即调用startActivityForResult()传递过去的值
      * @param resultCode  结果码，结果码用于标识返回数据来自哪个新Activity
@@ -259,4 +256,6 @@ public class CompleteFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         System.out.println("jk====onActivityResult===");
     }
+
+
 }

@@ -1,20 +1,10 @@
 package com.mt.cardletter.activity.showimg;
 
-import android.os.Bundle;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.BaseActivity;
-import com.mt.cardletter.activity.showimg.ImageDetailFragment;
-
-import java.util.ArrayList;
 
 /**
  * 图片查看器 

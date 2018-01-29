@@ -3,6 +3,7 @@ package com.mt.cardletter.https;
 
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.city.District;
+import com.mt.cardletter.entity.collect.Collect;
 import com.mt.cardletter.entity.creditcard.CreditCard;
 import com.mt.cardletter.entity.creditcard.CreditDatas;
 import com.mt.cardletter.entity.data.AirDatas;
@@ -20,6 +21,7 @@ import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Good;
 import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.merchant.GoodsBean;
+import com.mt.cardletter.entity.merchant.MyBank;
 import com.mt.cardletter.entity.news.NetNews;
 import com.mt.cardletter.entity.news.NetNewsCategory;
 import com.mt.cardletter.entity.news.News;
@@ -483,35 +485,30 @@ public interface HttpRequestService {
     /**
      * 我关注的银行卡
      * @param access_token
-     * @param list_rows
-     * @param page
-     * @param member_id
      * @param mybank  关注的银行，多条用逗号分割
      * @return
      */
     @POST("/api.php/common/mybank")
-    Observable<SearchIntegralData> addMybank(@Query("access_token") String access_token,
-                                               @Query("list_rows") int list_rows,
-                                               @Query("page") int page,
-                                               @Query("member_id") int member_id,
-                                               @Query("mybank")String mybank);
+    Observable<MyBank> addMybank(@Query("access_token") String access_token,
+                                 @Query("user_token") String user_token,
+                                 @Query("mybank")String mybank);
 
 
     /**
      * 添加收藏
      * @param access_token
-     * @param name
-     * @param member_id
-     * @param name_id
-     * @param fvalue
+     * @param name  标题名称
+     * @param member_id  用户id
+     * @param name_id  来源id
+     * @param fvalue 收藏的链接值
      * @return
      */
     @POST("/api.php/favorite/favoriteadd")
-    Observable<SearchIntegralData> addFavorite(@Query("access_token") String access_token,
-                                               @Query("name") int name,
-                                               @Query("member_id") int member_id,
-                                               @Query("name_id") int name_id,
-                                               @Query("fvalue")String fvalue);
+    Observable<Collect> addFavorite(@Query("access_token") String access_token,
+                                    @Query("name") String name,
+                                    @Query("member_id") String member_id,
+                                    @Query("name_id") String name_id,
+                                    @Query("fvalue")String fvalue);
 
     /**
      * 删除收藏
@@ -521,7 +518,7 @@ public interface HttpRequestService {
      * @return
      */
     @POST("/api.php/favorite/favoritedel")
-    Observable<SearchIntegralData> delFavorite(@Query("access_token") String access_token,
+    Observable<Collect> delFavorite(@Query("access_token") String access_token,
                                                @Query("id") int id,
                                                 @Query("member_id") String member_id);
 
@@ -532,7 +529,7 @@ public interface HttpRequestService {
      * @return
      */
     @POST("/api.php/favorite/favoritelist")
-    Observable<SearchIntegralData> delFavoriteList(@Query("access_token") String access_token,
+    Observable<Collect> delFavoriteList(@Query("access_token") String access_token,
                                                    @Query("member_id") String member_id);
 
     //    public static void main(String[] args) {

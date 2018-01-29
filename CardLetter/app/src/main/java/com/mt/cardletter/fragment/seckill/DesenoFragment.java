@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.utils.ToastUtils;
-import com.mt.cardletter.activity.share.ShareActivity;
 
 /**
  * jk 限时购买
@@ -26,7 +25,6 @@ public class DesenoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ToastUtils.makeShortText("TextView",getContext());
-                startActivity(new Intent(getContext(),ShareActivity.class));
             }
         });
         return view;

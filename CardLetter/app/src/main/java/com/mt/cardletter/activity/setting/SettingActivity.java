@@ -1,6 +1,8 @@
 package com.mt.cardletter.activity.setting;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Message;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -78,8 +80,24 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.setting_help :
                 //TODO  版本更新
-                ToastUtils.makeShortText("目前是最新版本",this);
+                ToastUtils.makeShortText("目前是最新版本 "+getVersion(),this);
                 break;
+        }
+    }
+
+    /**
+      * 获取版本号
+      * @return 当前应用的版本号
+      */
+    public String getVersion() {
+        try {
+               PackageManager manager = this.getPackageManager();
+               PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+                String version = info.versionName;
+               return version;
+        } catch (Exception e) {
+                e.printStackTrace();
+                return "";
         }
     }
 }

@@ -2,9 +2,15 @@ package com.mt.cardletter.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -15,6 +21,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
+import com.mt.cardletter.db.tables.BankTable;
+import com.mt.cardletter.entity.collect.Collect;
 import com.mt.cardletter.entity.merchant.Good;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
@@ -22,12 +30,17 @@ import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.ToastUtils;
-import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.media.UMImage;
-import com.umeng.socialize.media.UMWeb;
+
+
+import org.litepal.crud.DataSupport;
+
+import java.util.HashMap;
+import java.util.List;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 
 /**
  * 商品详情
@@ -68,7 +81,8 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         next.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {
-                jurisdiction();//权限申请  分享入口
+                showShare();
+                //jurisdiction();//权限申请  分享入口
                 //startActivity(new Intent(SetailsActivity.this, ShareActivity.class));
             }
         });
@@ -86,7 +100,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         bank = getIntent().getStringExtra("bank");
         bank_url = getIntent().getStringExtra("bank_url");
         if (cardfind_id != null) {
-            loadData(cardfind_id);
+            loadDataForGood(cardfind_id);
         }
         collect = (RelativeLayout) findViewById(R.id.collection);
         collect_img = (ImageView) findViewById(R.id.pic_one);
@@ -94,7 +108,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         collect.setOnClickListener(this);
     }
 
-    private void loadData(String cardfind_id) {
+    private void loadDataForGood(String cardfind_id) {
         /*
          * 获取商家列表
          */
@@ -124,16 +138,14 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
                 setails_address.setText(good.getAddress());
                 setails_centent.setText(good.getContent());
                 setails_discounts.setText(good.getDescribe());
-
                 if (good.getThumb()!=null){
                     Glide.with(this).load(Constant.BASE_URL+good.getThumb()).error(R.drawable.default_error).into(bigImg);
                 }
-                if(bank!=null){
-                    setails_obj.setText(bank);
-                }
-                if (bank_url!=null){
-                    Glide.with(this).load(Constant.BASE_URL+bank_url).error(R.drawable.default_error).into(item_bank);
-                }
+
+                //data for db
+                List<BankTable> bankTable = DataSupport.where("bank_id = ?",good.getBankcard()).find(BankTable.class);//查询数据库
+                setails_obj.setText(bankTable.get(0).getName());
+                Glide.with(this).load(Constant.BASE_URL+bankTable.get(0).getCardThumb()).error(R.drawable.default_error).into(item_bank);
             }
         } else {
             ToastUtils.showShort(getApplicationContext(), "数据异常，请检测网络");
@@ -141,10 +153,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    protected void initData() {
-
-
-    }
+    protected void initData() {}
     private boolean isSelect = false;
     @Override
     public void onClick(View v) {
@@ -170,6 +179,25 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
+    /**
+     * 添加收藏
+     * 
+     */
+    // TODO: 2018/1/24 等待接口
+    private void loadForCollect(String name ,String member_id,String name_id,String fvalue){
+        CardLetterRequestApi.getInstance().addFavorite(name,member_id,name_id,fvalue, new HttpSubscriber<Collect>(new SubscriberOnListener<Collect>() {
+            @Override
+            public void onSucceed(Collect data) {
+                if (data.getCode() == 0) {
+
+                }
+            }
+            @Override
+            public void onError(int code, String msg) {
+                ToastUtils.showShort(SetailsActivity.this, "网络故障");
+            }
+        }, SetailsActivity.this));
+    }
 
     @Override
     public void initListener() {
@@ -181,81 +209,101 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     protected void handler(Message msg) {
 
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        if(requestCode == 123){
-            showMyShare();
-        }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void showShare() {
+//        OnekeyShare oks = new OnekeyShare();
+//        //关闭sso授权
+//        oks.disableSSOWhenAuthorize();
+//
+//        // title标题，微信、QQ和QQ空间等平台使用
+//        oks.setTitle("asdasdasdasd");
+//        // titleUrl QQ和QQ空间跳转链接
+//        oks.setTitleUrl("http://sharesdk.cn");
+//        // text是分享文本，所有平台都需要这个字段
+//        oks.setText("我是分享文本");
+//        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+//        oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+//        oks.setImageData(drawableToBitmap(SetailsActivity.this.getDrawable(R.mipmap.logo)));
+//        // url在微信、微博，Facebook等平台中使用
+//        oks.setUrl("http://sharesdk.cn");
+//        // comment是我对这条分享的评论，仅在人人网使用
+//        oks.setComment("我是测试评论文本");
+//        // 启动分享GUI
+//        oks.show(this);
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
+            @Override
+            public void onShare(Platform platform, cn.sharesdk.framework.Platform.ShareParams paramsToShare) {
+                if("SinaWeibo".equals(platform.getName())){
+                    paramsToShare.setText("我是文本" + "http://sharesdk.cn");
+                    paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
+                }
+                if ("Wechat".equals(platform.getName())) {
+                    paramsToShare.setTitle("标题");
+                    paramsToShare.setUrl("http://sharesdk.cn");
+                    paramsToShare.setText("我是共用的参数，这几个平台都有text参数要求，提取出来啦");
+                    paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
+                    paramsToShare.setShareType(Platform.SHARE_WEBPAGE);
+                }
+                if ("WechatMoments".equals(platform.getName())) {
+                    paramsToShare.setTitle("标题");
+                    paramsToShare.setUrl("http://sharesdk.cn");
+                    paramsToShare.setText("我是共用的参数，这几个平台都有text参数要求，提取出来啦");
+                    paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
+                    paramsToShare.setShareType(Platform.SHARE_WEBPAGE);
+                }
+                if ("QQ".equals(platform.getName())) {
+                    paramsToShare.setTitle("标题");
+                    paramsToShare.setTitleUrl("http://sharesdk.cn");
+                    paramsToShare.setText("我是共用的参数，这几个平台都有text参数要求，提取出来啦");
+                    paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
+                }
+                if("QZone".equals(platform.getName())){
+                    paramsToShare.setTitle("标题");
+                    paramsToShare.setTitleUrl("http://sharesdk.cn");
+                    paramsToShare.setText("我是共用的参数，这几个平台都有text参数要求，提取出来啦");
+                    paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
+                }
+            }
+        });
+
+        oks.setCallback(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                Log.d("ShareLogin", "onComplete ---->  分享成功");
+                platform.getName();
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                Log.d("ShareLogin", "onError ---->  失败" + throwable.getStackTrace().toString());
+                Log.d("ShareLogin", "onError ---->  失败" + throwable.getMessage());
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+                Log.d("ShareLogin", "onCancel ---->  分享取消");
+            }
+        });
+
+        // 启动分享GUI
+        oks.show(this);
     }
-    /**
-     * 权限申请
-     */
-    private void jurisdiction(){
-        if(Build.VERSION.SDK_INT>=23){
-            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
-            ActivityCompat.requestPermissions(this,mPermissionList,123);
-        }else{
-//            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,Manifest.permission.GET_ACCOUNTS,Manifest.permission.WRITE_APN_SETTINGS};
-//            ActivityCompat.requestPermissions(this,mPermissionList,123);
-            showMyShare();
-        }
+
+    public Bitmap drawableToBitmap(Drawable drawable) {
+
+        Bitmap bitmap = Bitmap.createBitmap(
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565
+        );
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
-    private void showMyShare(){
-        UMImage image = new UMImage(SetailsActivity.this, R.mipmap.logo);//资源文件
-        UMWeb web = new UMWeb("http://www.51kaxin.xyz/appdown.html");
-        web.setTitle(good.getName());
-        web.setThumb(new UMImage(this, R.drawable.share_icon));
-        web.setDescription(good.getDescribe());
-        new ShareAction(SetailsActivity.this)
-                .withText("卡信")
-                .withMedia(web)
-                .setDisplayList(SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)//..XL
-                .setCallback(shareListener)
-                .open();
-    }
-    private UMShareListener shareListener = new UMShareListener() {
-        /**
-         * @descrption 分享开始的回调
-         * @param platform 平台类型
-         */
-        @Override
-        public void onStart(SHARE_MEDIA platform) {
 
-        }
-
-        /**
-         * @descrption 分享成功的回调
-         * @param platform 平台类型
-         */
-        @Override
-        public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(SetailsActivity.this,"分享成功",Toast.LENGTH_LONG).show();
-        }
-
-        /**
-         * @descrption 分享失败的回调
-         * @param platform 平台类型
-         * @param t 错误原因
-         */
-        @Override
-        public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(SetailsActivity.this,"网络故障"+t.getMessage(),Toast.LENGTH_LONG).show();
-        }
-
-        /**
-         * @descrption 分享取消的回调
-         * @param platform 平台类型
-         */
-        @Override
-        public void onCancel(SHARE_MEDIA platform) {
-            //Toast.makeText(SetailsActivity.this,"取消了",Toast.LENGTH_LONG).show();
-
-        }
-    };
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
-    }
 
 }

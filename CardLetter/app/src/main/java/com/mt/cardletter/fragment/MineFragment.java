@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mt.cardletter.R;
+import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
@@ -111,9 +112,9 @@ public class MineFragment extends Fragment{
                 ToastUtils.makeShortText("功能待开放",getContext());
             }
         });
-        scrollView.getPullRootView().findViewById(R.id.location).setOnClickListener(new View.OnClickListener() {
+        scrollView.getPullRootView().findViewById(R.id.location).setOnClickListener(new OnMultiClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onMultiClick(View v) {
                 if (!isLogin) {
                     UIHelper.showLoginActivity(getActivity());
                     return;

@@ -12,11 +12,24 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.db.dbuitls.DBCreate;
+import com.mt.cardletter.db.tables.BankTable;
+import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.fragment.SplashItemFragment;
+import com.mt.cardletter.https.HttpSubscriber;
+import com.mt.cardletter.https.SubscriberOnListener;
+import com.mt.cardletter.https.base_net.CardLetterRequestApi;
+import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.PermissionUtils;
 import com.mt.cardletter.utils.SharedPreferences;
+import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.indicator.CirclePageIndicator;
+
+import org.litepal.crud.DataSupport;
+import org.litepal.tablemanager.Connector;
+
+import java.util.List;
 
 
 /**
@@ -48,6 +61,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
         /**
          * 申请软件所需权限
          */
@@ -56,12 +70,19 @@ public class SplashActivity extends BaseActivity {
         circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         imageView = (ImageView) findViewById(R.id.splash_img);
         int splash_is_open = SharedPreferences.getInstance().getInt("splash_is_open", SPLASH_OPEN);
-        if (splash_is_open == SPLASH_OPEN){
+
+        if (splash_is_open == SPLASH_OPEN){  //首次进入APP
+            /**
+             * 创建数据库
+             */
+            Connector.getDatabase();
+            //toLoginForBank(); //获取银行数据
+
             FragmentManager supportFragmentManager = getSupportFragmentManager();
             SplashAdapter adapter = new SplashActivity.SplashAdapter(supportFragmentManager);
             final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
             viewPager.setPageMargin(pageMargin);
-            viewPager.setOffscreenPageLimit(3);
+            viewPager.setOffscreenPageLimit(3); // 引导页 个数
             viewPager.setAdapter(adapter);
 
             circlePageIndicator.setVisibility(View.VISIBLE);
@@ -81,7 +102,7 @@ public class SplashActivity extends BaseActivity {
                 public void onPageScrollStateChanged(int state) {
                 }
             });
-        }else{
+        }else{  //非首次进入APP
             imageView.setVisibility(View.VISIBLE);
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -130,5 +151,36 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void handler(Message msg) {
 
+    }
+
+    /**
+     * 获取银行类表，完成数据表的数据添加
+     */
+    private void toLoginForBank() {
+        CardLetterRequestApi.getInstance().getBank(Constant.Access_Token, new HttpSubscriber<Bank>(new SubscriberOnListener<Bank>() {
+            @Override
+            public void onSucceed(Bank data) {
+                if (data.getCode() == 0) {
+                    List<Bank.DataBean> data1 = data.getData();
+                    if (data1!=null){
+                        //数据库存储操作
+                        DataSupport.deleteAll(BankTable.class);
+
+                        for (Bank.DataBean bank: data1) {
+                            DBCreate.addBankForBankTable(bank); //添加数据
+                        }
+
+                        List<BankTable> all = DataSupport.findAll(BankTable.class);  //打印数据
+                        for (BankTable banktable: all) {
+                            System.out.println("jk----bank   "+banktable.getId()+"----"+banktable.getName());
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onError(int code, String msg) {
+                ToastUtils.makeShortText("网络故障", SplashActivity.this);
+            }
+        }, SplashActivity.this));
     }
 }

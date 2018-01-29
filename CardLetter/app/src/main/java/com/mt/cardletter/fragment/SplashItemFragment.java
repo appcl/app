@@ -52,7 +52,7 @@ public class SplashItemFragment extends Fragment {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.getInstance().putInt("splash_is_open", SplashActivity.SPLASH_UNOPEN);
+
 //                UIHelper.showMainActivity(getActivity());
                 UIHelper.showScreenActivity("",getActivity());
             }

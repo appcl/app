@@ -22,14 +22,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.mt.cardletter.R;
+import com.mt.cardletter.db.dbuitls.DBCreate;
+import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
+import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
+
+import org.litepal.crud.DataSupport;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -59,8 +64,10 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onMultiClick(View v) {
                 if (from_dis.equals("from_dis")){
+                    setFlag();
                     finish();
                 }else {
+                    setFlag();
                     UIHelper.showMainActivity(ScreenActivity.this);
                 }
             }
@@ -96,12 +103,19 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
             public void onSucceed(Bank data) {
                 if (data.getCode() == 0) {
                     myList = data.getData();
-                    System.out.println("=======myList.size()"+myList.size());
-                    //myRecyclerAdapter.notifyDataSetChanged();
                     mSwipeRefreshLayout.setRefreshing(false);
                     myRecyclerAdapter. notifyItemInserted(myRecyclerAdapter.getItemCount());//必须用此方法才能进行recycleview的刷新。（末尾刷新）
                 } else {
                     ToastUtils.makeShortText(data.getMsg(), ScreenActivity.this);
+                }
+                //数据库存储操作
+                DataSupport.deleteAll(BankTable.class);
+                for (Bank.DataBean bank: myList) {
+                    DBCreate.addBankForBankTable(bank);
+                }
+                List<BankTable> all = DataSupport.findAll(BankTable.class);
+                for (BankTable banktable: all) {
+                    System.out.println("jk----bank   "+banktable.getId()+"----"+banktable.getName());
                 }
             }
             @Override
@@ -116,75 +130,27 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
             public void onRefresh() {
                 toLogin(Constant.Access_Token);
                 Toast.makeText(ScreenActivity.this, "没有更多可加载", Toast.LENGTH_SHORT).show();
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        headDatas = new ArrayList<>();
-//                        for (int i = list.size(); i< list.size()+10; i++) {
-//                            Bean bean = new Bean();
-//                            bean.name = "Heard Item "+i;
-//                            headDatas.add(bean);
-//                        }
-//                        myRecyclerAdapter.AddHeaderItem(headDatas);
-//                        //刷新完成
-//                        mSwipeRefreshLayout.setRefreshing(false);
-//                        Toast.makeText(ScreenActivity.this, "更新了 "+headDatas.size()+" 条目数据", Toast.LENGTH_SHORT).show();
-//                    }
-//                }, 2000);
+
             }
         });
     }
-    private void initLoadMoreListener() {
-//        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-//            int lastVisibleItem ;
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//
-//                //判断RecyclerView的状态 是空闲时，同时，是最后一个可见的ITEM时才加载
-//                if(newState==RecyclerView.SCROLL_STATE_IDLE&&lastVisibleItem+1==myRecyclerAdapter.getItemCount()){
-//
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//
-//                            List<Bean> footerDatas = new ArrayList<>();
-//                            for (int i = list.size(); i< list.size()+10; i++) {
-//                                Bean bean = new Bean();
-//                                bean.name = "Heard Item "+i;
-//                                footerDatas.add(bean);
-//                            }
-//                            myRecyclerAdapter.AddFooterItem(footerDatas);
-//                            Toast.makeText(ScreenActivity.this, "更新了 "+footerDatas.size()+" 条目数据", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }, 3000);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//
-//                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-//                //最后一个可见的ITEM
-//                lastVisibleItem=layoutManager.findLastVisibleItemPosition();
-//            }
-//        });
-    }
-
     @Override
     public void onClick(View v) {
-        finish();
-    }
+        switch (v.getId()){
+            case R.id.screen_affirm:
+                setFlag();
+                UIHelper.showMainActivity(this);
+                finish();
+                break;
+        }
 
+    }
     /**
      *  适配器
      */
     class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder> {
         private View view ;
         private List<Integer> checkPositionlist = new ArrayList<>();
-
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -197,9 +163,7 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
             //构造请求头
             String credentials="51kalaxin:62kaxin";
-            final String basic =
-                    "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-            //Authorization 请求头信息
+            final String basic = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
             LazyHeaders headers=  new LazyHeaders.Builder().addHeader("Authorization", basic).build();
             //url 要加载的图片的地址，imageView 显示图片的ImageView
             Glide.with(ScreenActivity.this).load(new GlideUrl(Constant.BASE_URL+myList.get(position).getCardIcon(), headers)).error(R.drawable.default_error).into(holder.iv);
@@ -291,18 +255,16 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void finish() {
-        Intent intent = new Intent();
-//        if (from_dis.equals("from_dis")){
-            for (int i = 0; i < checkeddata.size(); i++) {
-                int id = checkeddata.get(i).getId();
-                String name = checkeddata.get(i).getName();
-                System.out.println("jk====="+id+"    "+name);
-            }
-            intent.putExtra("checked_data", (Serializable) checkeddata);
-            this.setResult(16, intent);
-//        }else {
-//            UIHelper.showMainActivity(ScreenActivity.this);
-//        }
+
         super.finish();
+    }
+    private void setFlag(){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < checkeddata.size(); i++) {
+            int id = checkeddata.get(i).getId();
+            sb.append(id+",");
+        }
+        Constant.MY_BANK = sb.toString();
+        SharedPreferences.getInstance().putInt("splash_is_open", SplashActivity.SPLASH_UNOPEN); //去除首次打开
     }
 }

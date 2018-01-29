@@ -147,6 +147,7 @@ public class CompleteFragment extends BaseFragment {
     private void initViews() {
         /**
          * 点击事件
+         *
          */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

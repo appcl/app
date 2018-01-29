@@ -77,35 +77,35 @@ public class CreditListActivity extends BaseActivity {
         item_sh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UIHelper.showSHActivity(CreditListActivity.this,sid,sh_list);
+                UIHelper.showSHActivity(CreditListActivity.this,sid,sh_list,"sh");
             }
         });
 
         item_jt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                UIHelper.showJTActivity(CreditListActivity.this,sid,jt_list,"jt");
             }
         });
 
         item_gd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                UIHelper.showGDActivity(CreditListActivity.this,sid,gd_list,"gd");
             }
         });
 
         item_zs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                UIHelper.showZSActivity(CreditListActivity.this,sid,zs_list,"zs");
             }
         });
 
         item_pa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                UIHelper.showPAActivity(CreditListActivity.this,sid,pa_list,"pa");
             }
         });
     }

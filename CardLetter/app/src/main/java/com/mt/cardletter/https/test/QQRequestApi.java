@@ -52,9 +52,9 @@ public class QQRequestApi extends BaseApi {
         toSubscribe(observable,subscriber);
     }
 
-    public void getCreditData(String sid,Subscriber<CreditDatas> subscriber){
+    public void getCreditData(String sid,String utc,Subscriber<CreditDatas> subscriber){
         Observable observable = httpRequestService.getCreditData("js","0.8359997912528966",sid,"mobile_data.json",
-                "list","max","1506287028","ZL1925_juPQJ6D7dUdGA1UkN5hM79","50","1","all","信用卡电子",
+                "list","max",utc,"ZL1925_juPQJ6D7dUdGA1UkN5hM79","50","1","all","信用卡电子",
                 "信用卡电子","信用卡电子","信用卡电子","or","unknow","phone","app")
                 .map(new HttpResultFunc<CreditDatas>());
         toSubscribe(observable,subscriber);

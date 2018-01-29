@@ -264,16 +264,61 @@ public class UIHelper {
         context.startActivity(intent);
     }
 
-    public static void showSHActivity(Context context, String sid,List<BankEntity.BankBean.ShListBean> sh_list)
+    public static void showSHActivity(Context context, String sid,List<BankEntity.BankBean.ShListBean> sh_list,String from)
     {
         Intent intent = new Intent(context, SHActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("sid",sid);
+        System.out.println("from----"+from);
+        bundle.putString("which_bank",from);
         intent.putExtras(bundle);
         intent.putExtra("sh_list", (Serializable) sh_list);
         context.startActivity(intent);
     }
 
+    public static void showGDActivity(Context context, String sid,List<BankEntity.BankBean.GdListBean> gd_list,String from)
+    {
+        Intent intent = new Intent(context, SHActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("sid",sid);
+        bundle.putString("which_bank",from);
+        intent.putExtras(bundle);
+        intent.putExtra("gd_list", (Serializable) gd_list);
+        context.startActivity(intent);
+    }
+
+    public static void showZSActivity(Context context, String sid,List<BankEntity.BankBean.ZsListBean> zs_list,String from)
+    {
+        Intent intent = new Intent(context, SHActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("sid",sid);
+        bundle.putString("which_bank",from);
+        intent.putExtras(bundle);
+        intent.putExtra("zs_list", (Serializable) zs_list);
+        context.startActivity(intent);
+    }
+
+    public static void showJTActivity(Context context, String sid,List<BankEntity.BankBean.JtListBean> jt_list,String from)
+    {
+        Intent intent = new Intent(context, SHActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("sid",sid);
+        bundle.putString("which_bank",from);
+        intent.putExtras(bundle);
+        intent.putExtra("jt_list", (Serializable) jt_list);
+        context.startActivity(intent);
+    }
+
+    public static void showPAActivity(Context context, String sid,List<BankEntity.BankBean.PaListBean> pa_list,String from)
+    {
+        Intent intent = new Intent(context, SHActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("sid",sid);
+        bundle.putString("which_bank",from);
+        intent.putExtras(bundle);
+        intent.putExtra("pa_list", (Serializable) pa_list);
+        context.startActivity(intent);
+    }
 
 
     public static void showSearchIntegralActivity(Context context){

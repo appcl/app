@@ -39,7 +39,7 @@ public class WebView_QQActivity extends BaseActivity {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.mail_layout;
+        return R.layout.web_login_layout;
     }
 
     @Override
@@ -127,7 +127,9 @@ public class WebView_QQActivity extends BaseActivity {
     }
 
     private void getDatas(final String sid){
-        QQRequestApi.getInstance().getCreditData(sid,new HttpSubscriber<CreditDatas>(new SubscriberOnListener<CreditDatas>() {
+        String utc = dateToUTC();
+        System.out.println("-----UTC------"+utc);
+        QQRequestApi.getInstance().getCreditData(sid,utc,new HttpSubscriber<CreditDatas>(new SubscriberOnListener<CreditDatas>() {
             @Override
             public void onSucceed(CreditDatas data) {
                     System.out.println("---------onSucceed-------"+data);
@@ -148,6 +150,13 @@ public class WebView_QQActivity extends BaseActivity {
                 System.out.println("---------onError-------");
             }
         },this));
+    }
+
+    /*
+        * 将时间戳转换为时间
+        */
+    public static String  dateToUTC(){
+        return String.valueOf((int)(System.currentTimeMillis()/1000));
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

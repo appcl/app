@@ -142,9 +142,14 @@
         <activity
             android:name=".activity.bank.SHActivity"
             android:screenOrientation="portrait" />
+        <!--上海银行信用卡详情展示-->
         <activity
             android:name=".activity.bank.SHWebActiviy"
             android:screenOrientation="portrait" />
+        <!--交通银行信用卡详情展示-->
+        <activity
+            android:name=".activity.bank.JTWebActiviy"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.CityPickerActivity"
             android:screenOrientation="portrait"

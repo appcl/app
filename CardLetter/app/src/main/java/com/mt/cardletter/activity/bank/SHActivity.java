@@ -11,7 +11,11 @@ import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.BaseActivity;
+import com.mt.cardletter.adapter.GDAdapter;
+import com.mt.cardletter.adapter.JTAdapter;
+import com.mt.cardletter.adapter.PAAdapter;
 import com.mt.cardletter.adapter.SHAdapter;
+import com.mt.cardletter.adapter.ZSAdapter;
 import com.mt.cardletter.entity.bank.BankEntity;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
@@ -29,14 +33,23 @@ import java.util.List;
 public class SHActivity extends BaseActivity {
 
     private List<BankEntity.BankBean.ShListBean> sh_list=new ArrayList<>();
-
+    private List<BankEntity.BankBean.GdListBean> gd_list = new ArrayList<>();
+    private List<BankEntity.BankBean.JtListBean> jt_list = new ArrayList<>();
+    private List<BankEntity.BankBean.ZsListBean> zs_list = new ArrayList<>();
+    private List<BankEntity.BankBean.PaListBean> pa_list = new ArrayList<>();
     private TextView title_name;
     private FrameLayout back;
     private ListView listview;
 
-    private SHAdapter adapter;
+    private SHAdapter shAdapter;
+    private GDAdapter gdAdapter;
+    private ZSAdapter zsAdapter;
+    private JTAdapter jtAdapter;
+    private PAAdapter paAdapter;
 
     private String sid;
+    private String which_from;
+    private String bank_name;
 
     @Override
     protected int getLayoutResId() {
@@ -45,15 +58,32 @@ public class SHActivity extends BaseActivity {
     }
 
     private void getDatas() {
-        sh_list = (List<BankEntity.BankBean.ShListBean>) getIntent().getSerializableExtra("sh_list");
         Bundle bundle = getIntent().getExtras();
         sid = bundle.getString("sid");
+        which_from = bundle.getString("which_bank");
+        System.out.println("-----which_from-----"+which_from);
+        if(which_from.equals("sh")){
+            sh_list = (List<BankEntity.BankBean.ShListBean>) getIntent().getSerializableExtra("sh_list");
+            bank_name = sh_list.get(0).getName();
+        }else if (which_from.equals("gd")){
+            gd_list = (List<BankEntity.BankBean.GdListBean>) getIntent().getSerializableExtra("gd_list");
+            bank_name = gd_list.get(0).getName();
+        }else if (which_from.equals("jt")){
+            jt_list = (List<BankEntity.BankBean.JtListBean>) getIntent().getSerializableExtra("jt_list");
+            bank_name = jt_list.get(0).getName();
+        }else if (which_from.equals("zs")){
+            zs_list = (List<BankEntity.BankBean.ZsListBean>) getIntent().getSerializableExtra("zs_list");
+            bank_name = zs_list.get(0).getName();
+        }else if (which_from.equals("pa")){
+            pa_list = (List<BankEntity.BankBean.PaListBean>) getIntent().getSerializableExtra("pa_list");
+            bank_name = pa_list.get(0).getName();
+        }
     }
 
     @Override
     public void initView() {
         title_name = (TextView) findViewById(R.id.title_name);
-        title_name.setText(sh_list.get(0).getName());
+        title_name.setText(bank_name);
         back = (FrameLayout) findViewById(R.id.com_back_click);
         back.setVisibility(View.VISIBLE);
         listview = (ListView) findViewById(R.id.sh_listview);
@@ -64,13 +94,47 @@ public class SHActivity extends BaseActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item_id = sh_list.get(position).getId();
-                Intent i = new Intent(SHActivity.this,SHWebActiviy.class);
-                Bundle b =  new Bundle();
-                b.putString("item_id",item_id);
-                b.putString("sid",sid);
-                i.putExtras(b);
-                startActivity(i);
+                if (which_from.equals("sh")){
+                    String item_id = sh_list.get(position).getId();
+                    Intent i = new Intent(SHActivity.this,SHWebActiviy.class);
+                    Bundle b =  new Bundle();
+                    b.putString("item_id",item_id);
+                    b.putString("sid",sid);
+                    i.putExtras(b);
+                    startActivity(i);
+                }else if (which_from.equals("jt")){
+                    String jt_item_id = jt_list.get(position).getId();
+                    Intent i = new Intent(SHActivity.this,JTWebActiviy.class);
+                    Bundle b =  new Bundle();
+                    b.putString("jt_item_id",jt_item_id);
+                    b.putString("sid",sid);
+                    i.putExtras(b);
+                    startActivity(i);
+                }else if (which_from.equals("zs")){
+                    String zs_item_id = zs_list.get(position).getId();
+                    Intent i = new Intent(SHActivity.this,SHWebActiviy.class);
+                    Bundle b =  new Bundle();
+                    b.putString("zs_item_id",zs_item_id);
+                    b.putString("sid",sid);
+                    i.putExtras(b);
+                    startActivity(i);
+                }else if (which_from.equals("gd")){
+                    String gd_item_id = gd_list.get(position).getId();
+                    Intent i = new Intent(SHActivity.this,SHWebActiviy.class);
+                    Bundle b =  new Bundle();
+                    b.putString("gd_item_id",gd_item_id);
+                    b.putString("sid",sid);
+                    i.putExtras(b);
+                    startActivity(i);
+                }else if (which_from.equals("pa")){
+                    String pa_item_id = pa_list.get(position).getId();
+                    Intent i = new Intent(SHActivity.this,SHWebActiviy.class);
+                    Bundle b =  new Bundle();
+                    b.putString("pa_item_id",pa_item_id);
+                    b.putString("sid",sid);
+                    i.putExtras(b);
+                    startActivity(i);
+                }
 //                getItemDatas(sid,item_id);
             }
         });
@@ -93,8 +157,24 @@ public class SHActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        adapter = new SHAdapter(this,sh_list);
-        listview.setAdapter(adapter);
+        if (which_from.equals("sh")){
+            shAdapter = new SHAdapter(this,sh_list);
+            listview.setAdapter(shAdapter);
+        }else if (which_from.equals("gd")){
+            gdAdapter = new GDAdapter(this,gd_list);
+            listview.setAdapter(gdAdapter);
+        }else if (which_from.equals("jt")){
+            jtAdapter = new JTAdapter(this,jt_list);
+            listview.setAdapter(jtAdapter);
+        }
+        else if (which_from.equals("zs")){
+            zsAdapter = new ZSAdapter(this,zs_list);
+            listview.setAdapter(zsAdapter);
+        }
+        else if (which_from.equals("pa")){
+            paAdapter = new PAAdapter(this,pa_list);
+            listview.setAdapter(paAdapter);
+        }
     }
 
     @Override

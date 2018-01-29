@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.BaseActivity;
 import com.mt.cardletter.adapter.PayAdapter;
-import com.mt.cardletter.entity.bank.Jt_BankEntity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,9 +26,7 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -42,7 +39,7 @@ import java.util.regex.Pattern;
  * author:demons
  */
 
-public class SHWebActiviy extends BaseActivity{
+public class JTWebActiviy extends BaseActivity{
 
     private WebView webView;
     private String sid,item_id;
@@ -65,10 +62,11 @@ public class SHWebActiviy extends BaseActivity{
     private void getDatas() {
         Bundle bundle = getIntent().getExtras();
         sid = bundle.getString("sid");
-        item_id = bundle.getString("item_id");
+        item_id = bundle.getString("jt_item_id");
         url = "https://w.mail.qq.com/cgi-bin/mobile?" +
                 "sid="+sid +
                 "&t=phone#mail,search_%E4%BF%A1%E7%94%A8%E5%8D%A1%E7%94%B5%E5%AD%90_all%5F%5F,"+item_id;
+        System.out.println("----item_id----"+item_id+"\n"+sid);
     }
     String CookieStr;
     String[] split_str;
@@ -107,26 +105,12 @@ public class SHWebActiviy extends BaseActivity{
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.addJavascriptInterface(new InJavaScriptLocalObj(), "java_obj");
         webView.setWebViewClient(new WebViewClient() {
-            Dialog progressDialog = ProgressDialog.show(SHWebActiviy.this, null, "正在加载...");
+            Dialog progressDialog = ProgressDialog.show(JTWebActiviy.this, null, "正在加载...");
 
             @Override
             public void onPageFinished(WebView view, final String url) {
                 view.loadUrl("javascript:window.java_obj.getSource(document.documentElement.outerHTML);void(1)");
-//                view.loadUrl("javascript:window.java_obj.getSource('<body>'+" +
-//                        "document.getElementsByTagName('html')[1].outerHTML+'</body>');");
                 super.onPageFinished(view, url);
-//                CookieManager cookieManager = CookieManager.getInstance();
-//                CookieStr = cookieManager.getCookie(url);
-//                if (CookieStr != null) {
-//                    System.out.println("cookie:-----------"+CookieStr);
-//                    split_str=CookieStr.split(";");
-//                    for (int i=0;i<split_str.length;i++){
-//                        str_arr=split_str[i].split("=");
-//                        for (int k = 0;k<str_arr.length-1;k+=2){
-//                            map.put(str_arr[k],str_arr[k+1]);
-//                        }
-//                    }
-//                }
                 System.out.println("-------onPageFinished-------"+url);
                 progressDialog.cancel();
             }
@@ -177,34 +161,34 @@ public class SHWebActiviy extends BaseActivity{
                     formatDatas(msg.obj.toString());
                     break;
                 case 2:
-                    System.out.println("------集合大小------"+jt_list.size());
-                    provioue_tv.setText(jt_bankEntity.getPayMoney().getPrevious_bill_amount());
-                    current_tv.setText(jt_bankEntity.getPayMoney().getCurrent_bill_amount());
-                    pay_tv.setText(jt_bankEntity.getPayMoney().getPay_amount());
-                    other_tv.setText(jt_bankEntity.getPayMoney().getOther_amout());
-                    total_due_tv.setText(jt_bankEntity.getPayMoney().getTotal_due_amount());
-                    min_pay_tv.setText(jt_bankEntity.getPayMoney().getMin_payment_amount());
-
-                    jf_tv.setText(jifen_text);
-
-                    adapter = new PayAdapter(SHWebActiviy.this,payRecordList);
-                    listView.setAdapter(adapter);
+//                    System.out.println("------集合大小------"+jt_list.size());
+//                    provioue_tv.setText(jt_bankEntity.getPayMoney().getPrevious_bill_amount());
+//                    current_tv.setText(jt_bankEntity.getPayMoney().getCurrent_bill_amount());
+//                    pay_tv.setText(jt_bankEntity.getPayMoney().getPay_amount());
+//                    other_tv.setText(jt_bankEntity.getPayMoney().getOther_amout());
+//                    total_due_tv.setText(jt_bankEntity.getPayMoney().getTotal_due_amount());
+//                    min_pay_tv.setText(jt_bankEntity.getPayMoney().getMin_payment_amount());
+//
+//                    jf_tv.setText(jifen_text);
+//
+//                    adapter = new PayAdapter(JTWebActiviy.this,payRecordList);
+//                    listView.setAdapter(adapter);
                     break;
             }
         }
     };
 
 
-    Jt_BankEntity.PayMoney payMoney ;
-    Jt_BankEntity.PayRecord payRecord;
-    List<Jt_BankEntity> jt_list = new ArrayList<>();
-    Jt_BankEntity jt_bankEntity = new Jt_BankEntity();
-    List<Jt_BankEntity.PayRecord> payRecordList = new ArrayList<>();
-    private String jifen_text;
-    int m = 0;
-    /**
-     * 解析html内容
-     */
+//    Jt_BankEntity.PayMoney payMoney ;
+//    Jt_BankEntity.PayRecord payRecord;
+//    List<Jt_BankEntity> jt_list = new ArrayList<>();
+//    Jt_BankEntity jt_bankEntity = new Jt_BankEntity();
+//    List<Jt_BankEntity.PayRecord> payRecordList = new ArrayList<>();
+//    private String jifen_text;
+//    int m = 0;
+//    /**
+//     * 解析html内容
+//     */
     private void formatDatas(final String str) {
         mThreadPool.execute(new Runnable() {
 
@@ -213,56 +197,24 @@ public class SHWebActiviy extends BaseActivity{
                 //从全局池中返回一个message实例，避免多次创建message（如new Message）
 //                getString(str.toString());
                 Document doc = Jsoup.parse(str.toString());
-
-//                Elements elements_style_9 = doc.select("span.STYLE9");
-//                String style_9 ;
-//                for (Element element:elements_style_9){
-//                    style_9=element.text();
-//                    System.out.println("style_9------"+style_9);
-//                }
-//
-//                Elements elements_style7 = doc.select("span.STYLE7");
-//                String style_7 ;
-//                for (Element element:elements_style7){
-//                    style_7=element.text();
-//                    System.out.println("style_7------"+style_7);
-//                }
-
-//                Elements tr_elements = doc.select("tr");
-//                for (int i = 0 ;i<tr_elements.size();i++){
-//                    System.out.println(i+"----------"+tr_elements.get(i).text());
-//                }
-
-                Elements tbody =doc.getElementsByTag("tr");
-                Elements td = tbody.eq(7);
-                Elements elements = td.get(0).getElementsByClass("STYLE9");
-                    payMoney = new Jt_BankEntity.PayMoney();
-                    payMoney.setPrevious_bill_amount(elements.get(3).text());
-                    payMoney.setCurrent_bill_amount(elements.get(5).text());
-                    payMoney.setPay_amount(elements.get(7).text());
-                    payMoney.setOther_amout(elements.get(9).text());
-                    payMoney.setTotal_due_amount(elements.get(11).text());
-                    payMoney.setMin_payment_amount(elements.get(13).text());
-                    jt_bankEntity.setPayMoney(payMoney);
-                    jt_list.add(jt_bankEntity);
-                Elements details = doc.getElementsByTag("tbody");
-                Elements tbody_detais = details.eq(7);
-                Elements tr_elements = tbody_detais.get(0).getElementsByClass("STYLE9");
-                for (int j = 1;j<tr_elements.size();j+=10){
-                    payRecord = new Jt_BankEntity.PayRecord();
-                    System.out.println("---"+j+"---"+tr_elements.get(j).text());
-                    payRecord.setTrans_date(tr_elements.get(j).text());
-                    payRecord.setPost_date(tr_elements.get(j+2).text());
-                    payRecord.setDesc(tr_elements.get(j+4).text());
-                    payRecord.setAmount(tr_elements.get(j+6).text());
-                    payRecord.setCardNum(tr_elements.get(j+8).text());
-                    payRecordList.add(payRecord);
-                    jt_bankEntity.setPayRecord(payRecordList);
+                Elements trs = doc.select("tbody").select("tr");
+                int i;
+                for ( i=0; i<trs.size(); i++){
+                    Elements tds = trs.get(i).select("td");
+                    for (int j=0; j<tds.size(); j++){
+                        String txt = tds.get(j).text();
+                        System.out.print("-----"+txt+"------");
+                    }
                 }
-
-                Elements jifen = details.eq(13);
-                Elements jifen_elements = jifen.get(0).getElementsByClass("STYLE9");
-                jifen_text = jifen_elements.eq(11).text();
+//                Elements tbody =doc.getElementsByTag("tbody");
+//                for (int i = 0;i<tbody.size();i++){
+//                    Elements tr = tbody.get(i).getElementsByTag("tr");
+////                    System.out.println("tr---+"+i+"----"+tr.size());
+//                    String tr_element= tr.get(1).getElementsByTag("tr").text();
+//                    System.out.println("-----tr_element----"+tr_element);
+//                }
+//                System.out.println("------"+0+"-------"+tbody.get(5).text());
+//                System.out.println("------"+0+"-------"+tbody.get(6).text());
 
                 Message msg =Message.obtain();
                 msg.what=2;   //标志消息的标志
@@ -284,6 +236,7 @@ public class SHWebActiviy extends BaseActivity{
             {
                 sb.append(matcher.group(1));
             }
+            System.out.println("----sb-----"+sb);
             Message msg =Message.obtain();
             msg.obj = sb;
             msg.what=1;   //标志消息的标志

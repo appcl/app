@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.BaseActivity;
 import com.mt.cardletter.adapter.PayAdapter;
+import com.mt.cardletter.entity.bank.Bank_JT;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -26,7 +27,9 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -45,7 +48,7 @@ public class JTWebActiviy extends BaseActivity{
     private String sid,item_id;
     private String url;
     private TextView mail_tv;
-    private TextView provioue_tv,current_tv,pay_tv,other_tv,total_due_tv,min_pay_tv;
+    private TextView hk_tv,current_tv,pay_tv,xy_tv,cash_tv;
     private FrameLayout back;
     private TextView title_name;
     ExecutorService mThreadPool = Executors.newSingleThreadExecutor();
@@ -56,7 +59,7 @@ public class JTWebActiviy extends BaseActivity{
     @Override
     protected int getLayoutResId() {
         getDatas();
-        return R.layout.mail_layout;
+        return R.layout.jt_layout;
     }
 
     private void getDatas() {
@@ -82,12 +85,11 @@ public class JTWebActiviy extends BaseActivity{
         title_name = (TextView) findViewById(R.id.title_name);
         title_name.setText("账单详情");
 
-        provioue_tv = (TextView) findViewById(R.id.previous_tv);
+        hk_tv = (TextView) findViewById(R.id.hk_tv);
         current_tv = (TextView) findViewById(R.id.current_tv);
         pay_tv = (TextView) findViewById(R.id.pay_tv);
-        other_tv = (TextView) findViewById(R.id.other_tv);
-        total_due_tv = (TextView) findViewById(R.id.total_due_tv);
-        min_pay_tv = (TextView) findViewById(R.id.min_pay_tv);
+        xy_tv = (TextView) findViewById(R.id.xy_tv);
+        cash_tv = (TextView) findViewById(R.id.cash_tv);
 
         jf_tv = (TextView) findViewById(R.id.jf_tv);
 
@@ -130,9 +132,9 @@ public class JTWebActiviy extends BaseActivity{
         String filePath = null;
         boolean hasSDCard = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
         if (hasSDCard) {
-            filePath =Environment.getExternalStorageDirectory().toString() + File.separator +"上海银行.txt";
+            filePath =Environment.getExternalStorageDirectory().toString() + File.separator +"交通银行.txt";
         } else
-            filePath =Environment.getDownloadCacheDirectory().toString() + File.separator +"上海银行.txt";
+            filePath =Environment.getDownloadCacheDirectory().toString() + File.separator +"交通银行.txt";
 
         try {
             File file = new File(filePath);
@@ -161,6 +163,11 @@ public class JTWebActiviy extends BaseActivity{
                     formatDatas(msg.obj.toString());
                     break;
                 case 2:
+                    hk_tv.setText(bank_jt.getPayMoney().getDate_line());
+                    current_tv.setText(bank_jt.getPayMoney().getTotal_due_amount());
+                    pay_tv.setText(bank_jt.getPayMoney().getMin_payment_amount());
+                    xy_tv.setText(bank_jt.getPayMoney().getCredit_line());
+                    cash_tv.setText(bank_jt.getPayMoney().getCash_line());
 //                    System.out.println("------集合大小------"+jt_list.size());
 //                    provioue_tv.setText(jt_bankEntity.getPayMoney().getPrevious_bill_amount());
 //                    current_tv.setText(jt_bankEntity.getPayMoney().getCurrent_bill_amount());
@@ -189,6 +196,10 @@ public class JTWebActiviy extends BaseActivity{
 //    /**
 //     * 解析html内容
 //     */
+    Bank_JT.PayMoney payMoney ;
+    Bank_JT bank_jt =new Bank_JT();
+    Bank_JT.PayRecord payRecord;
+    List<Bank_JT.PayRecord> payRecordList = new ArrayList<>();
     private void formatDatas(final String str) {
         mThreadPool.execute(new Runnable() {
 
@@ -197,25 +208,56 @@ public class JTWebActiviy extends BaseActivity{
                 //从全局池中返回一个message实例，避免多次创建message（如new Message）
 //                getString(str.toString());
                 Document doc = Jsoup.parse(str.toString());
-                Elements trs = doc.select("tbody").select("tr");
-                int i;
-                for ( i=0; i<trs.size(); i++){
-                    Elements tds = trs.get(i).select("td");
-                    for (int j=0; j<tds.size(); j++){
-                        String txt = tds.get(j).text();
-                        System.out.print("-----"+txt+"------");
+                Elements tbody = doc.select("tbody");
+                System.out.println("一共有"+tbody.size());
+                payMoney = new Bank_JT.PayMoney();
+                Elements tr = tbody.get(2).select("tr");
+                String td_0 = tr.get(0).select("td").get(0).text();
+                String td_1 = tr.get(1).select("td").get(0).text();
+                String td_2 = tr.get(2).select("td").get(0).text();
+                String td_3 = tr.get(3).select("td").get(0).text();
+                String td_4 = tr.get(4).select("td").get(0).text();
+                System.out.println(td_0+"\n"+td_1+"\n"+td_2+"\n"+td_4);
+                payMoney.setDate_line(td_0);
+                payMoney.setTotal_due_amount(td_1);
+                payMoney.setMin_payment_amount(td_2);
+                payMoney.setCredit_line(td_3);
+                payMoney.setCash_line(td_4);
+                bank_jt.setPayMoney(payMoney);
+
+                for (int i = 6 ;i<tbody.size()-5;i++){
+                    System.out.println("---"+tbody.get(i).html());
+                    payRecord = new Bank_JT.PayRecord();
+                    Elements record_tr = tbody.get(i).select("tr");
+                    for (int j = 0;j<record_tr.size();j++){
+                        if (j==0){
+                            Elements record_td = record_tr.get(1).select("td");
+                            String jy_date = record_td.get(0).text();
+                            String jz_date = record_td.get(1).text();
+                            String jy_desc = record_td.get(2).text();
+                            String jy_amout = record_td.get(3).text();
+                            payRecord.setTrans_date(jy_date);
+                            payRecord.setPost_date(jz_date);
+                            payRecord.setDesc(jy_desc);
+                            payRecord.setAmount(jy_amout);
+                            System.out.println("第一条数据-----"+jy_date+"----"+jy_amout);
+                            payRecordList.add(payRecord);
+                        }else {
+                            Elements record_td = record_tr.get(j).select("td");
+                            String jy_date = record_td.get(0).text();
+                            String jz_date = record_td.get(1).text();
+                            String jy_desc = record_td.get(2).text();
+                            String jy_amout = record_td.get(3).text();
+                            payRecord.setTrans_date(jy_date);
+                            payRecord.setPost_date(jz_date);
+                            payRecord.setDesc(jy_desc);
+                            payRecord.setAmount(jy_amout);
+                            System.out.println("其他条数据-----"+jy_date+"----"+jy_amout);
+                            payRecordList.add(payRecord);
+                        }
+                        System.out.println("一共----"+payRecordList.size());
                     }
                 }
-//                Elements tbody =doc.getElementsByTag("tbody");
-//                for (int i = 0;i<tbody.size();i++){
-//                    Elements tr = tbody.get(i).getElementsByTag("tr");
-////                    System.out.println("tr---+"+i+"----"+tr.size());
-//                    String tr_element= tr.get(1).getElementsByTag("tr").text();
-//                    System.out.println("-----tr_element----"+tr_element);
-//                }
-//                System.out.println("------"+0+"-------"+tbody.get(5).text());
-//                System.out.println("------"+0+"-------"+tbody.get(6).text());
-
                 Message msg =Message.obtain();
                 msg.what=2;   //标志消息的标志
                 handler.sendMessage(msg);

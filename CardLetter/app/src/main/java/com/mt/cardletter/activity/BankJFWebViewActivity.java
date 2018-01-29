@@ -24,7 +24,7 @@ public class BankJFWebViewActivity extends BaseActivity {
     @Override
     protected int getLayoutResId() {
         getDatas();
-        return R.layout.mail_layout;
+        return R.layout.jifen_webview;
     }
 
     private void getDatas() {

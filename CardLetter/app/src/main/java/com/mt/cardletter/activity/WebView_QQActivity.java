@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -23,6 +24,8 @@ import com.mt.cardletter.https.test.QQRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.ToastUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 
 
@@ -63,6 +66,7 @@ public class WebView_QQActivity extends BaseActivity {
                 String CookieStr = cookieManager.getCookie(url);
                 if (CookieStr != null) {
                     System.out.println("cookie:-----------"+CookieStr);
+//                    getString(CookieStr);
                 }
                 super.onPageFinished(view, url);
                 progressDialog.cancel();
@@ -108,6 +112,29 @@ public class WebView_QQActivity extends BaseActivity {
 //        webView.addJavascriptInterface(new JsInterface(),"share");
 
         webView.loadUrl(Constant.QQ_MAIN);
+    }
+
+    public static void getString(String str) {
+        String filePath = null;
+        boolean hasSDCard = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+        if (hasSDCard) {
+            filePath =Environment.getExternalStorageDirectory().toString() + File.separator +"cookie.txt";
+        } else
+            filePath =Environment.getDownloadCacheDirectory().toString() + File.separator +"cookie.txt";
+
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                File dir = new File(file.getParent());
+                dir.mkdirs();
+                file.createNewFile();
+            }
+            FileOutputStream outStream = new FileOutputStream(file);
+            outStream.write(str.getBytes());
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

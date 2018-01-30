@@ -1,23 +1,28 @@
 package com.mt.cardletter.activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mt.cardletter.R;
-import com.mt.cardletter.adapter.SearchIntegralAdapter;
 import com.mt.cardletter.entity.integral.SearchIntegralData;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
@@ -25,10 +30,14 @@ import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.ToastUtils;
-import com.mt.cardletter.view.RefreshRecyclerView.PullToRefreshRecyclerView;
+import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
+import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.mt.cardletter.R.id.bjf_jf;
+import static com.mt.cardletter.R.id.bjf_time;
 
 /**
  * Date:2017/12/13
@@ -36,17 +45,20 @@ import java.util.List;
  * author:demons
  */
 
-public class SearchIntegralActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener,PullToRefreshRecyclerView.PagingableListener{
+public class SearchIntegralActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener2{
+    private static final int UPDATA_UP = 0X01; // 上拉加载
+    private static final int UPDATA_DOWN = 0X02; //下拉刷新
+    private static final int UPDATA_DEF = 0X03; //默认加载
     private FrameLayout back_btn;
     private EditText search_et_input;
     private RelativeLayout search_iv_delete;
     private TextView search_btn;
-    private PullToRefreshRecyclerView recyclerView;
+    private PullToRefreshListView recyclerView;
     private int page = 1;
     private int num = 10;
     private List<SearchIntegralData.DataBeanX.DataBean> list = new ArrayList<>();
-    private List<SearchIntegralData.DataBeanX.DataBean> lists = new ArrayList<>();
-    private SearchIntegralAdapter adapter;
+    private MyAllAdapter adapter;
+    private TextView tv_noll;
 
     @Override
     protected int getLayoutResId() {
@@ -59,12 +71,25 @@ public class SearchIntegralActivity extends BaseActivity implements SwipeRefresh
         search_et_input = (EditText) findViewById(R.id.search_et_input);
         search_iv_delete = (RelativeLayout) findViewById(R.id.search_iv_delete);
         search_btn = (TextView) findViewById(R.id.search_btn);
-        recyclerView = (PullToRefreshRecyclerView) findViewById(R.id.search_recycler_view);
-
-        //recyclerView = (PullToRefreshRecyclerView) findViewById(R.id.search_recycler_view);
-        recyclerView.initRefreshView(this,new LinearLayoutManager(this));
+        tv_noll = (TextView) findViewById(R.id.tv_noll);
+        recyclerView = (PullToRefreshListView) findViewById(R.id.search_recycler_view);
+        recyclerView.setAdapter(adapter = new MyAllAdapter());
+        recyclerView.setMode(PullToRefreshBase.Mode.BOTH);
         recyclerView.setOnRefreshListener(this);
-        recyclerView.setPagingableListener(this);
+        recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (list.get(position-1).getB_url()==null||list.get(position-1).getB_url().equals("")){
+                    ToastUtils.makeShortText("商品已下架，请等待更新",SearchIntegralActivity.this);
+                }else {
+                    Intent intent = new Intent(SearchIntegralActivity.this,BankJFWebViewActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("url",list.get(position-1).getB_url());
+                    intent.putExtras(b);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -110,9 +135,7 @@ public class SearchIntegralActivity extends BaseActivity implements SwipeRefresh
             @Override
             public void onMultiClick(View v) {
                 if (checkInput(search_et_input.getText().toString())){
-                    getDatas(page);
-//                    adapter.clearData();
-//                    adapter.notifyDataSetChanged();
+                    getDatas(UPDATA_DEF,page);
                 }
             }
         });
@@ -122,9 +145,7 @@ public class SearchIntegralActivity extends BaseActivity implements SwipeRefresh
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH){
                     if (checkInput(search_et_input.getText().toString())){
-                        getDatas(page);
-//                        adapter.clearData();
-//                        adapter.notifyDataSetChanged();
+                        getDatas(UPDATA_DEF,page);
                     }
                     return true;
                 }
@@ -133,44 +154,45 @@ public class SearchIntegralActivity extends BaseActivity implements SwipeRefresh
         });
     }
 
-    private void getDatas(int page){
+    private void getDatas(final int upDataFlag,int page){
         CardLetterRequestApi.getInstance().getSearchIntegralData(Constant.Access_Token,num,page,0,search_et_input.getText().toString(),
                 new HttpSubscriber<SearchIntegralData>(new SubscriberOnListener<SearchIntegralData>() {
                     @Override
                     public void onSucceed(SearchIntegralData data) {
                         if (data.getCode()==0){
-                            if (data.getData().getData().size()>0) {
-                                list = data.getData().getData();
-                                adapter = new SearchIntegralAdapter(SearchIntegralActivity.this,list);
-                                recyclerView.setAdapter(adapter);
-                                System.out.println("---list----"+list.size());
-                            }
-                        }else {
-                            ToastUtils.makeShortText(data.getMsg(),SearchIntegralActivity.this);
-                        }
-                    }
-
-                    @Override
-                    public void onError(int code, String msg) {
-
-                    }
-                },this));
-    }
-
-    private void getinitDatas(int page){
-        CardLetterRequestApi.getInstance().getSearchIntegralData(Constant.Access_Token,num,page,0,search_et_input.getText().toString(),
-                new HttpSubscriber<SearchIntegralData>(new SubscriberOnListener<SearchIntegralData>() {
-                    @Override
-                    public void onSucceed(SearchIntegralData data) {
-                        if (data.getCode()==0){
-                            if (data.getData().getData().size()>0) {
-                                lists = data.getData().getData();
-                                adapter.addData(lists);
-                                recyclerView.setOnRefreshComplete();
-                                recyclerView.onFinishLoading(true,false);
+                            List<SearchIntegralData.DataBeanX.DataBean>data1 = data.getData().getData();
+                            if (data1.size()>0){
+                                if (upDataFlag == UPDATA_DEF){
+                                    System.out.println("UPDATA_DEF-----"+data1.size());
+                                    if (data1.size()>0){
+                                        tv_noll.setVisibility(View.GONE);
+                                    }else {
+                                        tv_noll.setVisibility(View.VISIBLE);
+                                    }
+                                    list = data1;
+                                }else if(upDataFlag == UPDATA_UP){
+                                    System.out.println("UPDATA_UP-----"+data1.size());
+                                    if (data1.size()>0){
+                                        tv_noll.setVisibility(View.GONE);
+                                    }else {
+                                        tv_noll.setVisibility(View.VISIBLE);
+                                    }
+                                    list.addAll(data1);
+                                }else if(upDataFlag == UPDATA_DOWN){
+                                    System.out.println("UPDATA_DOWN-----"+data1.size());
+                                    if (data1.size()>0){
+                                        tv_noll.setVisibility(View.GONE);
+                                    }else {
+                                        tv_noll.setVisibility(View.VISIBLE);
+                                    }
+                                    list = data1;
+                                }
+                                adapter.notifyDataSetChanged();
+                                recyclerView.onRefreshComplete();
                             }else {
-                                recyclerView.setOnLoadMoreComplete();
-                                ToastUtils.makeShortText("已没有更多",SearchIntegralActivity.this);
+                                adapter.notifyDataSetChanged();
+                                recyclerView.onRefreshComplete();
+                                ToastUtils.makeShortText("暂无数据",SearchIntegralActivity.this);
                             }
                         }else {
                             ToastUtils.makeShortText(data.getMsg(),SearchIntegralActivity.this);
@@ -215,16 +237,64 @@ public class SearchIntegralActivity extends BaseActivity implements SwipeRefresh
     }
 
     @Override
-    public void onRefresh() {
-        adapter.clearData();
-        page = 1;
-        getinitDatas(page);
+    public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+        page=1;
+        getDatas(UPDATA_DOWN,page);
     }
 
     @Override
-    public void onLoadMoreItems() {
+    public void onPullUpToRefresh(PullToRefreshBase refreshView) {
         page++;
-        getinitDatas(page);
+        getDatas(UPDATA_UP,page);
+    }
+
+    class MyAllAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return list.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            SearchIntegralData.DataBeanX.DataBean bean = list.get(position);
+            if (convertView == null) {
+                holder = new ViewHolder();
+                convertView = View.inflate(SearchIntegralActivity.this,R.layout.item_b_seller, null);
+                holder.tv_name = (TextView) convertView.findViewById(R.id.bjf_name);
+                holder.bjf_jf = (TextView) convertView.findViewById(bjf_jf);
+                holder.img_bfj = (ImageView) convertView.findViewById(R.id.bjf_img);
+                holder.bjf_time = (TextView) convertView.findViewById(bjf_time);
+                convertView.setTag(holder);
+            }else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            holder.tv_name.setText(bean.getName());
+            holder.bjf_jf.setText("消费积分: "+String.valueOf(bean.getNeed_score()));
+            holder.bjf_time.setText(bean.getCreate_time());
+            Glide.with(SearchIntegralActivity.this)
+                    .load(Constant.PIC_URL+bean.getThumb())
+                    .error(R.drawable.default_error)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(holder.img_bfj);
+            return convertView;
+        }
+
+        class ViewHolder{
+            private TextView tv_name,bjf_jf,bjf_time;
+            private ImageView img_bfj;
+        }
     }
 
 }

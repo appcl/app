@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/action_title"/>
-    <com.mt.cardletter.view.RefreshRecyclerView.PullToRefreshRecyclerView
+    <include layout="@layout/action_title" android:id="@+id/layout1"/>
+    <com.mt.cardletter.view.pulltorefresh.PullToRefreshListView
+        android:layout_below="@+id/layout1"
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/bankjf_view"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrHeaderTextColor="@color/colorspaceline"
+        ptr:ptrListViewExtrasEnabled="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_noll"
+        android:text="暂无最新数据"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

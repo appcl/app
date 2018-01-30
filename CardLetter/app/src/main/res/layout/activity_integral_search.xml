@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorbg"
@@ -68,8 +68,20 @@
             android:textColor="@color/color_text_black_31"
             android:textSize="14sp" />
     </LinearLayout>
-    <com.mt.cardletter.view.RefreshRecyclerView.PullToRefreshRecyclerView
+    <com.mt.cardletter.view.pulltorefresh.PullToRefreshListView
+        android:layout_below="@+id/search_layout"
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrHeaderTextColor="@color/colorspaceline"
+        ptr:ptrListViewExtrasEnabled="true"
         android:id="@+id/search_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_noll"
+        android:text="暂无最新数据"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

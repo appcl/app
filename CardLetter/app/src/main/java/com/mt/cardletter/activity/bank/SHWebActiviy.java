@@ -69,6 +69,7 @@ public class SHWebActiviy extends BaseActivity{
         url = "https://w.mail.qq.com/cgi-bin/mobile?" +
                 "sid="+sid +
                 "&t=phone#mail,search_%E4%BF%A1%E7%94%A8%E5%8D%A1%E7%94%B5%E5%AD%90_all%5F%5F,"+item_id;
+        System.out.println("----"+url);
     }
     String CookieStr;
     String[] split_str;

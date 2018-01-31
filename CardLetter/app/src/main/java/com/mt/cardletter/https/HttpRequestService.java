@@ -514,15 +514,13 @@ public interface HttpRequestService {
     /**
      * 删除收藏
      * @param access_token
-     * @param id
      * @param member_id
      * @return
      */
     @POST("/api.php/favorite/favoritedel")
     Observable<Collect> delFavorite(@Query("access_token") String access_token,
-                                               @Query("id") String id,
-                                                @Query("member_id") String member_id,
-                                                @Query("name") String name);
+                                    @Query("name_id") String name_id,
+                                    @Query("member_id") String member_id);
 
     /**
      * 收藏列表

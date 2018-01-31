@@ -14,12 +14,19 @@ import com.mt.cardletter.service.LocationService;
 
 import org.litepal.LitePalApplication;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 public class AppContext extends LitePalApplication {
@@ -95,7 +102,7 @@ public class AppContext extends LitePalApplication {
          */
         MobSDK.init(this);
         ShareSDK.isDebug();
-
+        ShareSDK.closeDebug();
         registerUncaughtExceptionHandler();
         locationService = new LocationService(getApplicationContext());
         mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);

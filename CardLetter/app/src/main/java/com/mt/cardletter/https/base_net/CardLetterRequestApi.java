@@ -336,8 +336,8 @@ public class CardLetterRequestApi extends BaseApi {
      * 删除收藏
      * @param subscriber
      */
-    public void delFavorite(String id, String member_id, String name, Subscriber<Collect> subscriber){
-        Observable observable = httpRequestService.delFavorite(Constant.Access_Token,id,member_id,name)
+    public void delFavorite(String name_id, String member_id, Subscriber<Collect> subscriber){
+        Observable observable = httpRequestService.delFavorite(Constant.Access_Token,name_id,member_id)
                 .map(new HttpResultFunc<Collect>());
         toSubscribe(observable,subscriber);
     }

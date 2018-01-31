@@ -54,6 +54,7 @@
     <application
         android:name=".app.AppContext"
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -182,23 +183,15 @@
         <!-- <meta-data -->
         <!-- android:name="com.amap.api.v2.apikey" -->
         <!-- android:value="ea928b115602e46b08ae48d583925655" /> -->
-
+        <!-- 银行秒杀 -->
         <activity
             android:name=".activity.seckill.SeckillActivity"
             android:screenOrientation="portrait" />
-        <!-- 友盟所需 -->
-        <!-- 新浪所需 -->
-
-
-        <!-- QQ所需 -->
-
-
-        <!-- 分享编辑页 -->
-
-        //========================================================================================
+        <!-- 设置页面 -->
         <activity
             android:name=".activity.setting.SettingActivity"
             android:screenOrientation="portrait" />
+        <!-- 设置信息页面-->
         <activity
             android:name=".activity.setting.SettingMsgActivity"
             android:screenOrientation="portrait" />
@@ -216,16 +209,19 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
+        <!-- demo H5 -->
         <activity
             android:name="test.abc.H5Activity"
             android:screenOrientation="portrait" />
+        <!--我的关注银行 筛选页面-->
         <activity
             android:name=".activity.ScreenActivity"
             android:screenOrientation="portrait" />
+        <!-- 商品详情页面 -->
         <activity
             android:name=".activity.SetailsActivity"
             android:screenOrientation="portrait" />
+        <!-- 关于页面 -->
         <activity
             android:name=".activity.AboutActivity"
             android:screenOrientation="portrait" />
@@ -367,11 +363,15 @@
             android:screenOrientation="portrait">
 
         </activity>
-        <!--收藏-->
+        <!--收藏列表-->
         <activity
             android:name=".activity.collect.CollectActivity"
             android:screenOrientation="portrait">
-
+        </activity>
+        <!--收藏列表-->
+        <activity
+            android:name="test.abc.WebViewTestActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

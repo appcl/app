@@ -13,6 +13,9 @@ import com.mt.cardletter.app.AppManager;
 import com.mt.cardletter.utils.SystemBarUtils;
 import com.mt.cardletter.utils.UIHandler;
 
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
 /**
  * 1. initView : 初始化控件:findViewById
  * 2. initListener : 初始化监听
@@ -22,13 +25,15 @@ import com.mt.cardletter.utils.UIHandler;
  * 1. 处理公共逻辑
  * 2. 简化代码
  */
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends SwipeBackActivity {
     protected static UIHandler handler = new UIHandler(Looper.getMainLooper());
     private Bundle savedInstanceState;
-
+    private SwipeBackLayout mSwipeBackLayout; //侧滑退出Layout
     public Bundle getSavedInstanceState() {
         return savedInstanceState;
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,8 @@ public abstract class BaseActivity extends FragmentActivity {
         AppManager.getAppManager().addActivity(this);
         setContentView(getLayoutResId());
         this.savedInstanceState = savedInstanceState;
+        //(0). 设置侧滑
+        sideslip();
         //(1). 查找控件  initView
         initView();
         //(2). 设置数据  initData
@@ -150,5 +157,18 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     public void finish() {
         super.finish();
+    }
+
+    /**
+     * 侧滑退出实现
+     */
+    private void sideslip(){
+        // 可以调用该方法，设置是否允许滑动退出
+        setSwipeBackEnable(true);
+        mSwipeBackLayout = getSwipeBackLayout();
+        // 设置滑动方向，可设置EDGE_LEFT, EDGE_RIGHT, EDGE_ALL, EDGE_BOTTOM
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+        // 滑动退出的效果只能从边界滑动才有效果，如果要扩大touch的范围，可以调用这个方法
+        //mSwipeBackLayout.setEdgeSize(200);
     }
 }

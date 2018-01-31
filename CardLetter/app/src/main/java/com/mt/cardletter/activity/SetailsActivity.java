@@ -163,20 +163,18 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     private boolean isSelect = false;
     @Override
     public void onClick(View v) {
+
+        String member_id = SharedPreferences.getInstance().getString("member_id", "");
         switch (v.getId()) {
             case R.id.collection:
                 if (!isSelect) {
                     // TODO: 2018/1/16 收藏
-                    String member_id = SharedPreferences.getInstance().getString("member_id", "");
                     String fvalue = "http://www.51kaxin.xyz/api.php/cardfind/cardfindinfo/access_token/"+Constant.Access_Token+"/cardfind_id/"+cardfind_id;
                     System.out.println("jk-----"+title+"---"+member_id+"-----"+cardfind_id+"------"+fvalue);
                     addFavorite(title,member_id,cardfind_id,fvalue);
                 } else {
-                    collect_img.setImageResource(R.mipmap.collect);
-                    collect_text.setText("收藏");
-                    ToastUtils.makeShortText("已取消收藏",SetailsActivity.this);
-                    isSelect = false;
                     // TODO: 2018/1/16 取消收藏
+                    delFavorite(cardfind_id,member_id);
                 }
                 break;
 //            case R.id.setails_back:
@@ -213,12 +211,16 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
      * 删除收藏
      *
      */
-    private void delFavorite(String id,String member_id, String name){
-        CardLetterRequestApi.getInstance().delFavorite( id, member_id, name, new HttpSubscriber<Collect>(new SubscriberOnListener<Collect>() {
+    private void delFavorite(String name_id,String member_id){
+        CardLetterRequestApi.getInstance().delFavorite( name_id, member_id, new HttpSubscriber<Collect>(new SubscriberOnListener<Collect>() {
             @Override
             public void onSucceed(Collect data) {
                 if (data.getCode() == 0) {
                     System.out.println("jk============"+"删除成功");
+                    collect_img.setImageResource(R.mipmap.collect);
+                    collect_text.setText("收藏");
+                    ToastUtils.makeShortText("已取消收藏",SetailsActivity.this);
+                    isSelect = false;
                 }
             }
             @Override
@@ -247,33 +249,33 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onShare(Platform platform, cn.sharesdk.framework.Platform.ShareParams paramsToShare) {
                 if("SinaWeibo".equals(platform.getName())){
-                    paramsToShare.setText("我是文本" + "http://sharesdk.cn");
+                    paramsToShare.setText(good.getName());
                     paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
                 }
                 if ("Wechat".equals(platform.getName())) {
-                    paramsToShare.setTitle("标题");
+                    paramsToShare.setTitle(good.getName());
                     paramsToShare.setUrl("http://sharesdk.cn");
-                    paramsToShare.setText("我是共用的参数，这几个平台都有text参数要求，提取出来啦");
+                    paramsToShare.setText(good.getDescribe());
                     paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
                     paramsToShare.setShareType(Platform.SHARE_WEBPAGE);
                 }
                 if ("WechatMoments".equals(platform.getName())) {
-                    paramsToShare.setTitle("标题");
+                    paramsToShare.setTitle(good.getName());
                     paramsToShare.setUrl("http://sharesdk.cn");
-                    paramsToShare.setText("我是共用的参数，这几个平台都有text参数要求，提取出来啦");
+                    paramsToShare.setText(good.getDescribe());
                     paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
                     paramsToShare.setShareType(Platform.SHARE_WEBPAGE);
                 }
                 if ("QQ".equals(platform.getName())) {
-                    paramsToShare.setTitle("标题");
+                    paramsToShare.setTitle(good.getName());
                     paramsToShare.setTitleUrl("http://sharesdk.cn");
-                    paramsToShare.setText("我是共用的参数，这几个平台都有text参数要求，提取出来啦");
+                    paramsToShare.setText(good.getDescribe());
                     paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
                 }
                 if("QZone".equals(platform.getName())){
-                    paramsToShare.setTitle("标题");
+                    paramsToShare.setTitle(good.getName());
                     paramsToShare.setTitleUrl("http://sharesdk.cn");
-                    paramsToShare.setText("我是共用的参数，这几个平台都有text参数要求，提取出来啦");
+                    paramsToShare.setText(good.getDescribe());
                     paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
                 }
             }

@@ -126,15 +126,15 @@ public class IntegralFragment extends BaseFragment {
                     tv_.setVisibility(View.VISIBLE);
                     bAdapter.notifyDataSetChanged();
                 }else {
-                    if (b_list1.get(position).getName().equals("汇丰银行")){
-                        ToastUtils.makeShortText("暂不支持汇丰银行积分查询、兑换",getContext());
-                    }else {
+//                    if (b_list1.get(position).getName().equals("汇丰银行")){
+//                        ToastUtils.makeShortText("暂不支持汇丰银行积分查询、兑换",getContext());
+//                    }else {
                         b_id = b_list1.get(position).getId();
                         b_name = b_list1.get(position).getName();
                         System.out.println("点击了-----"+b_name);
                         getBank(1,b_name,b_id,Constant.Access_Token,1);
                         bAdapter.notifyDataSetChanged();
-                    }
+//                    }
                 }
             }
         });

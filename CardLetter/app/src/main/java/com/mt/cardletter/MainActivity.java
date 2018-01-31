@@ -75,6 +75,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        setSwipeBackEnable(false);//禁止侧滑退出
 //        setAlias(SharedPreferences.getInstance().getString("account",""));//设置别名推送
         setAlias("cardletter");
         bottom_radiobuttonsize();

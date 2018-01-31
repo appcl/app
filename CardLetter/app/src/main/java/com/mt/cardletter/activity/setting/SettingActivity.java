@@ -16,6 +16,8 @@ import com.mt.cardletter.utils.DataCleanUtil;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 
+import test.abc.WebViewTestActivity;
+
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener{
     private TextView cacheSize;
@@ -80,6 +82,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.setting_help :
                 //TODO  版本更新
+                startActivity(new Intent(this, WebViewTestActivity.class));
                 ToastUtils.makeShortText("目前是最新版本 "+getVersion(),this);
                 break;
         }

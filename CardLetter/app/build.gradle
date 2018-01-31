@@ -112,12 +112,12 @@ dependencies {
     compile 'com.weigan:loopView:0.1.2'
     compile files('libs/nineoldandroids-2.4.0.jar')
     compile files('libs/jsoup-1.11.2.jar')
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
 }
 MobSDK {
     appKey "23f07cf0db010"
     appSecret "7f1d4e4a06d0c14044aeaea34f412345"
     ShareSDK {
-        //平台配置信息
         devInfo {
             SinaWeibo {
                 appKey "2928292335"

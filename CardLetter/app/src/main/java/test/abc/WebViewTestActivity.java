@@ -1,41 +1,61 @@
-package com.mt.cardletter.activity;
+package test.abc;
 
 import android.graphics.Bitmap;
 import android.net.http.SslError;
-import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
-import android.webkit.CookieManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.view.animview.AnimDialog;
+import com.mt.cardletter.activity.BaseActivity;
 
 /**
- * Date:2018/1/14
- * Time:19:59
- * author:demons
+ * Created by Administrator on 2018/1/30.
  */
+/*
+        String url = "https://www.baidu.com/";
+        OkHttpClient okHttpClient = new OkHttpClient();
 
-public class BankJFWebViewActivity extends BaseActivity {
-    private WebView webView;
+        RequestBody body = new FormBody.Builder()
+                .add("键", "值")
+                .add("键", "值")
+
+        .build();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        Call call = okHttpClient.newCall(request);
+        try {
+            Response response = call.execute();
+            System.out.println(response.body().string());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    构建 Web 应用的三个重要组件
+
+    WebView: 主要负责解析和渲染网页
+    WebViewClient: 辅助WebView处理各种通知和请求事件
+    WebChromeClient: 辅助WebView处理JavaScript中的对话框, 网址图标和标题等
+
+ */
+public class WebViewTestActivity extends BaseActivity {
     private WebView wv;
-    private String url;
     @Override
     protected int getLayoutResId() {
-        getDatas();
-        return R.layout.jifen_webview;
+        return R.layout.web_test;
     }
 
-    private void getDatas() {
-        Bundle b = getIntent().getExtras();
-        url=b.getString("url");
-    }
     @Override
     public void initView() {
+        String url = "https://creditcards.hsbc.com.cn/mall/weiproduct/weiProductDetail.action?product.id=49731";
         wv = (WebView) findViewById(R.id.mail_web);
         wv.loadUrl(url);
 
@@ -49,8 +69,7 @@ public class BankJFWebViewActivity extends BaseActivity {
         webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。 这个取决于setSupportZoom(), 若setSupportZoom(false)，则该WebView不可缩放，这个不管设置什么都不能缩放。
         webSettings.setDisplayZoomControls(true); //隐藏原生的缩放控件
 
-        final AnimDialog dialog = AnimDialog.newInstance();
-        dialog.show(BankJFWebViewActivity.this.getSupportFragmentManager());
+
         wv.setWebViewClient(new WebViewClient(){
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
@@ -70,7 +89,6 @@ public class BankJFWebViewActivity extends BaseActivity {
                 super.onPageStarted(view, url, favicon);
                 // 开始加载网页
                 System.out.println("jk-------1");
-
             }
 
             @Override
@@ -78,7 +96,6 @@ public class BankJFWebViewActivity extends BaseActivity {
                 super.onPageFinished(view, url);
                 // 网页加载完成
                 System.out.println("jk-------2");
-                dialog.dissmissDialog();
             }
 
             @Override
@@ -86,59 +103,9 @@ public class BankJFWebViewActivity extends BaseActivity {
                 super.onReceivedError(view, errorCode, description, failingUrl);
                 // 加载网页失败
                 System.out.println("jk-------加载网页失败");
-
             }
         });
     }
-//    @Override
-//    public void initView() {
-//        System.out.println("url------"+url);
-//        webView = (WebView) findViewById(R.id.mail_web);
-////        js=new JavaScriptQQ(this);
-//        WebSettings webSettings = webView.getSettings();
-//        webSettings.setDomStorageEnabled(true);
-//        webSettings.setLoadWithOverviewMode(true);// 缩放至屏幕的大小
-//        webSettings.setUseWideViewPort(true);//将图片调整到适合webview的大小
-//        webSettings.setJavaScriptEnabled(true);
-//        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
-//        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
-////        webView.addJavascriptInterface(js,"pt");
-//        /**
-//         *
-//         */
-//        // 设置可以支持缩放
-//        //webview.getSettings().setSupportZoom(true);
-//        // 设置出现缩放工具
-//        webView.getSettings().setBuiltInZoomControls(true);
-//        // 为图片添加放大缩小功能
-//        webView.getSettings().setUseWideViewPort(true);
-//        webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-//        webView.setWebViewClient(new WebViewClient() {
-////            Dialog progressDialog = ProgressDialog.show(BankJFWebViewActivity.this, null, "正在加载...");
-//            AnimDialog dialog = AnimDialog.newInstance();
-//
-//            @Override
-//            public void onPageFinished(WebView view, String url) {
-//                CookieManager cookieManager = CookieManager.getInstance();
-//                String CookieStr = cookieManager.getCookie(url);
-//                if (CookieStr != null) {
-//                    System.out.println("cookie:-----------" + CookieStr);
-//                }
-//                super.onPageFinished(view, url);
-////                progressDialog.cancel();
-//                dialog.dissmissDialog();
-//                System.out.println("-----登录成功-----");
-//            }
-//
-//            @Override
-//            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//                super.onPageStarted(view, url, favicon);
-//                dialog.show(BankJFWebViewActivity.this.getSupportFragmentManager());
-//            }
-//        });
-//        webView.loadUrl(url);
-//    }
-
     @Override
     public void initListener() {
 

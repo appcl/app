@@ -3,18 +3,19 @@ package com.mt.cardletter.activity;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.app.AppManager;
+import com.mt.cardletter.utils.StatusBarUtil;
 import com.mt.cardletter.utils.SystemBarUtils;
 import com.mt.cardletter.utils.UIHandler;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
 
 /**
  * 1. initView : 初始化控件:findViewById
@@ -40,9 +41,13 @@ public abstract class BaseActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         //设置信号栏字体颜色
         SystemBarUtils.myStatusBar(this,true);
+//        setStatusBar();
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.title_bg));
         // 添加Activity到堆栈
         AppManager.getAppManager().addActivity(this);
         setContentView(getLayoutResId());
+        View inflate = View.inflate(this, getLayoutResId(), null);
+        System.out.println("-----"+inflate);
         this.savedInstanceState = savedInstanceState;
         //(0). 设置侧滑
         sideslip();
@@ -57,6 +62,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         //(5)处理一些界面UI
         setLayoutUI();
     }
+
     /**
      * 获取布局资源id
      *
@@ -78,6 +84,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
      * 初始化数据: 给控件设置显示的内容
      */
     protected abstract void initData();
+
 
     /**
      * 处理相同逻辑

@@ -2,10 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@color/white"
-    android:fadeScrollbars="true"
-    android:fillViewport="true"
-    android:fitsSystemWindows="true">
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/title_layout"

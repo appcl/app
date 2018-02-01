@@ -1,33 +1,20 @@
 package com.mt.cardletter.activity;
 
-import android.Manifest;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.PixelFormat;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
-import com.mt.cardletter.activity.collect.CollectActivity;
 import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.collect.Collect;
-import com.mt.cardletter.entity.collect.CollectList;
 import com.mt.cardletter.entity.merchant.Good;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
@@ -37,7 +24,6 @@ import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
-
 
 import org.litepal.crud.DataSupport;
 
@@ -81,7 +67,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         next = (TextView) findViewById(R.id.commonal_tv);
         next.setVisibility(View.VISIBLE);
         next.setText("分享");
-        next.setTextColor(getResources().getColor(R.color.color_text_black_31));
+        next.setTextColor(getResources().getColor(R.color.white));
         next.setOnClickListener(new OnMultiClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override

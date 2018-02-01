@@ -1,23 +1,15 @@
 package com.mt.cardletter.activity;
 
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.app.AppManager;
 import com.mt.cardletter.utils.StatusBarUtil;
-import com.mt.cardletter.utils.SystemBarUtils;
 import com.mt.cardletter.utils.UIHandler;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
@@ -45,8 +37,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //设置信号栏字体颜色
-        SystemBarUtils.myStatusBar(this,true);
-//        setStatusBar();
+//        SystemBarUtils.myStatusBar(this,true);
         StatusBarUtil.setColor(this,getResources().getColor(R.color.title_bg));
         // 添加Activity到堆栈
         AppManager.getAppManager().addActivity(this);

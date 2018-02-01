@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 /**
  *  最外层fragment
  * Created by jk on 2017/11/13.
@@ -90,7 +91,7 @@ public class DiscoverFragment extends Fragment {
         title_name.setText("发现");
         next.setVisibility(View.VISIBLE);
         next.setText("筛选");
-        next.setTextColor(getResources().getColor(R.color.color_text_blue_44));
+        next.setTextColor(getResources().getColor(R.color.white));
         next.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {

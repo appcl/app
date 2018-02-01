@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -27,6 +35,8 @@ import com.mt.cardletter.fragment.HomeFragment;
 import com.mt.cardletter.fragment.IntegralFragment;
 import com.mt.cardletter.fragment.MineFragment;
 import com.mt.cardletter.service.LocationService;
+import com.mt.cardletter.utils.Constant;
+import com.mt.cardletter.utils.SizeUtils;
 import com.mt.cardletter.utils.ToastUtils;
 
 import org.litepal.tablemanager.Connector;
@@ -62,8 +72,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private MineFragment mineFragment;
     private FragmentManager fragmentManager;
     private Fragment showFragment;
-
-
+    private FrameLayout frameLayout;
+    private ImageView iv_top;
     private String city;
     private double lat = 0,lon = 0;
 
@@ -408,4 +418,5 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         super.onPause();
         JPushInterface.onPause(this);
     }
+
 }

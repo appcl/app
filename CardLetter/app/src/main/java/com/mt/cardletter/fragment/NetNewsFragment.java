@@ -196,7 +196,7 @@ public class NetNewsFragment extends Fragment {
         }
         public void addData(List<NetNews.ResultBeanX.ResultBean.ListBean> list){
             this.list.addAll(list);
-            setListViewHeightBasedOnChildren(listView);
+            //setListViewHeightBasedOnChildren(listView);
             notifyDataSetChanged();
         }
         public void clearData(){

@@ -62,6 +62,7 @@ public class IntegralFragment extends BaseFragment {
     protected void initView() {
         super.initView();
         title_name = findViewById(R.id.title_name);
+        title_name.setText("积分商城");
         gridView=findViewById(R.id.grid);
 
         content_list = findViewById(R.id.content_list);
@@ -255,7 +256,7 @@ public class IntegralFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        title_name.setText("积分商城");
+
         iAdapter = new IntegralAdapter(getContext(),list);
         gridView.setAdapter(iAdapter);
 

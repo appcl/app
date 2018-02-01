@@ -75,7 +75,9 @@ public class CompleteFragment extends BaseFragment {
     private String lat;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        System.out.println("jk------"+"jk---CompleteFragment--1");
         if (isOpen){
+            System.out.println("jk------"+"jk---CompleteFragment--1-1");
             context = getActivity();
             view = inflater.inflate(R.layout.activity_fragment_find, container, false);
             tv_noll = (TextView) view.findViewById(R.id.tv_noll);
@@ -96,6 +98,29 @@ public class CompleteFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println("jk---cartgory_id:"+cartgory_id+"---Constant.MY_BANK---"+ Constant.MY_BANK);
+        if (Constant.MY_BANK_FLAG){
+            System.out.println("jk---执行cartgory_id:"+cartgory_id+"---Constant.MY_BANK---"+ Constant.MY_BANK);
+            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,Constant.CITY_ID, Constant.MY_BANK, AppContext.getInstance().getLat()+"", AppContext.getInstance().getLon()+"");
+        }
+
+    }
+    /**
+     * 需要界面重新展示时调用这个方法
+     */
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        // TODO Auto-generated method stub
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            System.out.println("jk---hidden-true--cartgory_id:"+cartgory_id);
+        }else{
+            System.out.println("jk---hidden-false--cartgory_id:"+cartgory_id);
+        }
+    }
     @Override
     protected void onLazyLoad() {
         super.onLazyLoad();

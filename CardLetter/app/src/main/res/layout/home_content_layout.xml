@@ -8,8 +8,8 @@
         android:layout_height="match_parent" android:layout_weight="1">
         <ImageView
             android:id="@+id/pic_one"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/select_home_weather"/>
         <TextView
@@ -27,8 +27,8 @@
         android:layout_height="match_parent" android:layout_weight="1">
         <ImageView
             android:id="@+id/pic_two"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/select_home_rules"/>
         <TextView
@@ -46,8 +46,8 @@
         android:layout_height="match_parent" android:layout_weight="1">
         <ImageView
             android:id="@+id/pic_three"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/select_home_seckill"/>
         <TextView
@@ -75,8 +75,8 @@
 
         <ImageView
             android:id="@+id/pic_four"
-            android:layout_width="25dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:src="@drawable/select_home_order"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />

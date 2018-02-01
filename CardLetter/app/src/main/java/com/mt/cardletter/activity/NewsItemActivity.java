@@ -44,7 +44,11 @@ public class NewsItemActivity extends BaseActivity {
     }
     @Override
     protected void initData() {
-        title_name.setText("新闻-"+bean.getSrc());
+        if (bean.getSrc().equals("")){
+            title_name.setText("新闻"+bean.getSrc());
+        }else {
+            title_name.setText("新闻-"+bean.getSrc());
+        }
         new_title.setText(bean.getTitle());
         new_src.setText(bean.getSrc());
         new_time.setText(bean.getTime());

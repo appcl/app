@@ -1,7 +1,10 @@
 package com.mt.cardletter.utils.impower;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.widget.LinearLayout;
 
+import com.mt.cardletter.R;
 import com.mt.cardletter.activity.LoginActivity;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.HttpSubscriber;
@@ -10,6 +13,7 @@ import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
+import com.mt.cardletter.view.dialog.loadingdialog.view.LoadingDialog;
 
 import java.util.HashMap;
 
@@ -23,6 +27,7 @@ import cn.sharesdk.framework.ShareSDK;
  */
 
 public class ImpowerAndShareUtil {
+    private static Dialog mLoadingDialog;
     /**
      *
      * @param activity finish
@@ -31,6 +36,7 @@ public class ImpowerAndShareUtil {
      */
     public static void impower(final Activity activity, final String mode, int a){
         System.out.println("jk========"+"进入授权");
+
         Platform platform = ShareSDK.getPlatform(mode);
         SharedPreferences.getInstance().putString("impower_mode",mode);
         platform.SSOSetting(false);  //设置false表示使用SSO授权方式
@@ -39,7 +45,7 @@ public class ImpowerAndShareUtil {
             platform.setPlatformActionListener(new PlatformActionListener() {
                 @Override
                 public void onError(Platform arg0, int arg1, Throwable arg2) {
-                    System.out.println("jk=====授权失败");
+                    ToastUtils.makeShortText("授权失败请重试",activity);
                     arg2.printStackTrace();
                 }
 
@@ -66,7 +72,7 @@ public class ImpowerAndShareUtil {
                         SharedPreferences.getInstance().putBoolean("isLogin",true);
                         System.out.println("jk----"+userName+"-------"+userId);
                         toLogin(activity,userName,userId.substring(0,6),userId);
-
+                        activity.finish();
                     }
 
 
@@ -107,15 +113,14 @@ public class ImpowerAndShareUtil {
                     SharedPreferences.getInstance().putString("user_token", user_token);
                     SharedPreferences.getInstance().putString("member_id", memberId);
                     System.out.println("jk------"+"进入2");
-                    activity.finish();
                 } else {
-                    ToastUtils.makeShortText("网络故障", activity);
+                    //ToastUtils.makeShortText("网络故障", activity);
                 }
             }
 
             @Override
             public void onError(int code, String msg) {
-                ToastUtils.makeShortText("网络故障", activity);
+                //ToastUtils.makeShortText("网络故障", activity);
             }
         }, activity));
     }

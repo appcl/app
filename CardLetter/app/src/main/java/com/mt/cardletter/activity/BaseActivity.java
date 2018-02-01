@@ -1,11 +1,18 @@
 package com.mt.cardletter.activity;
 
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.app.AppManager;
@@ -33,8 +40,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
     public Bundle getSavedInstanceState() {
         return savedInstanceState;
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

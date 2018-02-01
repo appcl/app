@@ -370,21 +370,25 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
             return;
         }
         textView.setText(R.string.pull_to_refresh_refreshing_label);
+        textView.setTextColor(0x00ff00);
         progressBar.setVisibility(VISIBLE);
     }
 
     public void setLoadMoreViewTextError() {
         textView.setText(R.string.pull_to_refresh_net_error_label);
+        textView.setTextColor(0x00ff00);
         progressBar.setVisibility(GONE);
     }
 
     public void setLoadMoreViewTextNoData() {
         textView.setText(R.string.pull_to_refresh_no_data_label);
+        textView.setTextColor(0x00ff00);
         progressBar.setVisibility(GONE);
     }
 
     public void setLoadMoreViewTextNoMoreData() {
         textView.setText(R.string.pull_to_refresh_no_more_data_label);
+        textView.setTextColor(0x00ff00);
         progressBar.setVisibility(GONE);
     }
 

@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
     private List<Bank.DataBean> checkeddata = new ArrayList<>();// 选中的数据
     private TextView next;
     private String from_dis;
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_screen;
@@ -74,6 +76,7 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
         });
         findViewById(R.id.screen_affirm).setOnClickListener(this);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+
         mSwipeRefreshLayout.setColorSchemeColors(Color.RED,Color.BLUE,Color.GREEN);
         TextView title_name = (TextView) findViewById(R.id.title_name);
         title_name.setText("关注信用卡");
@@ -113,10 +116,10 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
                 for (Bank.DataBean bank: myList) {
                     DBCreate.addBankForBankTable(bank);
                 }
-                List<BankTable> all = DataSupport.findAll(BankTable.class);
-                for (BankTable banktable: all) {
-                    System.out.println("jk----bank   "+banktable.getId()+"----"+banktable.getName());
-                }
+//                List<BankTable> all = DataSupport.findAll(BankTable.class);
+//                for (BankTable banktable: all) {
+//                    System.out.println("jk----bank   "+banktable.getId()+"----"+banktable.getName());
+//                }
             }
             @Override
             public void onError(int code, String msg) {
@@ -165,9 +168,8 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
             String credentials="51kalaxin:62kaxin";
             final String basic = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
             LazyHeaders headers=  new LazyHeaders.Builder().addHeader("Authorization", basic).build();
-            //url 要加载的图片的地址，imageView 显示图片的ImageView
             Glide.with(ScreenActivity.this).load(new GlideUrl(Constant.BASE_URL+myList.get(position).getCardIcon(), headers)).error(R.drawable.default_error).into(holder.iv);
-            System.out.println("URL:"+Constant.BASE_URL+myList.get(position).getCardIcon());
+
             holder.tv.setText(myList.get(position).getName());
             holder.checkBox.setTag(new Integer(position));//设置tag 否则划回来时选中消失
             if (checkPositionlist != null) {
@@ -175,7 +177,7 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
             } else {
                 holder.checkBox.setChecked(false);
             }
-            holder.iv.setOnClickListener(new View.OnClickListener() {
+            holder.item_screen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (holder.checkBox.isChecked()){
@@ -225,8 +227,8 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
 
 
         class MyViewHolder extends RecyclerView.ViewHolder {
+            RelativeLayout item_screen;
             ImageView iv;
-            //ImageView radio;
             CheckBox checkBox;
             TextView tv;
             public MyViewHolder(View itemView) {
@@ -234,6 +236,7 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
                 iv = (ImageView) itemView.findViewById(R.id.item_img);
                 tv = (TextView) itemView.findViewById(R.id.item_text);
                 checkBox = (CheckBox) itemView.findViewById(R.id.radio_button);
+                item_screen = (RelativeLayout) itemView.findViewById(R.id.item_screen);
             }
 
         }
@@ -264,7 +267,9 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
             int id = checkeddata.get(i).getId();
             sb.append(id+",");
         }
+        System.out.println("jk--ScreenActivity-用户筛选银行-"+sb.toString());
         Constant.MY_BANK = sb.toString();
+        Constant.MY_BANK_FLAG = true;
         SharedPreferences.getInstance().putInt("splash_is_open", SplashActivity.SPLASH_UNOPEN); //去除首次打开
     }
 }

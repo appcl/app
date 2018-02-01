@@ -6,6 +6,7 @@
 
     <RelativeLayout
         android:id="@+id/title_layout"
+        android:background="@color/main_title_bg"
         android:layout_width="match_parent"
         android:layout_height="48dp">
 
@@ -32,7 +33,7 @@
             android:layout_centerVertical="true"
             android:layout_centerInParent="true"
             android:text="设置标题"
-            android:textColor="@color/title_text_color"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <View

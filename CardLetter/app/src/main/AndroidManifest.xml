@@ -220,6 +220,7 @@
         <!-- 商品详情页面 -->
         <activity
             android:name=".activity.SetailsActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
             android:screenOrientation="portrait" />
         <!-- 关于页面 -->
         <activity

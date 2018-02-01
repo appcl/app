@@ -1,5 +1,6 @@
 package com.mt.cardletter.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -61,7 +62,6 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
         /**
          * 申请软件所需权限
          */

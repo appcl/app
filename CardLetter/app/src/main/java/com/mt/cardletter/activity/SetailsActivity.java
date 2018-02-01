@@ -12,8 +12,11 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +36,7 @@ import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
+import com.mt.cardletter.utils.UIHelper;
 
 
 import org.litepal.crud.DataSupport;
@@ -56,10 +60,6 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     private TextView setails_title, setails_time, setails_tel, setails_address, setails_obj, setails_centent, setails_discounts;
     private ImageView bigImg ,item_bank;
     private RelativeLayout collect;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
 
     private ImageView collect_img;
@@ -75,7 +75,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void initView() {
         title_name = (TextView) findViewById(R.id.title_name);
-        title_name.setText("商品详情");
+        title_name.setText("商家详情");
         com_back_click = (FrameLayout) findViewById(R.id.com_back_click);
         com_back_click.setVisibility(View.VISIBLE);
         next = (TextView) findViewById(R.id.commonal_tv);
@@ -110,7 +110,6 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         collect_text = (TextView) findViewById(R.id.pic_tow);
         collect.setOnClickListener(this);
     }
-
     private void loadDataForGood(String cardfind_id) {
         /*
          * 获取商家列表
@@ -132,9 +131,9 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
 
     private void updataView(Good.DataBean good) {
         if (good != null) {
-            if (good.getName() != null && good.getDeadline() != null
-                    && good.getTel() != null && good.getAddress() != null
-                    && good.getContent() != null && good.getDescribe() != null) {
+//            if (good.getName() != null && good.getDeadline() != null
+//                    && good.getTel() != null && good.getAddress() != null
+//                    && good.getContent() != null && good.getDescribe() != null) {
                 title = good.getName();
                 setails_title.setText(title);
                 setails_time.setText(good.getDeadline());
@@ -151,9 +150,9 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
                 setails_obj.setText(bankTable.get(0).getName());
                 Glide.with(this).load(Constant.BASE_URL+bankTable.get(0).getCardThumb()).error(R.drawable.default_error).into(item_bank);
             }
-        } else {
-            ToastUtils.showShort(getApplicationContext(), "数据异常");
-        }
+//        } else {
+//            ToastUtils.showShort(SetailsActivity.this, "数据异常");
+//        }
     }
 
     @Override
@@ -163,18 +162,22 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     private boolean isSelect = false;
     @Override
     public void onClick(View v) {
-
+        boolean isLogin = SharedPreferences.getInstance().getBoolean("isLogin", false);
         String member_id = SharedPreferences.getInstance().getString("member_id", "");
         switch (v.getId()) {
             case R.id.collection:
-                if (!isSelect) {
-                    // TODO: 2018/1/16 收藏
-                    String fvalue = "http://www.51kaxin.xyz/api.php/cardfind/cardfindinfo/access_token/"+Constant.Access_Token+"/cardfind_id/"+cardfind_id;
-                    System.out.println("jk-----"+title+"---"+member_id+"-----"+cardfind_id+"------"+fvalue);
-                    addFavorite(title,member_id,cardfind_id,fvalue);
+                if (!isLogin){
+                    UIHelper.showLoginActivity(this);
                 } else {
-                    // TODO: 2018/1/16 取消收藏
-                    delFavorite(cardfind_id,member_id);
+                    if (!isSelect) {
+                        // TODO: 2018/1/16 收藏
+                        String fvalue = "http://www.51kaxin.xyz/api.php/cardfind/cardfindinfo/access_token/" + Constant.Access_Token + "/cardfind_id/" + cardfind_id;
+                        System.out.println("jk-----" + title + "---" + member_id + "-----" + cardfind_id + "------" + fvalue);
+                        addFavorite(title, member_id, cardfind_id, fvalue);
+                    } else {
+                        // TODO: 2018/1/16 取消收藏
+                        delFavorite(cardfind_id, member_id);
+                    }
                 }
                 break;
 //            case R.id.setails_back:
@@ -192,7 +195,6 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         CardLetterRequestApi.getInstance().addFavorite(title_name,member_id,name_id,fvalue, new HttpSubscriber<Collect>(new SubscriberOnListener<Collect>() {
             @Override
             public void onSucceed(Collect data) {
-                System.out.println("jk----Collect--"+data.getMsg());
                 if (data.getCode() == 0) {
                     collect_img.setImageResource(R.drawable.collected_select);
                     collect_text.setText("已收藏");
@@ -216,7 +218,6 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onSucceed(Collect data) {
                 if (data.getCode() == 0) {
-                    System.out.println("jk============"+"删除成功");
                     collect_img.setImageResource(R.mipmap.collect);
                     collect_text.setText("收藏");
                     ToastUtils.makeShortText("已取消收藏",SetailsActivity.this);
@@ -225,7 +226,6 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
             }
             @Override
             public void onError(int code, String msg) {
-                System.out.println("jk----code--"+code+"------"+msg);
                 ToastUtils.showShort(SetailsActivity.this, "网络故障");
             }
         }, SetailsActivity.this));
@@ -299,21 +299,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
                 Log.d("ShareLogin", "onCancel ---->  分享取消");
             }
         });
-
         // 启动分享GUI
         oks.show(this);
-    }
-
-    public Bitmap drawableToBitmap(Drawable drawable) {
-
-        Bitmap bitmap = Bitmap.createBitmap(
-                drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(),
-                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565
-        );
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-        drawable.draw(canvas);
-        return bitmap;
     }
 }

@@ -97,9 +97,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     private PagerSlidingTabStrip tabs;
     private MyViewPager pager;
     private List<String>  tabDatas = new ArrayList<>();
-
-    private LinearLayout searchView;
-    private EditText search_et_input;
+    private RelativeLayout search_et_input;
     private TextView district;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
@@ -131,16 +129,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         parentScrollView = (ScrollView) view.findViewById(R.id.home_scroll);
 
         //搜索框
-
-        searchView = (LinearLayout) view.findViewById(R.id.search_main_layout);
-        search_et_input= (EditText) view.findViewById(R.id.search_main_et_input);
-        searchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UIHelper.showSearchActivity(getContext());
-            }
-        });
-        search_et_input.setFocusable(false);//让EditText失去焦点，然后获取点击事件
+        search_et_input= (RelativeLayout) view.findViewById(R.id.search_main_et_input);
         search_et_input.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -309,8 +298,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         public View getView(ViewGroup container, int position) {
             ImageView view = new ImageView(container.getContext());
             //Authorization 请求头信息
+//            Glide.with(context)
+//                    .load(Constant.PIC_URL+this.dataBeanList.get(position).getThumb())
+//                    .error(R.drawable.default_error)
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    .into(view);
             Glide.with(context)
-                    .load(Constant.PIC_URL+this.dataBeanList.get(position).getThumb())
+                    .load(R.drawable.img_test)
                     .error(R.drawable.default_error)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(view);
@@ -321,7 +315,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
 
         @Override
         public int getCount() {
-            return this.dataBeanList.size();
+            return 1;
         }
     }
 

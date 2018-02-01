@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:state_checked="true" android:drawable="@mipmap/icon_my"/>
+        android:state_checked="true" android:drawable="@mipmap/my_click"/>
 
     <item
         android:state_checked="false" android:drawable="@mipmap/my"/>

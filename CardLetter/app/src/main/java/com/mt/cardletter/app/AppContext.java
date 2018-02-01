@@ -96,13 +96,12 @@ public class AppContext extends LitePalApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
         /**
          * 初始化社会化组件
          */
         MobSDK.init(this);
         ShareSDK.isDebug();
-        ShareSDK.closeDebug();
+        //ShareSDK.closeDebug();
         registerUncaughtExceptionHandler();
         locationService = new LocationService(getApplicationContext());
         mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);

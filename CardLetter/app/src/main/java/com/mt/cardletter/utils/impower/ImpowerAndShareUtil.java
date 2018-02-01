@@ -45,7 +45,7 @@ public class ImpowerAndShareUtil {
             platform.setPlatformActionListener(new PlatformActionListener() {
                 @Override
                 public void onError(Platform arg0, int arg1, Throwable arg2) {
-                    ToastUtils.makeShortText("授权失败请重试",activity);
+                    ToastUtils.makeShortText("请下载新版本QQ软件",activity);
                     arg2.printStackTrace();
                 }
 
@@ -71,11 +71,9 @@ public class ImpowerAndShareUtil {
                         SharedPreferences.getInstance().putString("ext_token", userId);
                         SharedPreferences.getInstance().putBoolean("isLogin",true);
                         System.out.println("jk----"+userName+"-------"+userId);
-                        toLogin(activity,userName,userId.substring(0,6),userId);
+                        //toLogin(activity,userName,userId.substring(0,6),userId);
                         activity.finish();
                     }
-
-
                 }
 
                 @Override
@@ -113,8 +111,9 @@ public class ImpowerAndShareUtil {
                     SharedPreferences.getInstance().putString("user_token", user_token);
                     SharedPreferences.getInstance().putString("member_id", memberId);
                     System.out.println("jk------"+"进入2");
+//                    activity.finish();
                 } else {
-                    //ToastUtils.makeShortText("网络故障", activity);
+                    ToastUtils.makeShortText("网络故障", activity);
                 }
             }
 

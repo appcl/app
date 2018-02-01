@@ -119,6 +119,27 @@
                 android:background="@color/colorbg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <View
+                        android:id="@+id/view1"
+                        android:layout_width="5dp"
+                        android:layout_height="1dp"
+                        android:background="@color/umeng_socialize_divider"/>
+                    <View
+                        android:layout_toRightOf="@+id/view1"
+                        android:id="@+id/view2"
+                        android:layout_width="10dp"
+                        android:layout_height="1dp"
+                        android:background="@color/white"/>
+                    <View
+                        android:layout_toRightOf="@+id/view2"
+                        android:layout_width="5dp"
+                        android:layout_height="1dp"
+                        android:background="@color/umeng_socialize_divider"/>
+                </RelativeLayout>
             <include layout="@layout/home_content_layout"/>
             <View
                 android:layout_marginTop="5dp"
@@ -212,6 +233,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="750dp">
+
             <com.mt.cardletter.view.Scroll.MyViewPager
                 android:id="@+id/pager"
                 android:focusable="true"

@@ -5,6 +5,7 @@
     android:background="@color/colorbg"
     android:orientation="vertical">
     <include layout="@layout/action_title"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -64,7 +65,7 @@
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="@color/umeng_socialize_divider"/>
+                android:background="@color/padding_color"/>
             <GridView
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
@@ -81,7 +82,7 @@
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="@color/umeng_socialize_divider"/>
+                android:background="@color/padding_color"/>
             <com.mt.cardletter.view.cityview.WrapHeightGridView
                 android:id="@+id/bank_list"
                 android:layout_width="match_parent"
@@ -103,7 +104,7 @@
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="@color/umeng_socialize_divider"/>
+                android:background="@color/padding_color"/>
             <com.mt.cardletter.view.cityview.WrapHeightGridView
                 android:id="@+id/content_list"
                 android:layout_width="match_parent"
@@ -116,7 +117,7 @@
                 android:horizontalSpacing="12dp"
                 android:verticalSpacing="12dp"
                 android:gravity="center"
-                android:listSelector="@android:color/transparent"
+                android:listSelector="@drawable/grid_view_item_selector_xml"
                 android:cacheColorHint="@android:color/transparent"
                 android:scrollbars="none"/>
         </LinearLayout>

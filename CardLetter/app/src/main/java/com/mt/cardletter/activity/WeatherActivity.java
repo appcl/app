@@ -25,6 +25,7 @@ import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.https.HttpRequestApi;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
+import com.mt.cardletter.utils.StatusBarUtil;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.view.indicator.CirclePageIndicator;
 
@@ -92,6 +93,7 @@ public class WeatherActivity extends BaseActivity {
     protected int getLayoutResId() {
         getWeatherData();
         getAirDatas();
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.blue));
         return R.layout.activity_weather;
     }
 

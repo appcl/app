@@ -70,6 +70,7 @@ public class IntegralFragment extends BaseFragment {
         content_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 int c_id = c_list.get(position).getId();
                 String c_name = c_list.get(position).getName();
                 getTAGBank(2,c_name,c_id,Constant.Access_Token,1);

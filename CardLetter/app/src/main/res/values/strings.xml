@@ -76,4 +76,7 @@
     <string name="cp_located_failed">定位失败</string>
     <string name="cp_btn_cancel">取消</string>
 
+    <string name="system_download_component_disable">下载服务不可用,请您启用</string>
+    <string name="system_download_description">版本更新</string>
+
 </resources>

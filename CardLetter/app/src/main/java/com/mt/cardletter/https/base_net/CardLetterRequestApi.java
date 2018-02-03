@@ -2,6 +2,7 @@ package com.mt.cardletter.https.base_net;
 
 
 import com.mt.cardletter.entity.article.ArticleBean;
+import com.mt.cardletter.entity.checkversion.CheckOrUpdate;
 import com.mt.cardletter.entity.city.District;
 import com.mt.cardletter.entity.collect.Collect;
 import com.mt.cardletter.entity.collect.CollectList;
@@ -22,7 +23,6 @@ import com.mt.cardletter.https.BaseApi;
 import com.mt.cardletter.https.HttpRequestService;
 import com.mt.cardletter.utils.Constant;
 
-import retrofit2.http.Query;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -340,4 +340,16 @@ public class CardLetterRequestApi extends BaseApi {
         toSubscribe(observable,subscriber);
     }
 
+    /**
+     * 检测更新版本
+     * @param access_token
+     * @param is_new
+     * @param version
+     * @param subscriber
+     */
+    public void check_update(String access_token, String is_new, String version, Subscriber<CheckOrUpdate> subscriber){
+        Observable observable = httpRequestService.getVersion(access_token, is_new, version)
+                .map(new HttpResultFunc<CheckOrUpdate>());
+        toSubscribe(observable,subscriber);
+    }
 }

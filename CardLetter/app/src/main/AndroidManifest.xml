@@ -371,6 +371,13 @@
             android:name="test.abc.WebViewTestActivity"
             android:screenOrientation="portrait">
         </activity>
+
+        <receiver android:name=".utils.updater.ApkInstallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

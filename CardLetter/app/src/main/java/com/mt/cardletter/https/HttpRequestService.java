@@ -2,6 +2,7 @@ package com.mt.cardletter.https;
 
 
 import com.mt.cardletter.entity.article.ArticleBean;
+import com.mt.cardletter.entity.checkversion.CheckOrUpdate;
 import com.mt.cardletter.entity.city.District;
 import com.mt.cardletter.entity.collect.Collect;
 import com.mt.cardletter.entity.collect.CollectList;
@@ -589,5 +590,17 @@ public interface HttpRequestService {
      */
     @POST("/api.php/region/regionlist")
     Observable<District> getdDistrictID(@Query("access_token") String access_token);
+
+    /**
+     * 检测更新版本
+     * @param access_token
+     * @param is_new
+     * @param version
+     * @return
+     */
+    @POST("/api.php/appversion/appversionlist/access_token/{access_token}/is_new/{is_new}/version/{version}")
+    Observable<CheckOrUpdate>getVersion(@Path("access_token") String access_token,
+                                        @Path("is_new") String is_new,
+                                        @Path("version") String version);
 
 }

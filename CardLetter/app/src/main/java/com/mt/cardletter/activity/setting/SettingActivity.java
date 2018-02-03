@@ -1,5 +1,6 @@
 package com.mt.cardletter.activity.setting;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -12,6 +13,10 @@ import com.mt.cardletter.R;
 import com.mt.cardletter.activity.AboutActivity;
 import com.mt.cardletter.activity.BaseActivity;
 import com.mt.cardletter.activity.showimg.ImagePagerActivity;
+import com.mt.cardletter.entity.user.LoginEntity;
+import com.mt.cardletter.https.HttpSubscriber;
+import com.mt.cardletter.https.SubscriberOnListener;
+import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.DataCleanUtil;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
@@ -82,12 +87,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.setting_help :
                 //TODO  版本更新
-                startActivity(new Intent(this, WebViewTestActivity.class));
-                ToastUtils.makeShortText("目前是最新版本 "+getVersion(),this);
+                //startActivity(new Intent(this, WebViewTestActivity.class));
+                ToastUtils.makeShortText("目前1是最新版本 "+getVersion(),this);
                 break;
         }
     }
-
     /**
       * 获取版本号
       * @return 当前应用的版本号

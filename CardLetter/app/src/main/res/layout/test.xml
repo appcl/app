@@ -145,13 +145,13 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:background="@color/colorspaceline"/>
+                android:background="@color/padding_color"/>
             </LinearLayout>
 
             <com.mt.cardletter.view.rollviewpager.RollPagerView
                 android:id="@+id/fragment_home_top_pagerview"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="175dp"
                 app:rollviewpager_play_delay="3000"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"

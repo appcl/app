@@ -58,6 +58,22 @@ public class DiscoverFragment extends Fragment {
         com_back_click = (FrameLayout) view.findViewById(R.id.com_back_click);
         title_name = (TextView) view.findViewById(R.id.title_name);
         next = (TextView) view.findViewById(R.id.commonal_tv);
+        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Constant.MY_BANK_FLAG = 1;
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         return view;
     }
 

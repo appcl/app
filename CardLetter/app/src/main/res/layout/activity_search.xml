@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:background="@color/coloreeeeee"
+        android:background="@color/main_title_bg"
         android:orientation="horizontal">
 
         <FrameLayout
@@ -65,7 +65,7 @@
             android:layout_gravity="center_vertical"
             android:paddingRight="10dp"
             android:text="搜索"
-            android:textColor="@color/color_text_black_31"
+            android:textColor="@color/white"
             android:textSize="14sp" />
     </LinearLayout>
     <LinearLayout

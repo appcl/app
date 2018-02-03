@@ -6,8 +6,9 @@
    <ListView
        android:id="@+id/list_view"
        android:fadingEdge="none"
+       android:dividerHeight="1dp"
+       android:divider="@color/padding_color"
        android:layout_width="fill_parent"
        android:layout_height="fill_parent"  >
    </ListView>
-
 </LinearLayout>

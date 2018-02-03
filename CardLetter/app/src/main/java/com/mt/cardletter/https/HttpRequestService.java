@@ -99,11 +99,12 @@ public interface HttpRequestService {
      * @param password
      * @return
      */
-    @POST("/api.php/common/login")
-    Observable<LoginEntity> getUserInfo(@Query("access_token") String access_token,
-                                        @Query("username") String username,
-                                        @Query("password") String password,
-                                        @Query("ext_token") String ext_token);
+    @POST("/api.php/common/login/access_token/{access_token}/username/{username}/nickname/{nickname}/password/{password}/ext_token/{ext_token}")
+    Observable<LoginEntity> getUserInfo(@Path("access_token") String access_token,
+                                        @Path("username") String username,
+                                        @Path("nickname") String nickname,
+                                        @Path("password") String password,
+                                        @Path("ext_token") String ext_token);
 
     /**
      * 优惠 test

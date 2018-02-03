@@ -376,7 +376,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
     @Override
     protected void initData() {
         //TODO 经纬度  地区
-        loadData(1, 100 + "", "" + 1, "", Constant.CITY_ID, "", lat + "", lon + "");
+        loadData(1, 100 + "", "" + 1, "", Constant.CITY_ID,Constant.MY_BANK, lat + "", lon + "");
         toLogin(Constant.Access_Token);
     }
 

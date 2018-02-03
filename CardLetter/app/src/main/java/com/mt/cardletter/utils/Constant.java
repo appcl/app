@@ -75,6 +75,6 @@ public class Constant {
     public static String LOACTION_CITY;//全局城市
     public static String CITY_ID="";//选择城市返回城市ID
     public static String MY_BANK="";//选择的银行
-    public static boolean MY_BANK_FLAG = false;//选择的银行
+    public static int MY_BANK_FLAG = 2;//银行更新标记
 
 }

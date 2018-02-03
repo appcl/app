@@ -49,7 +49,6 @@ public class HttpSubscriber<T> extends Subscriber<T>{
         if (subscriberOnListener != null && context != null) {
             //subscriberOnListener.onError("完成", 1);
             /**********dismiss网络加载dialog*******************/
-            System.out.println("jk-------"+"dismiss网络加载dialog");
            loadingDialog.close();
         } else {
             onUnsubscribe();
@@ -59,7 +58,6 @@ public class HttpSubscriber<T> extends Subscriber<T>{
     @Override
     public void onError(Throwable e) {
         /**********dismiss网络加载dialog*******************/
-        System.out.println("jk-------"+"dismiss网络加载dialog2");
         loadingDialog.close();
         if (subscriberOnListener != null && context != null) {
             if (e instanceof SocketTimeoutException) {

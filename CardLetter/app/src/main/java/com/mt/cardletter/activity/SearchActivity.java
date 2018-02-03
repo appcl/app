@@ -43,7 +43,7 @@ import java.util.List;
 /**
  * Date:2018/1/10
  * Time:20:22
- * author:demons
+ * 首页搜索
  */
 
 public class SearchActivity extends BaseActivity {

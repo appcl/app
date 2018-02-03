@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,7 @@ public class CompleteFragment extends BaseFragment {
     private TextView tv_noll;
     private String lng;
     private String lat;
+    private ViewPager pager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         System.out.println("jk------"+"jk---CompleteFragment--1");
@@ -100,27 +102,12 @@ public class CompleteFragment extends BaseFragment {
 
     @Override
     public void onResume() {
+        if (Constant.MY_BANK_FLAG==1){
+            loadData( UPDATA_DEF , page_size , ""+1 , cartgory_id ,Constant.CITY_ID, Constant.MY_BANK, AppContext.getInstance().getLat()+"", AppContext.getInstance().getLon()+"");
+        }
         super.onResume();
-        System.out.println("jk---cartgory_id:"+cartgory_id+"---Constant.MY_BANK---"+ Constant.MY_BANK);
-        if (Constant.MY_BANK_FLAG){
-            System.out.println("jk---执行cartgory_id:"+cartgory_id+"---Constant.MY_BANK---"+ Constant.MY_BANK);
-            loadData( UPDATA_DEF , page_size , ""+page_index , cartgory_id ,Constant.CITY_ID, Constant.MY_BANK, AppContext.getInstance().getLat()+"", AppContext.getInstance().getLon()+"");
-        }
+    }
 
-    }
-    /**
-     * 需要界面重新展示时调用这个方法
-     */
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        // TODO Auto-generated method stub
-        super.onHiddenChanged(hidden);
-        if (hidden) {
-            System.out.println("jk---hidden-true--cartgory_id:"+cartgory_id);
-        }else{
-            System.out.println("jk---hidden-false--cartgory_id:"+cartgory_id);
-        }
-    }
     @Override
     protected void onLazyLoad() {
         super.onLazyLoad();
@@ -172,7 +159,6 @@ public class CompleteFragment extends BaseFragment {
     private void initViews() {
         /**
          * 点击事件
-         *
          */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -185,6 +171,7 @@ public class CompleteFragment extends BaseFragment {
 //                    intent.putExtra("bank",bankTable.get(0).getName());  // TODO: 2018/1/23 银行类别待修改
 //                    intent.putExtra("bank_url",bankTable.get(0).getCardThumb());
                 }
+                Constant.MY_BANK_FLAG = 2;
                 startActivity(intent);
             }
         });
@@ -280,8 +267,8 @@ public class CompleteFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("jk====onActivityResult===");
-    }
 
+
+    }
 
 }

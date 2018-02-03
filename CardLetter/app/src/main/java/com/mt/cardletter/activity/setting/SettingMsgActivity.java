@@ -31,6 +31,7 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.BaseActivity;
+import com.mt.cardletter.activity.LoginActivity;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
@@ -45,8 +46,13 @@ import com.mt.cardletter.utils.impower.ImpowerAndShareUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Random;
 
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -58,13 +64,9 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
     private RelativeLayout msgTop;
     private boolean isLogin;
     private Button btnExit;
-
+    private ImpowerAndShareUtil impowerAndShareUtil;
     private TextView updata, user_loginname;
     private EditText old_pw, new_pw, new_pw_re;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     private GoogleApiClient client;
 
     @Override
@@ -74,6 +76,8 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void initView() {
+        impowerAndShareUtil = new ImpowerAndShareUtil();
+
         old_pw = (EditText) findViewById(R.id.old_pw);
         new_pw = (EditText) findViewById(R.id.new_pw);
         new_pw_re = (EditText) findViewById(R.id.new_pw_re);
@@ -92,7 +96,7 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
         isLogin = SharedPreferences.getInstance().getBoolean("isLogin", false);
         user_loginname.setText(SharedPreferences.getInstance().getString("nick_name", ""));
         if (isLogin) {
-            btnExit.setBackgroundResource(R.color.blue);
+            btnExit.setBackgroundResource(R.color.main_title_bg);
             btnExit.setClickable(true);
             btnExit.setEnabled(true);
         } else {
@@ -140,7 +144,7 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
 
                 boolean isLogin = SharedPreferences.getInstance().getBoolean("isLogin", false);
                 if (isLogin) {
-                    ImpowerAndShareUtil.impower(this,SharedPreferences.getInstance().getString("impower_mode",""),1);
+                    impower(SharedPreferences.getInstance().getString("impower_mode",""),1);
                     btnExit.setClickable(true);
                     btnExit.setEnabled(true);
                     SharedPreferences.getInstance().putBoolean("isLogin", false);
@@ -164,7 +168,18 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
                 break;
         }
     }
+    /**
+     * @param mode  Wechat.NAME  QQ.NAME  SinaWeibo.NAME
+     * @param a 授权反授权标志位
+     */
+    public void impower( String mode, int a){
+        Platform platform = ShareSDK.getPlatform(mode);
+        if (a == 1){
+            //移除授权
+            platform.removeAccount(true);
 
+        }
+    }
     private void checkout() {
         if (old_pw.getText().toString().trim().isEmpty()) {
             ToastUtils.makeShortText("旧密码不能为空", getApplicationContext());

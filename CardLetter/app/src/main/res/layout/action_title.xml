@@ -80,5 +80,5 @@
         android:layout_below="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorspaceline"/>
+        android:background="@color/main_title_bg"/>
 </RelativeLayout>

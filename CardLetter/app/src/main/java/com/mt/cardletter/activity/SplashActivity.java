@@ -62,6 +62,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        setSwipeBackEnable(false);//禁止侧滑退出
         /**
          * 申请软件所需权限
          */

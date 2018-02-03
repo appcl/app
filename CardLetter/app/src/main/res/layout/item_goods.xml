@@ -9,9 +9,9 @@
         android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
         android:layout_marginBottom="10dp"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <ImageView
             android:background="@drawable/shape_img_bg"
             android:padding="2dp"

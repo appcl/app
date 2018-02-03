@@ -41,6 +41,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mt.cardletter.activity.SplashActivity.SPLASH_OPEN;
+
 public class ScreenActivity extends BaseActivity implements View.OnClickListener{
     private RecyclerView recyclerView;
     private TextView makeShow;
@@ -57,10 +59,15 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
     }
     @Override
     public void initView() {
+        if (SharedPreferences.getInstance().getInt("splash_is_open", SPLASH_OPEN) == SPLASH_OPEN ){
+            setSwipeBackEnable(false);//禁止侧滑退出
+        }else{
+            setSwipeBackEnable(true);//开启侧滑退出
+        }
         from_dis = getIntent().getExtras().getString("from_dis");
         next = (TextView) findViewById(R.id.commonal_tv);
         next.setText("跳过");
-        next.setTextColor(getResources().getColor(R.color.color_text_black_31));
+        next.setTextColor(getResources().getColor(R.color.main_title_bg));
         next.setVisibility(View.VISIBLE);
         next.setOnClickListener(new OnMultiClickListener() {
             @Override
@@ -269,7 +276,7 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
         }
         System.out.println("jk--ScreenActivity-用户筛选银行-"+sb.toString());
         Constant.MY_BANK = sb.toString();
-        Constant.MY_BANK_FLAG = true;
+        Constant.MY_BANK_FLAG = 1;
         SharedPreferences.getInstance().putInt("splash_is_open", SplashActivity.SPLASH_UNOPEN); //去除首次打开
     }
 }

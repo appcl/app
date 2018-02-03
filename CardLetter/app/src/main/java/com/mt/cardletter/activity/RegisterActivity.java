@@ -64,36 +64,36 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             ToastUtils.makeShortText("两次密码输入不一致",getApplicationContext());
             return;
         }
-        toRegister(Constant.Access_Token,phone.getText().toString().trim(),password.getText().toString().trim());
+        //toRegister(Constant.Access_Token,phone.getText().toString().trim(),password.getText().toString().trim());
     }
 
-    private void toRegister(String ak, final String username, final String password){
-        CardLetterRequestApi.getInstance().getUserInfo(ak,username,password,"",new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
-            @Override
-            public void onSucceed(LoginEntity data) {
-                if (data.getCode() == 0){
-                    String nick_name = data.getData().getNickname();
-                    String user_token = data.getData().getUserToken();
-                    SharedPreferences.getInstance().putString("account",username);
-                    SharedPreferences.getInstance().putString("password",password);
-                    SharedPreferences.getInstance().putString("nick_name",nick_name);
-                    SharedPreferences.getInstance().putString("user_token",user_token);
-                    SharedPreferences.getInstance().putBoolean("isLogin",false);
-                    Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-                    intent.putExtra("userName",username);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    ToastUtils.makeShortText(data.getMsg(),RegisterActivity.this);
-                }
-            }
-
-            @Override
-            public void onError(int code, String msg) {
-                ToastUtils.makeShortText(msg,RegisterActivity.this);
-            }
-        },RegisterActivity.this));
-    }
+//    private void toRegister(String ak, final String username, final String password){
+//        CardLetterRequestApi.getInstance().getUserInfo(ak,username,"",password,"",new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
+//            @Override
+//            public void onSucceed(LoginEntity data) {
+//                if (data.getCode() == 0){
+//                    String nick_name = data.getData().getNickname();
+//                    String user_token = data.getData().getUserToken();
+//                    SharedPreferences.getInstance().putString("account",username);
+//                    SharedPreferences.getInstance().putString("password",password);
+//                    SharedPreferences.getInstance().putString("nick_name",nick_name);
+//                    SharedPreferences.getInstance().putString("user_token",user_token);
+//                    SharedPreferences.getInstance().putBoolean("isLogin",false);
+//                    Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+//                    intent.putExtra("userName",username);
+//                    startActivity(intent);
+//                    finish();
+//                }else {
+//                    ToastUtils.makeShortText(data.getMsg(),RegisterActivity.this);
+//                }
+//            }
+//
+//            @Override
+//            public void onError(int code, String msg) {
+//                ToastUtils.makeShortText(msg,RegisterActivity.this);
+//            }
+//        },RegisterActivity.this));
+//    }
     @Override
     public void initListener() {
 

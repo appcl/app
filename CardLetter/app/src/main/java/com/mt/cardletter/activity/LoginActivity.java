@@ -1,5 +1,6 @@
 package com.mt.cardletter.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Message;
 import android.text.TextUtils;
@@ -10,7 +11,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.server.response.FastSafeParcelableJsonResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mt.cardletter.R;
+import com.mt.cardletter.app.AppContext;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
@@ -21,10 +26,32 @@ import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.utils.impower.ImpowerAndShareUtil;
+import com.mt.cardletter.view.dialog.loadingdialog.view.LoadingDialog;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Date:2017/12/13
@@ -97,31 +124,31 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
-    private void toLogin(String ak, final String username, final String password) {
-        CardLetterRequestApi.getInstance().getUserInfo(ak, username, password,"", new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
-            @Override
-            public void onSucceed(LoginEntity data) {
-                if (data.getCode() == 0) {
-                    String nick_name = data.getData().getNickname();
-                    String user_token = data.getData().getUserToken();
-                    SharedPreferences.getInstance().putString("account", username);
-                    SharedPreferences.getInstance().putString("password", password);
-                    SharedPreferences.getInstance().putString("nick_name", nick_name);
-                    SharedPreferences.getInstance().putString("user_token", user_token);
-                    SharedPreferences.getInstance().putBoolean("isLogin", true);
-                    SharedPreferences.getInstance().putString("url","");//将URL设置为空
-                    finish();
-                } else {
-                    ToastUtils.makeShortText(data.getMsg(), LoginActivity.this);
-                }
-            }
-
-            @Override
-            public void onError(int code, String msg) {
-                ToastUtils.makeShortText(msg, LoginActivity.this);
-            }
-        }, LoginActivity.this));
-    }
+//    private void toLogin(String ak, final String username, final String password) {
+//        CardLetterRequestApi.getInstance().getUserInfo(ak, username, "",password,"", new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
+//            @Override
+//            public void onSucceed(LoginEntity data) {
+//                if (data.getCode() == 0) {
+//                    String nick_name = data.getData().getNickname();
+//                    String user_token = data.getData().getUserToken();
+//                    SharedPreferences.getInstance().putString("account", username);
+//                    SharedPreferences.getInstance().putString("password", password);
+//                    SharedPreferences.getInstance().putString("nick_name", nick_name);
+//                    SharedPreferences.getInstance().putString("user_token", user_token);
+//                    SharedPreferences.getInstance().putBoolean("isLogin", true);
+//                    SharedPreferences.getInstance().putString("url","");//将URL设置为空
+//                    finish();
+//                } else {
+//                    ToastUtils.makeShortText(data.getMsg(), LoginActivity.this);
+//                }
+//            }
+//
+//            @Override
+//            public void onError(int code, String msg) {
+//                ToastUtils.makeShortText(msg, LoginActivity.this);
+//            }
+//        }, LoginActivity.this));
+//    }
 
     /**
      * 检查注册输入的内容
@@ -149,22 +176,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.btnSure:
                 if (checkInput(name, password)) {
-                    toLogin(Constant.Access_Token, name, password);
+                    //toLogin(Constant.Access_Token, name, password);
                 }
                 break;
             case R.id.login_forget:
 
                 break;
             case R.id.sina://sina
-                ImpowerAndShareUtil.impower(this,SinaWeibo.NAME,0);
+                impower(SinaWeibo.NAME);
                 //startActivity(new Intent(LoginActivity.this, MyLoginActivity.class));
                 break;
             case R.id.weixin://weixin
-                ImpowerAndShareUtil.impower(this, Wechat.NAME ,0);
+                impower(Wechat.NAME );
 
                 break;
             case R.id.qq:
-                ImpowerAndShareUtil.impower(this,QQ.NAME,0);
+                impower(QQ.NAME);
                 break;
         }
     }
@@ -184,6 +211,90 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+    /**
+     * @param mode  Wechat.NAME  QQ.NAME  SinaWeibo.NAME
+     */
+    public void impower( String mode ){
+        final Logger httpLogger = Logger.getLogger(HttpURLConnection.class.getName());
+        httpLogger.setLevel(Level.OFF);
+        Platform platform = ShareSDK.getPlatform(mode);
+        SharedPreferences.getInstance().putString("impower_mode",mode);
+        platform.SSOSetting(false);  //设置false表示使用SSO授权方式
+        platform.setPlatformActionListener(new PlatformActionListener() {
+            @Override
+            public void onError(Platform arg0, int arg1, Throwable arg2) {
+                //ToastUtils.makeShortText("请下载新版本软件",LoginActivity.this);
+                arg2.printStackTrace();
+            }
+            @Override
+            public void onComplete(Platform platform, int action, HashMap<String, Object> res) {
+                if (action == Platform.ACTION_USER_INFOR) {
+                    PlatformDb platDB = platform.getDb();//获取数平台数据DB
+                    String token = platDB.getToken();
+                    String userGender = platDB.getUserGender();
+                    String userIcon = platDB.getUserIcon();
+                    String userId = platDB.getUserId();
+                    String userName = platDB.getUserName();
+                    //设置第三方名字,头像,第三方id
+                    SharedPreferences.getInstance().putString("nick_name",userName);
+                    SharedPreferences.getInstance().putString("url",userIcon);
+                    SharedPreferences.getInstance().putString("ext_token", userId);
+                    SharedPreferences.getInstance().putBoolean("isLogin",true);
+                    System.out.println("jk----"+userName+"-------"+userId);
+                    toLogin_1(userName+userId,userName,userId,userId);
+                }
+            }
+            @Override
+            public void onCancel(Platform arg0, int arg1) {}
+        });
+        platform.showUser(null);//授权并获取用户信息
+
+
+    }
+
+    private void toLogin_1(String username,String nickname,String password,String ext_token){
+        String url = "http://www.51kaxin.xyz/api.php/common/login/access_token/"+Constant.Access_Token+
+                "/username/"+username+"/nickname/"+nickname+"/password/"+password+"/ext_token/"+ext_token;
+        System.out.println("jk-=url");
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = new FormBody.Builder().build();
+        Request request = new Request.Builder()
+                .post(body)
+                .url("http://www.51kaxin.xyz/api.php/common/login/access_token/"+Constant.Access_Token+"/username/"+username+"/nickname/"+nickname+"/password/"+password+"/ext_token/"+ext_token)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String s = response.body().string();
+                System.out.println("jk--=okhttp:"+s);
+                GsonBuilder builder = new GsonBuilder();
+                Gson gson = builder.create();
+                LoginEntity p = gson.fromJson(s, LoginEntity.class);
+                String memberId = p.getData().getMemberId();
+                SharedPreferences.getInstance().putString("member_id",memberId);
+                LoginActivity.this.finish();
+            }
+        });
+    }
+    private void toLogin_2(String username,String nickname,String password,String ext_token) {
+        CardLetterRequestApi.getInstance().getUserInfo(
+                username,nickname,password,ext_token,new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
+                    @Override
+                    public void onSucceed(LoginEntity data) {
+                        if (data.getCode()==0) {
+                            System.out.println("jk--===LoginEntity");
+                        }
+                    }
+                    @Override
+                    public void onError(int code, String msg) {
+                        System.out.println("jk--===LoginEntity");
+                    }
+                },LoginActivity.this));
     }
 
 }

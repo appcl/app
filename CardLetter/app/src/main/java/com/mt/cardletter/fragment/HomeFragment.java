@@ -130,6 +130,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
 
         //搜索框
         search_et_input= (RelativeLayout) view.findViewById(R.id.search_main_et_input);
+        search_et_input.setFocusable(false);//让EditText失去焦点，然后获取点击事件
         search_et_input.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -298,24 +299,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         public View getView(ViewGroup container, int position) {
             ImageView view = new ImageView(container.getContext());
             //Authorization 请求头信息
-//            Glide.with(context)
-//                    .load(Constant.PIC_URL+this.dataBeanList.get(position).getThumb())
-//                    .error(R.drawable.default_error)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .into(view);
             Glide.with(context)
-                    .load(R.drawable.img_test)
+                    .load(Constant.PIC_URL+this.dataBeanList.get(position).getThumb())
                     .error(R.drawable.default_error)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(view);
-            view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//            Glide.with(context)
+//                    .load(R.drawable.img_test)
+//                    .error(R.drawable.default_error)
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    .into(view);
+            view.setScaleType(ImageView.ScaleType.FIT_XY);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             return view;
         }
 
         @Override
         public int getCount() {
-            return 1;
+            return dataBeanList.size();
         }
     }
 
@@ -332,19 +333,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         }
         @Override
         public Fragment getItem(int position) {
-//            if (fragments[position] == null){
-//                fragments[position] =  new NetNewsFragment(myScrollView,pager,search03);
-//                Bundle bundle=new Bundle();
-//                bundle.putString("news_category",tabDatas.get(position));
-//                bundle.putInt("pager_id",position);
-//                fragments[position].setArguments(bundle);
-//            }
-            NetNewsFragment netNewsFragment = new NetNewsFragment(myScrollView, pager, search03);
+            if (fragments[position] == null){
+                fragments[position] =  new NetNewsFragment(myScrollView,pager,search03);
                 Bundle bundle=new Bundle();
                 bundle.putString("news_category",tabDatas.get(position));
                 bundle.putInt("pager_id",position);
-                netNewsFragment.setArguments(bundle);
-            return netNewsFragment;
+                fragments[position].setArguments(bundle);
+            }
+//            NetNewsFragment netNewsFragment = new NetNewsFragment(myScrollView, pager, search03);
+//                Bundle bundle=new Bundle();
+//                bundle.putString("news_category",tabDatas.get(position));
+//                bundle.putInt("pager_id",position);
+//                netNewsFragment.setArguments(bundle);
+            return  fragments[position];
         }
         @Override
         public CharSequence getPageTitle(int position) {

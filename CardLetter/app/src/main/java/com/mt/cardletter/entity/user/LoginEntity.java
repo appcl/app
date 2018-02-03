@@ -9,11 +9,12 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class LoginEntity {
+
     /**
      * code : 0
      * msg : 操作成功
-     * data : {"member_id":25,"nickname":"12","username":"12","mybank":"1","myliked":null,"create_time":"2018-01-23 15:25:27","user_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJLYXhpbiBKV1QiLCJpYXQiOjE1MTY2OTY2MDQsImV4cCI6MzAzMzM5MzIwOCwiYXVkIjoiS2F4aW4iLCJzdWIiOiJLYXhpbiIsImRhdGEiOnsibWVtYmVyX2lkIjoyNSwibmlja25hbWUiOiIxMiIsInVzZXJuYW1lIjoiMTIiLCJteWJhbmsiOiIxIiwibXlsaWtlZCI6bnVsbCwiY3JlYXRlX3RpbWUiOiIyMDE4LTAxLTIzIDE1OjI1OjI3In19.dLl6JU269rcF46jms_h9NnW32QvLVVlI1xl3jkpzmSQ","data_sign":"543334cdde45d8a55bbabd5faa53051d051b424a"}
-     * exe_time : 0.004581
+     * data : {"member_id":55,"nickname":"aaaAA","username":"aaaAA","mybank":"","myliked":"","create_time":"2018-02-02 15:50:44","user_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJLYXhpbiBKV1QiLCJpYXQiOjE1MTc1NTc4NDQsImV4cCI6MzAzNTExNTY4OCwiYXVkIjoiS2F4aW4iLCJzdWIiOiJLYXhpbiIsImRhdGEiOnsibWVtYmVyX2lkIjo1NSwibmlja25hbWUiOiJhYWFBQSIsInVzZXJuYW1lIjoiYWFhQUEiLCJteWJhbmsiOiIiLCJteWxpa2VkIjoiIiwiY3JlYXRlX3RpbWUiOiIyMDE4LTAyLTAyIDE1OjUwOjQ0In19.bz0t3Gd0_fU51ufCCWdePUyHF3sgP0g1D8kJQUTngzc","data_sign":"8928e287d8efac504e8b5ff92554f61ad79e1216"}
+     * exe_time : 0.016190
      */
 
     @SerializedName("code")
@@ -59,14 +60,14 @@ public class LoginEntity {
 
     public static class DataBean {
         /**
-         * member_id : 25
-         * nickname : 12
-         * username : 12
-         * mybank : 1
-         * myliked : null
-         * create_time : 2018-01-23 15:25:27
-         * user_token : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJLYXhpbiBKV1QiLCJpYXQiOjE1MTY2OTY2MDQsImV4cCI6MzAzMzM5MzIwOCwiYXVkIjoiS2F4aW4iLCJzdWIiOiJLYXhpbiIsImRhdGEiOnsibWVtYmVyX2lkIjoyNSwibmlja25hbWUiOiIxMiIsInVzZXJuYW1lIjoiMTIiLCJteWJhbmsiOiIxIiwibXlsaWtlZCI6bnVsbCwiY3JlYXRlX3RpbWUiOiIyMDE4LTAxLTIzIDE1OjI1OjI3In19.dLl6JU269rcF46jms_h9NnW32QvLVVlI1xl3jkpzmSQ
-         * data_sign : 543334cdde45d8a55bbabd5faa53051d051b424a
+         * member_id : 55
+         * nickname : aaaAA
+         * username : aaaAA
+         * mybank :
+         * myliked :
+         * create_time : 2018-02-02 15:50:44
+         * user_token : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJLYXhpbiBKV1QiLCJpYXQiOjE1MTc1NTc4NDQsImV4cCI6MzAzNTExNTY4OCwiYXVkIjoiS2F4aW4iLCJzdWIiOiJLYXhpbiIsImRhdGEiOnsibWVtYmVyX2lkIjo1NSwibmlja25hbWUiOiJhYWFBQSIsInVzZXJuYW1lIjoiYWFhQUEiLCJteWJhbmsiOiIiLCJteWxpa2VkIjoiIiwiY3JlYXRlX3RpbWUiOiIyMDE4LTAyLTAyIDE1OjUwOjQ0In19.bz0t3Gd0_fU51ufCCWdePUyHF3sgP0g1D8kJQUTngzc
+         * data_sign : 8928e287d8efac504e8b5ff92554f61ad79e1216
          */
 
         @SerializedName("member_id")
@@ -78,7 +79,7 @@ public class LoginEntity {
         @SerializedName("mybank")
         private String mybank;
         @SerializedName("myliked")
-        private Object myliked;
+        private String myliked;
         @SerializedName("create_time")
         private String createTime;
         @SerializedName("user_token")
@@ -118,11 +119,11 @@ public class LoginEntity {
             this.mybank = mybank;
         }
 
-        public Object getMyliked() {
+        public String getMyliked() {
             return myliked;
         }
 
-        public void setMyliked(Object myliked) {
+        public void setMyliked(String myliked) {
             this.myliked = myliked;
         }
 

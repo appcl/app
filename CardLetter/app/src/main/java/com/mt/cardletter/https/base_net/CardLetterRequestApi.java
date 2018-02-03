@@ -50,17 +50,15 @@ public class CardLetterRequestApi extends BaseApi {
 
     /**
      * 获取用户信息
-     * @param ak
      * @param username
      * @param password
      * @param subscriber
      */
-    public void getUserInfo(String ak, String username, String password,String ext_token, Subscriber<LoginEntity> subscriber){
-        Observable observable = httpRequestService.getUserInfo(ak,username,password,ext_token)
+    public void getUserInfo(String username,String nickname, String password,String ext_token, Subscriber<LoginEntity> subscriber){
+        Observable observable = httpRequestService.getUserInfo(Constant.Access_Token,username,nickname,password,ext_token)
                 .map(new HttpResultFunc<LoginEntity>());
         toSubscribe(observable,subscriber);
     }
-
     /**
      * 获取活动的分类列表
      * @param access_token

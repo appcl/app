@@ -31,11 +31,14 @@
         <TextView
             android:padding="5dp"
             android:textSize="16dp"
-            android:background="@color/colorspaceline"
+            android:background="@color/main_title_bg"
             android:layout_centerHorizontal="true"
             android:id="@+id/screen_affirm"
             android:gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="确定"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView

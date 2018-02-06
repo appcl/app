@@ -449,4 +449,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
             }
         },getContext()));
     }
+
 }

@@ -3,9 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:orientation="vertical" >
-
 <com.mt.cardletter.view.Scroll.TopScrollView
     android:id="@+id/myScrollView"
     android:fillViewport="true"
@@ -233,7 +231,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="750dp">
-
             <com.mt.cardletter.view.Scroll.MyViewPager
                 android:id="@+id/pager"
                 android:focusable="true"

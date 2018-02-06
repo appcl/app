@@ -276,7 +276,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 Gson gson = builder.create();
                 LoginEntity p = gson.fromJson(s, LoginEntity.class);
                 String memberId = p.getData().getMemberId();
+                String user_token = p.getData().getUserToken();
                 SharedPreferences.getInstance().putString("member_id",memberId);
+                SharedPreferences.getInstance().putString("user_token",user_token);
                 LoginActivity.this.finish();
             }
         });

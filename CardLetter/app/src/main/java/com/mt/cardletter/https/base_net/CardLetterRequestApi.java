@@ -313,6 +313,15 @@ public class CardLetterRequestApi extends BaseApi {
         toSubscribe(observable,subscriber);
     }
     /**
+     * 获取关注银行
+     * @param subscriber
+     */
+    public void getMybank(String user_token,String my_bank ,Subscriber<MyBank> subscriber){
+        Observable observable = httpRequestService.getMybank(Constant.Access_Token,user_token)
+                .map(new HttpResultFunc<MyBank>());
+        toSubscribe(observable,subscriber);
+    }
+    /**
      * 添加收藏
      * @param subscriber
      */

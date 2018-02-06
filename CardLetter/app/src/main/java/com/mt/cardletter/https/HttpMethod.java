@@ -8,6 +8,7 @@ import com.mt.cardletter.utils.NetUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -78,7 +79,7 @@ public class HttpMethod {
                     public Response intercept(Chain chain) throws IOException {
                         Request request = null;
 //                        if (Constant.TOKEN == null || Constant.TOKEN.equals("")) {
-                            request = chain.request().newBuilder().build();
+                        request = chain.request().newBuilder().build();
 //                        } else {
 //                            request = chain.request()
 //                                    .newBuilder()

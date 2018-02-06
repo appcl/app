@@ -60,4 +60,5 @@ public class SplashItemFragment extends Fragment {
         return view;
     }
 
+
 }

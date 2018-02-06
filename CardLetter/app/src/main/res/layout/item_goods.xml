@@ -19,14 +19,14 @@
             android:scaleType="fitXY"
             android:layout_centerVertical="true"
             android:src="@drawable/default_error"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
         <RelativeLayout
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/goods_img"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="70dp">
             <TextView
                 android:ellipsize="marquee"
                 android:maxLines="1"
@@ -61,7 +61,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-
             <RelativeLayout
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="5dp"

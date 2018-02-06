@@ -419,4 +419,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         JPushInterface.onPause(this);
     }
 
+    @Override
+    public void finish() {
+
+        super.finish();
+    }
 }

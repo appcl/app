@@ -39,6 +39,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void initView() {
+
         cacheSize = (TextView) findViewById(R.id.cache_size);
         title_name = (TextView) findViewById(R.id.title_name);
         title_name.setText("设置");

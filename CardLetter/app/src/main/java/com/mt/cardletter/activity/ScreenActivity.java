@@ -26,6 +26,7 @@ import com.mt.cardletter.R;
 import com.mt.cardletter.db.dbuitls.DBCreate;
 import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.merchant.Bank;
+import com.mt.cardletter.entity.merchant.MyBank;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
@@ -64,10 +65,11 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
         }else{
             setSwipeBackEnable(true);//开启侧滑退出
         }
+        myList = new ArrayList<>();
         from_dis = getIntent().getExtras().getString("from_dis");
         next = (TextView) findViewById(R.id.commonal_tv);
         next.setText("跳过");
-        next.setTextColor(getResources().getColor(R.color.main_title_bg));
+        next.setTextColor(getResources().getColor(R.color.white));
         next.setVisibility(View.VISIBLE);
         next.setOnClickListener(new OnMultiClickListener() {
             @Override
@@ -99,7 +101,7 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
         //设置Adapter
         recyclerView.setAdapter( myRecyclerAdapter =  new MyRecyclerAdapter() );
 
-        toLogin(Constant.Access_Token);
+        toLogin();
 
         //下拉刷新
        initPullRefresh();
@@ -107,38 +109,25 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
 //        initLoadMoreListener();
     }
 
-    private void toLogin(String ak) {
-        CardLetterRequestApi.getInstance().getBank(ak, new HttpSubscriber<Bank>(new SubscriberOnListener<Bank>() {
-            @Override
-            public void onSucceed(Bank data) {
-                if (data.getCode() == 0) {
-                    myList = data.getData();
-                    mSwipeRefreshLayout.setRefreshing(false);
-                    myRecyclerAdapter. notifyItemInserted(myRecyclerAdapter.getItemCount());//必须用此方法才能进行recycleview的刷新。（末尾刷新）
-                } else {
-                    ToastUtils.makeShortText(data.getMsg(), ScreenActivity.this);
-                }
-                //数据库存储操作
-                DataSupport.deleteAll(BankTable.class);
-                for (Bank.DataBean bank: myList) {
-                    DBCreate.addBankForBankTable(bank);
-                }
-//                List<BankTable> all = DataSupport.findAll(BankTable.class);
-//                for (BankTable banktable: all) {
-//                    System.out.println("jk----bank   "+banktable.getId()+"----"+banktable.getName());
-//                }
-            }
-            @Override
-            public void onError(int code, String msg) {
-                ToastUtils.makeShortText("网络故障", ScreenActivity.this);
-            }
-        }, ScreenActivity.this));
+    private void toLogin() {
+        List<BankTable> all = DataSupport.findAll(BankTable.class);
+        for (BankTable bankTable:all) {
+            Bank.DataBean bean = new Bank.DataBean();
+            bean.setId(Integer.parseInt(bankTable.getBank_id()));
+            bean.setName(bankTable.getName());
+            bean.setDescribe(bankTable.getDescribe());
+            bean.setCardThumb(bankTable.getCardThumb());
+            bean.setCardImg(bankTable.getCardImg());
+            bean.setCardIcon(bankTable.getCardIcon());
+            myList.add(bean);
+        }
     }
     private void initPullRefresh() {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                toLogin(Constant.Access_Token);
+                //toLogin();
+                mSwipeRefreshLayout.setRefreshing(false);
                 Toast.makeText(ScreenActivity.this, "没有更多可加载", Toast.LENGTH_SHORT).show();
 
             }
@@ -149,8 +138,16 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
         switch (v.getId()){
             case R.id.screen_affirm:
                 setFlag();
-                UIHelper.showMainActivity(this);
-                finish();
+                boolean isLogin = SharedPreferences.getInstance().getBoolean("isLogin", false);
+
+                if (isLogin) {
+                    addBank();
+                } else {
+                    UIHelper.showMainActivity(ScreenActivity.this);
+                    finish();
+                }
+
+
                 break;
         }
 
@@ -278,5 +275,22 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
         Constant.MY_BANK = sb.toString();
         Constant.MY_BANK_FLAG = 1;
         SharedPreferences.getInstance().putInt("splash_is_open", SplashActivity.SPLASH_UNOPEN); //去除首次打开
+    }
+    private void addBank() {
+        String user_token = SharedPreferences.getInstance().getString("user_token", "");
+        System.out.println("jk---user_token :"+user_token);
+        CardLetterRequestApi.getInstance().addMybank(user_token, Constant.MY_BANK, new HttpSubscriber<MyBank>(new SubscriberOnListener<MyBank>() {
+            @Override
+            public void onSucceed(MyBank data) {
+                if (data.getCode()==0){
+                    UIHelper.showMainActivity(ScreenActivity.this);
+                    finish();
+                }
+            }
+            @Override
+            public void onError(int code, String msg) {
+                ToastUtils.makeShortText("网络故障", ScreenActivity.this);
+            }
+        }, ScreenActivity.this));
     }
 }

@@ -186,4 +186,9 @@ public class SearchActivity extends BaseActivity {
         return false;
     }
 
+    @Override
+    public void finish() {
+        hideSoftKeyboard(search_et_input);
+        super.finish();
+    }
 }

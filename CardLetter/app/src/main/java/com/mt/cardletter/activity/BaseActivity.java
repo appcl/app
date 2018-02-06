@@ -12,6 +12,7 @@ import com.mt.cardletter.app.AppManager;
 import com.mt.cardletter.utils.StatusBarUtil;
 import com.mt.cardletter.utils.UIHandler;
 
+import butterknife.OnTouch;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
@@ -42,8 +43,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
         // 添加Activity到堆栈
         AppManager.getAppManager().addActivity(this);
         setContentView(getLayoutResId());
-        View inflate = View.inflate(this, getLayoutResId(), null);
-        System.out.println("-----"+inflate);
         this.savedInstanceState = savedInstanceState;
         //(0). 设置侧滑
         sideslip();
@@ -104,7 +103,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     private void backClick() {
         // 定义退出动画
         finish();
-//        overridePendingTransition(R.anim.out_to_right_abit,R.anim.out_to_right);
+       //overridePendingTransition(R.anim.out_to_right_abit,R.anim.out_to_right);
     }
 
     @Override
@@ -174,4 +173,5 @@ public abstract class BaseActivity extends SwipeBackActivity {
         // 滑动退出的效果只能从边界滑动才有效果，如果要扩大touch的范围，可以调用这个方法
         //mSwipeBackLayout.setEdgeSize(200);
     }
+
 }

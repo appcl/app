@@ -486,7 +486,7 @@ public interface HttpRequestService {
 
 
     /**
-     * 我关注的银行卡
+     * 我关注的银行卡 上传
      * @param access_token
      * @param mybank  关注的银行，多条用逗号分割
      * @return
@@ -495,6 +495,15 @@ public interface HttpRequestService {
     Observable<MyBank> addMybank(@Query("access_token") String access_token,
                                  @Query("user_token") String user_token,
                                  @Query("mybank")String mybank);
+    /**
+     * 我关注的银行卡 获取
+     * @param access_token
+
+     * @return
+     */
+    @POST("/api.php/common/mybank")
+    Observable<MyBank> getMybank(@Query("access_token") String access_token,
+                                 @Query("user_token") String user_token);
 
 
     /**

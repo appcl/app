@@ -1,20 +1,12 @@
 package com.mt.cardletter.activity;
 
-import android.content.Intent;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.entity.user.LoginEntity;
-import com.mt.cardletter.https.HttpSubscriber;
-import com.mt.cardletter.https.SubscriberOnListener;
-import com.mt.cardletter.https.base_net.CardLetterRequestApi;
-import com.mt.cardletter.utils.Constant;
-import com.mt.cardletter.utils.SharedPreferences;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.utils.ToastUtils;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {

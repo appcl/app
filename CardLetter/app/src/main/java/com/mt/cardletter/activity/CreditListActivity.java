@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.adapter.CreditListAdapter;
 import com.mt.cardletter.entity.bank.BankEntity;
 import com.mt.cardletter.entity.creditcard.CreditDatas;

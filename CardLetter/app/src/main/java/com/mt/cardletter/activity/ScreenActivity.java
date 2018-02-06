@@ -1,6 +1,5 @@
 package com.mt.cardletter.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -23,7 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.mt.cardletter.R;
-import com.mt.cardletter.db.dbuitls.DBCreate;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.MyBank;
@@ -38,7 +37,6 @@ import com.mt.cardletter.utils.UIHelper;
 
 import org.litepal.crud.DataSupport;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

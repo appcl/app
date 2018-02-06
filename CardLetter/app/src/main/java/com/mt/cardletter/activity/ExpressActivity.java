@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.entity.express.ExpressCom;
 import com.mt.cardletter.entity.express.Express_Content;
 import com.mt.cardletter.https.HttpSubscriber;

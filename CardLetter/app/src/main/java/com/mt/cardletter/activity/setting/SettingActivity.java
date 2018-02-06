@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.AboutActivity;
-import com.mt.cardletter.activity.BaseActivity;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.entity.checkversion.CheckOrUpdate;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;

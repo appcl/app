@@ -1,9 +1,6 @@
 package com.mt.cardletter.activity;
 
-import android.media.Image;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -13,10 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.entity.news.NetNews;
-import com.mt.cardletter.view.Scroll.TopScrollView;
-
-import java.util.List;
 
 public class NewsItemActivity extends BaseActivity {
     private TextView new_title,new_src,new_time;

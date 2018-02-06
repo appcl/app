@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.base.BaseActivity;
 
 import java.io.IOException;
 import java.io.InputStream;

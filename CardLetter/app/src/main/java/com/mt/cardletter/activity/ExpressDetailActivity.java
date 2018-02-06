@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.adapter.ExpressAdapter;
 import com.mt.cardletter.entity.express.Express_Content;
 import com.mt.cardletter.view.DividerItemDecoration;

@@ -1,11 +1,9 @@
 package com.mt.cardletter;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -13,33 +11,23 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.Poi;
-import com.mt.cardletter.activity.BaseActivity;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.app.AppContext;
-import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.fragment.CardManagerFragment;
 import com.mt.cardletter.fragment.DiscoverFragment;
 import com.mt.cardletter.fragment.HomeFragment;
 import com.mt.cardletter.fragment.IntegralFragment;
 import com.mt.cardletter.fragment.MineFragment;
 import com.mt.cardletter.service.LocationService;
-import com.mt.cardletter.utils.Constant;
-import com.mt.cardletter.utils.SizeUtils;
 import com.mt.cardletter.utils.ToastUtils;
-
-import org.litepal.tablemanager.Connector;
 
 import java.util.Set;
 

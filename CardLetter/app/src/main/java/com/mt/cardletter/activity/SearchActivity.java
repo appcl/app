@@ -1,12 +1,8 @@
 package com.mt.cardletter.activity;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -21,23 +17,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.adapter.SearchAdapter;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.entity.city.District;
-import com.mt.cardletter.entity.data.SearchDatas;
-import com.mt.cardletter.entity.integral.SearchIntegralData;
-import com.mt.cardletter.entity.merchant.Goods;
-import com.mt.cardletter.fragment.CompleteFragment;
 import com.mt.cardletter.fragment.SearchHomeFragment;
-import com.mt.cardletter.https.HttpSubscriber;
-import com.mt.cardletter.https.SubscriberOnListener;
-import com.mt.cardletter.https.base_net.CardLetterRequestApi;
-import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.ToastUtils;
-import com.mt.cardletter.view.RefreshRecyclerView.PullToRefreshRecyclerView;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

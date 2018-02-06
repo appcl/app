@@ -129,6 +129,7 @@
         <!-- 地理位置 -->
         <activity
             android:name=".activity.LoactionActivity"
+
             android:screenOrientation="portrait" />
         <!-- QQ邮箱H5 -->
         <activity

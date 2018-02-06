@@ -4,7 +4,7 @@ import android.os.Message;
 import android.view.WindowManager;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.activity.BaseActivity;
+import com.mt.cardletter.activity.base.BaseActivity;
 
 /**
  * 图片查看器 

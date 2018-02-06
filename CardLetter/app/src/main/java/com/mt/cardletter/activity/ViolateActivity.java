@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.entity.data.Peccant;
 import com.mt.cardletter.entity.data.ViolateCity;
 import com.mt.cardletter.entity.data.ViolateData;

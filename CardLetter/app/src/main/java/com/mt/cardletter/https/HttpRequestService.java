@@ -24,6 +24,7 @@ import com.mt.cardletter.entity.merchant.Good;
 import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.merchant.GoodsBean;
 import com.mt.cardletter.entity.merchant.MyBank;
+import com.mt.cardletter.entity.merchant.MyBankBack;
 import com.mt.cardletter.entity.news.NetNews;
 import com.mt.cardletter.entity.news.NetNewsCategory;
 import com.mt.cardletter.entity.news.News;
@@ -501,9 +502,9 @@ public interface HttpRequestService {
 
      * @return
      */
-    @POST("/api.php/common/mybank")
-    Observable<MyBank> getMybank(@Query("access_token") String access_token,
-                                 @Query("user_token") String user_token);
+    @POST("api.php/common/mybankshow/user_token/{user_token}/access_token/{access_token}")
+    Observable<MyBankBack> getMybank(@Path("user_token") String user_token,
+                                     @Path("access_token") String access_token);
 
 
     /**

@@ -2,8 +2,6 @@ package com.mt.cardletter.activity;
 
 import android.content.Intent;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,9 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.entity.news.NetNews;
-import com.mt.cardletter.fragment.CompleteFragment;
-import com.mt.cardletter.fragment.NetNewsFragment;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.test.TestRequestApi;

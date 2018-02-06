@@ -16,18 +16,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mt.cardletter.R;
-import com.mt.cardletter.activity.BaseActivity;
-import com.mt.cardletter.activity.NewsActivity;
-import com.mt.cardletter.activity.NewsItemActivity;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.activity.SetailsActivity;
-import com.mt.cardletter.entity.collect.Collect;
 import com.mt.cardletter.entity.collect.CollectList;
-import com.mt.cardletter.entity.merchant.Goods;
-import com.mt.cardletter.entity.news.NetNews;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
-import com.mt.cardletter.https.test.TestRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
@@ -36,8 +30,6 @@ import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.support.design.R.id.start;
 
 public class CollectActivity extends BaseActivity {
     private PullToRefreshListView listView;

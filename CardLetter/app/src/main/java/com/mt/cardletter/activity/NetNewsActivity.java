@@ -1,11 +1,11 @@
 package com.mt.cardletter.activity;
 
 import android.os.Message;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.base.BaseActivity;
 
 public class NetNewsActivity extends BaseActivity {
     private WebView webView;

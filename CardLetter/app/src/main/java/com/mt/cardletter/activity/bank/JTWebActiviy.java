@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.activity.BaseActivity;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.adapter.PayAdapter;
 import com.mt.cardletter.entity.bank.Bank_JT;
 

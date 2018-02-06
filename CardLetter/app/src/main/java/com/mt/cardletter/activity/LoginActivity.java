@@ -1,7 +1,5 @@
 package com.mt.cardletter.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,11 +9,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.common.server.response.FastSafeParcelableJsonResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mt.cardletter.R;
-import com.mt.cardletter.app.AppContext;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
@@ -25,12 +22,6 @@ import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.SharedPreferences;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
-import com.mt.cardletter.utils.impower.ImpowerAndShareUtil;
-import com.mt.cardletter.view.dialog.loadingdialog.view.LoadingDialog;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -277,8 +268,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 LoginEntity p = gson.fromJson(s, LoginEntity.class);
                 String memberId = p.getData().getMemberId();
                 String user_token = p.getData().getUserToken();
+                String mybank = p.getData().getMybank();
                 SharedPreferences.getInstance().putString("member_id",memberId);
                 SharedPreferences.getInstance().putString("user_token",user_token);
+                SharedPreferences.getInstance().putString("mybank",mybank);
+                Constant.MY_BANK = mybank;
                 LoginActivity.this.finish();
             }
         });

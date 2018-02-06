@@ -3,14 +3,13 @@ package test.abc;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Message;
-import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.activity.BaseActivity;
+import com.mt.cardletter.activity.base.BaseActivity;
 
 /**
  * Created by Administrator on 2018/1/30.

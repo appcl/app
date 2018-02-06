@@ -6,6 +6,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.base.BaseActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

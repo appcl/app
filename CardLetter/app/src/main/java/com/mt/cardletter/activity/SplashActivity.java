@@ -20,6 +20,8 @@ import com.mt.cardletter.app.AppManager;
 import com.mt.cardletter.db.dbuitls.DBCreate;
 import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.merchant.Bank;
+import com.mt.cardletter.entity.merchant.MyBank;
+import com.mt.cardletter.entity.merchant.MyBankBack;
 import com.mt.cardletter.fragment.SplashItemFragment;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
@@ -91,6 +93,7 @@ public class SplashActivity extends FragmentActivity {
             circlePageIndicator.setViewPager(viewPager);
         }else{
             //非首次进入APP
+            getMybank();//获取用户数据
             imageView.setVisibility(View.VISIBLE);
             circlePageIndicator.setVisibility(View.GONE);
             viewPager.setVisibility(View.GONE);
@@ -142,6 +145,34 @@ public class SplashActivity extends FragmentActivity {
 //                for (BankTable banktable: all) {
 //                    System.out.println("jk----bank   "+banktable.getId()+"----"+banktable.getName());
 //                }
+            }
+            @Override
+            public void onError(int code, String msg) {
+                ToastUtils.makeShortText("网络故障",  SplashActivity.this);
+            }
+        },  SplashActivity.this));
+    }
+    private void getMybank() {
+        String user_token = SharedPreferences.getInstance().getString("user_token", "");
+        System.out.println("jk1-----"+user_token);
+        CardLetterRequestApi.getInstance().getMybank(user_token, new HttpSubscriber<MyBankBack>(new SubscriberOnListener<MyBankBack>() {
+            @Override
+            public void onSucceed(MyBankBack data) {
+                if (data.getCode() == 1000002){
+                    return;
+                }
+                if (data.getCode() == 0){
+
+                    List<MyBankBack.DataBean> data1 = data.getData();
+                    StringBuilder sb = new StringBuilder();
+                    for (MyBankBack.DataBean bean:data1) {
+                        int id = bean.getId();
+                        sb.append(id+",");
+                    }
+                    Constant.MY_BANK = sb.toString();
+                    System.out.println("jk1----"+data.getCode()+" "+data.getMsg()+"   "+ Constant.MY_BANK );
+                }
+
             }
             @Override
             public void onError(int code, String msg) {

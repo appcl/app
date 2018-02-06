@@ -30,8 +30,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
-import com.mt.cardletter.activity.BaseActivity;
-import com.mt.cardletter.activity.LoginActivity;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
@@ -46,12 +45,9 @@ import com.mt.cardletter.utils.impower.ImpowerAndShareUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Random;
 
 import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.PlatformDb;
 import cn.sharesdk.framework.ShareSDK;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -153,6 +149,7 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
                     SharedPreferences.getInstance().remove("nick_name");
                     SharedPreferences.getInstance().remove("user_token");
                     SharedPreferences.getInstance().remove("url");
+                    Constant.MY_BANK = "";//取消筛选功能
                     btnExit.setBackgroundResource(R.color.button_bg);
                     btnExit.setClickable(false);
                     btnExit.setEnabled(false);

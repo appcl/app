@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.adapter.LifeAdapter;
 import com.mt.cardletter.adapter.ViewPagerAdapter;
 import com.mt.cardletter.adapter.WeatherViewAdapter;

@@ -9,7 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.activity.BaseActivity;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.fragment.seckill.APMFragment;
 import com.mt.cardletter.fragment.seckill.DesenoFragment;
 import com.mt.cardletter.fragment.seckill.OverflowFragment;

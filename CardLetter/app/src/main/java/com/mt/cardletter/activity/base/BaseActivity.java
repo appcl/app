@@ -1,4 +1,4 @@
-package com.mt.cardletter.activity;
+package com.mt.cardletter.activity.base;
 
 import android.os.Bundle;
 import android.os.Looper;
@@ -11,10 +11,10 @@ import com.mt.cardletter.R;
 import com.mt.cardletter.app.AppManager;
 import com.mt.cardletter.utils.StatusBarUtil;
 import com.mt.cardletter.utils.UIHandler;
+import com.mt.cardletter.utils.title.StateBarTranslucentUtils;
 
 import butterknife.OnTouch;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 
 /**
@@ -39,7 +39,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         //设置信号栏字体颜色
 //        SystemBarUtils.myStatusBar(this,true);
-        StatusBarUtil.setColor(this,getResources().getColor(R.color.title_bg));
+        //StatusBarUtil.setColor(this,getResources().getColor(R.color.title_bg));
         // 添加Activity到堆栈
         AppManager.getAppManager().addActivity(this);
         setContentView(getLayoutResId());
@@ -165,6 +165,13 @@ public abstract class BaseActivity extends SwipeBackActivity {
      * 侧滑退出实现
      */
     private void sideslip(){
+
+        //设置状态栏透明
+        StateBarTranslucentUtils.setStateBarTranslucent(this);
+        //状态栏着色
+        StateBarTranslucentUtils.setStateBarColor(this);
+
+
         // 可以调用该方法，设置是否允许滑动退出
         setSwipeBackEnable(true);
         mSwipeBackLayout = getSwipeBackLayout();

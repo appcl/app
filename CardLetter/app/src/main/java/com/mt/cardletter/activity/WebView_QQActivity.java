@@ -16,6 +16,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.entity.creditcard.CreditDatas;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.JavaScriptQQ;

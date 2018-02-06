@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.collect.Collect;
 import com.mt.cardletter.entity.merchant.Good;

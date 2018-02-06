@@ -14,6 +14,7 @@ import com.mt.cardletter.entity.merchant.FindCategoryList;
 import com.mt.cardletter.entity.merchant.Good;
 import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.merchant.MyBank;
+import com.mt.cardletter.entity.merchant.MyBankBack;
 import com.mt.cardletter.entity.news.News;
 import com.mt.cardletter.entity.news.NewsCategory;
 import com.mt.cardletter.entity.picture.PictureEntity;
@@ -316,9 +317,9 @@ public class CardLetterRequestApi extends BaseApi {
      * 获取关注银行
      * @param subscriber
      */
-    public void getMybank(String user_token,String my_bank ,Subscriber<MyBank> subscriber){
-        Observable observable = httpRequestService.getMybank(Constant.Access_Token,user_token)
-                .map(new HttpResultFunc<MyBank>());
+    public void getMybank(String user_token,Subscriber<MyBankBack> subscriber){
+        Observable observable = httpRequestService.getMybank(user_token,Constant.Access_Token)
+                .map(new HttpResultFunc<MyBankBack>());
         toSubscribe(observable,subscriber);
     }
     /**

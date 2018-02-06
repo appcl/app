@@ -9,11 +9,9 @@ import android.widget.FrameLayout;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.app.AppManager;
-import com.mt.cardletter.utils.StatusBarUtil;
 import com.mt.cardletter.utils.UIHandler;
 import com.mt.cardletter.utils.title.StateBarTranslucentUtils;
 
-import butterknife.OnTouch;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 

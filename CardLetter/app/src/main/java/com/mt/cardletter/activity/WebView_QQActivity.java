@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -17,17 +18,13 @@ import android.webkit.WebViewClient;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.base.BaseActivity;
-import com.mt.cardletter.entity.creditcard.CreditDatas;
-import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.JavaScriptQQ;
-import com.mt.cardletter.https.SubscriberOnListener;
-import com.mt.cardletter.https.test.QQRequestApi;
 import com.mt.cardletter.utils.Constant;
-import com.mt.cardletter.utils.ToastUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.Serializable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 /**
@@ -40,6 +37,8 @@ public class WebView_QQActivity extends BaseActivity {
 
     private WebView webView;
     private JavaScriptQQ js;
+    private String CookieStr,sid;
+    ExecutorService mThreadPool = Executors.newSingleThreadExecutor();
 
     @Override
     protected int getLayoutResId() {
@@ -64,10 +63,14 @@ public class WebView_QQActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 CookieManager cookieManager = CookieManager.getInstance();
-                String CookieStr = cookieManager.getCookie(url);
+                CookieStr = cookieManager.getCookie(url);
                 if (CookieStr != null) {
                     System.out.println("cookie:-----------"+CookieStr);
 //                    getString(CookieStr);
+                    getBillDatas(sid,CookieStr);
+//                    Message msg =Message.obtain();
+//                    msg.what=2;   //标志消息的标志
+//                    handler.sendMessage(msg);
                 }
                 super.onPageFinished(view, url);
                 progressDialog.cancel();
@@ -90,27 +93,16 @@ public class WebView_QQActivity extends BaseActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 System.out.println("-----shouldOverrideUrlLoading-----"+url);
-                if (!TextUtils.isEmpty(url)&&url.contains("https://w.mail.qq.com/cgi-bin/today?sid=")) {
-////                    Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-////                    startActivity(viewIntent);
-//                    String reg = "^sid.*.&";
-//                    Pattern p = Pattern.compile(reg);
-//                    Matcher m = p.matcher(url);
-//                    while(m.find()){
-//                        System.out.println(m.group());
-//                    }
-                    String sid = url.substring(url.indexOf("sid=")+4,url.lastIndexOf(".&")+1);
+                if (!TextUtils.isEmpty(url)&&url.contains("https://w.mail.qq.com/cgi-bin/mobile?sid=")) {
+                    sid = url.substring(url.indexOf("sid=")+4,url.lastIndexOf(".&")+1);
                     System.out.println("----aaaaaa------"+sid);
-                    getDatas(sid);
+//                    getDatas(sid);
                     return true;
                 } else {
                     return false;
                 }
-//                return super.shouldOverrideUrlLoading(view, url);
             }
         });
-//        webView.addJavascriptInterface(new JsInterface(),"recharge");
-//        webView.addJavascriptInterface(new JsInterface(),"share");
 
         webView.loadUrl(Constant.QQ_MAIN);
     }
@@ -154,32 +146,27 @@ public class WebView_QQActivity extends BaseActivity {
 
     }
 
-    private void getDatas(final String sid){
-        String utc = dateToUTC();
-        System.out.println("-----UTC------"+utc);
-        QQRequestApi.getInstance().getCreditData(sid,utc,new HttpSubscriber<CreditDatas>(new SubscriberOnListener<CreditDatas>() {
-            @Override
-            public void onSucceed(CreditDatas data) {
-                    System.out.println("---------onSucceed-------"+data);
-                if (data.getMls().size()>0){
-                    Intent i = new Intent(WebView_QQActivity.this, CreditListActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("sid",sid);
-                    bundle.putSerializable("data", (Serializable) data.getMls());
-                    i.putExtras(bundle);
-                    startActivity(i);
-                }else {
-                    ToastUtils.makeShortText("未获取到相关信用卡账单",WebView_QQActivity.this);
-                }
-            }
-
-            @Override
-            public void onError(int code, String msg) {
-                System.out.println("---------onError-------");
-            }
-        },this));
+    private void getBillDatas(String sid, String cookieStr){
+        Intent i = new Intent(WebView_QQActivity.this, BillActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("sid",sid);
+        bundle.putString("cookieStr",cookieStr);
+        i.putExtras(bundle);
+        startActivity(i);
     }
 
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {      //判断标志位
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+        }
+    };
     /*
         * 将时间戳转换为时间
         */

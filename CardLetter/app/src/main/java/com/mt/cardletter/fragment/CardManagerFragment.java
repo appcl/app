@@ -91,6 +91,7 @@ public class CardManagerFragment extends BaseFragment {
     public void initData() {
         title_name.setText("卡管家");
         commonal_tv.setText("添加");
+        commonal_tv.setTextColor(getResources().getColor(R.color.white));
         commonal_tv.setVisibility(View.VISIBLE);
         // 初始化自定义的适配器
         adapter = new CardAdapter(getContext(), mList);

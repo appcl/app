@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/layout_hideArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/tv_des"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="现金分期当月扣款贷记卡转账招商银行5911"
+            android:textColor="@color/color_text_black_31"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_des"
+            android:layout_marginTop="5dp"
+            android:text="2018年01月05日"
+            android:textColor="@color/color_text_black_31"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/tv_des"
+            android:layout_alignParentRight="true"
+            android:text="1314+"
+            android:textColor="@color/color_text_red"
+            android:textSize="12sp" />
+    </RelativeLayout>
+</LinearLayout>

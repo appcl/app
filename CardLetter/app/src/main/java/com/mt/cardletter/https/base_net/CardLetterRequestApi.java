@@ -322,6 +322,7 @@ public class CardLetterRequestApi extends BaseApi {
                 .map(new HttpResultFunc<MyBankBack>());
         toSubscribe(observable,subscriber);
     }
+
     /**
      * 添加收藏
      * @param subscriber

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/dialog_city_bg_round_white"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layout_showArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="2017年1月10日"
+            android:textColor="@color/color_text_blue_44"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="20000"
+            android:textColor="@color/color_text_red"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider"/>
+    <ListView
+        android:id="@+id/hide_list"
+        android:divider="@drawable/divider"
+        android:dividerHeight="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

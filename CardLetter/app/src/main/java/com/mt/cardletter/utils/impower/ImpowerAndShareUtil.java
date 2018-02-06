@@ -2,15 +2,10 @@ package com.mt.cardletter.utils.impower;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.LoginActivity;
-import com.mt.cardletter.activity.setting.SettingActivity;
-import com.mt.cardletter.app.AppContext;
-import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
@@ -21,7 +16,6 @@ import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.view.dialog.loadingdialog.view.LoadingDialog;
 
 import java.util.HashMap;
-import java.util.List;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
@@ -41,6 +35,8 @@ public class ImpowerAndShareUtil {
      * @param a 授权反授权标志位
      */
     public static void impower(final Activity activity, final String mode, int a){
+        System.out.println("jk========"+"进入授权");
+
         Platform platform = ShareSDK.getPlatform(mode);
         SharedPreferences.getInstance().putString("impower_mode",mode);
         platform.SSOSetting(false);  //设置false表示使用SSO授权方式
@@ -52,6 +48,7 @@ public class ImpowerAndShareUtil {
                     ToastUtils.makeShortText("请下载新版本QQ软件",activity);
                     arg2.printStackTrace();
                 }
+
                 @Override
                 public void onComplete(Platform platform, int action, HashMap<String, Object> res) {
                     // TODO Auto-generated method stub
@@ -73,11 +70,9 @@ public class ImpowerAndShareUtil {
                         SharedPreferences.getInstance().putString("url",userIcon);
                         SharedPreferences.getInstance().putString("ext_token", userId);
                         SharedPreferences.getInstance().putBoolean("isLogin",true);
-                        System.out.println("jk----"+userName+"-------"+token);
-                        //toLogin(activity,userId,userName,userId,token);
-                        toLogin_2("uuuUa","uuuUa","uuuUa","uuuU");
-                        System.out.println("jk----"+userId+"____"+userName+"____"+userId.substring(0,6)+"____"+userId);
-                       // activity.finish();
+                        System.out.println("jk----"+userName+"-------"+userId);
+                        //toLogin(activity,userName,userId.substring(0,6),userId);
+                        activity.finish();
                     }
                 }
 
@@ -96,24 +91,37 @@ public class ImpowerAndShareUtil {
                 //移除授权
                 platform.removeAccount(true);
             }
+
         }
     }
+    /**
+     * 静默注册
+     */
+    private static void toLogin(final Activity activity, final String username, final String password, final String ext_token) {
+        CardLetterRequestApi.getInstance().getUserInfo(Constant.Access_Token, username, password,ext_token, new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
+            @Override
+            public void onSucceed(LoginEntity data) {
+                System.out.println("jk------"+"进入0"+data.getMsg()+"---getMemberId-"+data.getData().getMemberId());
+                if (data.getCode() == 0) {
+                    System.out.println("jk------"+"进入1");
+                    String memberId = data.getData().getMemberId();
+                    String user_token = data.getData().getUserToken();
+                    SharedPreferences.getInstance().putString("account", username);
+                    SharedPreferences.getInstance().putString("password", password);
+                    SharedPreferences.getInstance().putString("user_token", user_token);
+                    SharedPreferences.getInstance().putString("member_id", memberId);
+                    System.out.println("jk------"+"进入2");
+//                    activity.finish();
+                } else {
+                    ToastUtils.makeShortText("网络故障", activity);
+                }
+            }
 
-    public static void toLogin_2(String username,String nickname,String password,String ext_token) {
-        CardLetterRequestApi.getInstance().getUserInfo(
-                username,nickname,password,ext_token,new HttpSubscriber<LoginEntity>(new SubscriberOnListener<LoginEntity>() {
-                    @Override
-                    public void onSucceed(LoginEntity data) {
-                        if (data.getCode()==0) {
-                            System.out.println("jk--===LoginEntity");
-                        }
-                    }
-                    @Override
-                    public void onError(int code, String msg) {
-                        System.out.println("jk--===LoginEntity2");
-
-                    }
-                }, AppContext.getContext()));
+            @Override
+            public void onError(int code, String msg) {
+                //ToastUtils.makeShortText("网络故障", activity);
+            }
+        }, activity));
     }
 }
 

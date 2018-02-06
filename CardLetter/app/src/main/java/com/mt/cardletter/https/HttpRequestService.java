@@ -2,6 +2,7 @@ package com.mt.cardletter.https;
 
 
 import com.mt.cardletter.entity.article.ArticleBean;
+import com.mt.cardletter.entity.bank.Bill;
 import com.mt.cardletter.entity.checkversion.CheckOrUpdate;
 import com.mt.cardletter.entity.city.District;
 import com.mt.cardletter.entity.collect.Collect;
@@ -613,4 +614,14 @@ public interface HttpRequestService {
                                         @Path("is_new") String is_new,
                                         @Path("version") String version);
 
+    /**
+     * 获取邮箱账单
+     * @param cookie
+     * @param Url
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/")
+    Observable<Bill>getbill(@Field("cookie") String cookie,
+                            @Field("Url")String Url);
 }

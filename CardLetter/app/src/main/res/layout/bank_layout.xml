@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="10dp">
+    <TextView
+        android:id="@+id/bill_bank"
+        android:text="交通银行太平洋信用卡中心"
+        android:textSize="14sp"
+        android:textColor="@color/color_text_black_31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_below="@+id/bill_bank"
+        android:paddingTop="5dp"
+        android:id="@+id/bill_total"
+        android:text="共有9条记录"
+        android:textSize="12sp"
+        android:textColor="@color/color_text_black_31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

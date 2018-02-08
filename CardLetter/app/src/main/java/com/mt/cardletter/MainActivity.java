@@ -1,6 +1,9 @@
 package com.mt.cardletter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,14 +24,24 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.Poi;
 import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.app.AppContext;
+import com.mt.cardletter.entity.checkversion.CheckOrUpdate;
 import com.mt.cardletter.fragment.CardManagerFragment;
 import com.mt.cardletter.fragment.DiscoverFragment;
 import com.mt.cardletter.fragment.HomeFragment;
 import com.mt.cardletter.fragment.IntegralFragment;
 import com.mt.cardletter.fragment.MineFragment;
+import com.mt.cardletter.https.HttpSubscriber;
+import com.mt.cardletter.https.SubscriberOnListener;
+import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.service.LocationService;
+import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.ToastUtils;
+import com.mt.cardletter.utils.updater.Updater;
+import com.mt.cardletter.utils.updater.UpdaterConfig;
+import com.mt.cardletter.view.dialog.CustomDialog;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import butterknife.Bind;
@@ -76,6 +89,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         setSwipeBackEnable(false);//禁止侧滑退出
 //        setAlias(SharedPreferences.getInstance().getString("account",""));//设置别名推送
         setAlias("cardletter");
+//        getServiceVersion();
         bottom_radiobuttonsize();
     }
 
@@ -361,6 +375,8 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
             }
         }
     };
+
+
     private final TagAliasCallback mAliasCallback = new TagAliasCallback(){
 
         @Override
@@ -411,5 +427,88 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     public void finish() {
 
         super.finish();
+    }
+
+    List<CheckOrUpdate.DataBean> dataBeanList = new ArrayList<>();
+    int down_versio;
+    public void getServiceVersion() {
+        CardLetterRequestApi.getInstance().check_update(Constant.Access_Token, "", getVersion(),
+                new HttpSubscriber<CheckOrUpdate>(new SubscriberOnListener<CheckOrUpdate>() {
+                    @Override
+                    public void onSucceed(CheckOrUpdate data) {
+                        dataBeanList=data.getData();
+                        if (data.getCode()==0){
+                             {
+                                for (int i=0;i<dataBeanList.size();i++){
+                                    //当前app版本号和服务器版本号作比较
+                                    int version_num  = getVersion().compareTo(dataBeanList.get(i).getVersion());
+                                    if (version_num>0){
+                                        //目前是最新版本，无需下载更新
+                                    }else {
+                                        //有新版本-下载
+                                        down_versio=i;
+                                        String down_url = dataBeanList.get(down_versio).getDown_url();
+                                        showDownloadToast(down_url);
+                                    }
+                                }
+                            }
+                        }else {
+                            ToastUtils.makeShortText(data.getMsg(),MainActivity.this);
+                        }
+                    }
+
+                    @Override
+                    public void onError(int code, String msg) {
+
+                    }
+                }, MainActivity.this));
+    }
+
+    /**
+     * 获取版本号
+     * @return 当前应用的版本号
+     */
+    public String getVersion() {
+        try {
+            PackageManager manager = this.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+            String version = info.versionName;
+            return version;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    //执行下载
+    public void download(String down_url) {
+        UpdaterConfig config = new UpdaterConfig.Builder(this)
+                .setTitle(getResources().getString(R.string.app_name))
+                .setDescription(getString(R.string.system_download_description))
+                .setFileUrl("http://app.mi.com/download/562671?ref=search")
+                .setCanMediaScanner(true)
+                .build();
+        Updater.get().showLog(true).download(config);
+    }
+
+    private void showDownloadToast(final String down_url) {
+        CustomDialog.Builder builder = new CustomDialog.Builder(MainActivity.this);
+        builder.setTitle("检测到当前有新版本\n 是否需要下载更新");
+        builder.setPositiveButton("下载", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                //设置你的操作事项
+                dialog.dismiss();
+                download(down_url);
+            }
+        });
+
+        builder.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.create().show();
     }
 }

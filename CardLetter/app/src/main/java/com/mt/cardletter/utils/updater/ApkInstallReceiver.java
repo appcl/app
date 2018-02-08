@@ -32,6 +32,7 @@ public class ApkInstallReceiver extends BroadcastReceiver {
         Uri downloadFileUri = dManager.getUriForDownloadedFile(downloadApkId);
         if (downloadFileUri != null) {
             Logger.get().d("file location " + downloadFileUri.toString());
+            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
             install.setDataAndType(downloadFileUri, "application/vnd.android.package-archive");
             install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(install);

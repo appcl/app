@@ -2,7 +2,7 @@
 <resources>
     <paths>
         <external-path
-            name="camera_photos"
+            name="download"
             path="" />
     </paths>
 </resources>

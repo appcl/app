@@ -1,26 +1,20 @@
 package com.mt.cardletter.activity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.mt.cardletter.R;
-import com.mt.cardletter.app.AppManager;
 import com.mt.cardletter.db.dbuitls.DBCreate;
 import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.merchant.Bank;
-import com.mt.cardletter.entity.merchant.MyBank;
 import com.mt.cardletter.entity.merchant.MyBankBack;
 import com.mt.cardletter.fragment.SplashItemFragment;
 import com.mt.cardletter.https.HttpSubscriber;
@@ -29,7 +23,6 @@ import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.PermissionUtils;
 import com.mt.cardletter.utils.SharedPreferences;
-import com.mt.cardletter.utils.StatusBarUtil;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.indicator.CirclePageIndicator;
@@ -93,8 +86,8 @@ public class SplashActivity extends FragmentActivity {
             circlePageIndicator.setViewPager(viewPager);
         }else{
             //非首次进入APP
-            getMybank();//获取用户数据
             imageView.setVisibility(View.VISIBLE);
+            getMybank();//获取用户数据
             circlePageIndicator.setVisibility(View.GONE);
             viewPager.setVisibility(View.GONE);
             toLoginForBank();//写入数据库 银行信息

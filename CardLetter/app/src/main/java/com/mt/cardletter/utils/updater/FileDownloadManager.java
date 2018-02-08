@@ -57,10 +57,10 @@ class FileDownloadManager {
         //设置文件的保存的位置[三种方式]
         //第一种
         //file:///storage/emulated/0/Android/data/your-package/files/Download/update.apk
-        req.setDestinationInExternalFilesDir(updaterConfig.getContext(), Environment.DIRECTORY_DOWNLOADS, "update.apk");
+//        req.setDestinationInExternalFilesDir(updaterConfig.getContext(), Environment.DIRECTORY_DOWNLOADS, "update.apk");
         //第二种
         //file:///storage/emulated/0/Download/update.apk
-        req.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "update.apk");
+        req.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "卡信.apk");
         ////第三种 自定义文件路径
         //req.setDestinationUri()
 

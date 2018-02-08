@@ -1,5 +1,6 @@
 package com.mt.cardletter.activity;
 
+import android.net.Uri;
 import android.os.Build;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
@@ -61,6 +62,12 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void initView() {
+//        Uri uri = getIntent().getData();
+//        if (uri != null){
+//            String uri_cardfind_id = uri.getQueryParameter("cardfind_id");
+//            cardfind_id = uri_cardfind_id;
+//            System.out.println("jks-----"+cardfind_id);
+//        }
         title_name = (TextView) findViewById(R.id.title_name);
         title_name.setText("商家详情");
         com_back_click = (FrameLayout) findViewById(R.id.com_back_click);
@@ -130,7 +137,12 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
                 setails_centent.setText(good.getContent());
                 setails_discounts.setText(good.getDescribe());
                 if (good.getThumb()!=null){
-                    Glide.with(this).load(Constant.BASE_URL+good.getThumb()).error(R.drawable.default_error).into(bigImg);
+                    if (good.getThumb().equals("")){
+                        Glide.with(this).load(R.drawable.default_error).error(R.drawable.default_error).into(bigImg);
+                    }else{
+                        Glide.with(this).load(Constant.BASE_URL+good.getThumb()).error(R.drawable.default_error).into(bigImg);
+                    }
+
                 }
 
                 //data for db
@@ -295,4 +307,6 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         // 启动分享GUI
         oks.show(this);
     }
+
+
 }

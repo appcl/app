@@ -85,14 +85,11 @@ public class SplashActivity extends FragmentActivity {
         int splash_is_open = SharedPreferences.getInstance().getInt("splash_is_open", SPLASH_OPEN);
 
         if (splash_is_open == SPLASH_OPEN) { //首次进入APP
-
-
             /**
              *   创建数据库
              */
             Connector.getDatabase();
-            toLoginForBank();//写入数据库 银行信息
-
+            toLoginForBank();         //写入数据库 银行信息
             FragmentManager supportFragmentManager = getSupportFragmentManager();
             SplashAdapter adapter = new SplashActivity.SplashAdapter(supportFragmentManager);
             final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());

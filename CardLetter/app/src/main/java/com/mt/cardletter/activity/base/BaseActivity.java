@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.os.Message;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 

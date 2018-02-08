@@ -89,7 +89,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         title_name.setText("登录");
         next.setVisibility(View.VISIBLE);
         next.setText("注册");
-        next.setTextColor(getResources().getColor(R.color.color_text_black_31));
+        next.setTextColor(getResources().getColor(R.color.white));
         next.setOnClickListener(new OnMultiClickListener() {
             @Override
             public void onMultiClick(View v) {

@@ -106,6 +106,7 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
 
     @Override
     public void initView() {
+        setSwipeBackEnable(false);//禁止侧滑退出
         lon = AppContext.getInstance().getLon();
         lat = AppContext.getInstance().getLat();
         view = View.inflate(this, R.layout.icon_map_marker, null);

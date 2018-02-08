@@ -36,7 +36,7 @@
     <color name="text_direct">#DE5250</color>
     <color name="text_bg_direct">#fff9b739</color>
     <color name="text_join">#ff6269eb</color>
-    <color name="text_holding">#ff9c62eb</color>
+    <color name="text_holding">#9c62eb</color>
     <!---->
     <color name="color_text_orange_62">#EB6262</color>
     <!-- 底栏字体颜色 -->
@@ -88,9 +88,9 @@
     <color name="cp_colorPrimary">@color/cp_colorAccent</color>
     <color name="cp_colorPrimaryDark">@color/cp_colorAccent</color>
     <color name="splash_item">#ddf0f4</color>
-    <color name="main_title_bg">#e6e44c31</color>
+    <color name="main_title_bg">#fc624b</color>
     <color name="main_map_bg">#CCAAAAAA</color>
-    <color name="title_bg">#e6e44c31</color>
+    <color name="title_bg">#fc624b</color>
     
     <color name="padding_color">#f6ebd9</color>
     <color name="text_tag_color">#fff110</color>

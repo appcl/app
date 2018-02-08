@@ -55,6 +55,7 @@ public class SplashItemFragment extends Fragment {
 
 //                UIHelper.showMainActivity(getActivity());
                 UIHelper.showScreenActivity("",getActivity());
+                getActivity().finish();
             }
         });
         return view;

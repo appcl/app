@@ -73,6 +73,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onMultiClick(View v) {
+                System.out.println("jks------showShare");
                 showShare();
                 //jurisdiction();//权限申请  分享入口
                 //startActivity(new Intent(SetailsActivity.this, ShareActivity.class));
@@ -158,7 +159,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
                 } else {
                     if (!isSelect) {
                         // TODO: 2018/1/16 收藏
-                        String fvalue = "http://www.51kaxin.xyz/api.php/cardfind/cardfindinfo/access_token/" + Constant.Access_Token + "/cardfind_id/" + cardfind_id;
+                        String fvalue = "https://www.51kaxin.xyz/api.php/cardfind/cardfindinfo/access_token/" + Constant.Access_Token + "/cardfind_id/" + cardfind_id;
                         System.out.println("jk-----" + title + "---" + member_id + "-----" + cardfind_id + "------" + fvalue);
                         addFavorite(title, member_id, cardfind_id, fvalue);
                     } else {
@@ -230,6 +231,9 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void showShare() {
         OnekeyShare oks = new OnekeyShare();
+        final String url1 =  "http://www.51kaxin.xyz/share.html?id="+good.getId();
+        System.out.println("jks---"+url1);
+        final String img_url = Constant.BASE_URL+good.getThumb();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         oks.setShareContentCustomizeCallback(new ShareContentCustomizeCallback() {
@@ -237,33 +241,35 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
             public void onShare(Platform platform, cn.sharesdk.framework.Platform.ShareParams paramsToShare) {
                 if("SinaWeibo".equals(platform.getName())){
                     paramsToShare.setText(good.getName());
-                    paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
+                    paramsToShare.setUrl(url1);
+                    paramsToShare.setImageUrl(img_url);
                 }
                 if ("Wechat".equals(platform.getName())) {
                     paramsToShare.setTitle(good.getName());
-                    paramsToShare.setUrl("http://sharesdk.cn");
+                    paramsToShare.setUrl(url1);
                     paramsToShare.setText(good.getDescribe());
-                    paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
+                    paramsToShare.setImageUrl(img_url);
                     paramsToShare.setShareType(Platform.SHARE_WEBPAGE);
                 }
                 if ("WechatMoments".equals(platform.getName())) {
                     paramsToShare.setTitle(good.getName());
-                    paramsToShare.setUrl("http://sharesdk.cn");
+                    paramsToShare.setUrl(url1);
                     paramsToShare.setText(good.getDescribe());
-                    paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
+                    paramsToShare.setImageUrl(img_url);
                     paramsToShare.setShareType(Platform.SHARE_WEBPAGE);
                 }
                 if ("QQ".equals(platform.getName())) {
                     paramsToShare.setTitle(good.getName());
-                    paramsToShare.setTitleUrl("http://sharesdk.cn");
+                    paramsToShare.setTitleUrl(url1);
                     paramsToShare.setText(good.getDescribe());
-                    paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
+                    paramsToShare.setImageUrl(img_url);
+                    System.out.println("jks------showShare");
                 }
                 if("QZone".equals(platform.getName())){
                     paramsToShare.setTitle(good.getName());
-                    paramsToShare.setTitleUrl("http://sharesdk.cn");
+                    paramsToShare.setTitleUrl(url1);
                     paramsToShare.setText(good.getDescribe());
-                    paramsToShare.setImageUrl("https://hmls.hfbank.com.cn/hfapp-api/9.png");
+                    paramsToShare.setImageUrl(img_url);
                 }
             }
         });

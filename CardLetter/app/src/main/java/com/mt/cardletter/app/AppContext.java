@@ -2,31 +2,23 @@ package com.mt.cardletter.app;
 
 
 import android.app.Service;
-
+import android.content.Context;
 import android.os.Vibrator;
-
+import android.support.multidex.MultiDex;
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.mob.MobSDK;
 import com.mt.cardletter.service.LocationService;
 
-
 import org.litepal.LitePalApplication;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
-import okhttp3.Call;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class AppContext extends LitePalApplication {
@@ -122,4 +114,11 @@ public class AppContext extends LitePalApplication {
 //    protected void attachBaseContext(Context base) {
 //        super.attachBaseContext(base); MultiDex.install(this);
 //    }
+
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 }

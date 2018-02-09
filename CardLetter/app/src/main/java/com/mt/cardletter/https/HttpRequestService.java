@@ -621,7 +621,7 @@ public interface HttpRequestService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/")
+    @POST("/card_manage")
     Observable<Bill>getbill(@Field("cookie") String cookie,
                             @Field("Url")String Url);
 }

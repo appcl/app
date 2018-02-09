@@ -26,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class BillMethod {
-    public static final String BASE_URL = "http://192.168.0.102:3000"; //===========================
+    public static final String BASE_URL = "http://www.51kaxin.xyz:8801"; //===========================
     private static Retrofit retrofit;
 
     private BillMethod() {

@@ -13,6 +13,7 @@ android {
         versionName "1.1.20"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     aaptOptions {
         cruncherEnabled = false
@@ -20,6 +21,8 @@ android {
     }
     dexOptions{
         jumboMode true
+        incremental true
+        javaMaxHeapSize "4g"
     }
     signingConfigs {
         release {
@@ -113,6 +116,7 @@ dependencies {
     compile files('libs/jsoup-1.11.2.jar')
     //侧滑退出
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+    compile 'com.android.support:multidex:'
 }
 MobSDK {
     appKey "23f07cf0db010"

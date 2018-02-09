@@ -15,7 +15,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -449,5 +448,4 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
             }
         },getContext()));
     }
-
 }

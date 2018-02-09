@@ -135,6 +135,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                                         //有新版本-下载
                                         down_versio=i;
                                         String down_url = dataBeanList.get(down_versio).getDown_url();
+                                        System.out.println("---down_url----"+down_url);
                                         showDownloadToast(down_url);
                                     }
                                 }
@@ -156,7 +157,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         UpdaterConfig config = new UpdaterConfig.Builder(this)
                 .setTitle(getResources().getString(R.string.app_name))
                 .setDescription(getString(R.string.system_download_description))
-                .setFileUrl("http://app.mi.com/download/562671?ref=search")
+                .setFileUrl(down_url)
                 .setCanMediaScanner(true)
                 .build();
         Updater.get().showLog(true).download(config);

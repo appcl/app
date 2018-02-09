@@ -165,8 +165,8 @@ public class CardLetterRequestApi extends BaseApi {
      * 优惠详情
      * @param subscriber
      */
-    public void getGoodDetails(String ak,String cardfind_id,Subscriber<Good> subscriber){
-        Observable observable = httpRequestService.getGoodDetails(ak,cardfind_id)
+    public void getGoodDetails(String ak,String cardfind_id,String member_id,Subscriber<Good> subscriber){
+        Observable observable = httpRequestService.getGoodDetails(ak,cardfind_id,member_id)
                 .map(new HttpResultFunc<Good>());
         toSubscribe(observable,subscriber);
     }

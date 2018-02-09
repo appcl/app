@@ -187,4 +187,16 @@ public class CollectActivity extends BaseActivity {
     protected void handler(Message msg) {
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+
+        favoriteList(UPDATA_DEF,10,1,member_id);
+        super.onResume();
+    }
 }

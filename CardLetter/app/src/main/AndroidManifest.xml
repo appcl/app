@@ -68,6 +68,7 @@
         <activity
             android:name=".activity.SplashActivity"
             android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -82,7 +83,7 @@
                 <data
                     android:host="lolita"
                     android:scheme="night" />
-                <!--<a href="night://lolita?cardfind_id=12"></a><br/>-->
+                <!--<a href="night://lolita?cardfind_id=12"></a>-->
             </intent-filter>
         </activity>
         <activity

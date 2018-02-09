@@ -110,15 +110,19 @@ public class SplashActivity extends FragmentActivity {
 
             imageView.setVisibility(View.VISIBLE);
             circlePageIndicator.setVisibility(View.GONE);
-             viewPager.setVisibility(View.GONE);
-            viewPager.clearFocus();
+            viewPager.setVisibility(View.GONE);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                    SplashActivity.this.finish();
                 }
             }, 2000);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    SplashActivity.this.finish();
+                }
+            }, 5000);
         }
     }
     /**
@@ -204,7 +208,6 @@ public class SplashActivity extends FragmentActivity {
      */
     private void getMybank() {
         String user_token = SharedPreferences.getInstance().getString("user_token", "");
-        System.out.println("jk1-----"+user_token);
         CardLetterRequestApi.getInstance().getMybank(user_token, new HttpSubscriber<MyBankBack>(new SubscriberOnListener<MyBankBack>() {
             @Override
             public void onSucceed(MyBankBack data) {

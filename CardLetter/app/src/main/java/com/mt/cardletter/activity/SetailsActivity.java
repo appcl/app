@@ -52,7 +52,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
 
     private ImageView collect_img;
     private TextView collect_text;
-    private Good.DataBean good;
+    private Good good;
     private String cardfind_id;
     private String title;
     @Override
@@ -106,53 +106,50 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
         collect.setOnClickListener(this);
     }
     private void loadDataForGood(String cardfind_id) {
+        String member_id = SharedPreferences.getInstance().getString("member_id", "");
         /*
          * 获取商家列表
          */
-        CardLetterRequestApi.getInstance().getGoodDetails(Constant.Access_Token, cardfind_id, new HttpSubscriber<Good>(new SubscriberOnListener<Good>() {
+        CardLetterRequestApi.getInstance().getGoodDetails(Constant.Access_Token, cardfind_id,member_id, new HttpSubscriber<Good>(new SubscriberOnListener<Good>() {
             @Override
             public void onSucceed(Good data) {
-                if (data.getCode() == 0) {
-                    good = data.getData();
+                if (data != null) {
+                    good = data;
                     updataView(good);
                 }
             }
             @Override
             public void onError(int code, String msg) {
-                ToastUtils.showShort(SetailsActivity.this, msg);
+                ToastUtils.showShort(SetailsActivity.this, "网络故障");
             }
         }, SetailsActivity.this));
     }
 
-    private void updataView(Good.DataBean good) {
+    private void updataView(Good good) {
         if (good != null) {
-//            if (good.getName() != null && good.getDeadline() != null
-//                    && good.getTel() != null && good.getAddress() != null
-//                    && good.getContent() != null && good.getDescribe() != null) {
-                title = good.getName();
-                setails_title.setText(title);
-                setails_time.setText(good.getDeadline());
-                setails_tel.setText(good.getTel());
-                setails_address.setText(good.getAddress());
-                setails_centent.setText(good.getContent());
-                setails_discounts.setText(good.getDescribe());
-                if (good.getThumb()!=null){
-                    if (good.getThumb().equals("")){
-                        Glide.with(this).load(R.drawable.default_error).error(R.drawable.default_error).into(bigImg);
-                    }else{
-                        Glide.with(this).load(Constant.BASE_URL+good.getThumb()).error(R.drawable.default_error).into(bigImg);
-                    }
-
-                }
-
-                //data for db
-                List<BankTable> bankTable = DataSupport.where("bank_id = ?",good.getBankcard()).find(BankTable.class);//查询数据库
-                setails_obj.setText(bankTable.get(0).getName());
-                Glide.with(this).load(Constant.BASE_URL+bankTable.get(0).getCardThumb()).error(R.drawable.default_error).into(item_bank);
+            title = good.getName();
+            setails_title.setText(title);
+            setails_time.setText(good.getDeadline());
+            setails_tel.setText(good.getTel());
+            setails_address.setText(good.getAddress());
+            setails_centent.setText(good.getContent());
+            setails_discounts.setText(good.getDescribe());
+            Glide.with(this).load(Constant.BASE_URL+good.getThumb()).error(R.drawable.default_error).into(bigImg);
+            if (good.getData() == 1){
+                isSelect = true;
+                collect_img.setImageResource(R.drawable.collected_select);
+                collect_text.setText("已收藏");
+            }else if (good.getData() == 0){
+                isSelect = false;
+                collect_img.setImageResource(R.mipmap.collect);
+                collect_text.setText("收藏");
             }
-//        } else {
-//            ToastUtils.showShort(SetailsActivity.this, "数据异常");
-//        }
+
+            //data  for db
+            List<BankTable> bankTable = DataSupport.where("bank_id = ?",good.getBankcard()).find(BankTable.class);//查询数据库
+            setails_obj.setText(bankTable.get(0).getName());
+            Glide.with(this).load(Constant.BASE_URL+bankTable.get(0).getCardThumb()).error(R.drawable.default_error).into(item_bank);
+        }
     }
 
     @Override

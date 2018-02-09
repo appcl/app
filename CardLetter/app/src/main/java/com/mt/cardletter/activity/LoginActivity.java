@@ -215,7 +215,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         platform.setPlatformActionListener(new PlatformActionListener() {
             @Override
             public void onError(Platform arg0, int arg1, Throwable arg2) {
-                //ToastUtils.makeShortText("请下载新版本软件",LoginActivity.this);
+                ToastUtils.makeShortText("请下载最新第三方应用",LoginActivity.this);
                 arg2.printStackTrace();
             }
             @Override
@@ -232,7 +232,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     SharedPreferences.getInstance().putString("url",userIcon);
                     SharedPreferences.getInstance().putString("ext_token", userId);
                     SharedPreferences.getInstance().putBoolean("isLogin",true);
-                    System.out.println("jk----"+userName+"-------"+userId);
+
                     toLogin_1(userName+userId,userName,userId,userId);
                 }
             }
@@ -262,7 +262,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String s = response.body().string();
-                System.out.println("jk--=okhttp:"+s);
                 GsonBuilder builder = new GsonBuilder();
                 Gson gson = builder.create();
                 LoginEntity p = gson.fromJson(s, LoginEntity.class);

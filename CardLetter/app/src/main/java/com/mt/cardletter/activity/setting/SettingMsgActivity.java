@@ -149,6 +149,7 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
                     SharedPreferences.getInstance().remove("nick_name");
                     SharedPreferences.getInstance().remove("user_token");
                     SharedPreferences.getInstance().remove("url");
+                    SharedPreferences.getInstance().remove("member_id");
                     Constant.MY_BANK = "";//取消筛选功能
                     btnExit.setBackgroundResource(R.color.button_bg);
                     btnExit.setClickable(false);

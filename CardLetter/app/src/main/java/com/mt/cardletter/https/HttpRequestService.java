@@ -243,9 +243,10 @@ public interface HttpRequestService {
      * @return
      *
      */
-    @GET("/api.php/cardfind/cardfindinfo/cardfind_id/{cardfind_id}/access_token/{access_token}")
+    @GET("/api.php/cardfind/cardfindinfo/cardfind_id/{cardfind_id}/access_token/{access_token}/member_id/{member_id}")
     Observable<Good> getGoodDetails(@Path("access_token") String access_token,
-                                    @Path("cardfind_id") String cardfind_id);
+                                    @Path("cardfind_id") String cardfind_id,
+                                    @Path("member_id") String member_id);
     /**
      * 首页列表
      * @param access_token

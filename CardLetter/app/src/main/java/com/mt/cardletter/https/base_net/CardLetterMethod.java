@@ -8,6 +8,13 @@ import com.mt.cardletter.utils.NetUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyStore;
+import java.security.SecureRandom;
+import java.security.cert.CertificateFactory;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;

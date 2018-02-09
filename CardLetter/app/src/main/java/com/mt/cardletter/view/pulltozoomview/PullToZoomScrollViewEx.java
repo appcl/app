@@ -15,16 +15,15 @@ import android.widget.ScrollView;
 
 import com.mt.cardletter.R;
 
-
 /**
- * Author:    demons
+ * Author:    ZhuWenWu
  * Version    V1.0
  * Date:      2014/11/10  14:25.
  * Description:
  * Modification  History:
  * Date         	Author        		Version        	Description
  * -----------------------------------------------------------------------------------
- * 2014/11/10         Demons            1.0                    1.0
+ * 2014/11/10        ZhuWenWu            1.0                    1.0
  * Why & What is modified:
  */
 public class PullToZoomScrollViewEx extends PullToZoomBase<ScrollView> {
@@ -219,7 +218,7 @@ public class PullToZoomScrollViewEx extends PullToZoomBase<ScrollView> {
      *
      * @param layoutParams LayoutParams
      */
-    public void setHeaderLayoutParams(LayoutParams layoutParams) {
+    public void setHeaderLayoutParams(LinearLayout.LayoutParams layoutParams) {
         if (mHeaderContainer != null) {
             mHeaderContainer.setLayoutParams(layoutParams);
             mHeaderHeight = layoutParams.height;

@@ -55,14 +55,14 @@ public class Constant {
     }
 
     public static final String Access_Token = "6d6551fa0063bdcde7ce9d94b60f29fa"; //测试ak
-    public static final String BASE_URL = "http://www.51kaxin.xyz";               //测试url
+    public static final String BASE_URL = "https://www.51kaxin.xyz";               //测试url
     public static final String BASIC = "NTFrYWxheGluOjYya2F4aW4=";               //测试basic
     public static final String JH_KEY = "9a66765e53c4bf57f1e614d3fefe02d1";      //聚合查快递的Key
 
     public static final String JH_CAR = "8e54776ff5c43672a1e8380c988af6bc";         //聚合违章查询Key
 //    public static final String JH_KEY = "9a66765e53c4bf57f1e614d3fefe02d1";       //聚合快递查询Key
 
-    public static final String PIC_URL = "http://www.51kaxin.xyz";//图片的路径
+    public static final String PIC_URL = "https://www.51kaxin.xyz";//图片的路径
 
 
     public static final String NEWS_KEY = "9a025356104a37cd0c690368a0461f41";       //网络新闻KEY

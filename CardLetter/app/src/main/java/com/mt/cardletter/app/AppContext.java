@@ -92,8 +92,8 @@ public class AppContext extends LitePalApplication {
          * 初始化社会化组件
          */
         MobSDK.init(this);
-        ShareSDK.isDebug();
-        //ShareSDK.closeDebug();
+//        ShareSDK.isDebug();
+        ShareSDK.closeDebug();
         registerUncaughtExceptionHandler();
         locationService = new LocationService(getApplicationContext());
         mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);

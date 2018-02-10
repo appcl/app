@@ -157,6 +157,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         beginTransaction.hide(mineFragment);
         beginTransaction.commit();
         showFragment = homeFragment;
+
+
+
     }
 
     @Override

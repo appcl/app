@@ -35,7 +35,7 @@ public class CardLetterMethod {
     /**
      * 测试版地址
      */
-    public static final String BASE_URL = "http://www.51kaxin.xyz";
+    public static final String BASE_URL = "https://www.51kaxin.xyz";
     private static Retrofit retrofit;
 
     private CardLetterMethod() {

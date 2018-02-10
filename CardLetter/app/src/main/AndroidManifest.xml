@@ -105,6 +105,7 @@
         <!-- 查积分 -->
         <activity
             android:name=".activity.SearchIntegralActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <!-- 分类搜索 -->
@@ -174,6 +175,7 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.BankJFActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BankJFWebViewActivity"
@@ -368,9 +370,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.NewsActivity"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.NewsItemActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.showimg.ImagePagerActivity"

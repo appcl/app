@@ -89,7 +89,7 @@
     <color name="cp_colorPrimaryDark">@color/cp_colorAccent</color>
     <color name="splash_item">#ddf0f4</color>
     <color name="main_title_bg">#fc624b</color>
-    <color name="item_bg">#FD8675</color>
+    <color name="item_bg">#11cccc</color>
     <color name="main_map_bg">#CCAAAAAA</color>
     <color name="title_bg">#fc624b</color>
     

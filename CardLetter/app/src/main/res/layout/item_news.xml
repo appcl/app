@@ -58,7 +58,7 @@
             android:background="@drawable/shape_img_bg"
             android:padding="2dp"
             android:id="@+id/news_img"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_centerVertical="true"
             android:src="@drawable/default_error"
             android:layout_width="100dp"

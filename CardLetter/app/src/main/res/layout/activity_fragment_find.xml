@@ -8,6 +8,8 @@
        ptr:ptrAnimationStyle="flip"
        ptr:ptrHeaderTextColor="@color/title_bg"
        ptr:ptrListViewExtrasEnabled="true"
+       android:divider="@color/padding_color"
+       android:dividerHeight="1dp"
        android:layout_width="fill_parent"
        android:layout_height="fill_parent"/>
    <TextView

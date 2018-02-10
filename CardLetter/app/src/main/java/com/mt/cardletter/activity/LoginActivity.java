@@ -1,8 +1,10 @@
 package com.mt.cardletter.activity;
 
+import android.content.Context;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -252,7 +254,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         RequestBody body = new FormBody.Builder().build();
         Request request = new Request.Builder()
                 .post(body)
-                .url("http://www.51kaxin.xyz/api.php/common/login/access_token/"+Constant.Access_Token+"/username/"+username+"/nickname/"+nickname+"/password/"+password+"/ext_token/"+ext_token)
+                .url("https://www.51kaxin.xyz/api.php/common/login/access_token/"+Constant.Access_Token+"/username/"+username+"/nickname/"+nickname+"/password/"+password+"/ext_token/"+ext_token)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -292,4 +294,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 },LoginActivity.this));
     }
 
+    /**
+     * 隐藏键盘
+     * @param editText
+     */
+    private void hideSoftKeyboard(EditText editText){
+        InputMethodManager imm = (InputMethodManager)getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+
+    @Override
+    public void finish() {
+        hideSoftKeyboard(phone);
+        super.finish();
+    }
 }

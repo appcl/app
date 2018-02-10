@@ -6,10 +6,9 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="3dp"
         android:paddingLeft="10dp"
-        android:layout_marginBottom="10dp"
-
+        android:layout_marginBottom="3dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
@@ -19,14 +18,14 @@
             android:scaleType="fitXY"
             android:layout_centerVertical="true"
             android:src="@drawable/default_error"
-            android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
         <RelativeLayout
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/goods_img"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
-            android:layout_height="70dp">
+            android:layout_height="60dp">
             <TextView
                 android:ellipsize="marquee"
                 android:maxLines="1"
@@ -38,7 +37,7 @@
                 android:layout_height="wrap_content" />
             <LinearLayout
                 android:layout_below="@id/goods_title"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -55,7 +54,7 @@
                     android:maxLines="1"
                     android:id="@+id/goods_discounts"
                     android:layout_marginLeft="10dp"
-                    android:text="消费满88减44元"
+                    android:text=""
                     android:textSize="10sp"
                     android:textColor="@color/color_btn_red_de"
                     android:layout_width="wrap_content"
@@ -71,14 +70,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:text="创建时间："
+                        android:text=""
                         android:textSize="12sp"
                         android:textColor="@color/umeng_socialize_text_share_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/goods_obj"
-                        android:text="广发卡 专享"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:layout_marginRight="100dp"
+                        android:text=""
                         android:textSize="12sp"
                         android:textColor="@color/umeng_socialize_text_share_content"
                         android:layout_width="wrap_content"
@@ -88,7 +90,7 @@
                     android:id="@+id/goods_distance"
                     android:layout_marginRight="10dp"
                     android:layout_alignParentRight="true"
-                    android:text="查看详情"
+                    android:text=""
                     android:textSize="12sp"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"

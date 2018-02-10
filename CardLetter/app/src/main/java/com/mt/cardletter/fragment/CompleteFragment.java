@@ -236,8 +236,8 @@ public class CompleteFragment extends BaseFragment {
             }
             if (myList!=null&&myList.size()!=0){
                 holder.title.setText(myList.get(position).getName());
-                holder.discounts.setText(myList.get(position).getDescribe());
-                holder.obj.setText(myList.get(position).getCreateTime());
+                holder.discounts.setText("");
+                holder.obj.setText(myList.get(position).getDescribe());
 
                 List<BankTable> bankTable = DataSupport.where("bank_id = ?",myList.get(position).getBankcard()+"").find(BankTable.class);
                 holder.bank.setText(bankTable.get(0).getName());

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutFooter"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/colorbg">
+    <!--android:background="@color/main_footer_bg"-->
+
+    <View
+        android:id="@+id/viewSplit"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorspaceline" />
+
+    <RadioGroup
+        android:id="@+id/activity_main_radiogroup"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
+
+    <RadioButton
+        android:id="@+id/activity_main_radiobutton_home"
+        style="@style/main_footer_bar_radio"
+        android:checked="true"
+        android:drawableTop="@drawable/select_bottom_home"
+        android:text="@string/home"/>
+
+    <RadioButton
+        android:id="@+id/activity_main_radiobutton_integral"
+        style="@style/main_footer_bar_radio"
+        android:drawableTop="@drawable/select_bottom_integral"
+        android:text="@string/integral"/>
+
+    <RadioButton
+        android:id="@+id/activity_main_radiobutton_discover"
+        android:drawableTop="@drawable/select_bottom_find"
+        style="@style/main_footer_bar_radio"
+        android:text="@string/discover"/>
+    <RadioButton
+        android:id="@+id/activity_main_radiobutton_card"
+        android:drawableTop="@drawable/select_bottom_card"
+        style="@style/main_footer_bar_radio"
+        android:text="@string/card_manager"/>
+    <RadioButton
+        android:id="@+id/activity_main_radiobutton_user"
+        android:drawableTop="@drawable/select_bottom_my"
+        style="@style/main_footer_bar_radio"
+        android:text="@string/mine"/>
+    </RadioGroup>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@null"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</RelativeLayout>

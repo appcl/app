@@ -90,42 +90,42 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 //        setAlias(SharedPreferences.getInstance().getString("account",""));//设置别名推送
         setAlias("cardletter");
 //        getServiceVersion();
-        bottom_radiobuttonsize();
+//        bottom_radiobuttonsize();
     }
 
     private void bottom_radiobuttonsize(){
         //定义底部标签图片大小和位置
         Drawable drawable_home = getResources().getDrawable(R.drawable.select_bottom_home);
         //当这个图片被绘制时，给他绑定一个矩形 ltrb规定这个矩形
-        drawable_home.setBounds(0, 0, 80, 80);
+        drawable_home.setBounds(0, 0, 50, 50);
         //设置图片在文字的哪个方向
         home.setCompoundDrawables(null, drawable_home, null, null);
 
         //定义底部标签图片大小和位置
         Drawable drawable_integral = getResources().getDrawable(R.drawable.select_bottom_integral);
         //当这个图片被绘制时，给他绑定一个矩形 ltrb规定这个矩形
-        drawable_integral.setBounds(0, 0, 80, 80);
+        drawable_integral.setBounds(0, 0, 50, 50);
         //设置图片在文字的哪个方向
         integral.setCompoundDrawables(null, drawable_integral, null, null);
 
         //定义底部标签图片大小和位置
         Drawable drawable_find = getResources().getDrawable(R.drawable.select_bottom_find);
         //当这个图片被绘制时，给他绑定一个矩形 ltrb规定这个矩形
-        drawable_find.setBounds(0, 0, 80, 80);
+        drawable_find.setBounds(0, 0, 50, 50);
         //设置图片在文字的哪个方向
         discover.setCompoundDrawables(null, drawable_find, null, null);
 
         //定义底部标签图片大小和位置
         Drawable drawable_card = getResources().getDrawable(R.drawable.select_bottom_card);
         //当这个图片被绘制时，给他绑定一个矩形 ltrb规定这个矩形
-        drawable_card.setBounds(0, 0, 80, 80);
+        drawable_card.setBounds(0, 0, 50, 50);
         //设置图片在文字的哪个方向
         card.setCompoundDrawables(null, drawable_card, null, null);
 
         //定义底部标签图片大小和位置
         Drawable drawable_user = getResources().getDrawable(R.drawable.select_bottom_my);
         //当这个图片被绘制时，给他绑定一个矩形 ltrb规定这个矩形
-        drawable_user.setBounds(0, 0, 80, 80);
+        drawable_user.setBounds(0, 0, 60, 60);
         //设置图片在文字的哪个方向
         user.setCompoundDrawables(null, drawable_user, null, null);
     }

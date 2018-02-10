@@ -21,6 +21,7 @@ public class ToastUtils {
 		} else {
 			shortToast.setText(msg);
 		}
+		shortToast.setGravity(Gravity.CENTER,0,0);
 		shortToast.show();
 	}
 	

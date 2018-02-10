@@ -4,10 +4,5 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
         <include layout="@layout/action_title"/>
-        <android.support.v7.widget.RecyclerView
-            android:visibility="gone"
-            android:id="@+id/card_listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <include layout="@layout/version_completed" />
+        <include layout="@layout/item_card"/>
 </LinearLayout>

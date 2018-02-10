@@ -136,7 +136,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                 UIHelper.showSearchActivity(getContext());
             }
         });
-        showToast("");
+//        showToast("");
         return view;
     }
 

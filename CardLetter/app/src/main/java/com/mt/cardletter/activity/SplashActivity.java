@@ -115,15 +115,15 @@ public class SplashActivity extends FragmentActivity {
                 public void run() {
                     Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
-                    SplashActivity.this.finish();
+
                 }
             }, 1000);
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//
-//                }
-//            }, 5000);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    SplashActivity.this.finish();
+                }
+            }, 3000);
         }
 
 

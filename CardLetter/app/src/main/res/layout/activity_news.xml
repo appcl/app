@@ -10,7 +10,7 @@
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/listView"
         ptr:ptrAnimationStyle="flip"
-        ptr:ptrHeaderTextColor="@color/colorspaceline"
+        ptr:ptrHeaderTextColor="@color/main_title_bg"
         ptr:ptrListViewExtrasEnabled="true"
         android:layout_marginTop="48dp"
         android:layout_width="fill_parent"

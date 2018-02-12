@@ -93,7 +93,8 @@ public class WebView_QQActivity extends BaseActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 System.out.println("-----shouldOverrideUrlLoading-----"+url);
-                if (!TextUtils.isEmpty(url)&&url.contains("https://w.mail.qq.com/cgi-bin/mobile?sid=")) {
+                if (!TextUtils.isEmpty(url)&&url.contains("https://w.mail.qq.com/cgi-bin/mobile?sid=")||
+                        !TextUtils.isEmpty(url)&&url.contains("https://w.mail.qq.com/cgi-bin/today?sid=")) {
                     sid = url.substring(url.indexOf("sid=")+4,url.lastIndexOf(".&")+1);
                     System.out.println("----aaaaaa------"+sid);
 //                    getDatas(sid);

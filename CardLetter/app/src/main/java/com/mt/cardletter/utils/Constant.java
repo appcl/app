@@ -65,7 +65,7 @@ public class Constant {
     public static final String PIC_URL = "https://www.51kaxin.xyz";//图片的路径
 
 
-    public static final String NEWS_KEY = "9a025356104a37cd0c690368a0461f41";       //网络新闻KEY
+    public static final String NEWS_KEY = "ce68112217ca2a7ab24eea31248b5bb1";       //网络新闻KEY
 
 
     //Access Key:sNjAD1rszzfVcWHK

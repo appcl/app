@@ -72,7 +72,7 @@
         android:layout_below="@+id/search_layout"
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         ptr:ptrAnimationStyle="flip"
-        ptr:ptrHeaderTextColor="@color/colorspaceline"
+        ptr:ptrHeaderTextColor="@color/main_title_bg"
         ptr:ptrListViewExtrasEnabled="true"
         android:id="@+id/search_recycler_view"
         android:layout_width="match_parent"

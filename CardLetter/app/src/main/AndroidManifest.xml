@@ -96,6 +96,7 @@
         <!-- 登录> -->
         <activity
             android:name=".activity.LoginActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 赚积分 -->
@@ -204,10 +205,12 @@
         <!-- 设置页面 -->
         <activity
             android:name=".activity.setting.SettingActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <!-- 设置信息页面-->
         <activity
             android:name=".activity.setting.SettingMsgActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <!-- 用于相机权限的内容提供者 -->
         <provider
@@ -241,6 +244,7 @@
         <!-- 关于页面 -->
         <activity
             android:name=".activity.AboutActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
@@ -360,6 +364,7 @@
 
         <activity
             android:name=".activity.RegisterActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
@@ -389,6 +394,7 @@
         <!--收藏列表-->
         <activity
             android:name="test.abc.WebViewTestActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
         <!-- 账单列表-->

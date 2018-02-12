@@ -232,11 +232,12 @@ public class SearchHomeFragment extends BaseFragment {
             }
             if (myList!=null&&myList.size()!=0){
                 holder.title.setText(myList.get(position).getName());
-                holder.discounts.setText(myList.get(position).getDescribe());
-                holder.obj.setText(myList.get(position).getCreateTime());
+                holder.discounts.setText("");
+                holder.obj.setText(myList.get(position).getDescribe());
 
                 List<BankTable> bankTable = DataSupport.where("bank_id = ?",myList.get(position).getBankcard()+"").find(BankTable.class);
                 holder.bank.setText(bankTable.get(0).getName());
+
                 LatLng p1LL = new LatLng(  AppContext.getInstance().getLat(),AppContext.getInstance().getLon());
                 LatLng p2LL = new LatLng( myList.get(position).getLng(),myList.get(position).getLat());
 
@@ -244,8 +245,8 @@ public class SearchHomeFragment extends BaseFragment {
                 DecimalFormat df = new DecimalFormat("#");
                 String format = df.format(bg);
                 byte[] bytes = format.getBytes();
-                holder.distance.setText(format+" M");
-                Glide.with(SearchHomeFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
+                holder.distance.setText(format+" 米");
+                Glide.with(getContext()).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
             }
             return convertView;
         }

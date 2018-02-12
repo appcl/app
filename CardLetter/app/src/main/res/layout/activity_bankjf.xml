@@ -8,7 +8,7 @@
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/bankjf_view"
         ptr:ptrAnimationStyle="flip"
-        ptr:ptrHeaderTextColor="@color/colorspaceline"
+        ptr:ptrHeaderTextColor="@color/main_title_bg"
         ptr:ptrListViewExtrasEnabled="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

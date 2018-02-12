@@ -100,7 +100,6 @@ public class SplashActivity extends FragmentActivity {
             circlePageIndicator.setViewPager(viewPager);
 
         } else {   //非首次进入APP
-
             /**
              *   创建数据库
              */
@@ -116,15 +115,18 @@ public class SplashActivity extends FragmentActivity {
                 public void run() {
                     Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
-                }
-            }, 3000);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
                     SplashActivity.this.finish();
                 }
-            }, 5000);
+            }, 1000);
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//
+//                }
+//            }, 5000);
         }
+
+
     }
     /**
      * 适配器2

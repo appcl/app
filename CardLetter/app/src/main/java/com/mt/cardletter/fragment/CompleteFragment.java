@@ -41,6 +41,7 @@ import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.pulltorefresh.ILoadingLayout;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
+import com.mt.cardletter.view.tabstrip.PagerSlidingTabStrip;
 
 import org.litepal.crud.DataSupport;
 
@@ -75,6 +76,9 @@ public class CompleteFragment extends BaseFragment {
     private String lng;
     private String lat;
     private ViewPager pager;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         System.out.println("jk------"+"jk---CompleteFragment--1");

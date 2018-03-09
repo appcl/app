@@ -134,7 +134,7 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.user_head:
             case R.id.msg_top:
-//                showMenuPop();
+                //showMenuPop();
 
                 //circleImageView.setImageResource(R.mipmap.head1);
                 break;
@@ -245,7 +245,8 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
         mPopupWindow.setBackgroundDrawable(new ColorDrawable());
         final Window window = this.getWindow();
         final WindowManager.LayoutParams params = window.getAttributes();
-        params.alpha = 0.8F;
+        //params.alpha = 0.8F;
+        params.alpha = 1.0F;
         window.setAttributes(params);
         mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -270,8 +271,10 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
             switch (v.getId()) {
                 case R.id.tv_camera_album:
                     mPopupWindow.dismiss();
-                    if (ContextCompat.checkSelfPermission(SettingMsgActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
-                            || ContextCompat.checkSelfPermission(SettingMsgActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(SettingMsgActivity.this,
+                            Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+                            || ContextCompat.checkSelfPermission(SettingMsgActivity.this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                         showTakePicture();
                     } else {
                         getPermissions();
@@ -306,7 +309,12 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
     private void showTakePicture() {
         startTake();
     }
+    /**
+     * 拍照的功能
+     */
+    private void showTakePicture1() {
 
+    }
     /**
      * 拍照
      */
@@ -365,52 +373,6 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
     protected void handler(Message msg) {
     }
 
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("SettingMsg Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
-    }
     /**
      * 隐藏键盘
      * @param editText
@@ -420,7 +382,6 @@ public class SettingMsgActivity extends BaseActivity implements View.OnClickList
                 Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
-
     @Override
     public void finish() {
         hideSoftKeyboard(old_pw);

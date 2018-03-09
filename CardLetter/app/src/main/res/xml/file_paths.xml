@@ -2,7 +2,7 @@
 <resources>
     <paths>
         <external-path
-            name="download"
+            name="my_images"
             path="" />
     </paths>
 </resources>

@@ -9,7 +9,8 @@
         android:id="@+id/include" />
 
     <ScrollView
-
+        android:id="@+id/setails_top"
+        android:layout_marginBottom="45dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/include"
@@ -26,7 +27,7 @@
                 android:layout_height="200dp">
                 <ImageView
                     android:id="@+id/setails_big_img"
-                    android:scaleType="centerCrop"
+                    android:scaleType="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
                 <View
@@ -211,7 +212,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
-                /LinearLayout>
                 <LinearLayout
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
@@ -228,25 +228,68 @@
         </LinearLayout>
     </ScrollView>
 
-    <!--<RelativeLayout-->
-        <!--android:layout_marginTop="30dp"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-        <!--<ImageView-->
-            <!--android:id="@+id/setails_back"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:src="@drawable/grey_back"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--android:layout_width="25dp"-->
-            <!--android:layout_height="25dp" />-->
-        <!--<ImageView-->
-            <!--android:id="@+id/setails_share"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:src="@drawable/grey_share"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--android:layout_width="25dp"-->
-            <!--android:layout_height="25dp" />-->
-    <!--</RelativeLayout>-->
-
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+       <LinearLayout
+           android:id="@+id/setails_photo"
+           android:layout_weight="1"
+           android:orientation="vertical"
+           android:layout_width="0dp"
+           android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/default_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+           <TextView
+               android:text="报错"
+               android:layout_gravity="center"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+       </LinearLayout>
+        <View
+            android:layout_gravity="center_vertical"
+            android:layout_width="1dp"
+            android:layout_height="40dp"/>
+        <LinearLayout
+            android:id="@+id/setails_img"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/default_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text="传图片"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <View
+            android:layout_gravity="center_vertical"
+            android:layout_width="1dp"
+            android:layout_height="40dp"/>
+        <LinearLayout
+            android:id="@+id/setails_pl"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/default_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text="写评论"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

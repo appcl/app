@@ -242,19 +242,6 @@ public class TopScrollView extends ScrollView {
                                 || (canPullUp && deltaY< 0)    //可以上拉， 并且手指向上移动
                                 || (canPullUp && canPullDown); //既可以上拉也可以下拉（这种情况出现在ScrollView包裹的控件比ScrollView还小）
 
-                if (canPullDown && deltaY > 0){
-                    /*
-                    下拉
-                     */
-                    onScrollTopListener.onScroll();
-                }
-                if (canPullUp && deltaY< 0){
-                     /*
-                    上拉
-                     */
-                    onScrollBottomListener.onScroll();
-                }
-
                 if(shouldMove){
                     //计算偏移量
                     int offset = (int)(deltaY * MOVE_FACTOR);

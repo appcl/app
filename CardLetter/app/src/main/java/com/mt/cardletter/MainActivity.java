@@ -19,9 +19,11 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.alibaba.fastjson.util.ASMClassLoader;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.Poi;
+import com.mt.cardletter.activity.SplashActivity;
 import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.app.AppContext;
 import com.mt.cardletter.entity.checkversion.CheckOrUpdate;
@@ -85,6 +87,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
     @Override
     public void initView() {
+        SplashActivity.splashActivity.finish();
         ButterKnife.bind(this);
         setSwipeBackEnable(false);//禁止侧滑退出
 //        setAlias(SharedPreferences.getInstance().getString("account",""));//设置别名推送

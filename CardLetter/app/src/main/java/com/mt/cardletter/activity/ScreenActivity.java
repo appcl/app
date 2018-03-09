@@ -191,6 +191,7 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
             });
             onMyChecked(holder, position);
 
+
         }
         private void onMyChecked(final MyViewHolder viewHolder, final int position) {
             viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -214,17 +215,6 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
         @Override
         public int getItemCount() {
             return myList.size();
-        }
-
-        public void AddHeaderItem(List<Bank.DataBean> items){
-            myList.addAll(items);
-            notifyDataSetChanged();
-        }
-
-
-        public void AddFooterItem(List<Bank.DataBean> items){
-            myList.addAll(items);
-            notifyDataSetChanged();
         }
 
 
@@ -260,7 +250,6 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void finish() {
-
         super.finish();
     }
     private void setFlag(){

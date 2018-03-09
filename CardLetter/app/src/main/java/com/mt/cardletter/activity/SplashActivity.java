@@ -1,5 +1,6 @@
 package com.mt.cardletter.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -58,10 +60,6 @@ public class SplashActivity extends FragmentActivity {
     public static final int SPLASH_OPEN = 0X01;//引导页打开
     public static final int SPLASH_UNOPEN = 0X02;//引导页关闭
     private List<Bank.DataBean> myList = new ArrayList<>();//银行数据
-    private int[] imags = new int[]{R.drawable.new01,
-            R.drawable.new02,
-            R.drawable.new03
-    };
     /*权限数组*/
     private String[] permissionArray = new String[]{
             android.Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -70,21 +68,28 @@ public class SplashActivity extends FragmentActivity {
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.READ_PHONE_STATE
     };
-
+    public static Activity splashActivity = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-
-        PermissionUtils.checkPermissionArray(this, permissionArray, 0x10);
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
+        splashActivity = this;
+        //PermissionUtils.checkPermissionArray(this, permissionArray, 0x10);
+//        viewPager = (ViewPager) findViewById(R.id.pager);
+//        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         imageView = (ImageView) findViewById(R.id.splash_img);
-
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
         int splash_is_open = SharedPreferences.getInstance().getInt("splash_is_open", SPLASH_OPEN);
 
         if (splash_is_open == SPLASH_OPEN) { //首次进入APP
+            PermissionUtils.checkPermissionArray(this, permissionArray, 0x10);
+            viewPager = (ViewPager) findViewById(R.id.pager);
+            circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
             /**
              *   创建数据库
              */
@@ -100,34 +105,30 @@ public class SplashActivity extends FragmentActivity {
             circlePageIndicator.setViewPager(viewPager);
 
         } else {   //非首次进入APP
+            imageView.setVisibility(View.VISIBLE);
+//            circlePageIndicator.setVisibility(View.GONE);
+//            viewPager.setVisibility(View.GONE);
             /**
              *   创建数据库
              */
-            Connector.getDatabase();
-            toLoginForBank();//写入数据库 银行信息
-            getMybank();//获取用户数据
-
-            imageView.setVisibility(View.VISIBLE);
-            circlePageIndicator.setVisibility(View.GONE);
-            viewPager.setVisibility(View.GONE);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Connector.getDatabase();
+                    toLoginForBank();//写入数据库 银行信息
+                    getMybank();//获取用户数据
+                }
+            });
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(intent);
-
                 }
-            }, 1000);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    SplashActivity.this.finish();
-                }
-            }, 3000);
+            }, 2000);
         }
-
-
     }
+
     /**
      * 适配器2
      */

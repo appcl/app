@@ -18,7 +18,7 @@ public class HttpSubscriber<T> extends Subscriber<T>{
     private SubscriberOnListener subscriberOnListener;
     private Context context;
     private LoadingDialog loadingDialog;
-
+    public static  boolean isOpen = true;
     public HttpSubscriber(SubscriberOnListener subscriberOnListener, Context context) {
         loadingDialog=new LoadingDialog(context);
         this.subscriberOnListener = subscriberOnListener;
@@ -39,7 +39,9 @@ public class HttpSubscriber<T> extends Subscriber<T>{
     public void onStart() {
         if (context instanceof Activity){
             /**********show出网络加载dialog*******************/
-            loadingDialog.show();
+            if (isOpen) {
+                loadingDialog.show();
+            }
         }
         super.onStart();
     }
@@ -49,7 +51,10 @@ public class HttpSubscriber<T> extends Subscriber<T>{
         if (subscriberOnListener != null && context != null) {
             //subscriberOnListener.onError("完成", 1);
             /**********dismiss网络加载dialog*******************/
-           loadingDialog.close();
+            if (isOpen) {
+                loadingDialog.close();
+            }
+            isOpen = true;
         } else {
             onUnsubscribe();
         }
@@ -83,5 +88,9 @@ public class HttpSubscriber<T> extends Subscriber<T>{
         } else {
             onUnsubscribe();
         }
+    }
+
+    public void setOpen(boolean isOpen){
+        this.isOpen = isOpen;
     }
 }

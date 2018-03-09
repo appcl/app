@@ -2,17 +2,24 @@ package com.mt.cardletter.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,7 +83,7 @@ public class CompleteFragment extends BaseFragment {
     private String lng;
     private String lat;
     private ViewPager pager;
-
+    private Button test;
 
 
     @Override
@@ -86,6 +93,15 @@ public class CompleteFragment extends BaseFragment {
             System.out.println("jk------"+"jk---CompleteFragment--1-1");
             context = getActivity();
             view = inflater.inflate(R.layout.activity_fragment_find, container, false);
+            test = (Button) view.findViewById(R.id.test);
+            test.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ListView refreshableView = listView.getRefreshableView();
+                    refreshableView.smoothScrollToPosition(0);
+                }
+            });
+
             tv_noll = (TextView) view.findViewById(R.id.tv_noll);
             tv_noll.setVisibility(View.GONE);
             ButterKnife.bind(this, view);
@@ -111,40 +127,36 @@ public class CompleteFragment extends BaseFragment {
         }
         super.onResume();
     }
-
-    @Override
-    protected void onLazyLoad() {
-        super.onLazyLoad();
-    }
-
     private void loadData(final int upDataFlag , final String list_rows, final String page, final String category_id, final String city, final String  bankcard, final String lng, final String lat) {
+        HttpSubscriber.isOpen = false;
         CardLetterRequestApi.getInstance().getFindMerchant(
                 Constant.Access_Token,list_rows,page,category_id,city, bankcard,lng,lat,"",new HttpSubscriber<Goods>(new SubscriberOnListener<Goods>() {
+
                     @Override
                     public void onSucceed(Goods data) {
                         System.out.println("jk==--"+list_rows+" - "+page+" - "+category_id+" - "+city+" - "+bankcard+" - "+lng+"   - "+lat);
-                        if (data.getCode()==0){
-                            System.out.println("jk---------"+data.getData().getCardfindList().getData().size());
+                        if (data.getCode()==0) {
+                            System.out.println("jk---------" + data.getData().getCardfindList().getData().size());
                             List<Goods.DataBeanX.CardfindListBean.DataBean> data1 = data.getData().getCardfindList().getData();
-                            if (upDataFlag == UPDATA_DEF){
-                                if (data.getData().getCardfindList().getTotal()==0){
+                            if (upDataFlag == UPDATA_DEF) {
+                                if (data.getData().getCardfindList().getTotal() == 0) {
                                     tv_noll.setVisibility(View.VISIBLE);
-                                }else{
+                                } else {
                                     tv_noll.setVisibility(View.GONE);
                                 }
                                 myList = data1;
-                            }else if(upDataFlag == UPDATA_UP){
-                                if (data.getData().getCardfindList().getTotal()==0){
-                                    Toast.makeText(getContext(),"已到底了",Toast.LENGTH_SHORT).show();
+                            } else if (upDataFlag == UPDATA_UP) {
+                                if (data.getData().getCardfindList().getTotal() == 0) {
+                                    Toast.makeText(getContext(), "已到底了", Toast.LENGTH_SHORT).show();
                                     tv_noll.setVisibility(View.VISIBLE);
-                                }else{
+                                } else {
                                     tv_noll.setVisibility(View.GONE);
                                 }
                                 myList.addAll(data1);
-                            }else if(upDataFlag == UPDATA_DOWN){
-                                if (data.getData().getCardfindList().getTotal()==0){
+                            } else if (upDataFlag == UPDATA_DOWN) {
+                                if (data.getData().getCardfindList().getTotal() == 0) {
                                     tv_noll.setVisibility(View.VISIBLE);
-                                }else{
+                                } else {
                                     tv_noll.setVisibility(View.GONE);
                                 }
                                 myList = data1;
@@ -152,6 +164,7 @@ public class CompleteFragment extends BaseFragment {
                             myAdapter.notifyDataSetChanged();
                             listView.onRefreshComplete();
                         }
+
                     }
                     @Override
                     public void onError(int code, String msg) {
@@ -161,6 +174,7 @@ public class CompleteFragment extends BaseFragment {
     }
 
     private void initViews() {
+
         /**
          * 点击事件
          */
@@ -179,11 +193,9 @@ public class CompleteFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+
         listView.setAdapter(myAdapter = new MyAdapter());
         listView.setMode(PullToRefreshBase.Mode.BOTH);
-        /**
-         * 注册加载
-         */
 
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
@@ -197,6 +209,7 @@ public class CompleteFragment extends BaseFragment {
                 loadData( UPDATA_UP , page_size , ""+page_index , cartgory_id ,Constant.CITY_ID, Constant.MY_BANK,AppContext.getInstance().getLat()+"",AppContext.getInstance().getLon()+"");
             }
         });
+
     }
 
     @Override
@@ -246,13 +259,13 @@ public class CompleteFragment extends BaseFragment {
                 List<BankTable> bankTable = DataSupport.where("bank_id = ?",myList.get(position).getBankcard()+"").find(BankTable.class);
                 holder.bank.setText(bankTable.get(0).getName());
 
-                LatLng p1LL = new LatLng(  AppContext.getInstance().getLat(),AppContext.getInstance().getLon());
-                LatLng p2LL = new LatLng( myList.get(position).getLng(),myList.get(position).getLat());
 
-                BigDecimal bg = new BigDecimal(DistanceUtil.getDistance(p1LL, p2LL));
-                DecimalFormat df = new DecimalFormat("#");
+                LatLng p1LL = new LatLng(  AppContext.getInstance().getLat(),AppContext.getInstance().getLon() );
+                LatLng p2LL = new LatLng( myList.get(position).getLng(),myList.get(position).getLat() );
+
+                BigDecimal bg = new BigDecimal( DistanceUtil.getDistance(p1LL, p2LL) );
+                DecimalFormat df = new DecimalFormat("#");//忽略
                 String format = df.format(bg);
-                byte[] bytes = format.getBytes();
                 holder.distance.setText(format+" 米");
                 Glide.with(CompleteFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
             }
@@ -263,6 +276,39 @@ public class CompleteFragment extends BaseFragment {
             ImageView img;
         }
     }
+
+    private PopupWindow mPopupWindow;
+
+    private void showMenuPop() {
+
+        View popView = LayoutInflater.from(getContext()).inflate(R.layout.pull_popu_icon, null);
+        mPopupWindow = new PopupWindow(popView, LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        // 设置允许在外点击消失
+        mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setFocusable(true);
+        mPopupWindow.setBackgroundDrawable(new ColorDrawable());
+        final Window window = getActivity().getWindow();
+        final WindowManager.LayoutParams params = window.getAttributes();
+        //params.alpha = 0.8F;
+        params.alpha = 1.0F;
+        window.setAttributes(params);
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                params.alpha = 1.0F;
+                window.setAttributes(params);
+            }
+        });
+        //设置动画
+        // mPopupWindow.setAnimationStyle(R.style.anim_bottom_dialog);
+        mPopupWindow.setAnimationStyle(android.R.style.Animation_InputMethod);
+//        popView.findViewById(R.id.tv_camera_album).setOnClickListener(onClickListenerForPop);
+//        popView.findViewById(R.id.tv_picasso).setOnClickListener(onClickListenerForPop);
+//        popView.findViewById(R.id.tv_cancel).setOnClickListener(onClickListenerForPop);
+        mPopupWindow.showAtLocation(window.getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
     /**
      * @param requestCode  请求码，即调用startActivityForResult()传递过去的值
      * @param resultCode  结果码，结果码用于标识返回数据来自哪个新Activity

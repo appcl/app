@@ -27,6 +27,7 @@ import com.mt.cardletter.activity.WeatherActivity;
 import com.mt.cardletter.activity.WebView_QQActivity;
 import com.mt.cardletter.activity.bank.SHActivity;
 import com.mt.cardletter.activity.collect.CollectActivity;
+import com.mt.cardletter.activity.comment.CommentActivity;
 import com.mt.cardletter.activity.seckill.SeckillActivity;
 import com.mt.cardletter.activity.setting.SettingActivity;
 import com.mt.cardletter.activity.setting.SettingMsgActivity;
@@ -334,7 +335,15 @@ public class UIHelper {
      */
     public static void showCollectActivity(Context context) {
         Intent intent = new Intent(context, CollectActivity.class);
-        System.out.println("jk--------进入收藏列表");
+        context.startActivity(intent);
+    }
+
+    /**
+     * 商品详情--用户评论
+     * @param context
+     */
+    public static void showCommentActivity(Context context) {
+        Intent intent = new Intent(context, CommentActivity.class);
         context.startActivity(intent);
     }
 }

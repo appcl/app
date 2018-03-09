@@ -67,7 +67,6 @@
 
         <activity
             android:name=".activity.SplashActivity"
-            android:launchMode="singleTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -402,6 +401,9 @@
             android:screenOrientation="portrait"/>
         <!-- 账单详情 -->
         <activity android:name=".activity.BillDetailActivity"
+            android:screenOrientation="portrait"/>
+        <!--用户评论-->
+        <activity android:name=".activity.comment.CommentActivity"
             android:screenOrientation="portrait"/>
 
         <!-- 卡发现详情页面 -->

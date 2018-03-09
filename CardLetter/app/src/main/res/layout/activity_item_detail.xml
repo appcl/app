@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/search02"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="vertical">
+        <com.mt.cardletter.view.tabstrip.PagerSlidingTabStrip
+
+            android:background="@color/white"
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            app:pstsIndicatorColor="@color/color_text_red"
+            app:selectedTabTextColor="@color/color_text_red"
+            app:tabTextSize="12sp"
+            app:tabTextColor="@color/black"
+            app:pstsUnderlineHeight="0.5dp"
+            app:pstsUnderlineColor="@color/colorspaceline"
+            app:pstsTabPaddingLeftRight="12dp"
+            app:pstsIndicatorHeight="2dp"
+            app:pstsDividerColor="@android:color/transparent"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <com.mt.cardletter.view.Scroll.MyViewPager
+            android:id="@+id/pager"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

@@ -404,6 +404,10 @@
         <activity android:name=".activity.BillDetailActivity"
             android:screenOrientation="portrait"/>
 
+        <!-- 卡发现详情页面 -->
+        <activity android:name=".activity.MoreTabActivity"
+            android:screenOrientation="portrait"/>
+
         <receiver android:name=".utils.updater.ApkInstallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />

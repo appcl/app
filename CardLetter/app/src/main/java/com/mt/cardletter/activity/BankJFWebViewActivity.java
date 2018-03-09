@@ -32,11 +32,12 @@ public class BankJFWebViewActivity extends BaseActivity {
     private void getDatas() {
         Bundle b = getIntent().getExtras();
         url=b.getString("url");
+        System.out.println("data_url---"+url);
     }
     @Override
     public void initView() {
         wv = (WebView) findViewById(R.id.mail_web);
-        wv.loadUrl(url);
+//        wv.loadUrl(url);
 
         WebSettings webSettings = wv .getSettings();
         webSettings.setJavaScriptEnabled(true); //支持js
@@ -60,6 +61,7 @@ public class BankJFWebViewActivity extends BaseActivity {
             }
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                System.out.println("url----"+url);
                 wv.loadUrl(url);
                 return true;
             }
@@ -88,6 +90,7 @@ public class BankJFWebViewActivity extends BaseActivity {
 
             }
         });
+        wv.loadUrl(url);
     }
 //    @Override
 //    public void initView() {

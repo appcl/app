@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.CityPickerActivity;
+import com.mt.cardletter.activity.MoreTabActivity;
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.entity.news.NetNewsCategory;
@@ -206,7 +207,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
             case R.id.make_integral://赚积分
 //                System.out.println(AppContext.getInstance().getDistrict());
 //                if (AppContext.getInstance().getDistrict()!=null){
-                    getDatas(fragment_home_top_text_address.getText().toString(),"5ee8321670ca46aab8e7555d3b3c074b");
+                getDatas(fragment_home_top_text_address.getText().toString(),"5ee8321670ca46aab8e7555d3b3c074b");
 //                }else {
 //                    getDatas(AppContext.getInstance().getCity(),"5ee8321670ca46aab8e7555d3b3c074b");
 //                }
@@ -248,7 +249,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                 pager.setAdapter(adapter);
                 final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
                 pager.setPageMargin(pageMargin);
-               // pager.setOffscreenPageLimit(tabDatas.size());
+                // pager.setOffscreenPageLimit(tabDatas.size());
                 pager.setOffscreenPageLimit(1);
                 tabs.setViewPager(pager);
             }
@@ -434,7 +435,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                     pagerView.setOnItemClickListener(new OnItemClickListener() {
                         @Override
                         public void onItemClick(int position) {
-                            System.out.println("点击了---"+Constant.PIC_URL+dataBeanList.get(position).getThumb());
+//                            System.out.println("点击了---"+Constant.PIC_URL+dataBeanList.get(position).getThumb());
+                            Intent intent = new Intent(getContext(), MoreTabActivity.class);
+                            startActivity(intent);
                         }
                     });
                 }else {

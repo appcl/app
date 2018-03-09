@@ -3,7 +3,11 @@ package com.mt.cardletter.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -35,7 +39,7 @@ import java.util.List;
  * Created by gaolei on 2017/11/13.
  */
 
-public class IntegralFragment extends BaseFragment {
+public class IntegralFragment extends Fragment {
     private TextView title_name;
     private WrapHeightGridView content_list;
     private List<IntegralEntity> list =new ArrayList<>();
@@ -49,23 +53,37 @@ public class IntegralFragment extends BaseFragment {
     private LinearLayout searchView;
     private WrapHeightGridView b_gridview;
     private EditText search_et_input;
+    private View view;
+
+//    @Override
+//    protected int setLayoutResouceId() {
+//        getData();
+//        return R.layout.fragment_integral;
+//    }
+
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_integral,container,false);
+        initView(view);
+        return view;
+    }
 
     @Override
-    protected int setLayoutResouceId() {
-        getData();
-        return R.layout.fragment_integral;
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+       getData();
     }
 
     int b_id;
     String b_name;
-    @Override
-    protected void initView() {
-        super.initView();
-        title_name = findViewById(R.id.title_name);
+    protected void initView(View view) {
+        title_name = (TextView) view.findViewById(R.id.title_name);
         title_name.setText("积分商城");
-        gridView=findViewById(R.id.grid);
+        gridView= (GridView) view.findViewById(R.id.grid);
 
-        content_list = findViewById(R.id.content_list);
+        content_list = (WrapHeightGridView) view.findViewById(R.id.content_list);
 
         content_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -77,8 +95,8 @@ public class IntegralFragment extends BaseFragment {
             }
         });
 
-        searchView = findViewById(R.id.search_layout);
-        search_et_input= findViewById(R.id.search_et_input);
+        searchView = (LinearLayout) view.findViewById(R.id.search_layout);
+        search_et_input= (EditText) view.findViewById(R.id.search_et_input);
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +111,7 @@ public class IntegralFragment extends BaseFragment {
             }
         });
 
-        b_gridview = findViewById(R.id.bank_list);
+        b_gridview = (WrapHeightGridView) view.findViewById(R.id.bank_list);
 
         b_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -131,11 +149,11 @@ public class IntegralFragment extends BaseFragment {
 //                    if (b_list1.get(position).getName().equals("汇丰银行")){
 //                        ToastUtils.makeShortText("暂不支持汇丰银行积分查询、兑换",getContext());
 //                    }else {
-                        b_id = b_list1.get(position).getId();
-                        b_name = b_list1.get(position).getName();
-                        System.out.println("点击了-----"+b_name);
-                        getBank(1,b_name,b_id,Constant.Access_Token,1);
-                        bAdapter.notifyDataSetChanged();
+                    b_id = b_list1.get(position).getId();
+                    b_name = b_list1.get(position).getName();
+                    System.out.println("点击了-----"+b_name);
+                    getBank(1,b_name,b_id,Constant.Access_Token,1);
+                    bAdapter.notifyDataSetChanged();
 //                    }
                 }
             }
@@ -255,14 +273,14 @@ public class IntegralFragment extends BaseFragment {
         },getContext()));
     }
 
-    @Override
-    public void initData() {
-
-        iAdapter = new IntegralAdapter(getContext(),list);
-        gridView.setAdapter(iAdapter);
-
-//        setupRecycler();
-    }
+//    @Override
+//    public void initData() {
+//
+//        iAdapter = new IntegralAdapter(getContext(),list);
+//        gridView.setAdapter(iAdapter);
+//
+////        setupRecycler();
+//    }
 
     private void getData() {
         IntegralEntity entity = new IntegralEntity();
@@ -289,6 +307,8 @@ public class IntegralFragment extends BaseFragment {
         entity4.setI_tv("30k积分以上");
         entity4.setI_pic(getResources().getDrawable(R.drawable.jf_30));
         list.add(entity4);
+        iAdapter = new IntegralAdapter(getContext(),list);
+        gridView.setAdapter(iAdapter);
 
         CardLetterRequestApi.getInstance().getCategory(Constant.Access_Token,
                 new HttpSubscriber<CategoryEntity>(new SubscriberOnListener<CategoryEntity>() {

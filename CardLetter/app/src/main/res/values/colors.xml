@@ -95,4 +95,10 @@
     
     <color name="padding_color">#f6ebd9</color>
     <color name="text_tag_color">#fff110</color>
+
+    <!--首页4大色调-->
+    <color name="main_red">#FE6363</color>
+    <color name="main_blue">#85D1CD</color>
+    <color name="main_green">#7EDD77</color>
+    <color name="main_yellow">#F8A453</color>
 </resources>

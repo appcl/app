@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mt.cardletter.view.pulltorefresh.PullToRefreshScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    ptr:ptrAnimationStyle="flip"
+    ptr:ptrHeaderBackground="#383838"
+    ptr:ptrHeaderTextColor="#00383838"
+    ptr:ptrDrawable="@color/main_title_bg"
+    ptr:ptrListViewExtrasEnabled="true"
+    android:id="@+id/pull_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -8,6 +15,146 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/colorspaceline"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="90dp">
+                <ImageView
+                    android:src="@drawable/default_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp" />
+                <ImageView
+                    android:src="@drawable/default_ptr_flip"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp" />
+                <LinearLayout
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/shape_yue_bg"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:text="近"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="9个"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:text="月"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="90dp">
+                <ImageView
+                    android:src="@drawable/default_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp" />
+                <ImageView
+                    android:src="@drawable/default_ptr_flip"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp" />
+                <LinearLayout
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/shape_yue_bg"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:text="进"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="9个"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:text="月"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="90dp">
+                <ImageView
+                    android:src="@drawable/default_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp" />
+                <ImageView
+                    android:src="@drawable/default_ptr_flip"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp" />
+                <LinearLayout
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/shape_yue_bg"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:text="进"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="9个"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:text="月"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/colorspaceline"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:paddingLeft="10dp"
@@ -175,19 +322,20 @@
             <RelativeLayout
                 android:id="@+id/re_1"
                 android:gravity="center_vertical"
-                android:layout_width="40dp"
+                android:layout_width="45dp"
                 android:layout_height="60dp">
                 <ImageView
                     android:id="@+id/notice_icon"
                     android:layout_width="45dp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/logo"/>
+                    android:src="@drawable/lingdang"/>
                 <TextView
                     android:layout_marginTop="3dp"
                     android:layout_below="@+id/notice_icon"
                     android:textSize="10sp"
                     android:text="特别提醒"
+                    android:layout_centerInParent="true"
                     android:textColor="@color/color_text_red"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -377,14 +525,14 @@
             <ImageView
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="25dp"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@mipmap/logo"/>
+                android:layout_marginRight="5dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/phone"/>
         </RelativeLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:background="@color/colorspaceline"/>
     </LinearLayout>
-</ScrollView>
+</com.mt.cardletter.view.pulltorefresh.PullToRefreshScrollView>

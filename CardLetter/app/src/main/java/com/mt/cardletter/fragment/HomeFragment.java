@@ -98,6 +98,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     private MyViewPager pager;
     private List<String>  tabDatas = new ArrayList<>();
     private RelativeLayout search_et_input;
+    private RelativeLayout part_2;
     private TextView district;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
@@ -108,6 +109,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         //========
         pager = (MyViewPager) view.findViewById(R.id.pager);
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
+        part_2 = (RelativeLayout)view.findViewById(R.id.part_2);
         tabs.setFocusable(true);
         tabs.setFocusableInTouchMode(true);
         tabs.requestFocus();

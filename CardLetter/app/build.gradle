@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.mob.sdk'
-
+apply plugin: 'com.mob.sdk'   //第三方分享
+//apply plugin: 'realm-android'//数据库realm
 
 android {
     compileSdkVersion 25

@@ -90,11 +90,14 @@ public class SplashActivity extends FragmentActivity {
             PermissionUtils.checkPermissionArray(this, permissionArray, 0x10);
             viewPager = (ViewPager) findViewById(R.id.pager);
             circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
+
             /**
              *   创建数据库
              */
             Connector.getDatabase();
             toLoginForBank();         //写入数据库 银行信息
+
+
             FragmentManager supportFragmentManager = getSupportFragmentManager();
             SplashAdapter adapter = new SplashActivity.SplashAdapter(supportFragmentManager);
             final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());

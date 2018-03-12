@@ -24,6 +24,7 @@ import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.mt.cardletter.MainActivity;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.CityPickerActivity;
 import com.mt.cardletter.activity.MoreTabActivity;
@@ -110,6 +111,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         pager = (MyViewPager) view.findViewById(R.id.pager);
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
         part_2 = (RelativeLayout)view.findViewById(R.id.part_2);
+        part_2.setOnClickListener(this);
         tabs.setFocusable(true);
         tabs.setFocusableInTouchMode(true);
         tabs.requestFocus();
@@ -231,6 +233,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
             case R.id.locatio_address://定位城市
                 startActivityForResult(new Intent(getContext(), CityPickerActivity.class),
                         REQUEST_CODE_PICK_CITY);
+                break;
+            case R.id.part_2: //跳转卡积分
+                ((MainActivity) getActivity()).showJFFragment();
                 break;
             default:
                 break;

@@ -63,7 +63,7 @@ public class StartWithoutAppUtil {
             context.startActivity(intent);
         }else{
             Log.d("jk--", "resolveinfo == null");
-            ToastUtils.makeShortText("请下载此APP",context);
+            ToastUtils.makeShortText("请下载对应APP",context);
         }
     }
 

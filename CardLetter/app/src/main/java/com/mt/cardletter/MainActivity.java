@@ -517,4 +517,12 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
         builder.create().show();
     }
+    public void showJFFragment(){
+        FragmentTransaction beginTransaction = fragmentManager.beginTransaction();
+        beginTransaction.hide(showFragment);
+        beginTransaction.show(integralFragment);
+        showFragment = integralFragment;
+        beginTransaction.commit();
+        integral.setChecked(true);
+    }
 }

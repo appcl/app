@@ -223,8 +223,8 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.setails_pl:
                 // TODO: 2018/3/1 :评论入口
-                UIHelper.showCommentActivity(this);
-                // StartWithoutAppUtil.doStartApplicationWithPackageName(this,"com.spdbccc.app");//启动第三方app
+                //UIHelper.showCommentActivity(this);
+                StartWithoutAppUtil.doStartApplicationWithPackageName(this,"com.spdbccc.app");//启动第三方app
 
 
                 break;

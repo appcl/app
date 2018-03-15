@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.BankJFActivity;
+import com.mt.cardletter.activity.GoodActivity;
 import com.mt.cardletter.adapter.BankAdapter;
 import com.mt.cardletter.adapter.CategoryAdapter;
 import com.mt.cardletter.adapter.IntegralAdapter;
@@ -26,6 +27,7 @@ import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
+import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
 import com.mt.cardletter.view.cityview.WrapHeightGridView;
@@ -54,6 +56,7 @@ public class IntegralFragment extends Fragment {
     private WrapHeightGridView b_gridview;
     private EditText search_et_input;
     private View view;
+    private TextView phone_tv,oil_v;
 
 //    @Override
 //    protected int setLayoutResouceId() {
@@ -180,6 +183,23 @@ public class IntegralFragment extends Fragment {
                         getChangeData(name,"t5",Constant.Access_Token,1);
                         break;
                 }
+            }
+        });
+
+        phone_tv = (TextView) view.findViewById(R.id.phone_tv);
+        oil_v = (TextView) view.findViewById(R.id.oil_tv);
+        phone_tv.setOnClickListener(new OnMultiClickListener() {
+            @Override
+            public void onMultiClick(View v) {
+                Intent intent = new Intent(getContext(), GoodActivity.class);
+                startActivity(intent);
+            }
+        });
+        oil_v.setOnClickListener(new OnMultiClickListener() {
+            @Override
+            public void onMultiClick(View v) {
+                Intent intent = new Intent(getContext(), GoodActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -95,7 +95,7 @@ public class BillActivity extends BaseActivity {
 
             @Override
             public void onError(int code, String msg) {
-                ToastUtils.makeShortText("获取信用卡账单请求超时了，请重新获取",BillActivity.this);
+//                ToastUtils.makeShortText("获取信用卡账单请求超时了，请重新获取",BillActivity.this);
                 finish();
             }
         },BillActivity.this));

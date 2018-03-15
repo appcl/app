@@ -11,8 +11,11 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -42,6 +45,7 @@ import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.UIHelper;
+import com.mt.cardletter.view.GalleyTransFormer;
 import com.mt.cardletter.view.Scroll.MyViewPager;
 import com.mt.cardletter.view.Scroll.TopScrollView;
 import com.mt.cardletter.view.dialog.CustomDialog;
@@ -102,6 +106,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     private RelativeLayout search_et_input;
     private RelativeLayout part_2,part_4;
     private TextView district;
+
+    private ViewPager viewPager;
+    private int[] arr = new int[]{R.drawable.img_detail, R.drawable.icon_shop, R.drawable.food0};
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
     @Override
@@ -145,6 +153,44 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
             }
         });
 //        showToast("");
+
+        viewPager = (ViewPager) view.findViewById(R.id.gallery_1_viewpager);
+        viewPager.setPageTransformer(true, new GalleyTransFormer());
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setAdapter(new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return arr.length;
+            }
+
+            @Override
+            public boolean isViewFromObject(View view, Object object) {
+                return view == object;
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeView((View) object);
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                ImageView imageView = new ImageView(getContext());
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                imageView.setImageResource(arr[position]);
+                container.addView(imageView);
+                return imageView;
+            }
+        });
+        viewPager.setCurrentItem(1);
+        /*设置点击ViewPager之外的部位，ViewPager跟着滑动*/
+        RelativeLayout parent = (RelativeLayout) viewPager.getParent();
+        parent.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return viewPager.dispatchTouchEvent(event);
+            }
+        });
         return view;
     }
 

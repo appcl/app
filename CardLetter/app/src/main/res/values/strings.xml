@@ -79,4 +79,5 @@
     <string name="system_download_component_disable">下载服务不可用,请您启用</string>
     <string name="system_download_description">版本更新</string>
 
+    <string name="detail_header_behavior">com.mt.cardletter.view.exchage.DetailHeaderBehavior</string>
 </resources>

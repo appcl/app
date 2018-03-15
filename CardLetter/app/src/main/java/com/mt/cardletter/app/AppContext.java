@@ -7,8 +7,6 @@ import android.content.Context;
 import android.os.Vibrator;
 import android.support.multidex.MultiDex;
 
-import com.baidu.mapapi.CoordType;
-import com.baidu.mapapi.SDKInitializer;
 import com.mob.MobSDK;
 import com.mt.cardletter.service.LocationService;
 
@@ -100,8 +98,8 @@ public class AppContext extends Application {
         registerUncaughtExceptionHandler();
         locationService = new LocationService(getApplicationContext());
         mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
-        SDKInitializer.initialize(this);
-        SDKInitializer.setCoordType(CoordType.BD09LL);
+//        SDKInitializer.initialize(this);
+//        SDKInitializer.setCoordType(CoordType.BD09LL);
 
         /**
          * 初始化数据库

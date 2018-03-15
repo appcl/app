@@ -6,4 +6,8 @@
     <dimen name="side_letter_bar_letter_size">13sp</dimen>
     <dimen name="side_letter_bar_width">36dp</dimen>
     <dimen name="city_text_size">16sp</dimen>
+
+    <dimen name="cut_margin">51dp</dimen>
+    <dimen name="add_width">75dp</dimen>
+    <dimen name="shopcar_height">65dp</dimen>
 </resources>

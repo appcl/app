@@ -451,6 +451,25 @@
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:background="@color/padding_color"/>
+        <RelativeLayout
+            android:id="@+id/gallery_1"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="80dp"
+            android:clipChildren="false"
+            android:layerType="software"
+           >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/gallery_1_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:clipChildren="false" >
+            </android.support.v4.view.ViewPager>
+        </RelativeLayout >
         <!--保持部分-->
         <LinearLayout
             android:id="@+id/search02"

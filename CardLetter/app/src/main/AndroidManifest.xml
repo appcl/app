@@ -410,6 +410,16 @@
         <!-- 卡发现详情页面 -->
         <activity android:name=".activity.MoreTabActivity"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.GoodActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.DetailActivity"
+            android:theme="@style/NoTitleTranslucentTheme"/>
+
+        <activity android:name=".activity.ShopDetailActivity"
+            android:screenOrientation="portrait"/>
+
         <!-- 办理信用卡的页面 -->
         <activity android:name=".activity.comment.CreditWebActivity"
             android:screenOrientation="portrait"/>

@@ -9,6 +9,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.2.0'
         // 注册MobSDK
         classpath "com.mob.sdk:MobSDK:+"
+        //第三方数据库
+        classpath "io.realm:realm-gradle-plugin:2.0.2"//数据库框架
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

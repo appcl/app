@@ -32,6 +32,7 @@ import com.mt.cardletter.R;
 import com.mt.cardletter.activity.ScreenActivity;
 import com.mt.cardletter.activity.SetailsActivity;
 import com.mt.cardletter.app.AppContext;
+import com.mt.cardletter.db.dbuitls.DBCreate;
 import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.FindCategoryList;
@@ -184,7 +185,6 @@ public class CompleteFragment extends BaseFragment {
                 Intent intent = getActivity().getIntent();
                 intent.setClass(getActivity(),SetailsActivity.class);
                 if(myList.get(position-1)!=null){
-                    List<BankTable> bankTable = DataSupport.where("bank_id = ?",myList.get(position-1).getBankcard()+"").find(BankTable.class);//查询数据库
                     intent.putExtra("cardfind_id",myList.get(position-1).getId()+"");
 //                    intent.putExtra("bank",bankTable.get(0).getName());  // TODO: 2018/1/23 银行类别待修改
 //                    intent.putExtra("bank_url",bankTable.get(0).getCardThumb());
@@ -256,17 +256,17 @@ public class CompleteFragment extends BaseFragment {
                 holder.discounts.setText("");
                 holder.obj.setText(myList.get(position).getDescribe());
 
-                List<BankTable> bankTable = DataSupport.where("bank_id = ?",myList.get(position).getBankcard()+"").find(BankTable.class);
-                holder.bank.setText(bankTable.get(0).getName());
+               BankTable bankTable = DBCreate.selectBankById(myList.get(position).getBankcard());
+                holder.bank.setText(bankTable.getName());
 
+//                LatLng p1LL = new LatLng(  37.0,118.0);
+//                LatLng p2LL = new LatLng( myList.get(position).getLng(),myList.get(position).getLat() );
+//
+//                BigDecimal bg = new BigDecimal( DistanceUtil.getDistance(p1LL, p2LL) );
+//                DecimalFormat df = new DecimalFormat("#");//忽略
+//                String format = df.format(bg);
+                holder.distance.setText("1000"+" 米");
 
-                LatLng p1LL = new LatLng(  AppContext.getInstance().getLat(),AppContext.getInstance().getLon() );
-                LatLng p2LL = new LatLng( myList.get(position).getLng(),myList.get(position).getLat() );
-
-                BigDecimal bg = new BigDecimal( DistanceUtil.getDistance(p1LL, p2LL) );
-                DecimalFormat df = new DecimalFormat("#");//忽略
-                String format = df.format(bg);
-                holder.distance.setText(format+" 米");
                 Glide.with(CompleteFragment.this).load(Constant.BASE_URL+myList.get(position).getThumb()).error(R.drawable.default_error).into(holder.img);
             }
             return convertView;

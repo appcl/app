@@ -410,7 +410,9 @@
         <!-- 卡发现详情页面 -->
         <activity android:name=".activity.MoreTabActivity"
             android:screenOrientation="portrait"/>
-
+        <!-- 办理信用卡的页面 -->
+        <activity android:name=".activity.comment.CreditWebActivity"
+            android:screenOrientation="portrait"/>
         <receiver android:name=".utils.updater.ApkInstallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />

@@ -1,6 +1,7 @@
 package com.mt.cardletter.app;
 
 
+import android.app.Application;
 import android.app.Service;
 import android.content.Context;
 import android.os.Vibrator;
@@ -19,9 +20,11 @@ import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 
-public class AppContext extends LitePalApplication {
+public class AppContext extends Application {
     private static AppContext app;
     {
 //        PlatformConfig.setWeixin("wxdc18eb813baac5f0", "7685f3096a19535a46e5cddfe91b997a");
@@ -101,10 +104,18 @@ public class AppContext extends LitePalApplication {
         SDKInitializer.setCoordType(CoordType.BD09LL);
 
         /**
+         * 初始化数据库
+         */
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder().build();
+        Realm.setDefaultConfiguration(config);
+        /**
          * 激光初始化
          */
-        JPushInterface.setDebugMode(false);    // 设置开启日志,发布时请关闭日志
-        JPushInterface.init(this);            // 初始化 JPush
+//        JPushInterface.setDebugMode(false);    // 设置开启日志,发布时请关闭日志
+//        JPushInterface.init(this);            // 初始化 JPush
+
+
     }
     // 注册App异常崩溃处理器
     private void registerUncaughtExceptionHandler() {

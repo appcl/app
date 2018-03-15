@@ -23,6 +23,7 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.base.BaseActivity;
+import com.mt.cardletter.db.dbuitls.DBCreate;
 import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.merchant.Bank;
 import com.mt.cardletter.entity.merchant.MyBank;
@@ -108,7 +109,8 @@ public class ScreenActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void toLogin() {
-        List<BankTable> all = DataSupport.findAll(BankTable.class);
+        //(3)读取数据库
+        List<BankTable> all = DBCreate.selectBankAll();
         for (BankTable bankTable:all) {
             Bank.DataBean bean = new Bank.DataBean();
             bean.setId(Integer.parseInt(bankTable.getBank_id()));

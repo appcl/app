@@ -467,7 +467,6 @@ public class LoactionActivity extends BaseActivity implements SensorEventListene
                 if (data.getCode() == 0) {
                     banks = data.getData();
 
-
                 }
             }
 

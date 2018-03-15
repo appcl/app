@@ -28,6 +28,7 @@ import com.mt.cardletter.MainActivity;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.CityPickerActivity;
 import com.mt.cardletter.activity.MoreTabActivity;
+import com.mt.cardletter.activity.comment.CreditWebActivity;
 import com.mt.cardletter.entity.article.ArticleBean;
 import com.mt.cardletter.entity.data.HeWeather;
 import com.mt.cardletter.entity.news.NetNewsCategory;
@@ -99,7 +100,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     private MyViewPager pager;
     private List<String>  tabDatas = new ArrayList<>();
     private RelativeLayout search_et_input;
-    private RelativeLayout part_2;
+    private RelativeLayout part_2,part_4;
     private TextView district;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
@@ -111,7 +112,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         pager = (MyViewPager) view.findViewById(R.id.pager);
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
         part_2 = (RelativeLayout)view.findViewById(R.id.part_2);
+        part_4 = (RelativeLayout)view.findViewById(R.id.part_4);
         part_2.setOnClickListener(this);
+        part_4.setOnClickListener(this);
         tabs.setFocusable(true);
         tabs.setFocusableInTouchMode(true);
         tabs.requestFocus();
@@ -236,6 +239,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                 break;
             case R.id.part_2: //跳转卡积分
                 ((MainActivity) getActivity()).showJFFragment();
+                break;
+            case R.id.part_4: //跳转申请信用卡
+                startActivity(new Intent(getContext(), CreditWebActivity.class));
                 break;
             default:
                 break;

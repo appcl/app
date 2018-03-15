@@ -45,6 +45,8 @@ import org.litepal.tablemanager.Connector;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+
 
 /**
  * Date:2017/12/13
@@ -74,9 +76,6 @@ public class SplashActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         splashActivity = this;
-        //PermissionUtils.checkPermissionArray(this, permissionArray, 0x10);
-//        viewPager = (ViewPager) findViewById(R.id.pager);
-//        circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
         imageView = (ImageView) findViewById(R.id.splash_img);
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -87,16 +86,13 @@ public class SplashActivity extends FragmentActivity {
         int splash_is_open = SharedPreferences.getInstance().getInt("splash_is_open", SPLASH_OPEN);
 
         if (splash_is_open == SPLASH_OPEN) { //首次进入APP
-            PermissionUtils.checkPermissionArray(this, permissionArray, 0x10);
+            PermissionUtils.checkPermissionArray(this, permissionArray, 0x10);//权限检测与申请
             viewPager = (ViewPager) findViewById(R.id.pager);
             circlePageIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
-
             /**
-             *   创建数据库
+             *   创建数据库  （1.1）
              */
-            Connector.getDatabase();
-            toLoginForBank();         //写入数据库 银行信息
-
+            toLoginForBank();//写入数据库 银行信息
 
             FragmentManager supportFragmentManager = getSupportFragmentManager();
             SplashAdapter adapter = new SplashActivity.SplashAdapter(supportFragmentManager);
@@ -109,19 +105,12 @@ public class SplashActivity extends FragmentActivity {
 
         } else {   //非首次进入APP
             imageView.setVisibility(View.VISIBLE);
-//            circlePageIndicator.setVisibility(View.GONE);
-//            viewPager.setVisibility(View.GONE);
             /**
-             *   创建数据库
+             *   创建数据库  （1.2）
              */
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Connector.getDatabase();
-                    toLoginForBank();//写入数据库 银行信息
-                    getMybank();//获取用户数据
-                }
-            });
+            toLoginForBank();//写入数据库 银行信息
+            getMybank();//获取用户数据
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -129,34 +118,6 @@ public class SplashActivity extends FragmentActivity {
                     startActivity(intent);
                 }
             }, 2000);
-        }
-    }
-
-    /**
-     * 适配器2
-     */
-    public class MyAdapter extends PagerAdapter {
-        private List<View> mListViews;
-        public MyAdapter(List<View> mListViews) {
-            this.mListViews = mListViews;
-        }
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object)  {
-            container.removeView(mListViews.get(position));//删除页卡
-        }
-        @Override
-        public Object instantiateItem(ViewGroup container, int position){
-            container.addView(mListViews.get(position), 0);
-            return mListViews.get(position);
-        }
-        @Override
-        public int getCount() {
-            return  mListViews.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0==arg1;//官方提示这样写
         }
     }
     /**
@@ -192,16 +153,10 @@ public class SplashActivity extends FragmentActivity {
                 if (data.getCode() == 0) {
                     myList = data.getData();
                 }
-                //数据库存储操作
-                DataSupport.deleteAll(BankTable.class);
-                for (Bank.DataBean bank: myList) {
-                    DBCreate.addBankForBankTable(bank);
+                for (int i = 0; i < myList.size() ; i++) {
+                    DBCreate.addBankForBankTable(i,myList.get(i));
                 }
                 SharedPreferences.getInstance().putInt("splash_is_open",SPLASH_UNOPEN);//取消首次打开
-//                List<BankTable> all = DataSupport.findAll(BankTable.class);
-//                for (BankTable banktable: all) {
-//                    System.out.println("jk----bank   "+banktable.getId()+"----"+banktable.getName());
-//                }
             }
             @Override
             public void onError(int code, String msg) {

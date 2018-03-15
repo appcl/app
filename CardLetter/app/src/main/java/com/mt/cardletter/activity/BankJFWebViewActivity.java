@@ -1,16 +1,26 @@
 package com.mt.cardletter.activity;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Message;
+import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.base.BaseActivity;
+import com.mt.cardletter.db.dbuitls.DBCreate;
+import com.mt.cardletter.db.tables.BankTable;
+import com.mt.cardletter.utils.start.StartWithoutAppUtil;
 import com.mt.cardletter.view.animview.AnimDialog;
 
 /**
@@ -20,9 +30,10 @@ import com.mt.cardletter.view.animview.AnimDialog;
  */
 
 public class BankJFWebViewActivity extends BaseActivity {
-    private WebView webView;
     private WebView wv;
     private String url;
+    private TextView jump_bank;
+    private String bank_id;
     @Override
     protected int getLayoutResId() {
         getDatas();
@@ -31,15 +42,28 @@ public class BankJFWebViewActivity extends BaseActivity {
 
     private void getDatas() {
         Bundle b = getIntent().getExtras();
-        url=b.getString("url");
-        System.out.println("data_url---"+url);
+        url = b.getString("url");
+        bank_id = b.getString("bank_id");
+        System.out.println("data_url---" + url);
     }
+
     @Override
     public void initView() {
+
+
         wv = (WebView) findViewById(R.id.mail_web);
 //        wv.loadUrl(url);
+        jump_bank = (TextView) findViewById(R.id.jump_bank);
+        System.out.println("jj---jump_bank--"+bank_id);
+        final BankTable bankTable =  DBCreate.selectBankById(bank_id);
+        jump_bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        WebSettings webSettings = wv .getSettings();
+                StartWithoutAppUtil.doStartApplicationWithPackageName(BankJFWebViewActivity.this, bankTable.getBank_page(),bankTable.getBank_page_name());
+            }
+        });
+        WebSettings webSettings = wv.getSettings();
         webSettings.setJavaScriptEnabled(true); //支持js
         //webSettings.setPluginState(WebSettings.PluginState.ON);//支持插件
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
@@ -51,7 +75,7 @@ public class BankJFWebViewActivity extends BaseActivity {
 
         final AnimDialog dialog = AnimDialog.newInstance();
         dialog.show(BankJFWebViewActivity.this.getSupportFragmentManager());
-        wv.setWebViewClient(new WebViewClient(){
+        wv.setWebViewClient(new WebViewClient() {
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                 System.out.println("jk-------接受信任所有网站的证书");
@@ -59,9 +83,10 @@ public class BankJFWebViewActivity extends BaseActivity {
                 // handler.cancel();   // 默认操作 不处理
                 // handler.handleMessage(null);  // 可做其他处理
             }
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                System.out.println("url----"+url);
+                System.out.println("url----" + url);
                 wv.loadUrl(url);
                 return true;
             }
@@ -155,4 +180,6 @@ public class BankJFWebViewActivity extends BaseActivity {
     protected void handler(Message msg) {
 
     }
+
+
 }

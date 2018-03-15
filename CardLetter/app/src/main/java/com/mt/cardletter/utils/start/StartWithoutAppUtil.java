@@ -8,7 +8,9 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.mt.cardletter.utils.ToastUtils;
@@ -21,7 +23,7 @@ import java.util.List;
 
 public class StartWithoutAppUtil {
 
-    public static void doStartApplicationWithPackageName(Context context, String packagename) {
+    public static void doStartApplicationWithPackageName(Context context, String packagename,String errorString) {
         getAppList(context);
         // 通过包名获取此APP详细信息，包括Activities、services、versioncode、name等等
         PackageInfo packageinfo = null;
@@ -33,7 +35,11 @@ public class StartWithoutAppUtil {
             e.printStackTrace();
         }
         if (packageinfo == null) {
-            Log.d("jk--", "packageinfo == null");
+            Looper.prepare();
+            Toast.makeText(context, "这是一个Toast222", Toast.LENGTH_SHORT).show();
+            Looper.loop();
+
+            System.out.println("jj-----------------------请下载----");
             return;
         }
         // 创建一个类别为CATEGORY_LAUNCHER的该包名的Intent
@@ -63,7 +69,7 @@ public class StartWithoutAppUtil {
             context.startActivity(intent);
         }else{
             Log.d("jk--", "resolveinfo == null");
-            ToastUtils.makeShortText("请下载对应APP",context);
+            ToastUtils.makeShortText("请下载 \"errorString\" APP",context);
         }
     }
 

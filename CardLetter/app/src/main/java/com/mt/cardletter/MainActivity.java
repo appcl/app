@@ -7,19 +7,16 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.alibaba.fastjson.util.ASMClassLoader;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.Poi;
@@ -41,15 +38,10 @@ import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.utils.updater.Updater;
 import com.mt.cardletter.utils.updater.UpdaterConfig;
 import com.mt.cardletter.view.dialog.CustomDialog;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener{
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -160,9 +152,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         beginTransaction.hide(mineFragment);
         beginTransaction.commit();
         showFragment = homeFragment;
-
-
-
     }
 
     @Override
@@ -366,50 +355,50 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     private void setAlias(String alias) {
         //调用JPush API设置Alias
         System.out.println("******调用JPush API设置Alias*******"+alias);
-        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, alias));
+       // mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, alias));
     }
     private static final int MSG_SET_ALIAS = 1111;
 
-    private final Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case MSG_SET_ALIAS:
-                    JPushInterface.setAliasAndTags(getApplicationContext(), (String) msg.obj, null, mAliasCallback);
-                    break;
-            }
-        }
-    };
+//    private final Handler mHandler = new Handler(){
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            switch (msg.what){
+//                case MSG_SET_ALIAS:
+//                    JPushInterface.setAliasAndTags(getApplicationContext(), (String) msg.obj, null, mAliasCallback);
+//                    break;
+//            }
+//        }
+//    };
 
 
-    private final TagAliasCallback mAliasCallback = new TagAliasCallback(){
-
-        @Override
-        public void gotResult(int code, String alias, Set<String> tags) {
-            String logs;
-            switch (code) {
-                case 0:
-                    logs = "Set tag and alias success";
-                    Log.i(TAG, logs);
-                    break;
-
-                case 6002:
-                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
-                    Log.i(TAG, logs);
-                    if (isConnected(getApplicationContext())) {
-                        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
-                    } else {
-                        Log.i(TAG, "No network");
-                    }
-                    break;
-
-                default:
-                    logs = "Failed with errorCode = " + code;
-                    Log.e(TAG, logs);
-            }
-        }
-    };
+//    private final TagAliasCallback mAliasCallback = new TagAliasCallback(){
+//
+//        @Override
+//        public void gotResult(int code, String alias, Set<String> tags) {
+//            String logs;
+//            switch (code) {
+//                case 0:
+//                    logs = "Set tag and alias success";
+//                    Log.i(TAG, logs);
+//                    break;
+//
+//                case 6002:
+//                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+//                    Log.i(TAG, logs);
+//                    if (isConnected(getApplicationContext())) {
+//                        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+//                    } else {
+//                        Log.i(TAG, "No network");
+//                    }
+//                    break;
+//
+//                default:
+//                    logs = "Failed with errorCode = " + code;
+//                    Log.e(TAG, logs);
+//            }
+//        }
+//    };
 
     public static boolean isConnected(Context context) {
         ConnectivityManager conn = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -420,13 +409,13 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
     @Override
     protected void onResume() {
         super.onResume();
-        JPushInterface.onResume(this);
+      //  JPushInterface.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        JPushInterface.onPause(this);
+       // JPushInterface.onPause(this);
     }
 
     @Override

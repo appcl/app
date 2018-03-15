@@ -104,6 +104,7 @@ public class BankJFActivity extends BaseActivity {
                     Intent intent = new Intent(BankJFActivity.this,BankJFWebViewActivity.class);
                     Bundle b = new Bundle();
                     b.putString("url",sell_lists.get(position-1).getB_url());
+                    b.putString("bank_id",sell_lists.get(position-1).getBankcard());
                     intent.putExtras(b);
                     startActivity(intent);
                 }

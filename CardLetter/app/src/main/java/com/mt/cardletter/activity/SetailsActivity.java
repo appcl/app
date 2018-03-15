@@ -28,6 +28,7 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.base.BaseActivity;
+import com.mt.cardletter.db.dbuitls.DBCreate;
 import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.collect.Collect;
 import com.mt.cardletter.entity.merchant.Good;
@@ -179,10 +180,11 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
                 collect_text.setText("收藏");
             }
 
-            //data  for db
-            List<BankTable> bankTable = DataSupport.where("bank_id = ?", good.getBankcard()).find(BankTable.class);//查询数据库
-            setails_obj.setText(bankTable.get(0).getName());
-            Glide.with(this).load(Constant.BASE_URL + bankTable.get(0).getCardThumb()).error(R.drawable.default_error).into(item_bank);
+            //（4）读取数据库
+            BankTable bankTable1 = DBCreate.selectBankById(good.getBankcard());
+
+            setails_obj.setText(bankTable1.getName());
+            Glide.with(this).load(Constant.BASE_URL + bankTable1.getCardThumb()).error(R.drawable.default_error).into(item_bank);
         }
     }
 
@@ -224,7 +226,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
             case R.id.setails_pl:
                 // TODO: 2018/3/1 :评论入口
                 //UIHelper.showCommentActivity(this);
-                StartWithoutAppUtil.doStartApplicationWithPackageName(this,"com.spdbccc.app");//启动第三方app
+                StartWithoutAppUtil.doStartApplicationWithPackageName(this,"","------");//启动第三方app
 
 
                 break;

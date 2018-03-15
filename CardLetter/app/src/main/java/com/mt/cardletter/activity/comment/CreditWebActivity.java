@@ -89,7 +89,19 @@ public class CreditWebActivity extends BaseActivity {
                 System.out.println("jk1-------加载网页失败");
             }
         });
+        wv.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                System.out.println("kk-----"+newProgress);
+                super.onProgressChanged(view, newProgress);
+            }
 
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                System.out.println("kk-----"+title);
+                super.onReceivedTitle(view, title);
+            }
+        });
         wv.loadUrl(url);
 
     }

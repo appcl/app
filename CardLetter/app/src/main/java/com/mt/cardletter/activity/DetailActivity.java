@@ -84,7 +84,7 @@ public class DetailActivity extends GoodsBaseActivity implements AddWidget.OnAdd
         TextView detail_sale = (TextView) findViewById(R.id.detail_sale);
         detail_sale.setText(foodBean.getSale() + " 好评率95%");
         TextView detail_price = (TextView) findViewById(R.id.detail_price);
-        detail_price.setText(String.valueOf(foodBean.getPrice()));
+        detail_price.setText(foodBean.getStrPrice(mContext));
         detail_add = (AddWidget) findViewById(R.id.detail_add);
         detail_add.setData(this, foodBean);
         detail_add.setState(foodBean.getSelectCount());

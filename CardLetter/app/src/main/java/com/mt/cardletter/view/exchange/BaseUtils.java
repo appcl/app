@@ -34,7 +34,7 @@ public class BaseUtils {
 		FoodBean foodBean = new FoodBean();
 		foodBean.setId(0);
 		foodBean.setName("10元话费");
-		foodBean.setPrice(BigDecimal.valueOf(100));
+		foodBean.setPrice(BigDecimal.valueOf(10));
 		foodBean.setJf(100);
 		foodBean.setSale("月售" + new Random().nextInt(100));
 		foodBean.setType("话费");
@@ -45,7 +45,7 @@ public class BaseUtils {
 		FoodBean foodBean1 = new FoodBean();
 		foodBean1.setId(1);
 		foodBean1.setName("50元话费");
-		foodBean1.setPrice(BigDecimal.valueOf(500));
+		foodBean1.setPrice(BigDecimal.valueOf(50));
 		foodBean1.setJf(500);
 		foodBean1.setSale("月售" + new Random().nextInt(100));
 		foodBean1.setType("话费");
@@ -56,7 +56,7 @@ public class BaseUtils {
 		FoodBean foodBean10 = new FoodBean();
 		foodBean10.setId(2);
 		foodBean10.setName("100元话费");
-		foodBean10.setPrice(BigDecimal.valueOf(1000));
+		foodBean10.setPrice(BigDecimal.valueOf(100));
 		foodBean10.setJf(1000);
 		foodBean10.setSale("月售" + new Random().nextInt(100));
 		foodBean10.setType("话费");
@@ -67,7 +67,7 @@ public class BaseUtils {
 		FoodBean foodBean100 = new FoodBean();
 		foodBean100.setId(3);
 		foodBean100.setName("100元加油卡");
-		foodBean100.setPrice(BigDecimal.valueOf(1000));
+		foodBean100.setPrice(BigDecimal.valueOf(100));
 		foodBean100.setJf(1000);
 		foodBean100.setSale("月售" + new Random().nextInt(100));
 		foodBean100.setType("加油卡");

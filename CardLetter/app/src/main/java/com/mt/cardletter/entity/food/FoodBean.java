@@ -95,7 +95,7 @@ public class FoodBean implements Serializable {
 
 	public SpannableString getStrPrice(Context context, BigDecimal price) {
 		String priceStr = String.valueOf(price);
-		SpannableString spanString = new SpannableString("扣" + priceStr+" 积分");
+		SpannableString spanString = new SpannableString("¥" + priceStr);
 		AbsoluteSizeSpan span = new AbsoluteSizeSpan(ViewUtils.sp2px(context, 11));
 		spanString.setSpan(span, 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 		return spanString;

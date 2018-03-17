@@ -37,7 +37,7 @@ public class ShopInfoContainer extends RelativeLayout {
         shop_send = (TextView) findViewById(R.id.tv_shop_send);
         ViewUtils.getBlurFresco(context, (SimpleDraweeView) findViewById(R.id.iv_shop_bg), "res:///" + R.drawable.icon_shop);
         iv_shop = (SimpleDraweeView) findViewById(R.id.iv_shop);
-        ViewUtils.getFrescoController(context, iv_shop, "res:///" + R.drawable.icon_shops, 40, 40);
+        ViewUtils.getFrescoController(context, iv_shop, "res:///" + R.drawable.icon_shops, 100, 100);
     }
 
     public ShopInfoContainer(Context context, AttributeSet attrs, int defStyle){

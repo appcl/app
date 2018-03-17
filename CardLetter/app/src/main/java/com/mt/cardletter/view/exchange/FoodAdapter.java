@@ -32,7 +32,7 @@ public class FoodAdapter extends BaseQuickAdapter<FoodBean,BaseViewHolder>{
     @Override
     protected void convert(BaseViewHolder helper, FoodBean item) {
         helper.setText(R.id.tv_name, item.getName())
-                .setText(R.id.tv_price,String.valueOf(item.getPrice()))
+                .setText(R.id.tv_price,item.getStrPrice(mContext))
                 .setText(R.id.tv_sale, item.getSale())
                 .setImageResource(R.id.iv_food, item.getIcon()).addOnClickListener(R.id.addwidget)
                 .addOnClickListener(R.id.food_main)

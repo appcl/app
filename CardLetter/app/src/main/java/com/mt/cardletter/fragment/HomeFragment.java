@@ -108,7 +108,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     private TextView district;
 
     private ViewPager viewPager;
-    private int[] arr = new int[]{R.drawable.img_detail, R.drawable.icon_shop, R.drawable.food0};
+    private int[] arr = new int[]{R.drawable.main_banner, R.drawable.icon_shop, R.drawable.food0};
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable

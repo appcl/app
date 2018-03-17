@@ -92,15 +92,15 @@ public class ShopCarView extends FrameLayout{
 
     public void updateAmount(BigDecimal amount) {
         if (amount.compareTo(new BigDecimal(0.0)) == 0) {
-            car_limit.setText("500 积分起兑换");
+            car_limit.setText("0.1元起购");
             car_limit.setTextColor(Color.parseColor("#a8a8a8"));
             car_limit.setBackgroundColor(Color.parseColor("#535353"));
             findViewById(R.id.car_nonselect).setVisibility(View.VISIBLE);
             findViewById(R.id.amount_container).setVisibility(View.GONE);
             iv_shop_car.setImageResource(R.drawable.shop_car_empty);
             behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        } else if (amount.compareTo(new BigDecimal(500.0)) < 0) {
-            car_limit.setText("还差 ¥" + new BigDecimal(500.0).subtract(amount) + " 积分起兑换");
+        } else if (amount.compareTo(new BigDecimal(0.1)) < 0) {
+            car_limit.setText("还差 ¥" + new BigDecimal(0.1).subtract(amount) + " 元起购");
             car_limit.setTextColor(Color.parseColor("#a8a8a8"));
             car_limit.setBackgroundColor(Color.parseColor("#535353"));
             findViewById(R.id.car_nonselect).setVisibility(View.GONE);

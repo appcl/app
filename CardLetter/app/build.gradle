@@ -123,6 +123,8 @@ dependencies {
     compile(name: 'viewpagerindicator', ext: 'aar')
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.25'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //微信支付与统计
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
 }
 MobSDK {
     appKey "23f07cf0db010"

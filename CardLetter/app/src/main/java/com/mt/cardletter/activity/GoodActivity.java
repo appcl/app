@@ -26,6 +26,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.mt.cardletter.R;
+import com.mt.cardletter.activity.comment.PayActivity;
 import com.mt.cardletter.entity.food.FoodBean;
 import com.mt.cardletter.fragment.FirstFragment;
 import com.mt.cardletter.fragment.SecondFragment;
@@ -62,7 +63,7 @@ public class GoodActivity extends GoodsBaseActivity implements AddWidget.OnAddCl
     private FirstFragment firstFragment;
     public static CarAdapter carAdapter;
     private ShopCarView shopCarView;
-
+    private TextView car_limit;
 
     @Override
     protected int getLayoutId() {
@@ -82,6 +83,13 @@ public class GoodActivity extends GoodsBaseActivity implements AddWidget.OnAddCl
 
     public void initViews() {
         rootview = (CoordinatorLayout) findViewById(R.id.rootview);
+        car_limit = (TextView) findViewById(R.id.car_limit);
+        car_limit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(GoodActivity.this, PayActivity.class));
+            }
+        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initViewpager();
         initShopCar();

@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.base.BaseActivity;
+import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
+import com.mt.cardletter.view.pulltorefresh.PullToRefreshScrollView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +18,7 @@ public class AboutActivity extends BaseActivity {
     private TextView textView;
     private FrameLayout back;
     private TextView title_name;
+    private PullToRefreshScrollView scrollView;
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_about;
@@ -23,6 +26,8 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        scrollView = (PullToRefreshScrollView) findViewById(R.id.scroll_view);
+        scrollView.setMode(PullToRefreshBase.Mode.BOTH);
         title_name = (TextView) findViewById(R.id.title_name);
         title_name.setText("关于");
         back = (FrameLayout) findViewById(R.id.com_back_click);
@@ -30,7 +35,7 @@ public class AboutActivity extends BaseActivity {
         textView = (TextView) findViewById(R.id.tv_about);
         //textView.setText(getIntroduce());
     }
-    
+
     public String getIntroduce() {
         AssetManager am = getAssets();
         InputStream is = null;

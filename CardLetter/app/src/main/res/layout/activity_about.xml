@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/action_title"/>
-    <ScrollView
+    <com.mt.cardletter.view.pulltorefresh.PullToRefreshScrollView
+        android:id="@+id/scroll_view"
         android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -32,12 +33,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:id="@+id/tv_about"
-                android:text="      卡信是一款提供一站式信用卡管理服务的APP产品，其丰富的应用功能为广大用户提供良好体验。只要用户一键绑定账单邮箱，即可尊享优惠账单、算免息期、查找优惠信息、还款日提醒、积分兑换、在线快捷还款等服务。/n/n
+                android:text="      卡信是一款提供一站式信用卡管理服务的APP产品，其丰富的应用功能为广大用户提供良好体验。只要用户一键绑定账单邮箱，即可尊享优惠账单、算免息期、查找优惠信息、还款日提醒、积分兑换、在线快捷还款等服务。\n\n
 中国银行业协会发布了《中国银行业产业发展蓝皮书》，数据显示，截至2016年年底，银行卡累计发卡量63.7亿张，当年新增发卡量7.6亿张，同比增长13.5%；活卡量达到了41.8亿张，其中当年新增4.9亿张，同比增长13.3%。然而市面上大部分的相似类的APP多以提供金融类服务为主，卡信主要为用户提供商家信息、消费点评、消费优惠、积分兑换等信息服务，同时亦提供团购、餐厅预定。\n\n
 
 信用卡账单还要一张张去查？\n\n
@@ -59,7 +60,32 @@
 卡信APP是一款为客户的信用卡提供综合类服务，集合了卡积分、卡发现、卡管家等功能与一身的实用生活类APP。能够让我们随时随地查找美食、休闲娱乐、酒店等各种商家，覆盖几乎所有本地生活服务行业，绝对可以让你找到一个合适的商家！"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/color_text_gray_99"
+                    android:textSize="12sp"
+                    android:id="@+id/about_right"
+                    android:text="Copyright @2017-2018"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginBottom="20dp"
+                    android:textColor="@color/color_text_gray_99"
+                    android:gravity="center_horizontal"
+                    android:textSize="12sp"
+                    android:text="江苏南京金钧智科技有限公司"
+                    android:id="@+id/about_copy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+
+    </com.mt.cardletter.view.pulltorefresh.PullToRefreshScrollView>
 
 </LinearLayout>

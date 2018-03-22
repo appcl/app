@@ -51,7 +51,6 @@
     -
     <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-
     <application
         android:name=".app.AppContext"
         android:allowBackup="true"
@@ -410,7 +409,9 @@
         <!-- 卡发现详情页面 -->
         <activity android:name=".activity.MoreTabActivity"
             android:screenOrientation="portrait"/>
-
+        <!-- 支付跳转页面 -->
+        <activity android:name=".activity.comment.PayActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.GoodActivity"
             android:screenOrientation="portrait"/>
 

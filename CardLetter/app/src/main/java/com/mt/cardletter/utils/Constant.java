@@ -58,6 +58,7 @@ public class Constant {
     public static final String BASE_URL = "https://www.51kaxin.xyz";               //测试url
     public static final String BASIC = "NTFrYWxheGluOjYya2F4aW4=";               //测试basic
     public static final String JH_KEY = "9a66765e53c4bf57f1e614d3fefe02d1";      //聚合查快递的Key
+    public static final String WEIXINPAY = "https://api.mch.weixin.qq.com/pay/unifiedorder";      //微信支付URL
 
     public static final String JH_CAR = "8e54776ff5c43672a1e8380c988af6bc";         //聚合违章查询Key
 //    public static final String JH_KEY = "9a66765e53c4bf57f1e614d3fefe02d1";       //聚合快递查询Key

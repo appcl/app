@@ -30,6 +30,7 @@ import com.mt.cardletter.activity.comment.PayActivity;
 import com.mt.cardletter.entity.food.FoodBean;
 import com.mt.cardletter.fragment.FirstFragment;
 import com.mt.cardletter.fragment.SecondFragment;
+import com.mt.cardletter.utils.ToastUtils;
 import com.mt.cardletter.view.exchange.AddWidget;
 import com.mt.cardletter.view.exchange.AppBarBehavior;
 import com.mt.cardletter.view.exchange.CarAdapter;
@@ -46,6 +47,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 /**
  * Date:2018/3/12
@@ -64,6 +66,7 @@ public class GoodActivity extends GoodsBaseActivity implements AddWidget.OnAddCl
     public static CarAdapter carAdapter;
     private ShopCarView shopCarView;
     private TextView car_limit;
+    private String pay_value;
 
     @Override
     protected int getLayoutId() {
@@ -84,10 +87,18 @@ public class GoodActivity extends GoodsBaseActivity implements AddWidget.OnAddCl
     public void initViews() {
         rootview = (CoordinatorLayout) findViewById(R.id.rootview);
         car_limit = (TextView) findViewById(R.id.car_limit);
+        pay_value = car_limit.getText().toString();
+        System.out.println("------"+pay_value);
         car_limit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GoodActivity.this, PayActivity.class));
+                if (pay_value.equals("0.1 元起购")||pay_value.equals("0.0")){
+                    ToastUtils.makeShortText("请选择你要购买的商品!",GoodActivity.this);
+                }else {
+                    Intent intent = new Intent(GoodActivity.this, PayActivity.class);
+                    intent.putExtra("value",pay_value);
+                    startActivity(intent);
+                }
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -214,6 +225,7 @@ public class GoodActivity extends GoodsBaseActivity implements AddWidget.OnAddCl
         }
         shopCarView.showBadge(total);
         firstFragment.getTypeAdapter().updateBadge(typeSelect);
+        pay_value = amount.toString();
         shopCarView.updateAmount(amount);
     }
     public void expendCut(View view) {

@@ -110,14 +110,18 @@
                     </RelativeLayout>
                </LinearLayout>
                 <RadioGroup
+                    android:id="@+id/radio_btn"
                    android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <RadioButton
+                        android:checked="true"
+                        android:id="@+id/wx_radio"
                         android:layout_width="35dp"
                         android:layout_height="35dp" />
                     <RadioButton
+                        android:id="@+id/apay_radio"
                         android:layout_marginTop="10dp"
                         android:layout_width="35dp"
                         android:layout_height="35dp" />
@@ -131,6 +135,7 @@
         </LinearLayout>
     <!--</ScrollView>-->
     <TextView
+        android:id="@+id/to_pay"
         android:background="@color/main_title_bg"
         android:gravity="center"
         android:layout_alignParentBottom="true"

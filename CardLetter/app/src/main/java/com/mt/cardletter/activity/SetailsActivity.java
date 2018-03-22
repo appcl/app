@@ -226,9 +226,9 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
             case R.id.setails_pl:
                 // TODO: 2018/3/1 :评论入口
                 //UIHelper.showCommentActivity(this);
-                StartWithoutAppUtil.doStartApplicationWithPackageName(this,"","------");//启动第三方app
+                //StartWithoutAppUtil.doStartApplicationWithPackageName(this,"","------");//启动第三方app
 
-
+                ToastUtils.makeShortText("TEST ACTIVITY FOR 待开发",getApplication());
                 break;
         }
     }

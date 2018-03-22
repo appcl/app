@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/action_title"/>
-    <com.mt.cardletter.view.pulltorefresh.PullToRefreshScrollView
+    <ScrollView
         android:id="@+id/scroll_view"
         android:scrollbars="none"
         android:layout_width="match_parent"
@@ -86,6 +86,6 @@
             </LinearLayout>
         </LinearLayout>
 
-    </com.mt.cardletter.view.pulltorefresh.PullToRefreshScrollView>
+    </ScrollView>
 
 </LinearLayout>

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -109,8 +110,8 @@ public class AppContext extends Application {
         /**
          * 激光初始化
          */
-//        JPushInterface.setDebugMode(false);    // 设置开启日志,发布时请关闭日志
-//        JPushInterface.init(this);            // 初始化 JPush
+        JPushInterface.setDebugMode(false);    // 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);            // 初始化 JPush
 
 
     }

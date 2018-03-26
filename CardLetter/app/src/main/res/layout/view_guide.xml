@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:background="#000000">
+
+    <RelativeLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="点击这里可以直接\n进行积分兑换哦！"
+            android:background="@drawable/shape_text_bg"
+            android:textColor="@color/white"
+            android:paddingBottom="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="下一步"
+            android:background="@drawable/shape_text_bg"
+            android:textColor="@color/white"
+            android:padding="5dp"
+            android:layout_marginBottom="12dp"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:src="@drawable/jt"
+        android:layout_alignBottom="@+id/relativeLayout"
+        android:layout_toRightOf="@+id/relativeLayout"
+        android:layout_toEndOf="@+id/relativeLayout"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp" />
+
+
+</RelativeLayout>

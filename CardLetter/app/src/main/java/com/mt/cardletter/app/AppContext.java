@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Vibrator;
 import android.support.multidex.MultiDex;
 
+
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.mob.MobSDK;
@@ -24,11 +25,6 @@ import io.realm.RealmConfiguration;
 
 public class AppContext extends Application {
     private static AppContext app;
-    {
-//        PlatformConfig.setWeixin("wxdc18eb813baac5f0", "7685f3096a19535a46e5cddfe91b997a");
-//        PlatformConfig.setQQZone("1106542925", "57VgIL08mxb0kua8");
-//        PlatformConfig.setSinaWeibo("2928292335", "8f16088f8122c87f695c2893e6595aeb", "http://app.mi.com/download/562671?ref=search");
-    }
     public LocationService locationService;
     public Vibrator mVibrator;
 
@@ -98,6 +94,9 @@ public class AppContext extends Application {
         registerUncaughtExceptionHandler();
         locationService = new LocationService(getApplicationContext());
         mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
+        /**
+         * 百度地图初始化
+         */
         SDKInitializer.initialize(this);
         SDKInitializer.setCoordType(CoordType.BD09LL);
 

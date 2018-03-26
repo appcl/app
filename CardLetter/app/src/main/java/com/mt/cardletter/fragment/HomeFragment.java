@@ -13,11 +13,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,6 +27,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.app.hubert.guide.NewbieGuide;
+import com.app.hubert.guide.core.Controller;
+import com.app.hubert.guide.listener.OnGuideChangedListener;
+import com.app.hubert.guide.listener.OnLayoutInflatedListener;
+import com.app.hubert.guide.listener.OnPageChangedListener;
+import com.app.hubert.guide.model.GuidePage;
+import com.app.hubert.guide.model.HighLight;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mt.cardletter.MainActivity;
@@ -59,6 +68,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.app.hubert.guide.NewbieGuide.TAG;
+
 
 /**
  * Created by demons on 2017/11/13.
@@ -90,7 +101,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     RelativeLayout rlayout;
     private View view;
     private boolean isOk = false;
-
+    private int checkYD = 0;//首页有
     //======================================
     private int mCurrPos;
     private Timer timer;
@@ -191,6 +202,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                 return viewPager.dispatchTouchEvent(event);
             }
         });
+
         return view;
     }
 
@@ -311,6 +323,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                 // pager.setOffscreenPageLimit(tabDatas.size());
                 pager.setOffscreenPageLimit(1);
                 tabs.setViewPager(pager);
+                checkShowYD();//1
             }
             @Override
             public void onError(int code, String msg) {
@@ -432,6 +445,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
         }
     }
     private void getDatas(final String city, String key) {
+
         weather6Bean=new HeWeather.HeWeather6Bean();
         HttpRequestApi.getInstance().getWeather(city,key,new HttpSubscriber<HeWeather>(new SubscriberOnListener<HeWeather>() {
             @Override
@@ -445,6 +459,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                     weather6Bean=new HeWeather.HeWeather6Bean();
                     ToastUtils.makeShortText("小信加载数据出错啦，请稍后再试",getContext());
                 }
+                checkShowYD();//2
             }
 
             @Override
@@ -473,9 +488,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                         });
                         vf.addView(ll_content);
                     }
+                    checkShowYD();//3
                 }else {
                     ToastUtils.makeShortText(data.getMsg(),getContext());
                 }
+
             }
 
             @Override
@@ -499,6 +516,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                             startActivity(intent);
                         }
                     });
+                    checkShowYD();//4
                 }else {
                     ToastUtils.makeShortText(data.getMsg(),getContext());
                 }
@@ -509,5 +527,68 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
 
             }
         },getContext()));
+    }
+
+    /**
+     * 须成功完成3次数据加载
+     * 才会进行引导层的显示  checkYD == 3
+     */
+    private void checkShowYD(){
+        ++checkYD;
+        if (checkYD == 3){
+            showYD();
+        }
+    }
+    /**
+     * 显示引导层
+     */
+    private void showYD(){
+        NewbieGuide.with(this)
+                .setLabel("page")//设置引导层标示区分不同引导层，必传！否则报错
+                .setOnGuideChangedListener(new OnGuideChangedListener() {
+                    @Override
+                    public void onShowed(Controller controller) {
+
+                    }
+                    @Override
+                    public void onRemoved(Controller controller) {
+
+                    }
+                })
+                .setOnPageChangedListener(new OnPageChangedListener() {
+                    @Override
+                    public void onPageChanged(int page) {
+                        Log.e(TAG, "NewbieGuide  onPageChanged: " + page);
+                        //引导页切换，page为当前页位置，从0开始
+                    }
+                })
+                .alwaysShow(true)//是否每次都显示引导层，默认false，只显示一次
+                .addGuidePage(//添加一页引导页
+                        GuidePage.newInstance()//创建一个实例
+                                //.addHighLight(button)//添加高亮的view
+                                .addHighLight(part_2, HighLight.Shape.ROUND_RECTANGLE,10,10)
+                                .setLayoutRes(R.layout.view_guide,R.id.textView3)//设置引导页布局
+                                .setEverywhereCancelable(false)//是否点击任意地方跳转下一页或者消失引导层，默认true
+                                .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
+                                    @Override
+                                    public void onLayoutInflated(View view) {
+                                        //引导页布局填充后回调，用于初始化
+//                                        TextView tv = view.findViewById(R.id.textView2);
+//                                        tv.setText("我是动态设置的文本");
+                                    }
+                                })
+                                //.setEnterAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.add_new_out))//进入动画
+                               //.setExitAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.activity_close_enter))//退出动画
+                )
+                .addGuidePage(
+                        GuidePage.newInstance()
+                                .addHighLight(part_4, HighLight.Shape.RECTANGLE,20)
+                                .setLayoutRes(R.layout.view_guide2, R.id.textView3)//引导页布局，点击跳转下一页或者消失引导层的控件id
+                                .setEverywhereCancelable(false)//是否点击任意地方跳转下一页或者消失引导层，默认true
+                        //.setBackgroundColor(getResources().getColor(R.color.testColor))//设置背景色，建议使用有透明度的颜色
+                        //.setEnterAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.add_new_in))//进入动画
+                        .setExitAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.add_new_out))//退出动画
+                )
+                .show();//显示引导层(至少需要一页引导页才能显示)
     }
 }

@@ -86,6 +86,11 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         setAlias("cardletter");
 //        getServiceVersion();
 //        bottom_radiobuttonsize();
+        test();
+    }
+
+    private void test() {
+
     }
 
     private void bottom_radiobuttonsize(){

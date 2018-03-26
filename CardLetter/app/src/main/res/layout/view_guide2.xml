@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:background="#000000">
+
+    <RelativeLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="400dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="点击这里可以直接\n进行信用卡办理哦！"
+            android:background="@drawable/shape_text_bg"
+            android:textColor="@color/white"
+            android:paddingBottom="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="我知道啦"
+            android:background="@drawable/shape_text_bg"
+            android:textColor="@color/white"
+            android:padding="5dp"
+            android:layout_marginBottom="13dp"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:src="@drawable/jt"
+        android:layout_marginBottom="97dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_alignBottom="@+id/relativeLayout"
+        android:layout_alignLeft="@+id/relativeLayout"
+        android:layout_alignStart="@+id/relativeLayout" />
+
+
+</RelativeLayout>

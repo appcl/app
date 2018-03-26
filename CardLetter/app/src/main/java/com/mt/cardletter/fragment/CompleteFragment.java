@@ -3,9 +3,7 @@ package com.mt.cardletter.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,38 +21,31 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.model.inner.GeoPoint;
-import com.baidu.mapapi.utils.DistanceUtil;
+
 import com.bumptech.glide.Glide;
 import com.mt.cardletter.R;
-import com.mt.cardletter.activity.ScreenActivity;
+
+
+
 import com.mt.cardletter.activity.SetailsActivity;
 import com.mt.cardletter.app.AppContext;
 import com.mt.cardletter.db.dbuitls.DBCreate;
 import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.merchant.Bank;
-import com.mt.cardletter.entity.merchant.FindCategoryList;
+
 import com.mt.cardletter.entity.merchant.Goods;
-import com.mt.cardletter.entity.merchant.GoodsBean;
-import com.mt.cardletter.entity.user.LoginEntity;
+
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.utils.Constant;
-import com.mt.cardletter.utils.SharedPreferences;
+
 import com.mt.cardletter.utils.ToastUtils;
-import com.mt.cardletter.utils.UIHelper;
-import com.mt.cardletter.view.pulltorefresh.ILoadingLayout;
+
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshBase;
 import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
-import com.mt.cardletter.view.tabstrip.PagerSlidingTabStrip;
 
-import org.litepal.crud.DataSupport;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 

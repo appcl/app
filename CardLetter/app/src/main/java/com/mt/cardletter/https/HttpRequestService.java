@@ -623,6 +623,17 @@ public interface HttpRequestService {
      */
     @FormUrlEncoded
     @POST("/card_manage")
-    Observable<Bill>getbill(@Field("cookie") String cookie,
+    Observable<Bill> getbill(@Field("cookie") String cookie,
                             @Field("Url")String Url);
+
+  /**
+    * 微信统一下单
+    * @param cookie
+    * @param Url
+    * @return
+            */
+    @FormUrlEncoded
+    @POST("/pay/unifiedorder/")
+    Observable<Bill> postWeiXin(@Field("cookie") String cookie,
+                                @Field("Url")String Url);
 }

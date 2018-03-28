@@ -163,7 +163,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
                 UIHelper.showSearchActivity(getContext());
             }
         });
-//        showToast("");
+
 
         viewPager = (ViewPager) view.findViewById(R.id.gallery_1_viewpager);
         viewPager.setPageTransformer(true, new GalleyTransFormer());
@@ -209,7 +209,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        loadData();
+        //loadData();//加载新闻
     }
 
 

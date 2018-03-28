@@ -479,6 +479,7 @@
         <!--保持部分-->
         <LinearLayout
             android:id="@+id/search02"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="vertical">
@@ -500,6 +501,7 @@
                 app:pstsDividerColor="@android:color/transparent"/>
         </LinearLayout>
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="750dp">
             <com.mt.cardletter.view.Scroll.MyViewPager
@@ -516,6 +518,7 @@
 
 <LinearLayout
     android:id="@+id/search01"
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:orientation="vertical" >

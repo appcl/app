@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.mob.analysdk.AnalySDK;
 import com.mt.cardletter.R;
 
 
@@ -38,6 +39,7 @@ import com.mt.cardletter.entity.merchant.Goods;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
+import com.mt.cardletter.utils.AnalySDKUtil;
 import com.mt.cardletter.utils.Constant;
 
 import com.mt.cardletter.utils.ToastUtils;
@@ -47,6 +49,7 @@ import com.mt.cardletter.view.pulltorefresh.PullToRefreshListView;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -177,6 +180,7 @@ public class CompleteFragment extends BaseFragment {
                 intent.setClass(getActivity(),SetailsActivity.class);
                 if(myList.get(position-1)!=null){
                     intent.putExtra("cardfind_id",myList.get(position-1).getId()+"");
+                    AnalySDKUtil.registEvrnt("setails","卡发现-"+myList.get(position-1).getName());
 //                    intent.putExtra("bank",bankTable.get(0).getName());  // TODO: 2018/1/23 银行类别待修改
 //                    intent.putExtra("bank_url",bankTable.get(0).getCardThumb());
                 }

@@ -13,12 +13,14 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mob.analysdk.AnalySDK;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.entity.user.LoginEntity;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
+import com.mt.cardletter.utils.AnalySDKUtil;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.SharedPreferences;
@@ -76,6 +78,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void initView() {
+        AnalySDKUtil.registEvrnt("login","登录");
+
         sina = (ImageView) findViewById(R.id.sina);
         sina.setOnClickListener(this);
         findViewById(R.id.qq).setOnClickListener(this);
@@ -218,6 +222,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onError(Platform arg0, int arg1, Throwable arg2) {
                 ToastUtils.makeShortText("请下载最新第三方应用",LoginActivity.this);
+                System.out.println("error+onError");
                 arg2.printStackTrace();
             }
             @Override

@@ -15,17 +15,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mob.analysdk.AnalySDK;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.BankJFActivity;
 import com.mt.cardletter.activity.GoodActivity;
 import com.mt.cardletter.adapter.BankAdapter;
 import com.mt.cardletter.adapter.CategoryAdapter;
 import com.mt.cardletter.adapter.IntegralAdapter;
+import com.mt.cardletter.db.dbuitls.DBCreate;
+import com.mt.cardletter.db.tables.BankTable;
 import com.mt.cardletter.entity.integral.CategoryEntity;
 import com.mt.cardletter.entity.integral.IntegralEntity;
 import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
+import com.mt.cardletter.utils.AnalySDKUtil;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.ToastUtils;
@@ -34,6 +38,7 @@ import com.mt.cardletter.view.cityview.WrapHeightGridView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -95,6 +100,8 @@ public class IntegralFragment extends Fragment {
                 int c_id = c_list.get(position).getId();
                 String c_name = c_list.get(position).getName();
                 getTAGBank(2,c_name,c_id,Constant.Access_Token,1);
+
+
             }
         });
 
@@ -242,6 +249,10 @@ public class IntegralFragment extends Fragment {
                 if (data.getCode()==0){
                     List<CategoryEntity.DataBeanX.SellerListBean.DataBean> sell_list = data.getData().getSeller_list().getData();
                     if (sell_list.size()>0){
+
+                        BankTable bankTable1 = DBCreate.selectBankById(sell_list.get(0).getBankcard());
+                        AnalySDKUtil.registEvrnt("integral","积分兑换-"+bankTable1.getName());
+
                         Intent intent = new Intent(getContext(), BankJFActivity.class);
                         Bundle b = new Bundle();
                         b.putInt("b_id",b_id);

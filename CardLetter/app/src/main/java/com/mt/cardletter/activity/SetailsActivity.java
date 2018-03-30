@@ -26,6 +26,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.mob.analysdk.AnalySDK;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.base.BaseActivity;
 import com.mt.cardletter.db.dbuitls.DBCreate;
@@ -92,6 +93,7 @@ public class SetailsActivity extends BaseActivity implements View.OnClickListene
 //            cardfind_id = uri_cardfind_id;
 //            System.out.println("jks-----"+cardfind_id);
 //        }
+
         title_name = (TextView) findViewById(R.id.title_name);
         title_name.setText("商家详情");
         com_back_click = (FrameLayout) findViewById(R.id.com_back_click);

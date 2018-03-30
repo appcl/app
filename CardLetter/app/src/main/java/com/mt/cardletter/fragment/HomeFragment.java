@@ -36,6 +36,7 @@ import com.app.hubert.guide.model.GuidePage;
 import com.app.hubert.guide.model.HighLight;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.mob.analysdk.AnalySDK;
 import com.mt.cardletter.MainActivity;
 import com.mt.cardletter.R;
 import com.mt.cardletter.activity.CityPickerActivity;
@@ -50,6 +51,7 @@ import com.mt.cardletter.https.HttpSubscriber;
 import com.mt.cardletter.https.SubscriberOnListener;
 import com.mt.cardletter.https.base_net.CardLetterRequestApi;
 import com.mt.cardletter.https.test.TestRequestApi;
+import com.mt.cardletter.utils.AnalySDKUtil;
 import com.mt.cardletter.utils.Constant;
 import com.mt.cardletter.utils.OnMultiClickListener;
 import com.mt.cardletter.utils.ToastUtils;
@@ -64,6 +66,7 @@ import com.mt.cardletter.view.rollviewpager.adapter.StaticPagerAdapter;
 import com.mt.cardletter.view.tabstrip.PagerSlidingTabStrip;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -298,7 +301,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
             case R.id.part_2: //跳转卡积分
                 ((MainActivity) getActivity()).showJFFragment();
                 break;
-            case R.id.part_4: //跳转申请信用卡
+            case R.id.part_4: //跳转
+                AnalySDKUtil.registEvrnt("apply","申请信用卡");
                 startActivity(new Intent(getContext(), CreditWebActivity.class));
                 break;
             default:

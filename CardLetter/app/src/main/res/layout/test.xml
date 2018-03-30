@@ -461,7 +461,7 @@
             android:id="@+id/gallery_1"
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
-            android:layout_height="80dp"
+            android:layout_height="105dp"
             android:clipChildren="false"
             android:layerType="software"
            >
@@ -469,12 +469,18 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/gallery_1_viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="100dp"
                 android:layout_marginRight="100dp"
                 android:clipChildren="false" >
             </android.support.v4.view.ViewPager>
+            <View
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/gallery_1_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/padding_color"/>
         </RelativeLayout >
         <!--保持部分-->
         <LinearLayout

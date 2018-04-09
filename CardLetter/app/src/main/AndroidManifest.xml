@@ -180,7 +180,7 @@
         <activity
             android:name=".activity.BankJFWebViewActivity"
             android:screenOrientation="portrait" />
-
+        <!-- 高德地图-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="ea928b115602e46b08ae48d583925655" />

@@ -213,6 +213,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //loadData();//加载新闻
+        showYD();
     }
 
 
@@ -539,9 +540,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener,TopSc
      */
     private void checkShowYD(){
         ++checkYD;
-        if (checkYD == 3){
-            showYD();
-        }
+        //if (checkYD == 2){
+            //
+       // }
     }
     /**
      * 显示引导层
